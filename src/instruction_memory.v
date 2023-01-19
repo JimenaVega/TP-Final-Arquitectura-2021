@@ -10,7 +10,7 @@ module instruction_memory#(
   parameter MEMORY_DEPTH = 64,              // Specify RAM depth (number of entries)
   parameter NB_ADDR = 6,
   parameter RAM_PERFORMANCE = "LOW_LATENCY",// Select "HIGH_PERFORMANCE" or "LOW_LATENCY" 
-  parameter INIT_FILE = "C:/Users/alejo/Downloads/output.txt"       // Specify name/location of RAM initialization file if using one (leave blank if not)
+  parameter INIT_FILE = "C:/Users/alejo/Downloads/instructions.mem"       // Specify name/location of RAM initialization file if using one (leave blank if not)
 ) 
 (
   input [NB_ADDR-1:0] i_write_addr,         // Write address bus, width determined from RAM_DEPTH
@@ -31,7 +31,7 @@ module instruction_memory#(
   generate
     if (INIT_FILE != "") begin: use_init_file
       initial
-        $readmemh(INIT_FILE, BRAM, 0, MEMORY_DEPTH-1);
+        $readmemb(INIT_FILE, BRAM, 0, MEMORY_DEPTH-1);
     end else begin: init_bram_to_zero
       integer ram_index;
       initial
