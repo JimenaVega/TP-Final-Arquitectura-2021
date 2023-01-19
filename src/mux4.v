@@ -5,12 +5,12 @@ module mux4#(
         parameter   NB_SELECT = 2   
     )
     (
-        input   wire    [NB_SELECT-1:0]     i_select,
-        input   wire    [NB-1:0]            i_a,
-        input   wire    [NB-1:0]            i_b,
-        input   wire    [NB-1:0]            i_c,
-        input   wire    [NB-1:0]            i_d,
-        output  wire    [NB-1:0]            o_data
+        input  [NB_SELECT-1:0]     i_select,
+        input  [NB-1:0]            i_a,
+        input  [NB-1:0]            i_b,
+        input  [NB-1:0]            i_c,
+        input  [NB-1:0]            i_d,
+        output [NB-1:0]            o_data
     
     );
     
