@@ -1,18 +1,18 @@
 `timescale 1ns / 1ps
 
 module program_counter#(
-        parameter    N_BITS = 32
+        parameter NB = 32
     )    
     (
-        input                       i_enable    ,
-        input                       i_clock     ,
-        input                       i_reset     ,
-        input   [N_BITS - 1 : 0]    i_mux_pc    ,
+        input               i_enable,
+        input               i_clock,
+        input               i_reset,
+        input   [NB-1:0]    i_mux_pc,
         
-        output  [N_BITS - 1 : 0]    o_pc_mem
+        output  [NB-1:0]    o_pc_mem
     );
     
-    reg     [N_BITS - 1 : 0]    pc;
+    reg     [NB-1:0] pc;
     
     assign o_pc_mem = pc;
     

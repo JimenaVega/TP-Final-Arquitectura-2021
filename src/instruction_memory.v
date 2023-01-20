@@ -6,21 +6,22 @@
 //  If a reset or enable is not necessary, it may be tied off or removed from the code.
 
 module instruction_memory#(
-  parameter MEMORY_WIDTH = 32,                       // Specify RAM data width
-  parameter MEMORY_DEPTH = 64,                      // Specify RAM depth (number of entries)
+  parameter MEMORY_WIDTH = 32,              // Specify RAM data width
+  parameter MEMORY_DEPTH = 64,              // Specify RAM depth (number of entries)
   parameter NB_ADDR = 6,
-  parameter RAM_PERFORMANCE = "LOW_LATENCY", // Select "HIGH_PERFORMANCE" or "LOW_LATENCY" 
-  parameter INIT_FILE = "program.mem"                        // Specify name/location of RAM initialization file if using one (leave blank if not)
-) (
-  input [NB_ADDR-1:0] i_write_addr, // Write address bus, width determined from RAM_DEPTH
-  input [NB_ADDR-1:0] i_read_addr, // Read address bus, width determined from RAM_DEPTH
+  parameter RAM_PERFORMANCE = "LOW_LATENCY",// Select "HIGH_PERFORMANCE" or "LOW_LATENCY" 
+  parameter INIT_FILE = "C:/Users/alejo/Downloads/instructions.mem"       // Specify name/location of RAM initialization file if using one (leave blank if not)
+) 
+(
+  input [NB_ADDR-1:0] i_write_addr,         // Write address bus, width determined from RAM_DEPTH
+  input [NB_ADDR-1:0] i_read_addr,          // Read address bus, width determined from RAM_DEPTH
   input [MEMORY_WIDTH-1:0] i_data,          // RAM input data
-  input i_clock,                          // Clock
-  input i_write_enable,                           // Write enable
-  input i_read_enable,                           // Read Enable, for additional power savings, disable when not in use
-  input rstb,                          // Output reset (does not affect memory contents)
-  input regceb,                        // Output register enable
-  output [MEMORY_WIDTH-1:0] o_data         // RAM output data
+  input i_clock,                            // Clock
+  input i_write_enable,                     // Write enable
+  input i_read_enable,                      // Read Enable, for additional power savings, disable when not in use
+  input rstb,                               // Output reset (does not affect memory contents)
+  input regceb,                             // Output register enable
+  output [MEMORY_WIDTH-1:0] o_data          // RAM output data
 );
 
   reg [MEMORY_WIDTH-1:0] BRAM [MEMORY_DEPTH-1:0];
@@ -30,7 +31,7 @@ module instruction_memory#(
   generate
     if (INIT_FILE != "") begin: use_init_file
       initial
-        $readmemh(INIT_FILE, BRAM, 0, MEMORY_DEPTH-1);
+        $readmemb(INIT_FILE, BRAM, 0, MEMORY_DEPTH-1);
     end else begin: init_bram_to_zero
       integer ram_index;
       initial
