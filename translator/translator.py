@@ -124,34 +124,39 @@ registers = {
 }
 
 
-
-# lwu, bew
 # FINISH THE INSTRUCTION CODES, WILL HAVE ISSUES
 insCodes = {
-    'add': (0, 0x20), 'sll': (0, 0x00), 'and': (0, 0x24), 'nor': (0, 0x27),
-    'or': (0, 0x25), 'slt': (0, 0x2a),  'srl': (0, 0x02), 'sub': (0, 0x22),
-    'addu':(0, 0x21), 'subu': (0,0x23),
-
-    'subi': (0, 0), 'andi': (0xc, 0), 'xori':(0xe, 0), 'ori':(0xd, 0),
-    'lui':(0, 0xf), 'sllv':(0, 0x4), 'srlv':(0,0x6), 'srav':(0, 0x7),
     
-    'addi': (0x8, 0), 'lw': (0X23, 0),'lbu':(0x24, 0), 'lhu':(0x25, 0),
-    'sw': (0x2b, 0),'sb':(0x28,0), 'sh':(0x29,0), 'slti':(0xa,0),
-    'beq': (0x4, 0), 'bne':(0x5,0), 
+    'add': (0, 0x20), 'addu':(0, 0x21), 'sub': (0, 0x22),'subu': (0,0x23),
+    'and': (0, 0x24), 'or': (0, 0x25),'nor': (0, 0x27),
     
+    'sll': (0, 0x00), 'sllv':(0, 0x4), 'srlv':(0,0x6), 'srav':(0, 0x7),
+    'slt': (0, 0x2a), 'srl': (0, 0x02), 'sra':(0,0x3),
+     
+    'lb': (0x20, 0),'lw': (0X23, 0), 'lbu': (0x25, 0), 'lhu': (0x21, 0),
+    'sb':(0x28,0), 'sh':(0x29,0), 'sw': (0x2b, 0),
+     
+    'addi': (0x8, 0), 'andi': (0xc,0), 'ori':(0xd, 0), 'xori':(0xe, 0), 
+    'lui':(0, 0xf), 'slti':(0xa,0), 'beq': (0x4, 0), 'bne':(0x5,0), 
+     
     'j': (0x2, 0), 'jal':(0x3,0), 'jalr':(0, 0x9)
 }
 
 
 instructionHandler = {
-    'add': rType, 'sll': rType, 'and': rType, 'nor': rType,
-    'or': rType, 'slt': rType, 'sll': rType, 'srl': rType,
-    'sub': rType,
+    'add': rType, 'addu': rType, 'sub': rType, 'subu':rType,
+    'and': rType, 'or': rType, 'nor': rType,
 
-    'addi': iType, 'lw': iType, 'beq': iType, 'sw': iType,
-    'subi': iType, 'andi': iType,
+    'sll': rType, 'sllv': rType, 'srlv':rType, 'srav':rType, 
+    'slt': rType, 'srl': rType,'sra':rType, 
 
-    'j': jType
+    'lb': iType, 'lw': iType, 'lbu': iType, 'lhu':iType,
+    'sb': iType, 'sh': iType, 'sw': iType,
+    
+    'addi': iType, 'andi': iType, 'ori': iType, 'xori': iType, 
+    'lui': iType, 'slti': iType, 'beq': iType, 'bne': iType,
+     
+    'j': jType, 'jal': jType, 'jalr': iType
 }
 
 
@@ -161,7 +166,6 @@ def getRegister(value):
 
 
 def getSeparatedInstruction(line):
-    print("LINE: ", line)
     line_split = line.split(" ")
     split_second = line_split.pop(1).split(",")
     line_split.extend(split_second)
@@ -174,7 +178,7 @@ def convertToHex(line):
     if separated[0] == 'subi':
         old = separated[:]
         separated[0] = 'addi'
-        separated[3] = str(-1 * int(separatstructionHaned[3]))
+        separated[3] = str(-1 * int(separated[3]))
         print('taking ', old, 'as ---->', separated)
     print("SEPARETED: ", separated)
     converted = instructionHandler[separated[0]](separated)
