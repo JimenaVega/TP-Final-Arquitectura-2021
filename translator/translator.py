@@ -130,8 +130,8 @@ insCodes = {
     'add': (0, 0x20), 'addu':(0, 0x21), 'sub': (0, 0x22),'subu': (0,0x23),
     'and': (0, 0x24), 'or': (0, 0x25),'nor': (0, 0x27),
     
-    'sll': (0, 0x00), 'sllv':(0, 0x4), 'srlv':(0,0x6), 'srav':(0, 0x7),
-    'slt': (0, 0x2a), 'srl': (0, 0x02), 'sra':(0,0x3),
+    'sll': (0, 0x00), 'srl': (0, 0x02),  'sra':(0,0x3),'sllv':(0, 0x4), 'srlv':(0,0x6), 'srav':(0, 0x7),
+    'slt': (0, 0x2a), 
      
     'lb': (0x20, 0),'lw': (0X23, 0), 'lbu': (0x25, 0), 'lhu': (0x21, 0),
     'sb':(0x28,0), 'sh':(0x29,0), 'sw': (0x2b, 0),
@@ -139,7 +139,7 @@ insCodes = {
     'addi': (0x8, 0), 'andi': (0xc,0), 'ori':(0xd, 0), 'xori':(0xe, 0), 
     'lui':(0, 0xf), 'slti':(0xa,0), 'beq': (0x4, 0), 'bne':(0x5,0), 
      
-    'j': (0x2, 0), 'jal':(0x3,0), 'jalr':(0, 0x9)
+    'j': (0x2, 0),'jalr':(0, 0x9), 'jr':(0, 0x8), 'jal':(0x3,0), 
 }
 
 
@@ -156,7 +156,7 @@ instructionHandler = {
     'addi': iType, 'andi': iType, 'ori': iType, 'xori': iType, 
     'lui': iType, 'slti': iType, 'beq': iType, 'bne': iType,
      
-    'j': jType, 'jal': jType, 'jalr': iType
+    'j': jType, 'jal': jType, 'jalr': iType, 'jr': iType,
 }
 
 
@@ -188,14 +188,15 @@ def convertToHex(line):
 
 def main():
     inp_file = open('input.txt', 'r')
-    out_file = open('output.txt', 'w')
+    out_file = open('output.mem', 'w')
     line = inp_file.readline()
+    choice = int(input("Choose conversion to binary [1] or hexa [0]: "))
     print('Converting file assembler to .mem binary...')
     while line:
         bin_hex = convertToHex(line[:-2])
-        # print line[:-2], ' -> ', bin_hex
-        out_file.write(line[:-2] + '------>' + str(bin_hex) + '\n')
+        out_file.write(str(bin_hex[choice]) + '\n')
         line = inp_file.readline()
+
     print ('Conversion ready.')
     print ('Saved in output.txt')
     inp_file.close()
