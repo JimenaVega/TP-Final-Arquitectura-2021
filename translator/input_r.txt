@@ -1,0 +1,9 @@
+slt $s0,$s1,$s2;
+add $s0,$s1,$s2;
+addu $s0,$s1,$s2;
+sub $s0,$s1,$s2;
+subu $s0,$s1,$s2;
+and $s0,$s1,$s2;
+nor $s0,$s1,$s2;
+or $s0,$s1,$s2;
+xor $s0,$s1,$s2;

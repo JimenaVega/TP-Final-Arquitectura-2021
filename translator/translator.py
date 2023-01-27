@@ -134,9 +134,10 @@ registers = {
 insCodes = {
     
     'add': (0, 0x20), 'addu':(0, 0x21), 'sub': (0, 0x22),'subu': (0,0x23),
-    'and': (0, 0x24), 'or': (0, 0x25),'nor': (0, 0x27),
+    'and': (0, 0x24), 'or': (0, 0x25),'nor': (0, 0x27), 'xor': (0, 0x26),
     
     'sll': (0, 0x00), 'srl': (0, 0x02), 'sra':(0,0x3),'sllv':(0, 0x4), 'srlv':(0,0x6), 'srav':(0, 0x7),
+    
     'slt': (0, 0x2a), 
      
     'lb': (0x20, 0),'lw': (0x23, 0), 'lbu': (0x25, 0), 'lhu': (0x21, 0),
@@ -151,7 +152,7 @@ insCodes = {
 
 instructionHandler = {
     'add': rType, 'addu': rType, 'sub': rType, 'subu':rType,
-    'and': rType, 'or': rType, 'nor': rType,
+    'and': rType, 'or': rType, 'nor': rType, 'xor': rType,
 
     'sll': rType, 'sllv': rType, 'srlv':rType, 'srav':rType, 
     'slt': rType, 'srl': rType,'sra':rType, 
@@ -193,7 +194,7 @@ def convertToHex(line):
 
 
 def main():
-    inp_file = open('input_shift.txt', 'r')
+    inp_file = open('input_r.txt', 'r')
     out_file = open('output.mem', 'w')
     line = inp_file.readline()
     choice = int(input("Choose conversion to binary [1] or hexa [0]: "))
