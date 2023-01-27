@@ -9,10 +9,6 @@
 # sllv, srlv, srav, addu, subu,
 # lwu, lbu, lhu, sb, sh, ori, xori, lui, slti, bew,bne， jal, jalr
 
-# Author : Dagmawi Mulugeta
-# Date : 03/11/2017
-# purpose: Python script to convert mips instructions to binary and hex
-
 
 from numpy import *
 
@@ -31,16 +27,26 @@ def jType(instruction):
     return (hex_val, bin_val)
 
 
+
 def rType(instruction):
     result = []
     shift = 0
+    shamt = ['sll', 'srl', 'sra'] # Instructions that use shamt field 
+    shift_value = ['sllv', 'srlv', 'srav'] # Instructions of type $rd = $rt <<>> $rs
 
     opcode = insCodes[instruction[0]][0]  # OPCODE
     result.append(bin(opcode)[2:].zfill(6))  # OPCODE
 
-    if instruction[0] == 'sll' or instruction[0] == 'srl':
-        shift = int(instruction[3])
+    if instruction[0] in shamt:
+        shift = int(instruction[3]) # shamt
         result.append(bin(opcode)[2:].zfill(5))  # rs
+
+        rt = getRegister(instruction[2])
+        result.append(bin(rt)[2:].zfill(5))  # rt
+
+    elif instruction[0] in shift_value:
+        rs = getRegister(instruction[3])  # rs
+        result.append(bin(rs)[2:].zfill(5))  # rs
 
         rt = getRegister(instruction[2])
         result.append(bin(rt)[2:].zfill(5))  # rt
@@ -130,10 +136,10 @@ insCodes = {
     'add': (0, 0x20), 'addu':(0, 0x21), 'sub': (0, 0x22),'subu': (0,0x23),
     'and': (0, 0x24), 'or': (0, 0x25),'nor': (0, 0x27),
     
-    'sll': (0, 0x00), 'srl': (0, 0x02),  'sra':(0,0x3),'sllv':(0, 0x4), 'srlv':(0,0x6), 'srav':(0, 0x7),
+    'sll': (0, 0x00), 'srl': (0, 0x02), 'sra':(0,0x3),'sllv':(0, 0x4), 'srlv':(0,0x6), 'srav':(0, 0x7),
     'slt': (0, 0x2a), 
      
-    'lb': (0x20, 0),'lw': (0X23, 0), 'lbu': (0x25, 0), 'lhu': (0x21, 0),
+    'lb': (0x20, 0),'lw': (0x23, 0), 'lbu': (0x25, 0), 'lhu': (0x21, 0),
     'sb':(0x28,0), 'sh':(0x29,0), 'sw': (0x2b, 0),
      
     'addi': (0x8, 0), 'andi': (0xc,0), 'ori':(0xd, 0), 'xori':(0xe, 0), 
@@ -187,7 +193,7 @@ def convertToHex(line):
 
 
 def main():
-    inp_file = open('input.txt', 'r')
+    inp_file = open('input_shift.txt', 'r')
     out_file = open('output.mem', 'w')
     line = inp_file.readline()
     choice = int(input("Choose conversion to binary [1] or hexa [0]: "))
@@ -198,7 +204,7 @@ def main():
         line = inp_file.readline()
 
     print ('Conversion ready.')
-    print ('Saved in output.txt')
+    print ('Saved in output.mem')
     inp_file.close()
     out_file.close()
 

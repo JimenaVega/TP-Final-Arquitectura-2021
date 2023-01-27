@@ -1,0 +1,6 @@
+sll $s0,$s1,7;
+srl $s0,$s1,7;
+sra $s2,$s3,3;
+srav $s0,$s1,$s2;
+sllv $s0,$s1,$s2;
+srlv $s0,$s1,$s2;
