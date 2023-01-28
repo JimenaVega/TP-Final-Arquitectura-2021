@@ -28,18 +28,18 @@ LB = 'lb'
 LH = 'lh'
 LHU = 'lhu'
 LW = 'lw' # rt=*(int*)(offset+rs)
-LWU = 'lwu'
-LBU = 'lbu'
+LWU = 'lwu' 
+LBU = 'lbu' 
 SB = 'sb'
 SH = 'sh'
 SW = 'sw'
-ADDI = 'addi'
-ANDI = 'andi'
+ADDI = 'addi' # rt=rs+imm
+ANDI = 'andi' # rt=rs&imm
 ORI = 'ori'
 XORI = 'xori'
 LUI = 'lui' # rt=imm<<16
-SLTI = 'slti'
-BEQ = 'beq'
+SLTI = 'slti' # rt=rs<imm
+BEQ = 'beq' # if(rs==rt) pc+=offset*4
 BNE = 'bne'
 #TYPE-J
 J = 'j'

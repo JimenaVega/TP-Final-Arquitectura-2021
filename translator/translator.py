@@ -77,23 +77,22 @@ def iType(instruction):
 
         imm_b = bin(int(baseAndImm[0]) & 0xffffffff)[2:] 
         imm = imm_b.zfill(16) if int(baseAndImm[0]) >= 0 else imm_b[16:]
-        result.append(imm)         # imm
-        print("IMM= ", imm)
+        result.append(imm) 
+            
     elif instruction[0] == LUI:
         imm_b = bin(int(instruction[2]) & 0xffffffff)[2:] 
         imm = imm_b.zfill(16) if int(instruction[2]) >= 0 else imm_b[16:]
         result.append(imm)
-        print("IMM= ", imm)
+        
+        rs = 0
+        result.append(bin(rs)[2:].zfill(5))
        
     else:
         rs = getRegister(instruction[2])
         result.append(bin(rs)[2:].zfill(5))  # rs
         imm_b = bin(int(instruction[3]) & 0xffffffff)[2:] 
-        print('IMM_B: ', imm_b)
         imm = imm_b.zfill(16) if int(instruction[3]) >= 0 else imm_b[16:]
         result.append(imm)
-        print("IMM= ", imm)
-
 
     bin_val = ''.join(result)
     hex_val = hex(int('0b' + bin_val, 2))[2:].zfill(8)
