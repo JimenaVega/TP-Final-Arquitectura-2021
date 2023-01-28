@@ -1,17 +1,5 @@
-# INTRUCTIONS:
-# R-TYPE
-# sll, srl, sra, sllv, srlv, srav, addu, subu, and, or, xor, nor, slt
-# I-TYPE
-# lb, lh, lw, lwu, lbu, lhu, sb, sh, sw, addi, andi, ori, xori, lui, slti, bew, bne, j, jal
-# J-TYPE
-# jr, jalr
-
-# sllv, srlv, srav, addu, subu,
-# lwu, lbu, lhu, sb, sh, ori, xori, lui, slti, bew,bne， jal, jalr
-
-
 from numpy import *
-
+from const import *
 
 def jType(instruction):
     result = []
@@ -31,8 +19,8 @@ def jType(instruction):
 def rType(instruction):
     result = []
     shift = 0
-    shamt = ['sll', 'srl', 'sra'] # Instructions that use shamt field 
-    shift_value = ['sllv', 'srlv', 'srav'] # Instructions of type $rd = $rt <<>> $rs
+    shamt = [SLL, SRL, SRA] # Instructions that use shamt field 
+    shift_value = [SLLV, SRLV, SRAV] # Instructions of type $rd = $rt <<>> $rs
 
     opcode = insCodes[instruction[0]][0]  # OPCODE
     result.append(bin(opcode)[2:].zfill(6))  # OPCODE
@@ -75,43 +63,37 @@ def iType(instruction):
     result = []
     opcode = insCodes[instruction[0]][0]  # OPCODE
     print("OPCODE: ",opcode)
-    # print("bin opcode: ", bin(opcode))
-    # print("bin opcode[2:0]=", bin(opcode)[2:])
-    # print("bin(opcode)[2:].zfill(6)= ", bin(opcode)[2:].zfill(6))
     result.append(bin(opcode)[2:].zfill(6))  # OPCODE
+    load_store = [LB, LH, LHU, LW, LWU, LBU, SB, SH, SW]
 
-    if instruction[0] == 'sw' or instruction[0] == 'lw':
+    rt = getRegister(instruction[1])
+    result.append(bin(rt)[2:].zfill(5))  # rt
+
+    if instruction[0] in load_store:
         baseAndImm = instruction[2].split('(')
+
         rs = getRegister(baseAndImm[1][:-1])
         result.append(bin(rs)[2:].zfill(5))  # rs
 
-        rt = getRegister(instruction[1])
-        result.append(bin(rt)[2:].zfill(5))  # rt
-
-        imm = bin(int(baseAndImm[0]))[2:]       # imm
-        result.append(imm.zfill(16))             # imm
-
+        imm_b = bin(int(baseAndImm[0]) & 0xffffffff)[2:] 
+        imm = imm_b.zfill(16) if int(baseAndImm[0]) >= 0 else imm_b[16:]
+        result.append(imm)         # imm
+        print("IMM= ", imm)
+    elif instruction[0] == LUI:
+        imm_b = bin(int(instruction[2]) & 0xffffffff)[2:] 
+        imm = imm_b.zfill(16) if int(instruction[2]) >= 0 else imm_b[16:]
+        result.append(imm)
+        print("IMM= ", imm)
+       
     else:
         rs = getRegister(instruction[2])
         result.append(bin(rs)[2:].zfill(5))  # rs
+        imm_b = bin(int(instruction[3]) & 0xffffffff)[2:] 
+        print('IMM_B: ', imm_b)
+        imm = imm_b.zfill(16) if int(instruction[3]) >= 0 else imm_b[16:]
+        result.append(imm)
+        print("IMM= ", imm)
 
-        rt = getRegister(instruction[1])         # rt
-        result.append(bin(rt)[2:].zfill(5))      # rt
-
-        if instruction[0] == 'beq':
-            # TODO: Ver es
-            new_pc = int((int(instruction[3]) - 4) / 4) # VER
-            print("NEW_PC: ", new_pc)
-            ba = bin(new_pc)[2:]                     # br_addr
-            result.append(ba.zfill(16))              # br_addr
-
-        elif instruction[0] == 'andi' or instruction[0] == 'addi':
-            sig = 0
-            ind = bin(int(instruction[3])).find('0b')
-            if ind != 0:
-                sig = 1
-            imm = bin(int(instruction[3]))[ind + 2:]       # imm
-            result.append(str(sig) + imm.zfill(15))             # imm
 
     bin_val = ''.join(result)
     hex_val = hex(int('0b' + bin_val, 2))[2:].zfill(8)
@@ -133,37 +115,36 @@ registers = {
 # FINISH THE INSTRUCTION CODES, WILL HAVE ISSUES
 insCodes = {
     
-    'add': (0, 0x20), 'addu':(0, 0x21), 'sub': (0, 0x22),'subu': (0,0x23),
-    'and': (0, 0x24), 'or': (0, 0x25),'nor': (0, 0x27), 'xor': (0, 0x26),
+    ADD: (0, 0x20), ADDU:(0, 0x21), SUB: (0, 0x22),SUBU: (0,0x23),
+    AND: (0, 0x24), OR: (0, 0x25), NOR: (0, 0x27), XOR: (0, 0x26), SLT: (0, 0x2a), 
     
-    'sll': (0, 0x00), 'srl': (0, 0x02), 'sra':(0,0x3),'sllv':(0, 0x4), 'srlv':(0,0x6), 'srav':(0, 0x7),
+    SLL: (0, 0x00), SRL: (0, 0x02), SRA:(0,0x3),SLLV:(0, 0x4), SRLV:(0,0x6), SRAV:(0, 0x7),
     
-    'slt': (0, 0x2a), 
      
-    'lb': (0x20, 0),'lw': (0x23, 0), 'lbu': (0x25, 0), 'lhu': (0x21, 0),
-    'sb':(0x28,0), 'sh':(0x29,0), 'sw': (0x2b, 0),
+    LB: (0x20, 0),LH: (0x21, 0), LHU: (0x22,0),LW: (0x23, 0), LWU: (0x24,0), LBU: (0x25, 0), 
+    SB:(0x28,0), SH:(0x29,0), SW: (0x2b, 0),
      
-    'addi': (0x8, 0), 'andi': (0xc,0), 'ori':(0xd, 0), 'xori':(0xe, 0), 
-    'lui':(0, 0xf), 'slti':(0xa,0), 'beq': (0x4, 0), 'bne':(0x5,0), 
+    ADDI: (0x8, 0), ANDI: (0xc,0), ORI:(0xd, 0), XORI:(0xe, 0), 
+    LUI:(0xf, 0), SLTI:(0xa,0), BEQ: (0x4, 0), BNE:(0x5,0), 
      
-    'j': (0x2, 0),'jalr':(0, 0x9), 'jr':(0, 0x8), 'jal':(0x3,0), 
+    J: (0x2, 0),JALR:(0, 0x9), JR:(0, 0x8), JAL:(0x3,0), 
 }
 
 
 instructionHandler = {
-    'add': rType, 'addu': rType, 'sub': rType, 'subu':rType,
-    'and': rType, 'or': rType, 'nor': rType, 'xor': rType,
+    ADD: rType, ADDU: rType, SUB: rType, SUBU:rType,
+    AND: rType, OR: rType, NOR: rType, XOR: rType,
 
-    'sll': rType, 'sllv': rType, 'srlv':rType, 'srav':rType, 
-    'slt': rType, 'srl': rType,'sra':rType, 
+    SLL: rType, SLLV: rType, SRLV:rType, SRAV:rType, 
+    SLT: rType, SRL: rType,SRA:rType, 
 
-    'lb': iType, 'lw': iType, 'lbu': iType, 'lhu':iType,
-    'sb': iType, 'sh': iType, 'sw': iType,
+    LB: iType,LBU: iType, LH:iType, LHU:iType, LW: iType, LWU:iType, 
+    SB: iType, SH: iType, SW: iType,
     
-    'addi': iType, 'andi': iType, 'ori': iType, 'xori': iType, 
-    'lui': iType, 'slti': iType, 'beq': iType, 'bne': iType,
+    ADDI: iType, ANDI: iType, ORI: iType, XORI: iType, 
+    LUI: iType, SLTI: iType, BEQ: iType, BNE: iType,
      
-    'j': jType, 'jal': jType, 'jalr': iType, 'jr': iType,
+    J: jType, JAL: jType, JALR: rType, JR: rType,
 }
 
 
@@ -182,11 +163,11 @@ def getSeparatedInstruction(line):
 
 def convertToHex(line):
     separated = getSeparatedInstruction(line)
-    if separated[0] == 'subi':
-        old = separated[:]
-        separated[0] = 'addi'
-        separated[3] = str(-1 * int(separated[3]))
-        print('taking ', old, 'as ---->', separated)
+    # if separated[0] == 'subi':
+    #     old = separated[:]
+    #     separated[0] = ADDI
+    #     separated[3] = str(-1 * int(separated[3]))
+    #     print('taking ', old, 'as ---->', separated)
     print("SEPARETED: ", separated)
     converted = instructionHandler[separated[0]](separated)
 
@@ -194,7 +175,7 @@ def convertToHex(line):
 
 
 def main():
-    inp_file = open('input_r.txt', 'r')
+    inp_file = open('input_i.txt', 'r')
     out_file = open('output.mem', 'w')
     line = inp_file.readline()
     choice = int(input("Choose conversion to binary [1] or hexa [0]: "))
