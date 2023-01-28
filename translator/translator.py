@@ -6,7 +6,7 @@ def jType(instruction):
     opcode = insCodes[instruction[0]][0]  # OPCODE
     result.append(bin(opcode)[2:].zfill(6))  # OPCODE
 
-    loc = int(int(instruction[1]) / 4)
+    loc = int(instruction[1])
     imm = bin(loc)[2:].zfill(26)   # imm
     result.append(imm)             # imm
 
@@ -21,6 +21,7 @@ def rType(instruction):
     shift = 0
     shamt = [SLL, SRL, SRA] # Instructions that use shamt field 
     shift_value = [SLLV, SRLV, SRAV] # Instructions of type $rd = $rt <<>> $rs
+    jumps = [JR, JALR]
 
     opcode = insCodes[instruction[0]][0]  # OPCODE
     result.append(bin(opcode)[2:].zfill(6))  # OPCODE
@@ -32,12 +33,28 @@ def rType(instruction):
         rt = getRegister(instruction[2])
         result.append(bin(rt)[2:].zfill(5))  # rt
 
+        rd = getRegister(instruction[1])
+        result.append(bin(rd)[2:].zfill(5))  # rd
+
     elif instruction[0] in shift_value:
         rs = getRegister(instruction[3])  # rs
         result.append(bin(rs)[2:].zfill(5))  # rs
 
         rt = getRegister(instruction[2])
         result.append(bin(rt)[2:].zfill(5))  # rt
+
+        rd = getRegister(instruction[1])
+        result.append(bin(rd)[2:].zfill(5))  # rd
+
+    elif instruction[0] in jumps:
+        rs = getRegister(instruction[1])
+        result.append(bin(rs)[2:].zfill(5))  # rs
+        print('R rs: ', rs)
+        rt = 0
+        result.append(bin(rt)[2:].zfill(5))
+
+        rd = 0
+        result.append(bin(rd)[2:].zfill(5))
     else:
         rs = getRegister(instruction[2])  # rs
         result.append(bin(rs)[2:].zfill(5))  # rs
@@ -45,8 +62,8 @@ def rType(instruction):
         rt = getRegister(instruction[3])
         result.append(bin(rt)[2:].zfill(5))  # rt
 
-    rd = getRegister(instruction[1])
-    result.append(bin(rd)[2:].zfill(5))  # rd
+        rd = getRegister(instruction[1])
+        result.append(bin(rd)[2:].zfill(5))  # rd
 
     result.append(bin(shift)[2:].zfill(5))  # shift
 
@@ -59,12 +76,13 @@ def rType(instruction):
 
 
 def iType(instruction):
+    load_store = [LB, LH, LHU, LW, LWU, LBU, SB, SH, SW]
+
     print("INSTRUCTION: ", instruction)
     result = []
     opcode = insCodes[instruction[0]][0]  # OPCODE
     print("OPCODE: ",opcode)
     result.append(bin(opcode)[2:].zfill(6))  # OPCODE
-    load_store = [LB, LH, LHU, LW, LWU, LBU, SB, SH, SW]
 
     rt = getRegister(instruction[1])
     result.append(bin(rt)[2:].zfill(5))  # rt
@@ -83,7 +101,7 @@ def iType(instruction):
         imm_b = bin(int(instruction[2]) & 0xffffffff)[2:] 
         imm = imm_b.zfill(16) if int(instruction[2]) >= 0 else imm_b[16:]
         result.append(imm)
-        
+
         rs = 0
         result.append(bin(rs)[2:].zfill(5))
        
@@ -154,6 +172,7 @@ def getRegister(value):
 
 def getSeparatedInstruction(line):
     line_split = line.split(" ")
+    print("1. LINE SPLIT : ", line_split)
     split_second = line_split.pop(1).split(",")
     line_split.extend(split_second)
     print("LINE SPLIT : ", line_split)
@@ -174,7 +193,7 @@ def convertToHex(line):
 
 
 def main():
-    inp_file = open('input_i.txt', 'r')
+    inp_file = open('input_j.txt', 'r')
     out_file = open('output.mem', 'w')
     line = inp_file.readline()
     choice = int(input("Choose conversion to binary [1] or hexa [0]: "))

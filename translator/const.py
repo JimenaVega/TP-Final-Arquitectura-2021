@@ -15,8 +15,7 @@ SLLV = 'sllv'
 SRLV = 'srlv'
 SRAV = 'srav'
 SLT = 'slt'
-JR = 'jr'
-JALR = 'jalr'
+
 # I-TYPE
 SLL = 'sll'
 SRL = 'srl'
@@ -41,6 +40,9 @@ LUI = 'lui' # rt=imm<<16
 SLTI = 'slti' # rt=rs<imm
 BEQ = 'beq' # if(rs==rt) pc+=offset*4
 BNE = 'bne'
+JR = 'jr' #rd=pc; pc=rs
+JALR = 'jalr' # pc=rs
+
 #TYPE-J
-J = 'j'
-JAL = 'jal'
+J = 'j' # pc=pc_upper|(target<<2)
+JAL = 'jal' # r31=pc; pc=target<<2
