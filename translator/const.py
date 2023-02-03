@@ -17,12 +17,6 @@ SRAV = 'srav'
 SLT = 'slt'
 
 # I-TYPE
-SLL = 'sll'
-SRL = 'srl'
-SRA = 'sra'
-SLLV = 'sllv'
-SRLV = 'srlv'
-SRAV = 'srav'
 LB = 'lb'
 LH = 'lh'
 LHU = 'lhu'
