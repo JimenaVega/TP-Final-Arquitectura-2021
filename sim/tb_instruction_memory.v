@@ -21,8 +21,8 @@ module tb_instruction_memory();
         clock = 1'b0;
         write_enable = 1'b0;
         read_enable = 1'b0;
-        rstb = 1'b0;
-        regceb = 1'b0;
+        rstb = 1'b0; // NO funciona en LOW_LATENCY
+        regceb = 1'b0; // NO funciona en LOW_LATENCY
         write_addr = 6'd0;
         read_addr = 6'd0;
         data = 32'd0;
@@ -67,15 +67,15 @@ module tb_instruction_memory();
     
     always #10 clock = ~clock;
     
-    instruction_memory instruction_memory(.i_write_addr(write_addr),
-                                          .i_read_addr(read_addr),
-                                          .i_data(data),
-                                          .i_clock(clock),
+    instruction_memory instruction_memory(.i_clock(clock),
                                           .i_write_enable(write_enable),
                                           .i_read_enable(read_enable),
-                                          .rstb(rstb),
-                                          .regceb(regceb),
-                                          .o_data(o_data)
+                                          .i_rstb(rstb),
+                                          .i_regceb(regceb),
+                                          .i_write_addr(write_addr),
+                                          .i_read_addr(read_addr),
+                                          .i_write_data(data),
+                                          .o_read_data(o_data)
                                           );
 
 endmodule

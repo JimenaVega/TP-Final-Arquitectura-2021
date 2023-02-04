@@ -3,16 +3,16 @@
 module registers_bank#(
         parameter   NB_DATA     =   32,
         parameter   NB_ADDR     =   5,
-        parameter   BANK_DEPTH  =   32
+        parameter   BANK_DEPTH  =   32 // 32 Registros diferentes
     )
     (
         input               i_clock,
         input               i_reset,
-        input               i_reg_write,
+        input               i_reg_write,  // Señal de control RegWrite proveniente de WB
         input [NB_ADDR-1:0] i_read_reg_a,
         input [NB_ADDR-1:0] i_read_reg_b,
-        input [NB_ADDR-1:0] i_write_reg,
-        input [NB_DATA-1:0] i_write_data,
+        input [NB_ADDR-1:0] i_write_reg,  // Address 
+        input [NB_DATA-1:0] i_write_data, // Data
               
         output [NB_DATA-1:0] o_data_a,
         output [NB_DATA-1:0] o_data_b 
@@ -34,9 +34,11 @@ module registers_bank#(
             o_data_b_next  =  {NB_DATA{1'b0}};
         end 
         else begin
+            // Lectura de registros
             o_data_a_next <= registers[i_read_reg_a];
             o_data_b_next <= registers[i_read_reg_b];
             
+            // Escritura de registros
             if(i_reg_write)
                 registers[i_write_reg] <= i_write_data;
         end
