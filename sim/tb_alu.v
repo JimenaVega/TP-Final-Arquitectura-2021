@@ -153,14 +153,14 @@ module tb_alu();
     
     always #10 clock = ~clock;
     
-    alu_control alu_control(.i_function_code(function_code),
-                            .i_instruction_opcode(instruction_opcode),
-                            .o_alu_control_input(alu_control_input)
+    alu_control alu_control(.i_funct_code(function_code),
+                            .i_opcode(instruction_opcode),
+                            .o_alu_op(alu_control_input)
                             );
     
     alu alu(.i_a(a),
             .i_b(b),
-            .i_op_code(alu_control_input),
+            .i_alu_op(alu_control_input),
             .o_zero(zero),
             .o_result(result)
             );

@@ -41,52 +41,52 @@ module alu_control#(
         parameter   SW_OPCODE       = 6'h2b  // ITYPE SW
     )
     (
-        input      [NB_FCODE-1     : 0] i_function_code,      // Codigo de funcion para instrucciones tipo R
-        input      [NB_OPCODE-1    : 0] i_instruction_opcode, // Tipo de instruccion
-        output reg [NB_ALU_CTRLI-1 : 0] o_alu_control_input   // Señal que indica a la ALU que tipo de operación ejecutar
+        input      [NB_FCODE-1     : 0] i_funct_code, // Codigo de funcion para instrucciones tipo R
+        input      [NB_OPCODE-1    : 0] i_opcode,     // Tipo de instruccion
+        output reg [NB_ALU_CTRLI-1 : 0] o_alu_op      // Senial que indica a la ALU que tipo de operaciï¿½n ejecutar
     );
     
     always@(*) begin
-        case(i_instruction_opcode)
+        case(i_opcode)
             RTYPE_OPCODE: // R-Type
-                case(i_function_code)
-                    SLL_FCODE   : o_alu_control_input = 4'h00;
-                    SRL_FCODE   : o_alu_control_input = 4'h01;
-                    SRA_FCODE   : o_alu_control_input = 4'h02;
-                    SLLV_FCODE  : o_alu_control_input = 4'h00;
-                    SRLV_FCODE  : o_alu_control_input = 4'h01;
-                    SRAV_FCODE  : o_alu_control_input = 4'h02;
-//                    JR_FCODE    : o_alu_control_input = 4'h00;
-//                    JALR_FCODE  : o_alu_control_input = 4'h00;
-                    ADD_FCODE   : o_alu_control_input = 4'h03;
-                    ADDU_FCODE  : o_alu_control_input = 4'h03;
-                    SUB_FCODE   : o_alu_control_input = 4'h04;
-                    SUBU_FCODE  : o_alu_control_input = 4'h04;
-                    AND_FCODE   : o_alu_control_input = 4'h05;
-                    OR_FCODE    : o_alu_control_input = 4'h06;
-                    XOR_FCODE   : o_alu_control_input = 4'h07;
-                    NOR_FCODE   : o_alu_control_input = 4'h08;
-                    SLT_FCODE   : o_alu_control_input = 4'h09;
-                    default     : o_alu_control_input = o_alu_control_input;                      
+                case(i_funct_code)
+                    SLL_FCODE   : o_alu_op = 4'h00;
+                    SRL_FCODE   : o_alu_op = 4'h01;
+                    SRA_FCODE   : o_alu_op = 4'h02;
+                    SLLV_FCODE  : o_alu_op = 4'h00;
+                    SRLV_FCODE  : o_alu_op = 4'h01;
+                    SRAV_FCODE  : o_alu_op = 4'h02;
+//                    JR_FCODE    : o_alu_op = 4'h00;
+//                    JALR_FCODE  : o_alu_op = 4'h00;
+                    ADD_FCODE   : o_alu_op = 4'h03;
+                    ADDU_FCODE  : o_alu_op = 4'h03;
+                    SUB_FCODE   : o_alu_op = 4'h04;
+                    SUBU_FCODE  : o_alu_op = 4'h04;
+                    AND_FCODE   : o_alu_op = 4'h05;
+                    OR_FCODE    : o_alu_op = 4'h06;
+                    XOR_FCODE   : o_alu_op = 4'h07;
+                    NOR_FCODE   : o_alu_op = 4'h08;
+                    SLT_FCODE   : o_alu_op = 4'h09;
+                    default     : o_alu_op = o_alu_op;                      
                 endcase                
-            LB_OPCODE   : o_alu_control_input = 4'h03;  // INSTRUCCION ITYPE - ADDI -> ADD de ALU
-            LH_OPCODE   : o_alu_control_input = 4'h03;
-            LW_OPCODE   : o_alu_control_input = 4'h03;
-            LWU_OPCODE  : o_alu_control_input = 4'h03;
-            LBU_OPCODE  : o_alu_control_input = 4'h03;
-            LHU_OPCODE  : o_alu_control_input = 4'h03;
-            SB_OPCODE   : o_alu_control_input = 4'h03;
-            SH_OPCODE   : o_alu_control_input = 4'h03;
-            SW_OPCODE   : o_alu_control_input = 4'h03;
-            ADDI_OPCODE : o_alu_control_input = 4'h03;
-            ANDI_OPCODE : o_alu_control_input = 4'h05;
-            ORI_OPCODE  : o_alu_control_input = 4'h06;
-            XORI_OPCODE : o_alu_control_input = 4'h07;
-            LUI_OPCODE  : o_alu_control_input = 4'h0d;
-            SLTI_OPCODE : o_alu_control_input = 4'h09;
-            BEQ_OPCODE  : o_alu_control_input = 4'h0e;
-            BNE_OPCODE  : o_alu_control_input = 4'h0f;
-            default     : o_alu_control_input = o_alu_control_input;
+            LB_OPCODE   : o_alu_op = 4'h03;  // INSTRUCCION ITYPE - ADDI -> ADD de ALU
+            LH_OPCODE   : o_alu_op = 4'h03;
+            LW_OPCODE   : o_alu_op = 4'h03;
+            LWU_OPCODE  : o_alu_op = 4'h03;
+            LBU_OPCODE  : o_alu_op = 4'h03;
+            LHU_OPCODE  : o_alu_op = 4'h03;
+            SB_OPCODE   : o_alu_op = 4'h03;
+            SH_OPCODE   : o_alu_op = 4'h03;
+            SW_OPCODE   : o_alu_op = 4'h03;
+            ADDI_OPCODE : o_alu_op = 4'h03;
+            ANDI_OPCODE : o_alu_op = 4'h05;
+            ORI_OPCODE  : o_alu_op = 4'h06;
+            XORI_OPCODE : o_alu_op = 4'h07;
+            LUI_OPCODE  : o_alu_op = 4'h0d;
+            SLTI_OPCODE : o_alu_op = 4'h09;
+            BEQ_OPCODE  : o_alu_op = 4'h0e;
+            BNE_OPCODE  : o_alu_op = 4'h0f;
+            default     : o_alu_op = o_alu_op;
         endcase
     end
     
