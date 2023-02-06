@@ -13,14 +13,14 @@ module data_memory#(
   parameter INIT_FILE = "C:/Users/alejo/Downloads/data.mem"       // Specify name/location of RAM initialization file if using one (leave blank if not)
 ) 
 (
-  input [NB_ADDR-1:0] i_write_addr,         // Write address bus, width determined from RAM_DEPTH
-  input [NB_ADDR-1:0] i_read_addr,          // Read address bus, width determined from RAM_DEPTH
-  input [MEMORY_WIDTH-1:0] i_data,          // RAM input data
   input i_clock,                            // Clock
-  input i_write_enable,                     // Write enable
-  input i_read_enable,                      // Read Enable, for additional power savings, disable when not in use
+  input i_mem_write_data,                     // Write enable
+  input i_mem_read_data,                      // Read Enable, for additional power savings, disable when not in use
   input rstb,                               // Output reset (does not affect memory contents)
   input regceb,                             // Output register enable
+  input [NB_ADDR-1:0] i_write_addr,         // Write address bus, width determined from RAM_DEPTH
+  input [NB_ADDR-1:0] i_read_addr,          // Read address bus, width determined from RAM_DEPTH
+  input [MEMORY_WIDTH-1:0] i_write_data,          // RAM input data
   output [MEMORY_WIDTH-1:0] o_data          // RAM output data
 );
 
@@ -41,9 +41,9 @@ module data_memory#(
   endgenerate
 
   always @(posedge i_clock) begin
-    if (i_write_enable)
-      BRAM[i_write_addr] <= i_data;
-    if (i_read_enable)
+    if (i_mem_write_data)
+      BRAM[i_write_addr] <= i_write_data;
+    if (i_mem_read_data)
       ram_data <= BRAM[i_read_addr];
   end
 
