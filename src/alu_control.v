@@ -42,8 +42,8 @@ module alu_control#(
     )
     (
         input      [NB_FCODE-1     : 0] i_funct_code, // Codigo de funcion para instrucciones tipo R
-        input      [NB_OPCODE-1    : 0] i_ALU_op,     // Tipo de instruccion
-        output reg [NB_ALU_CTRLI-1 : 0] o_ALU_ctrl      // Senial que indica a la ALU que tipo de operaci�n ejecutar
+        input      [NB_OPCODE-1    : 0] i_ALU_op,     // opcode
+        output reg [NB_ALU_CTRLI-1 : 0] o_ALU_ctrl    // Senial que indica a la ALU que tipo de operaci�n ejecutar
     );
     
     always@(*) begin
