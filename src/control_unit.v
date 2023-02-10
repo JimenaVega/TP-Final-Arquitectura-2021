@@ -23,99 +23,198 @@ module control_unit#(
         parameter   SW_OPCODE       = 6'h2b  // ITYPE SW
     )
     (   
-        input i_enable;
-        input i_reset;                // Necesario para flush en controls hazard
-        input opcode[NB_OPCODE-1:0];
+        input                       i_enable,
+        input                       i_reset,        // Necesario para flush en controls hazard
+        input [NB_OPCODE-1:0]       i_opcode,
         
-        output regDst;                // EX
-        output aluOp[NB_OPCODE-1:0];  // EX REG?
-        output aluSrc;                // EX
-        output memRead;               // MEM
-        output memWrite;              // MEM
-        output branch;                // MEM
-        output regWrite;              // WB
-        output memToReg;              // WB
-    )
-
+        output reg                  o_reg_dest,     // EX
+        output reg [NB_OPCODE-1:0]  o_alu_op,       // EX REG?
+        output reg                  o_alu_src,      // EX
+        output reg                  o_mem_read,     // MEM
+        output reg                  o_mem_write,    // MEM
+        output reg                  o_branch,       // MEM
+        output reg                  o_reg_write,    // WB
+        output reg                  o_mem_to_reg    // WB
+    );
 
     always@(*) begin
         if(i_reset) begin
-            aluOp = {NB_OPCODE{1'b0}};
-            regDst = 1'b0;
-            aluSrc = 1'b0;
-            memRead = 1'b0;
-            memWrite = 1'b0;
-            branch = 1'b0; // VER
-            regWrite = 1'b0;
-            memToReg = 1'b0;
+            o_alu_op        = {NB_OPCODE{1'b0}};
+            o_reg_dest      = 1'b0;
+            o_alu_src       = 1'b0;
+            o_mem_read      = 1'b0;
+            o_mem_write     = 1'b0;
+            o_branch        = 1'b0;
+            o_reg_write     = 1'b0;
+            o_mem_to_reg    = 1'b0;
         end
         if(i_enable) begin
-            aluOp = opcode;
-            // VER señales con X
-            case(opcode)
-                RTYPE_OPCODE:
-                    regDst = 1'b1; // rt
-                    aluSrc = 1'b0; // rs
-                    memRead = 1'b0; // no accede a mem
-                    memWrite = 1'b0; // no accede a mem
-                    branch = 1'b0; 
-                    regWrite = 1'b1; // escribe en rt
-                    memToReg = 1'b0; // no accede a mem
-
-                BEQ_OPCODE:
-                    regDst = 1'b0; // X no se usa
-                    aluSrc = 1'b0; // immediate
-                    memRead = 1'b0;
-                    memWrite = 1'b0;
-                    branch = 1'b1; 
-                    regWrite = 1'b0; // no accede a regs
-                    memToReg = 1'b0; // X no accede a mem
-
-                BNE_OPCODE:
-                    regDst = 1'b0; // X no se usa
-                    aluSrc = 1'b0; // immediate
-                    memRead = 1'b0;
-                    memWrite = 1'b0;
-                    branch = 1'b1; // VER QUE PASA CON ZERO FLAG
-                    regWrite = 1'b0; // no accede a regs
-                    memToReg = 1'b0; // X no accede a mem
-
-                ADDI_OPCODE:
-
-                SLTI_OPCODE:
-
-                ANDI_OPCODE:  
-                ORI_OPCODE:  
-                XORI_OPCODE: 
-                LUI_OPCODE:    
-                LB_OPCODE:       
-                LH_OPCODE:     
-                LHU_OPCODE:     
-                LW_OPCODE: 
-                    regDst = 1'b0; 
-                    aluSrc = 1'b1;
-                    memRead = 1'b1;
-                    memWrite = 1'b0;
-                    branch = 1'b0; 
-                    regWrite = 1'b1;
-                    memToReg = 1'b1;   
-                LWU_OPCODE:    
-                LBU_OPCODE:    
-                SB_OPCODE:      
-                SH_OPCODE:   
-                SW_OPCODE:
-                    regDst = 1'b0; // X
-                    aluSrc = 1'b1; 
-                    memRead = 1'b0;
-                    memWrite = 1'b1;
-                    branch = 1'b0; 
-                    regWrite = 1'b0;
-                    memToReg = 1'b0; // X 
-
+            o_alu_op = i_opcode;
+            case(i_opcode)
+                RTYPE_OPCODE:begin
+                    o_reg_dest      = 1'b1; // rd
+                    o_alu_src       = 1'b0; // rt
+                    o_mem_read      = 1'b0; // no accede a mem
+                    o_mem_write     = 1'b0; // no accede a mem
+                    o_branch        = 1'b0; // no es branch
+                    o_reg_write     = 1'b1; // escribe en bank register
+                    o_mem_to_reg    = 1'b0; // read salida ALU
+                end
+                BEQ_OPCODE:begin
+                    o_reg_dest      = 1'b0; // X
+                    o_alu_src       = 1'b0; // rt
+                    o_mem_read      = 1'b0; // no accede a mem
+                    o_mem_write     = 1'b0; // no accede a mem
+                    o_branch        = 1'b1; // es branch
+                    o_reg_write     = 1'b0; // no escribe en bank register
+                    o_mem_to_reg    = 1'b0; // X
+                end
+                BNE_OPCODE:begin
+                    o_reg_dest      = 1'b0; // X
+                    o_alu_src       = 1'b0; // rt
+                    o_mem_read      = 1'b0; // no accede a mem
+                    o_mem_write     = 1'b0; // no accede a mem
+                    o_branch        = 1'b1; // es branch
+                    o_reg_write     = 1'b0; // no escribe en bank register
+                    o_mem_to_reg    = 1'b0; // X
+                end
+                ADDI_OPCODE:begin
+                    o_reg_dest      = 1'b0; // rt
+                    o_alu_src       = 1'b1; // immediate
+                    o_mem_read      = 1'b0; // no accede a mem
+                    o_mem_write     = 1'b0; // no accede a mem
+                    o_branch        = 1'b0; // no es branch
+                    o_reg_write     = 1'b1; // escribe en bank register
+                    o_mem_to_reg    = 1'b0; // read salida ALU
+                end
+                SLTI_OPCODE:begin
+                    o_reg_dest      = 1'b0; // rt
+                    o_alu_src       = 1'b1; // immediate
+                    o_mem_read      = 1'b0; // no accede a mem
+                    o_mem_write     = 1'b0; // no accede a mem
+                    o_branch        = 1'b0; // no es branch
+                    o_reg_write     = 1'b1; // escribe en bank register
+                    o_mem_to_reg    = 1'b0; // read salida ALU
+                end
+                ANDI_OPCODE:begin
+                    o_reg_dest      = 1'b0; // rt
+                    o_alu_src       = 1'b1; // immediate
+                    o_mem_read      = 1'b0; // no accede a mem
+                    o_mem_write     = 1'b0; // no accede a mem
+                    o_branch        = 1'b0; // no es branch
+                    o_reg_write     = 1'b1; // escribe en bank register
+                    o_mem_to_reg    = 1'b0; // read salida ALU
+                end
+                ORI_OPCODE:begin
+                    o_reg_dest      = 1'b0; // rt
+                    o_alu_src       = 1'b1; // immediate
+                    o_mem_read      = 1'b0; // no accede a mem
+                    o_mem_write     = 1'b0; // no accede a mem
+                    o_branch        = 1'b0; // no es branch
+                    o_reg_write     = 1'b1; // escribe en bank register
+                    o_mem_to_reg    = 1'b0; // read salida ALU
+                end
+                XORI_OPCODE:begin
+                    o_reg_dest      = 1'b0; // rt
+                    o_alu_src       = 1'b1; // immediate
+                    o_mem_read      = 1'b0; // no accede a mem
+                    o_mem_write     = 1'b0; // no accede a mem
+                    o_branch        = 1'b0; // no es branch
+                    o_reg_write     = 1'b1; // escribe en bank register
+                    o_mem_to_reg    = 1'b0; // read salida ALU
+                end
+                LUI_OPCODE:begin
+                    o_reg_dest      = 1'b0; // rt
+                    o_alu_src       = 1'b1; // immediate
+                    o_mem_read      = 1'b0; // no accede a mem
+                    o_mem_write     = 1'b0; // no accede a mem
+                    o_branch        = 1'b0; // no es branch
+                    o_reg_write     = 1'b1; // escribe en bank register
+                    o_mem_to_reg    = 1'b0; // read salida ALU
+                end
+                LB_OPCODE:begin
+                    o_reg_dest      = 1'b0; // rt
+                    o_alu_src       = 1'b1; // immediate
+                    o_mem_read      = 1'b1; // read mem
+                    o_mem_write     = 1'b0; // no write mem
+                    o_branch        = 1'b0; // no es branch
+                    o_reg_write     = 1'b1; // escribe en rt
+                    o_mem_to_reg    = 1'b1; // read salida data memory
+                end
+                LH_OPCODE:begin
+                    o_reg_dest      = 1'b0; // rt
+                    o_alu_src       = 1'b1; // immediate
+                    o_mem_read      = 1'b1; // read mem
+                    o_mem_write     = 1'b0; // no write mem
+                    o_branch        = 1'b0; // no es branch
+                    o_reg_write     = 1'b1; // escribe en rt
+                    o_mem_to_reg    = 1'b1; // read salida data memory
+                end
+                LHU_OPCODE:begin
+                    o_reg_dest      = 1'b0; // rt
+                    o_alu_src       = 1'b1; // immediate
+                    o_mem_read      = 1'b1; // read mem
+                    o_mem_write     = 1'b0; // no write mem
+                    o_branch        = 1'b0; // no es branch
+                    o_reg_write     = 1'b1; // escribe en rt
+                    o_mem_to_reg    = 1'b1; // read salida data memory
+                end
+                LW_OPCODE:begin
+                    o_reg_dest      = 1'b0; // rt
+                    o_alu_src       = 1'b1; // immediate
+                    o_mem_read      = 1'b1; // read mem
+                    o_mem_write     = 1'b0; // no write mem
+                    o_branch        = 1'b0; // no es branch
+                    o_reg_write     = 1'b1; // escribe en rt
+                    o_mem_to_reg    = 1'b1; // read salida data memory
+                end
+                LWU_OPCODE:begin
+                    o_reg_dest      = 1'b0; // rt
+                    o_alu_src       = 1'b1; // immediate
+                    o_mem_read      = 1'b1; // read mem
+                    o_mem_write     = 1'b0; // no write mem
+                    o_branch        = 1'b0; // no es branch
+                    o_reg_write     = 1'b1; // escribe en rt
+                    o_mem_to_reg    = 1'b1; // read salida data memory
+                end
+                LBU_OPCODE:begin
+                    o_reg_dest      = 1'b0; // rt
+                    o_alu_src       = 1'b1; // immediate
+                    o_mem_read      = 1'b1; // read mem
+                    o_mem_write     = 1'b0; // no write mem
+                    o_branch        = 1'b0; // no es branch
+                    o_reg_write     = 1'b1; // escribe en rt
+                    o_mem_to_reg    = 1'b1; // read salida data memory
+                end
+                SB_OPCODE:begin
+                    o_reg_dest      = 1'b0; // rt
+                    o_alu_src       = 1'b1; // immediate
+                    o_mem_read      = 1'b0; // no read mem
+                    o_mem_write     = 1'b1; // write mem
+                    o_branch        = 1'b0; // no es branch
+                    o_reg_write     = 1'b0; // escribe en rt
+                    o_mem_to_reg    = 1'b0; // X
+                end
+                SH_OPCODE:begin
+                    o_reg_dest      = 1'b0; // rt
+                    o_alu_src       = 1'b1; // immediate
+                    o_mem_read      = 1'b0; // no read mem
+                    o_mem_write     = 1'b1; // write mem
+                    o_branch        = 1'b0; // no es branch
+                    o_reg_write     = 1'b0; // escribe en rt
+                    o_mem_to_reg    = 1'b0; // X
+                end
+                SW_OPCODE:begin
+                    o_reg_dest      = 1'b0; // rt
+                    o_alu_src       = 1'b1; // immediate
+                    o_mem_read      = 1'b0; // no read mem
+                    o_mem_write     = 1'b1; // write mem
+                    o_branch        = 1'b0; // no es branch
+                    o_reg_write     = 1'b0; // escribe en rt
+                    o_mem_to_reg    = 1'b0; // X
+                end
             endcase
-
         end
-    
     end
 endmodule
     
