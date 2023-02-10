@@ -19,6 +19,9 @@ module tb_sign_extend();
         #40
         i_data = 16'd273;
         
+        #40
+        i_data = 16'hff01;
+        
         #200
         
         $finish;

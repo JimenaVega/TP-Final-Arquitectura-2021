@@ -9,6 +9,8 @@ module sign_extend#(
         output [NB_OUT-1:0] o_data
     );
 
-    assign o_data = i_data;
-    
+    always@(i_data) begin
+        o_data[NB_IN-1:0] = i_data[NB_IN-1:0];
+        o_data[NB_OUT-1:0] = {NB_IN-1{i_data[NB_IN-1]}}; // se extiende el signo de i_data[15]
+    end    
 endmodule
