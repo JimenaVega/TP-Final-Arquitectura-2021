@@ -5,8 +5,8 @@ module sign_extend#(
         parameter NB_OUT = 32
     )
     (
-        input  [NB_IN-1:0]  i_data,
-        output [NB_OUT-1:0] o_data
+        input [NB_IN-1:0]  i_data,
+        output reg [NB_OUT-1:0] o_data
     );
 
     // assign o_data = i_data;
