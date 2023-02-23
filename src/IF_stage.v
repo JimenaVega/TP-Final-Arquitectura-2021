@@ -15,7 +15,7 @@ module IF_stage#(
         input  [NB_PC-1:0]          i_branch_address,
         input  [NB_PC-1:0]          i_jump_address,
         
-        output [NB_PC:0]            o_adder_result,
+        output [NB_PC-1:0]            o_adder_result,
         output [NB_INSTRUCTION-1:0] o_new_instruction
     );
     
