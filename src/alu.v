@@ -7,13 +7,13 @@ module alu#(
     (
         input       [NB_REG-1 : 0]          i_a,
         input       [NB_REG-1 : 0]          i_b,
-        input       [NB_ALU_CTRLI-1 : 0]    i_ALU_ctrl, // codigo de operacion que viene de la alu_control
+        input       [NB_ALU_CTRLI-1 : 0]    i_alu_ctrl, // codigo de operacion que viene de la alu_control
         output                              o_zero,
         output reg  [NB_REG-1 : 0]          o_result 
     );
    
     always@(*) begin
-        case(i_ALU_ctrl)
+        case(i_alu_ctrl)
             4'h0 : o_result =   i_a << i_b;      // SLL Shift left logical (r1<<r2) y SLLV
             4'h1 : o_result =   i_a >> i_b;      // SRL Shift right logical (r1>>r2) y SRLV
             4'h2 : o_result =   i_a >>> i_b;     // SRA  Shift right arithmetic (r1>>>r2) y SRAV

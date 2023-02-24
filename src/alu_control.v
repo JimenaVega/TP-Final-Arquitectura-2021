@@ -42,51 +42,51 @@ module alu_control#(
     )
     (
         input      [NB_FCODE-1     : 0] i_funct_code, // Codigo de funcion para instrucciones tipo R
-        input      [NB_OPCODE-1    : 0] i_ALU_op,     // opcode
-        output reg [NB_ALU_CTRLI-1 : 0] o_ALU_ctrl    // Senial que indica a la ALU que tipo de operaci�n ejecutar
+        input      [NB_OPCODE-1    : 0] i_alu_op,     // opcode
+        output reg [NB_ALU_CTRLI-1 : 0] o_alu_ctrl    // Senial que indica a la ALU que tipo de operaci�n ejecutar
     );
     
     always@(*) begin
-        case(i_ALU_op)
+        case(i_alu_op)
             RTYPE_OPCODE: // R-Type
                 case(i_funct_code)
-                    SLL_FCODE   : o_ALU_ctrl = 4'h00;
-                    SRL_FCODE   : o_ALU_ctrl = 4'h01;
-                    SRA_FCODE   : o_ALU_ctrl = 4'h02;
-                    SLLV_FCODE  : o_ALU_ctrl = 4'h00;
-                    SRLV_FCODE  : o_ALU_ctrl = 4'h01;
-                    SRAV_FCODE  : o_ALU_ctrl = 4'h02;
-//                    JR_FCODE    : o_ALU_ctrl = 4'h00;
-//                    JALR_FCODE  : o_ALU_ctrl = 4'h00;
-                    ADD_FCODE   : o_ALU_ctrl = 4'h03;
-                    ADDU_FCODE  : o_ALU_ctrl = 4'h03;
-                    SUB_FCODE   : o_ALU_ctrl = 4'h04;
-                    SUBU_FCODE  : o_ALU_ctrl = 4'h04;
-                    AND_FCODE   : o_ALU_ctrl = 4'h05;
-                    OR_FCODE    : o_ALU_ctrl = 4'h06;
-                    XOR_FCODE   : o_ALU_ctrl = 4'h07;
-                    NOR_FCODE   : o_ALU_ctrl = 4'h08;
-                    SLT_FCODE   : o_ALU_ctrl = 4'h09;
-                    default     : o_ALU_ctrl = o_ALU_ctrl;                      
+                    SLL_FCODE   : o_alu_ctrl = 4'h00;
+                    SRL_FCODE   : o_alu_ctrl = 4'h01;
+                    SRA_FCODE   : o_alu_ctrl = 4'h02;
+                    SLLV_FCODE  : o_alu_ctrl = 4'h00;
+                    SRLV_FCODE  : o_alu_ctrl = 4'h01;
+                    SRAV_FCODE  : o_alu_ctrl = 4'h02;
+//                    JR_FCODE    : o_alu_ctrl = 4'h00;
+//                    JALR_FCODE  : o_alu_ctrl = 4'h00;
+                    ADD_FCODE   : o_alu_ctrl = 4'h03;
+                    ADDU_FCODE  : o_alu_ctrl = 4'h03;
+                    SUB_FCODE   : o_alu_ctrl = 4'h04;
+                    SUBU_FCODE  : o_alu_ctrl = 4'h04;
+                    AND_FCODE   : o_alu_ctrl = 4'h05;
+                    OR_FCODE    : o_alu_ctrl = 4'h06;
+                    XOR_FCODE   : o_alu_ctrl = 4'h07;
+                    NOR_FCODE   : o_alu_ctrl = 4'h08;
+                    SLT_FCODE   : o_alu_ctrl = 4'h09;
+                    default     : o_alu_ctrl = o_alu_ctrl;                      
                 endcase                
-            LB_OPCODE   : o_ALU_ctrl = 4'h03;  // INSTRUCCION ITYPE - ADDI -> ADD de ALU
-            LH_OPCODE   : o_ALU_ctrl = 4'h03;
-            LW_OPCODE   : o_ALU_ctrl = 4'h03;
-            LWU_OPCODE  : o_ALU_ctrl = 4'h03;
-            LBU_OPCODE  : o_ALU_ctrl = 4'h03;
-            LHU_OPCODE  : o_ALU_ctrl = 4'h03;
-            SB_OPCODE   : o_ALU_ctrl = 4'h03;
-            SH_OPCODE   : o_ALU_ctrl = 4'h03;
-            SW_OPCODE   : o_ALU_ctrl = 4'h03;
-            ADDI_OPCODE : o_ALU_ctrl = 4'h03;
-            ANDI_OPCODE : o_ALU_ctrl = 4'h05;
-            ORI_OPCODE  : o_ALU_ctrl = 4'h06;
-            XORI_OPCODE : o_ALU_ctrl = 4'h07;
-            LUI_OPCODE  : o_ALU_ctrl = 4'h0a;
-            SLTI_OPCODE : o_ALU_ctrl = 4'h09;
-            BEQ_OPCODE  : o_ALU_ctrl = 4'h0b;
-            BNE_OPCODE  : o_ALU_ctrl = 4'h0c;
-            default     : o_ALU_ctrl = o_ALU_ctrl;
+            LB_OPCODE   : o_alu_ctrl = 4'h03;  // INSTRUCCION ITYPE - ADDI -> ADD de ALU
+            LH_OPCODE   : o_alu_ctrl = 4'h03;
+            LW_OPCODE   : o_alu_ctrl = 4'h03;
+            LWU_OPCODE  : o_alu_ctrl = 4'h03;
+            LBU_OPCODE  : o_alu_ctrl = 4'h03;
+            LHU_OPCODE  : o_alu_ctrl = 4'h03;
+            SB_OPCODE   : o_alu_ctrl = 4'h03;
+            SH_OPCODE   : o_alu_ctrl = 4'h03;
+            SW_OPCODE   : o_alu_ctrl = 4'h03;
+            ADDI_OPCODE : o_alu_ctrl = 4'h03;
+            ANDI_OPCODE : o_alu_ctrl = 4'h05;
+            ORI_OPCODE  : o_alu_ctrl = 4'h06;
+            XORI_OPCODE : o_alu_ctrl = 4'h07;
+            LUI_OPCODE  : o_alu_ctrl = 4'h0a;
+            SLTI_OPCODE : o_alu_ctrl = 4'h09;
+            BEQ_OPCODE  : o_alu_ctrl = 4'h0b;
+            BNE_OPCODE  : o_alu_ctrl = 4'h0c;
+            default     : o_alu_ctrl = o_alu_ctrl;
         endcase
     end
     
