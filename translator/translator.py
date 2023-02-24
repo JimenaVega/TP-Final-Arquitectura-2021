@@ -14,8 +14,6 @@ def jType(instruction):
     hex_val = hex(int('0b' + bin_val, 2))[2:].zfill(8)
     return (hex_val, bin_val)
 
-
-
 def rType(instruction):
     result = []
     shift = 0
@@ -116,7 +114,6 @@ def iType(instruction):
     hex_val = hex(int('0b' + bin_val, 2))[2:].zfill(8)
     return (hex_val, bin_val)
 
-
 registers = {
     'zero': 0,   'at': 1,   'v0': 2,   'v1': 3,
     'a0': 4,   'a1': 5,   'a2': 6,   'a3': 7,
@@ -128,7 +125,6 @@ registers = {
     'gp': 28,  'sp': 29,  'fp': 30,  'ra': 31
 }
 
-
 # FINISH THE INSTRUCTION CODES, WILL HAVE ISSUES
 insCodes = {
     
@@ -136,7 +132,6 @@ insCodes = {
     AND: (0, 0x24), OR: (0, 0x25), NOR: (0, 0x27), XOR: (0, 0x26), SLT: (0, 0x2a), 
     
     SLL: (0, 0x00), SRL: (0, 0x02), SRA:(0,0x3),SLLV:(0, 0x4), SRLV:(0,0x6), SRAV:(0, 0x7),
-    
      
     LB: (0x20, 0),LH: (0x21, 0), LHU: (0x22,0),LW: (0x23, 0), LWU: (0x24,0), LBU: (0x25, 0), 
     SB:(0x28,0), SH:(0x29,0), SW: (0x2b, 0),
@@ -146,7 +141,6 @@ insCodes = {
      
     J: (0x2, 0),JALR:(0, 0x9), JR:(0, 0x8), JAL:(0x3,0), 
 }
-
 
 instructionHandler = {
     ADD: rType, ADDU: rType, SUB: rType, SUBU:rType,
@@ -164,11 +158,9 @@ instructionHandler = {
     J: jType, JAL: jType, JALR: rType, JR: rType,
 }
 
-
 def getRegister(value):
     print("VALUE: ", value)
     return registers[value[1:]]
-
 
 def getSeparatedInstruction(line):
     line_split = line.split(" ")
@@ -177,7 +169,6 @@ def getSeparatedInstruction(line):
     line_split.extend(split_second)
     print("LINE SPLIT : ", line_split)
     return line_split
-
 
 def convertToHex(line):
     separated = getSeparatedInstruction(line)
@@ -191,13 +182,13 @@ def convertToHex(line):
 
     return converted
 
-
 def main():
     inp_file = open('input_j.txt', 'r')
-    out_file = open('output.mem', 'w')
+    out_file = open('output_j.mem', 'w')
     line = inp_file.readline()
     choice = int(input("Choose conversion to binary [1] or hexa [0]: "))
     print('Converting file assembler to .mem binary...')
+    
     while line:
         bin_hex = convertToHex(line[:-2])
         out_file.write(str(bin_hex[choice]) + '\n')

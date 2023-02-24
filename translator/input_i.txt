@@ -15,5 +15,3 @@ lui $s0,255;
 slti $s0,$s1,255;
 beq $s0,$s1,255;
 bne $s0,$s1,255;
-jr $s0;
-jalr $s0;

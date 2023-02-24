@@ -66,7 +66,7 @@ module ID_stage#(
                                   .i_next_pc(i_ID_pc),          // PC+1[31:28]                
                                   .o_jump_addr(o_ID_jump_address));
     
-    // VER SI DEJAR COMO wire y assign
+    // TODO: Agregar wires intermedios
     assign o_ID_rd = i_ID_inst[15:11];
     assign o_ID_rt = i_ID_inst[20:16];
     assign o_ID_pc = i_ID_pc;
