@@ -2,7 +2,7 @@
 
 module EX_stage#(
         parameter NB_ALU_OP   = 3,
-        parameter NB_ALU_CTRL = 4
+        parameter NB_ALU_CTRL = 4,
         parameter NB_IMM      = 32,
         parameter NB_PC       = 6,
         parameter NB_DATA     = 32,
