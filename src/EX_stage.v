@@ -4,17 +4,17 @@ module EX_stage#(
         parameter NB_ALU_OP   = 3,
         parameter NB_ALU_CTRL = 4,
         parameter NB_IMM      = 32,
-        parameter NB_PC       = 6,
+        parameter NB_PC       = 32, // TODO: estaba en 6
         parameter NB_DATA     = 32,
         parameter NB_REG      = 5
     )
     (
         input                   i_clock,
-        input                   i_EX_reg_write,
-        input                   i_EX_mem_to_reg,
-        input                   i_EX_mem_read,
-        input                   i_EX_mem_write,
-        input                   i_EX_branch,
+        input                   i_EX_reg_write,  // WB stage flag
+        input                   i_EX_mem_to_reg, // WB stage flag
+        input                   i_EX_mem_read,   // MEM stage flag
+        input                   i_EX_mem_write,  // MEM stage flag
+        input                   i_EX_branch,     // MEM stage flag
         input                   i_EX_alu_src,
         input                   i_EX_reg_dst,
         input [NB_ALU_OP-1:0]   i_EX_alu_op,
@@ -33,7 +33,7 @@ module EX_stage#(
         output [NB_PC-1:0]      o_EX_branch_address,
         output                  o_EX_zero,
         output                  o_EX_alu_result,
-        output                  o_EX_data_a,
+        output [NB_DATA-1:0]    o_EX_data_a,
         output [NB_REG-1:0]     o_EX_selected_reg
         
     );

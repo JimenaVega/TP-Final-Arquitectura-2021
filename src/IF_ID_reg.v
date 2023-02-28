@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 module IF_ID_reg#(
-        parameter NB_PC             = 6,
+        parameter NB_PC             = 32,
         parameter NB_INSTRUCTION    = 32
     )
     (

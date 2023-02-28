@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 module EX_MEM_reg#(
-        parameter NB_PC       = 6,
+        parameter NB_PC       = 32,
         parameter NB_REG      = 5
     )
     (
@@ -29,16 +29,16 @@ module EX_MEM_reg#(
         output [NB_REG-1:0]     MEM_selected_reg
     );
     
-    reg                  reg_write,
-    reg                  mem_to_reg,
-    reg                  mem_read,
-    reg                  mem_write,
-    reg                  branch,
-    reg [NB_PC-1:0]      branch_address,
-    reg                  zero,
-    reg                  alu_result,
-    reg                  data_a,
-    reg [NB_REG-1:0]     selected_reg
+    reg                  reg_write;
+    reg                  mem_to_reg;
+    reg                  mem_read;
+    reg                  mem_write;
+    reg                  branch;
+    reg [NB_PC-1:0]      branch_address;
+    reg                  zero;
+    reg                  alu_result;
+    reg                  data_a;
+    reg [NB_REG-1:0]     selected_reg;
 
     always @(posedge i_clock) begin
         reg_write       <= EX_reg_write;
