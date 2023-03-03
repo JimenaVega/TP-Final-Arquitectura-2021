@@ -16,7 +16,7 @@ module MEM_WB_reg#(
         output o_WB_mem_to_reg,                 // MUX selector
         output [NB_DATA-1:0] o_WB_mem_data,     // i_WB_mem_to_reg = 1
         output [NB_DATA-1:0] o_WB_alu_result,   // i_WB_mem_to_reg = 0
-        output [NB_REG-1:0]  o_WB_selected_reg,
+        output [NB_REG-1:0]  o_WB_selected_reg
     );
 
     reg reg_write;
@@ -25,7 +25,7 @@ module MEM_WB_reg#(
     reg [NB_DATA-1:0] alu_result;   // i_WB_mem_to_reg = 0
     reg [NB_REG-1:0] selected_reg;
 
-    always(@posedge i_clock) begin
+    always@(posedge i_clock) begin
         reg_write <= i_MEM_reg_write;
         mem_to_reg <= i_MEM_mem_to_reg;
         mem_data <= i_MEM_mem_data;

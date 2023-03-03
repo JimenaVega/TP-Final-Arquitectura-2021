@@ -26,7 +26,7 @@ module MEM_stage#(
         output [NB_PC-1:0]   o_MEM_branch_address, // PC = o_MEM_branch_address
         output               o_branch_zero,        // IF mux selector
         output               o_MEM_reg_write,      // WB stage flag
-        output               o_MEM_mem_to_reg,     // WB stage flag
+        output               o_MEM_mem_to_reg     // WB stage flag
     );
 
     data_memory data_memory_1(.i_clock(i_clock),                           

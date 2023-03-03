@@ -37,7 +37,7 @@ module ID_EX_reg#(
         output [NB_DATA-1:0]     EX_data_b,
         output [NB_IMM-1:0]      EX_immediate,
         output [NB_REG-1:0]      EX_rt,
-        output [NB_REG-1:0]      EX_rd,
+        output [NB_REG-1:0]      EX_rd
     );
     
     reg                 reg_write;

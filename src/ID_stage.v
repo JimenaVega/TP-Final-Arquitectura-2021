@@ -4,7 +4,7 @@ module ID_stage#(
         parameter NB_PC             = 32,
         parameter NB_DATA           = 32,
         parameter NB_REG            = 5, 
-        parameter NB_OPCODE         = 6,
+        parameter NB_OPCODE         = 6
     )
     (
         input                       i_ID_clock,
@@ -13,7 +13,7 @@ module ID_stage#(
         input [NB_INST-1:0]         i_ID_inst,
         input [NB_PC-1:0]           i_ID_pc,
         input [NB_DATA-1:0]         i_ID_write_data,   // from WB, data to write
-        input [NB_REG-1:0]          i_ID_write_reg     // from WB, address to write
+        input [NB_REG-1:0]          i_ID_write_reg,    // from WB, address to write
         input                       i_ID_reg_write,    // from control_unit, enable write reg
         output                      o_ID_reg_dest,     // EX, signal
         output [NB_OPCODE-1:0]      o_ID_alu_op,       // EX, signal
@@ -22,7 +22,7 @@ module ID_stage#(
         output                      o_ID_mem_write,    // MEM, signal
         output                      o_ID_branch,       // MEM, signal
         output                      o_ID_reg_write,    // WB, signal
-        output                      o_ID_mem_to_reg    // WB, signal
+        output                      o_ID_mem_to_reg,   // WB, signal
         output                      o_ID_jump,         // ID, signal
         output [NB_PC-1:0]          o_ID_jump_address,  
         output [NB_DATA-1:0]        o_ID_data_a,
@@ -30,8 +30,7 @@ module ID_stage#(
         output [NB_PC-1:0]          o_ID_immediate,    // immediate 32b / function code
         output [NB_REG-1:0]         o_ID_rt,
         output [NB_REG-1:0]         o_ID_rd,
-        output [NB_PC-1:0]          o_ID_pc,
-
+        output [NB_PC-1:0]          o_ID_pc
     );
     
     registers_bank registers_bank_1(.i_clock(i_ID_clock),

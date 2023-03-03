@@ -12,7 +12,7 @@ module WB_stage#(
 
         output o_WB_reg_write,
         output [NB_DATA-1:0] o_WB_selected_data,
-        output [NB_REG-1:0]  o_WB_selected_reg,
+        output [NB_REG-1:0]  o_WB_selected_reg
     );
 
     mux2 mux2_5(.i_select(i_WB_mem_to_reg),

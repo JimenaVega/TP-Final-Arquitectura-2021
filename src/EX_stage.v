@@ -6,7 +6,8 @@ module EX_stage#(
         parameter NB_IMM      = 32,
         parameter NB_PC       = 32, // TODO: estaba en 6
         parameter NB_DATA     = 32,
-        parameter NB_REG      = 5
+        parameter NB_REG      = 5,
+        parameter NB_FCODE    = 6
     )
     (
         input                   i_clock,
@@ -45,6 +46,9 @@ module EX_stage#(
     wire [NB_DATA-1:0]      alu_result;
     wire [NB_ALU_CTRL-1:0]  alu_ctrl;
     wire [NB_REG-1:0]       selected_reg;
+    wire [NB_FCODE-1:0]     funct_code;
+    
+    assign funct_code = i_EX_immediate [NB_FCODE-1:0];
     
     adder adder_2(.i_a(i_EX_pc),
                   .i_b(shifted_imm),
@@ -56,7 +60,7 @@ module EX_stage#(
               .o_zero(zero),
               .o_result(alu_result));
 
-    alu_control alu_control_1(.i_funct_code([5:0]i_EX_immediate), //chequear esto
+    alu_control alu_control_1(.i_funct_code(funct_code), //chequear esto
                               .i_alu_op(i_EX_alu_op),
                               .o_alu_ctrl(alu_ctrl));
 

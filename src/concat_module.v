@@ -4,7 +4,7 @@ module concat_module#(
     parameter NB_ADDR       = 25,    // Jump address in J type instructions          
     parameter NB_PC         = 32,            
     parameter NB_UPPER_PC   = 4,     // Number of bits of upper PC+1
-    parameter NB_LOWER_BITS = 2,
+    parameter NB_LOWER_BITS = 2
   ) 
   (
     input [NB_ADDR-1:0]     i_inst,                           

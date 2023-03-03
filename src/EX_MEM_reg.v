@@ -53,15 +53,15 @@ module EX_MEM_reg#(
         selected_reg    <= EX_selected_reg;
     end
 
-    assign MEM_reg_write       <= reg_write;
-    assign MEM_mem_to_reg      <= mem_to_reg;
-    assign MEM_mem_read        <= mem_read;
-    assign MEM_mem_write       <= mem_write;
-    assign MEM_branch          <= branch;
-    assign MEM_branch_address  <= branch_address;
-    assign MEM_zero            <= zero;
-    assign MEM_alu_result      <= alu_result;
-    assign MEM_data_a          <= data_a;
-    assign MEM_selected_reg    <= selected_reg;
+    assign MEM_reg_write      = reg_write;
+    assign MEM_mem_to_reg     = mem_to_reg;
+    assign MEM_mem_read       = mem_read;
+    assign MEM_mem_write      = mem_write;
+    assign MEM_branch         = branch;
+    assign MEM_branch_address = branch_address;
+    assign MEM_zero           = zero;
+    assign MEM_alu_result     = alu_result;
+    assign MEM_data_a         = data_a;
+    assign MEM_selected_reg   = selected_reg;
     
 endmodule
