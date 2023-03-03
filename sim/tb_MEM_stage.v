@@ -7,14 +7,14 @@ module tb_MEM_stage;
   localparam  NB_REG = 5;
 
   // Ports
-  reg clock = 0;
-  reg i_reset = 0;
-  reg i_MEM_reg_write = 0;
-  reg i_MEM_mem_to_reg = 0;
-  reg i_MEM_mem_read = 0;
-  reg i_MEM_mem_write = 0;
-  reg i_MEM_branch = 0;
-  reg i_MEM_zero = 0;
+  reg clock;
+  reg i_reset;
+  reg i_MEM_reg_write;
+  reg i_MEM_mem_to_reg;
+  reg i_MEM_mem_read;
+  reg i_MEM_mem_write;
+  reg i_MEM_branch;
+  reg i_MEM_zero;
   reg [NB_PC-1:0] i_MEM_branch_addr;
   reg [NB_ADDR-1:0] i_MEM_alu_result;
   reg [NB_DATA-1:0] i_MEM_write_data;
@@ -58,13 +58,16 @@ module tb_MEM_stage;
 
   initial begin
     i_clock = 0;
-    i_reset = 0;
+    i_reset = 1;
     i_MEM_reg_write = 1'b0;
     i_MEM_mem_to_reg  = 1'b0;
     i_mem_read_flag = 1'b0;
     i_MEM_mem_write = 1'b0;
     i_MEM_branch = 1'b0;
     i_MEM_zero = 1'b0;
+    
+    #40
+    i_reset = 0;
 
     #40
     i_MEM_branch = 1'b0;
