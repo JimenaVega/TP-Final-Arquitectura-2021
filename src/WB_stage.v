@@ -1,8 +1,8 @@
 `timescale 1ns / 1ps
 
 module WB_stage#(
-    parameter NB_DATA = 32,
-    parameter NB_REG  = 5
+        parameter NB_DATA = 32,
+        parameter NB_REG  = 5
     )
     (   input i_WB_reg_write,
         input i_WB_mem_to_reg,                 // MUX selector
