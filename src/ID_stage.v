@@ -55,14 +55,14 @@ module ID_stage#(
                                 .o_branch(o_ID_branch),         // MEM
                                 .o_reg_write(o_ID_reg_write),   // WB
                                 .o_mem_to_reg(o_ID_mem_to_reg), // WB
-                                .o_jump(o_ID_jump),
+                                .o_jump(o_ID_jump)
         );
 
     sign_extend sign_extend_1(.i_data(i_ID_inst[15:0]),
                               .o_data(o_ID_immediate));
 
     concat_module concat_module_1(.i_inst(i_ID_inst[25:0]),                           
-                                  .i_next_pc(i_ID_pc),          // PC+1[31:28]                
+                                  .i_next_pc(i_ID_pc[31:28]),          // PC+1[31:28]                
                                   .o_jump_addr(o_ID_jump_address));
     
     // TODO: Agregar wires intermedios

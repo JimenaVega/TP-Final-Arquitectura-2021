@@ -3,22 +3,23 @@
 module tb_ID_stage();
 
   // Parameters
-  localparam  NB_PC_CONSTANT = 3;
-  localparam  NB_INST        = 32;
-  localparam  NB_PC          = 32;
-  localparam  NB_DATA        = 32;
-  localparam  NB_REG         = 5;
-  localparam  NB_OPCODE      = 6;
+  parameter  NB_PC_CONSTANT = 3;
+  parameter  NB_INST        = 32;
+  parameter  NB_PC          = 32;
+  parameter  NB_DATA        = 32;
+  parameter  NB_REG         = 5;
+  parameter  NB_OPCODE      = 6;
 
   // Ports
-  reg i_ID_clock = 0;
-  reg i_ID_reset = 0;
-  reg i_ID_enable = 0;
+  reg i_ID_clock;
+  reg i_ID_reset;
+  reg i_ID_enable;
   reg [NB_INST-1:0] i_ID_inst;
   reg [NB_PC-1:0]   i_ID_pc;
   reg [NB_DATA-1:0] i_ID_write_data;
   reg [NB_REG-1:0]  i_ID_write_reg;
-
+  reg i_ID_reg_write;
+  
   wire o_ID_reg_dest;
   wire [NB_OPCODE-1:0] o_ID_alu_op;
   wire o_ID_alu_src;
@@ -35,7 +36,7 @@ module tb_ID_stage();
   wire [NB_REG-1:0] o_ID_rd;
   wire [NB_PC-1:0] o_ID_pc;
 
-  $monitor("%d inst=%b, data_A=%b, data_B=%b, immed=%b, rt=%b, rd=%b, jmp_address=%b", $time, i_ID_inst, o_ID_data_a, o_ID_data_b, o_ID_immediate, o_ID_rt, o_ID_rd, o_ID_jump_address);
+//  $monitor("time=%t -> inst=%b, data_A=%b, data_B=%b, immed=%b, rt=%b, rd=%b, jmp_address=%b", $time, i_ID_inst, o_ID_data_a, o_ID_data_b, o_ID_immediate, o_ID_rt, o_ID_rd, o_ID_jump_address);
 
   initial begin
     i_ID_clock = 1'b0;
@@ -45,8 +46,8 @@ module tb_ID_stage();
     i_ID_pc = {NB_PC{1'b0}};
     i_ID_write_data = {NB_DATA{1'b0}};
     i_ID_write_reg = {NB_REG{1'b0}};
-    i_ID_reg_write = 1'b0; // Don't write bank register
-    // s0=16, s1=17, s2=18
+    i_ID_reg_write = 1'b0; // Don't WB bank register
+    // $s0=16, $s1=17, $s2=18
     #40
     $write("\n");
     $display("Testing add $s0,$s1,$s2");
@@ -133,35 +134,37 @@ module tb_ID_stage();
     $write("\n");
     $display("Testing jal 255;");
     i_ID_inst = 32'b00001100000000000000000011111111;
-    $finish
+    
+    #200
+    $finish;
+    
   end
 
   always #10 i_ID_clock = ~i_ID_clock;
 
   ID_stage ID_stage_instance(
-
-    .i_ID_clock (i_ID_clock ),
-    .i_ID_reset (i_ID_reset ),
-    .i_ID_enable (i_ID_enable ),
-    .i_ID_inst (i_ID_inst ),
-    .i_ID_pc (i_ID_pc ),
-    .i_ID_write_data (i_ID_write_data ),
-    .i_ID_write_reg (i_ID_write_reg ),
-    .o_ID_reg_dest (o_ID_reg_dest ),
-    .o_ID_alu_op (o_ID_alu_op ),
-    .o_ID_alu_src (o_ID_alu_src ),
-    .o_ID_mem_read (o_ID_mem_read ),
-    .o_ID_mem_write (o_ID_mem_write ),
-    .o_ID_branch (o_ID_branch ),
-    .o_ID_reg_write (o_ID_reg_write ),
-    .o_ID_jump (o_ID_jump ),
-    .o_ID_jump_address (o_ID_jump_address ),
-    .o_ID_data_a (o_ID_data_a ),
-    .o_ID_data_b (o_ID_data_b ),
-    .o_ID_immediate (o_ID_immediate ),
-    .o_ID_rt (o_ID_rt ),
-    .o_ID_rd (o_ID_rd ),
-    .o_ID_pc (o_ID_pc ),
+    .i_ID_clock(i_ID_clock),
+    .i_ID_reset(i_ID_reset),
+    .i_ID_enable(i_ID_enable),
+    .i_ID_inst(i_ID_inst),
+    .i_ID_pc(i_ID_pc),
+    .i_ID_write_data(i_ID_write_data),
+    .i_ID_write_reg(i_ID_write_reg),
+    .o_ID_reg_dest(o_ID_reg_dest),
+    .o_ID_alu_op(o_ID_alu_op),
+    .o_ID_alu_src(o_ID_alu_src),
+    .o_ID_mem_read(o_ID_mem_read),
+    .o_ID_mem_write(o_ID_mem_write),
+    .o_ID_branch(o_ID_branch),
+    .o_ID_reg_write(o_ID_reg_write),
+    .o_ID_jump(o_ID_jump),
+    .o_ID_jump_address(o_ID_jump_address),
+    .o_ID_data_a(o_ID_data_a),
+    .o_ID_data_b(o_ID_data_b),
+    .o_ID_immediate (o_ID_immediate),
+    .o_ID_rt(o_ID_rt),
+    .o_ID_rd(o_ID_rd),
+    .o_ID_pc(o_ID_pc)
   );
 
 endmodule

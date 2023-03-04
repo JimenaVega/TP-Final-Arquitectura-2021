@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module concat_module();
+module tb_concat_module();
     parameter NB_ADDR = 25;    // Jump address in J type instructions          
     parameter NB_PC = 32;            
     parameter NB_UPPER_PC = 4; // Number of bits of upper PC+1
@@ -12,10 +12,10 @@ module concat_module();
     wire [NB_PC-1:0] jump_addr;
 
     // PC
-    reg enable,
-    reg clock,
-    reg reset,
-    reg[NB_PC-1:0] mux_pc,
+    reg enable;
+    reg clock;
+    reg reset;
+    reg[NB_PC-1:0] mux_pc;
         
     wire  [NB_PC-1:0] next_pc;
 
@@ -55,7 +55,7 @@ module concat_module();
              );
     
     concat_module concat_module(.i_inst(instruction[NB_ADDR-1:0]),
-                                .i_next_pc(next_pc[NB_PC-1:NB_PC-4]),
+                                .i_next_pc(next_pc[NB_PC-1:28]),
                                 .o_jump_addr(jump_addr)
                                 );
 

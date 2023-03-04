@@ -53,7 +53,7 @@ module tb_MEM_stage;
     .o_MEM_branch_address (o_MEM_branch_address ),
     .o_branch_zero (o_branch_zero ),
     .o_MEM_reg_write (o_MEM_reg_write ),
-    .o_MEM_mem_to_reg (o_MEM_mem_to_reg ),
+    .o_MEM_mem_to_reg (o_MEM_mem_to_reg )
   );
 
   initial begin
@@ -89,14 +89,14 @@ module tb_MEM_stage;
     $display("Testing WRITING memory data");
     i_MEM_alu_result = 32'h4; // Address 4
     i_MEM_mem_write = 1'b1;   // flag de escritura
-    i_write_data = 32'bf0f0;  // Data que se escribe
+    i_write_data = 32'hf0f0;  // Data que se escribe
     
     $display("[$display]time=%0t -> i_MEM_alu_result=%b, i_MEM_mem_write=%b, i_write_data=%b, o_MEM_mem_data=%b, o_MEM_alu_result=%b",
                          $time, i_MEM_alu_result, i_MEM_mem_write, i_write_data, o_MEM_mem_data, o_MEM_alu_result);
     $strobe("[$strobe]time=%0t -> i_MEM_alu_result=%b, i_MEM_mem_write=%b, i_write_data=%b, o_MEM_mem_data=%b, o_MEM_alu_result=%b",
                          $time, i_MEM_alu_result, i_MEM_mem_write, i_write_data, o_MEM_mem_data, o_MEM_alu_result);                     
 
-    $40
+    #40
     $display("Testing READING memory data");
     i_MEM_alu_result = 32'h4; // Address 4
     i_MEM_mem_write = 1'b0;
@@ -107,7 +107,7 @@ module tb_MEM_stage;
                       $time, i_MEM_alu_result, i_MEM_mem_write, i_write_data, o_MEM_mem_data, o_MEM_alu_result);                     
     
     #40
-    i_MEM_selected_reg = 5'b4;
+    i_MEM_selected_reg = 5'h4;
     $display("Selected reg");
     $display("[$display]time=%0t -> i_MEM_selected_reg=%b, o_MEM_selected_reg=%b", i_MEM_selected_reg, o_MEM_selected_reg);
     $strobe("[$display]time=%0t -> i_MEM_selected_reg=%b, o_MEM_selected_reg=%b", i_MEM_selected_reg, o_MEM_selected_reg);
