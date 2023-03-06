@@ -7,14 +7,14 @@ module tb_MEM_stage;
   localparam  NB_REG = 5;
 
   // Ports
-  reg clock = 0;
-  reg i_reset = 0;
-  reg i_MEM_reg_write = 0;
-  reg i_MEM_mem_to_reg = 0;
-  reg i_MEM_mem_read = 0;
-  reg i_MEM_mem_write = 0;
-  reg i_MEM_branch = 0;
-  reg i_MEM_zero = 0;
+  reg clock;
+  reg i_reset;
+  reg i_MEM_reg_write;
+  reg i_MEM_mem_to_reg;
+  reg i_MEM_mem_read;
+  reg i_MEM_mem_write;
+  reg i_MEM_branch;
+  reg i_MEM_zero;
   reg [NB_PC-1:0] i_MEM_branch_addr;
   reg [NB_ADDR-1:0] i_MEM_alu_result;
   reg [NB_DATA-1:0] i_MEM_write_data;
@@ -53,18 +53,21 @@ module tb_MEM_stage;
     .o_MEM_branch_address (o_MEM_branch_address ),
     .o_branch_zero (o_branch_zero ),
     .o_MEM_reg_write (o_MEM_reg_write ),
-    .o_MEM_mem_to_reg (o_MEM_mem_to_reg ),
+    .o_MEM_mem_to_reg (o_MEM_mem_to_reg )
   );
 
   initial begin
     i_clock = 0;
-    i_reset = 0;
+    i_reset = 1;
     i_MEM_reg_write = 1'b0;
     i_MEM_mem_to_reg  = 1'b0;
     i_mem_read_flag = 1'b0;
     i_MEM_mem_write = 1'b0;
     i_MEM_branch = 1'b0;
     i_MEM_zero = 1'b0;
+    
+    #40
+    i_reset = 0;
 
     #40
     i_MEM_branch = 1'b0;
@@ -86,14 +89,14 @@ module tb_MEM_stage;
     $display("Testing WRITING memory data");
     i_MEM_alu_result = 32'h4; // Address 4
     i_MEM_mem_write = 1'b1;   // flag de escritura
-    i_write_data = 32'bf0f0;  // Data que se escribe
+    i_write_data = 32'hf0f0;  // Data que se escribe
     
     $display("[$display]time=%0t -> i_MEM_alu_result=%b, i_MEM_mem_write=%b, i_write_data=%b, o_MEM_mem_data=%b, o_MEM_alu_result=%b",
                          $time, i_MEM_alu_result, i_MEM_mem_write, i_write_data, o_MEM_mem_data, o_MEM_alu_result);
     $strobe("[$strobe]time=%0t -> i_MEM_alu_result=%b, i_MEM_mem_write=%b, i_write_data=%b, o_MEM_mem_data=%b, o_MEM_alu_result=%b",
                          $time, i_MEM_alu_result, i_MEM_mem_write, i_write_data, o_MEM_mem_data, o_MEM_alu_result);                     
 
-    $40
+    #40
     $display("Testing READING memory data");
     i_MEM_alu_result = 32'h4; // Address 4
     i_MEM_mem_write = 1'b0;
@@ -104,7 +107,7 @@ module tb_MEM_stage;
                       $time, i_MEM_alu_result, i_MEM_mem_write, i_write_data, o_MEM_mem_data, o_MEM_alu_result);                     
     
     #40
-    i_MEM_selected_reg = 5'b4;
+    i_MEM_selected_reg = 5'h4;
     $display("Selected reg");
     $display("[$display]time=%0t -> i_MEM_selected_reg=%b, o_MEM_selected_reg=%b", i_MEM_selected_reg, o_MEM_selected_reg);
     $strobe("[$display]time=%0t -> i_MEM_selected_reg=%b, o_MEM_selected_reg=%b", i_MEM_selected_reg, o_MEM_selected_reg);
