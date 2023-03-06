@@ -27,21 +27,53 @@ module data_memory#(
 
   reg [MEMORY_WIDTH-1:0] BRAM [MEMORY_DEPTH-1:0];
   reg [NB_DATA-1:0] ram_data = {NB_DATA{1'b0}};
+  
+  
+  generate
+  integer ram_index;
+  initial
+    for (ram_index = 0; ram_index < MEMORY_DEPTH; ram_index = ram_index + 1)
+      BRAM[ram_index] = {MEMORY_WIDTH{1'b0}};
+  endgenerate
 
 
   always @(posedge i_clock) begin
     if (i_mem_write_flag)
       case ({i_word_en, i_halfword_en, i_byte_en})
-        3'b001:  BRAM[i_address][0]   <= i_write_data[7:0];
-        3'b010:  BRAM[i_address][1:0] <= i_write_data[15:0];
-        3'b100:  BRAM[i_address][3:0] <= i_write_data[31:0];
-        default: BRAM[i_address]      <= i_write_data;
+        3'b001:
+            BRAM[i_address]   <= i_write_data[7:0];
+        3'b010:begin
+            BRAM[i_address]   <= i_write_data[15:8];
+            BRAM[i_address+1] <= i_write_data[7:0];
+        end
+        3'b100:begin
+            BRAM[i_address]   <= i_write_data[31:24];
+            BRAM[i_address+1] <= i_write_data[23:16];
+            BRAM[i_address+2] <= i_write_data[15:8];
+            BRAM[i_address+3] <= i_write_data[7:0];
+        end
+        default: BRAM[i_address] <= i_write_data;
       endcase
     if (i_mem_read_flag)
       case ({i_word_en, i_halfword_en, i_byte_en})
-        3'b001:  ram_data <= BRAM[i_address][0];
-        3'b010:  ram_data <= BRAM[i_address][1:0];
-        3'b100:  ram_data <= BRAM[i_address][3:0];
+        3'b001:begin
+            ram_data[31:24] <= 8'b0;
+            ram_data[23:16] <= 8'b0;
+            ram_data[15:8]  <= 8'b0;
+            ram_data[7:0]   <= BRAM[i_address];
+        end      
+        3'b010:begin
+            ram_data[31:24] <= 8'b0;
+            ram_data[23:16] <= 8'b0;
+            ram_data[15:8]  <= BRAM[i_address];
+            ram_data[7:0]   <= BRAM[i_address+1];
+        end
+        3'b100:begin
+            ram_data[31:24] <= BRAM[i_address];
+            ram_data[23:16] <= BRAM[i_address+1];
+            ram_data[15:8]  <= BRAM[i_address+2];
+            ram_data[7:0]   <= BRAM[i_address+3];
+        end
         default: ram_data <= BRAM[i_address];
       endcase
   end
