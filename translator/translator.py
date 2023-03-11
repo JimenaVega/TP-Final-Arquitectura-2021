@@ -183,8 +183,8 @@ def convertToHex(line):
     return converted
 
 def main():
-    inp_file = open('input_j.txt', 'r')
-    out_file = open('output_j.mem', 'w')
+    inp_file = open('all_inst.txt', 'r')
+    out_file = open('all_inst.mem', 'w')
     line = inp_file.readline()
     choice = int(input("Choose conversion to binary [1] or hexa [0]: "))
     print('Converting file assembler to .mem binary...')
