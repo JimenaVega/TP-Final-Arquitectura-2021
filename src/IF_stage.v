@@ -1,8 +1,8 @@
 `timescale 1ns / 1ps
 
 module IF_stage#(
-        parameter NB_PC_CONSTANT    = 3,
-        parameter NB_PC             = 6,
+        //parameter NB_PC_CONSTANT    = 3,
+        parameter NB_PC             = 32,
         parameter NB_INSTRUCTION    = 32
     )
     (
@@ -26,10 +26,10 @@ module IF_stage#(
     wire [NB_PC-1:0]            jump_address;
     wire [NB_INSTRUCTION-1:0]   new_instruction;
     
-    reg [NB_PC_CONSTANT-1:0]    pc_constant = 3'h04;
+    reg [NB_PC-1:0]    pc_constant = 32'd4;
     
     program_counter program_counter_1(.i_enable(i_IF_pc_enable),
-                                      .i_clock(i_IF_clock),
+                                      .i_clock(i_clock),
                                       .i_reset(i_IF_pc_reset),
                                       .i_mux_pc(mux2_2_output),
                                       .o_pc_mem(new_pc_value));
@@ -48,15 +48,15 @@ module IF_stage#(
                 .i_b(i_IF_jump_address),
                 .o_data(mux2_2_output));
     
-    instruction_memory(.i_clock(i_clock),
-                       .i_write_enable(),
-                       .i_read_enable(i_IF_read_enable),
-                       .i_rstb(),
-                       .i_regceb(),
-                       .i_write_addr(),
-                       .i_read_addr(new_pc_value),
-                       .i_write_data(),
-                       .o_read_data(new_instruction));
+    instruction_memory instruction_memory_1(.i_clock(i_clock),
+                                            .i_write_enable(),
+                                            .i_read_enable(i_IF_read_enable),
+                                            .i_rstb(),
+                                            .i_regceb(),
+                                            .i_write_addr(),
+                                            .i_read_addr(new_pc_value),
+                                            .i_write_data(),
+                                            .o_read_data(new_instruction));
     
     assign o_IF_adder_result    = adder_result;                   
     assign o_IF_new_instruction = new_instruction;

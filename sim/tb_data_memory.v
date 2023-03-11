@@ -44,9 +44,61 @@ module tb_data_memory;
   initial begin
     begin
       i_mem_write_flag  = 1'b1;
+      i_mem_read_flag   = 1'b0;
+      
       i_word_en         = 1'b1;
-      i_address         = 7'b0;
+      i_halfword_en     = 1'b0;
+      i_byte_en         = 1'b0;
+      i_address         = 7'd0;
       i_write_data      = 32'hffffffff;
+      
+      #20
+      
+      i_word_en         = 1'b0;
+      i_halfword_en     = 1'b0;
+      i_byte_en         = 1'b1;
+      i_address         = 7'd0;
+      i_write_data      = 32'h0;
+      
+      #20
+      
+      i_word_en         = 1'b0;
+      i_halfword_en     = 1'b1;
+      i_byte_en         = 1'b0;
+      i_address         = 7'd10;
+      i_write_data      = 32'hffffffff;
+      
+      #20
+      
+      i_mem_write_flag  = 1'b0;
+      i_mem_read_flag   = 1'b1;
+      
+      i_word_en         = 1'b0;
+      i_halfword_en     = 1'b1;
+      i_byte_en         = 1'b0;
+      i_address         = 7'd0;
+      
+      #20
+      
+      i_word_en         = 1'b1;
+      i_halfword_en     = 1'b0;
+      i_byte_en         = 1'b0;
+      i_address         = 7'd0;
+      
+      #20
+      
+      i_word_en         = 1'b0;
+      i_halfword_en     = 1'b0;
+      i_byte_en         = 1'b1;
+      i_address         = 7'd10;
+      
+      #20
+      
+      i_word_en         = 1'b1;
+      i_halfword_en     = 1'b0;
+      i_byte_en         = 1'b0;
+      i_address         = 7'd10;
+      
       $finish;
     end
   end

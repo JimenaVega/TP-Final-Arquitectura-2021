@@ -8,7 +8,7 @@
 module instruction_memory#(
   parameter MEMORY_WIDTH = 32,              // Specify RAM data width
   parameter MEMORY_DEPTH = 64,              // Specify RAM depth (number of entries)
-  parameter NB_ADDR = 6,
+  parameter NB_ADDR = 32,
   parameter RAM_PERFORMANCE = "LOW_LATENCY",// Select "HIGH_PERFORMANCE" or "LOW_LATENCY" 
   parameter INIT_FILE = "C:/Users/alejo/Downloads/instructions.mem"       // Specify name/location of RAM initialization file if using one (leave blank if not)
 ) 
