@@ -16,9 +16,13 @@ module program_counter#(
     
     assign o_pc_mem = pc;
     
+    initial begin
+        pc = {NB{1'b0}};
+    end
+    
     always@(posedge i_clock)
         if(i_reset) begin
-            pc <= 0;
+            pc <= {NB{1'b0}};
         end
         else if(i_enable) begin
             pc <= i_mux_pc;
