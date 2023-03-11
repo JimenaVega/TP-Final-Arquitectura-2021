@@ -13,6 +13,9 @@ module MEM_stage#(
         input i_MEM_mem_to_reg, // WB stage flag
         input i_MEM_mem_read,   // read data memory flag
         input i_MEM_mem_write,  // write data memory flag
+        input i_MEM_word_en,
+        input i_MEM_halfword_en,
+        input i_MEM_byte_en,
         input i_MEM_branch,     // branch 
         input i_MEM_zero,       // zero flag 
         input [NB_PC-1:0]    i_MEM_branch_addr,  
@@ -31,9 +34,10 @@ module MEM_stage#(
 
     data_memory data_memory_1(.i_clock(i_clock),                           
                               .i_mem_write_flag(i_MEM_mem_write),                   
-                              .i_mem_read_flag(i_MEM_mem_read),                   
-                              .rstb(),       // HIGH_PERFORMANCE ver si borrar.                 
-                              .regceb(),     // HIGH_PERFORMANCE                  
+                              .i_mem_read_flag(i_MEM_mem_read),
+                              .i_word_en(i_MEM_word_en),
+                              .i_halfword_en(i_MEM_halfword_en),
+                              .i_byte_en(i_MEM_byte_en),                           
                               .i_address(i_MEM_alu_result),   
                               .i_write_data(i_MEM_write_data),    
                               .o_read_data(o_MEM_mem_data)    
