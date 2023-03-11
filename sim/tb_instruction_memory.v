@@ -4,7 +4,7 @@ module tb_instruction_memory();
 
     parameter MEMORY_WIDTH = 32;
     parameter MEMORY_DEPTH = 64;
-    parameter NB_ADDR = 6;
+    parameter NB_ADDR = 32;
     
     reg [NB_ADDR-1:0] write_addr;
     reg [NB_ADDR-1:0] read_addr;
