@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 module EX_stage#(
-        parameter NB_ALU_OP   = 3,
+        parameter NB_ALU_OP   = 6,
         parameter NB_ALU_CTRL = 4,
         parameter NB_IMM      = 32,
         parameter NB_PC       = 32, // TODO: estaba en 6
@@ -33,7 +33,7 @@ module EX_stage#(
         output                  o_EX_branch,
         output [NB_PC-1:0]      o_EX_branch_address,
         output                  o_EX_zero,
-        output                  o_EX_alu_result,
+        output [NB_DATA-1:0]    o_EX_alu_result,
         output [NB_DATA-1:0]    o_EX_data_a,
         output [NB_REG-1:0]     o_EX_selected_reg
         
