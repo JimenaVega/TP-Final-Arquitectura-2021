@@ -49,13 +49,8 @@ module IF_stage#(
                 .o_data(mux2_2_output));
     
     instruction_memory instruction_memory_1(.i_clock(i_clock),
-                                            .i_write_enable(),
                                             .i_read_enable(i_IF_read_enable),
-                                            .i_rstb(),
-                                            .i_regceb(),
-                                            .i_write_addr(),
                                             .i_read_addr(new_pc_value),
-                                            .i_write_data(),
                                             .o_read_data(new_instruction));
     
     assign o_IF_adder_result    = adder_result;                   
