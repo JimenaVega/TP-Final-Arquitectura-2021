@@ -37,7 +37,10 @@ module control_unit#(
         output reg                  o_branch,       // MEM
         output reg                  o_reg_write,    // WB
         output reg                  o_mem_to_reg,   // WB
-        output reg                  o_jump
+        output reg                  o_jump,
+        output reg                  o_byte_en,
+        output reg                  o_halfword_en,
+        output reg                  o_word_en
     );
 
     always@(*) begin
@@ -64,6 +67,9 @@ module control_unit#(
                     o_reg_write     = 1'b1; // escribe en bank register
                     o_mem_to_reg    = 1'b0; // read salida ALU
                     o_jump          = 1'b0;
+                    o_byte_en       = 1'b0;
+                    o_halfword_en   = 1'b0;
+                    o_word_en       = 1'b0;
 
                 end
                 BEQ_OPCODE:begin
@@ -75,6 +81,9 @@ module control_unit#(
                     o_reg_write     = 1'b0; // no escribe en bank register
                     o_mem_to_reg    = 1'b0; // X
                     o_jump          = 1'b0;
+                    o_byte_en       = 1'b0;
+                    o_halfword_en   = 1'b0;
+                    o_word_en       = 1'b0;
                 end
                 BNE_OPCODE:begin
                     o_reg_dest      = 1'b0; // X
@@ -85,6 +94,9 @@ module control_unit#(
                     o_reg_write     = 1'b0; // no escribe en bank register
                     o_mem_to_reg    = 1'b0; // X
                     o_jump          = 1'b0;
+                    o_byte_en       = 1'b0;
+                    o_halfword_en   = 1'b0;
+                    o_word_en       = 1'b0;
                 end
                 ADDI_OPCODE:begin
                     o_reg_dest      = 1'b0; // rt
@@ -95,6 +107,9 @@ module control_unit#(
                     o_reg_write     = 1'b1; // escribe en bank register
                     o_mem_to_reg    = 1'b0; // read salida ALU
                     o_jump          = 1'b0;
+                    o_byte_en       = 1'b0;
+                    o_halfword_en   = 1'b0;
+                    o_word_en       = 1'b0;
                 end
                 SLTI_OPCODE:begin
                     o_reg_dest      = 1'b0; // rt
@@ -105,6 +120,9 @@ module control_unit#(
                     o_reg_write     = 1'b1; // escribe en bank register
                     o_mem_to_reg    = 1'b0; // read salida ALU
                     o_jump          = 1'b0;
+                    o_byte_en       = 1'b0;
+                    o_halfword_en   = 1'b0;
+                    o_word_en       = 1'b0;
                 end
                 ANDI_OPCODE:begin
                     o_reg_dest      = 1'b0; // rt
@@ -115,6 +133,9 @@ module control_unit#(
                     o_reg_write     = 1'b1; // escribe en bank register
                     o_mem_to_reg    = 1'b0; // read salida ALU
                     o_jump          = 1'b0;
+                    o_byte_en       = 1'b0;
+                    o_halfword_en   = 1'b0;
+                    o_word_en       = 1'b0;
                 end
                 ORI_OPCODE:begin
                     o_reg_dest      = 1'b0; // rt
@@ -125,6 +146,9 @@ module control_unit#(
                     o_reg_write     = 1'b1; // escribe en bank register
                     o_mem_to_reg    = 1'b0; // read salida ALU
                     o_jump          = 1'b0;
+                    o_byte_en       = 1'b0;
+                    o_halfword_en   = 1'b0;
+                    o_word_en       = 1'b0;
                 end
                 XORI_OPCODE:begin
                     o_reg_dest      = 1'b0; // rt
@@ -135,6 +159,9 @@ module control_unit#(
                     o_reg_write     = 1'b1; // escribe en bank register
                     o_mem_to_reg    = 1'b0; // read salida ALU
                     o_jump          = 1'b0;
+                    o_byte_en       = 1'b0;
+                    o_halfword_en   = 1'b0;
+                    o_word_en       = 1'b0;
                 end
                 LUI_OPCODE:begin
                     o_reg_dest      = 1'b0; // rt
@@ -145,6 +172,9 @@ module control_unit#(
                     o_reg_write     = 1'b1; // escribe en bank register
                     o_mem_to_reg    = 1'b0; // read salida ALU
                     o_jump          = 1'b0;
+                    o_byte_en       = 1'b0;
+                    o_halfword_en   = 1'b0;
+                    o_word_en       = 1'b0;
                 end
                 LB_OPCODE:begin
                     o_reg_dest      = 1'b0; // rt
@@ -155,6 +185,9 @@ module control_unit#(
                     o_reg_write     = 1'b1; // escribe en rt
                     o_mem_to_reg    = 1'b1; // read salida data memory
                     o_jump          = 1'b0;
+                    o_byte_en       = 1'b1;
+                    o_halfword_en   = 1'b0;
+                    o_word_en       = 1'b0;
                 end
                 LH_OPCODE:begin
                     o_reg_dest      = 1'b0; // rt
@@ -165,6 +198,9 @@ module control_unit#(
                     o_reg_write     = 1'b1; // escribe en rt
                     o_mem_to_reg    = 1'b1; // read salida data memory
                     o_jump          = 1'b0;
+                    o_byte_en       = 1'b0;
+                    o_halfword_en   = 1'b1;
+                    o_word_en       = 1'b0;
                 end
                 LHU_OPCODE:begin
                     o_reg_dest      = 1'b0; // rt
@@ -175,6 +211,9 @@ module control_unit#(
                     o_reg_write     = 1'b1; // escribe en rt
                     o_mem_to_reg    = 1'b1; // read salida data memory
                     o_jump          = 1'b0;
+                    o_byte_en       = 1'b0;
+                    o_halfword_en   = 1'b1;
+                    o_word_en       = 1'b0;
                 end
                 LW_OPCODE:begin
                     o_reg_dest      = 1'b0; // rt
@@ -185,6 +224,9 @@ module control_unit#(
                     o_reg_write     = 1'b1; // escribe en rt
                     o_mem_to_reg    = 1'b1; // read salida data memory
                     o_jump          = 1'b0;
+                    o_byte_en       = 1'b0;
+                    o_halfword_en   = 1'b0;
+                    o_word_en       = 1'b1;
                 end
                 LWU_OPCODE:begin
                     o_reg_dest      = 1'b0; // rt
@@ -195,6 +237,9 @@ module control_unit#(
                     o_reg_write     = 1'b1; // escribe en rt
                     o_mem_to_reg    = 1'b1; // read salida data memory
                     o_jump          = 1'b0;
+                    o_byte_en       = 1'b0;
+                    o_halfword_en   = 1'b0;
+                    o_word_en       = 1'b1;
                 end
                 LBU_OPCODE:begin
                     o_reg_dest      = 1'b0; // rt
@@ -205,6 +250,9 @@ module control_unit#(
                     o_reg_write     = 1'b1; // escribe en rt
                     o_mem_to_reg    = 1'b1; // read salida data memory
                     o_jump          = 1'b0;
+                    o_byte_en       = 1'b1;
+                    o_halfword_en   = 1'b0;
+                    o_word_en       = 1'b0;
                 end
                 SB_OPCODE:begin
                     o_reg_dest      = 1'b0; // rt
@@ -215,6 +263,9 @@ module control_unit#(
                     o_reg_write     = 1'b0; // escribe en rt
                     o_mem_to_reg    = 1'b0; // X
                     o_jump          = 1'b0;
+                    o_byte_en       = 1'b1;
+                    o_halfword_en   = 1'b0;
+                    o_word_en       = 1'b0;
                 end
                 SH_OPCODE:begin
                     o_reg_dest      = 1'b0; // rt
@@ -225,6 +276,9 @@ module control_unit#(
                     o_reg_write     = 1'b0; // escribe en rt
                     o_mem_to_reg    = 1'b0; // X
                     o_jump          = 1'b0;
+                    o_byte_en       = 1'b0;
+                    o_halfword_en   = 1'b1;
+                    o_word_en       = 1'b0;
                 end
                 SW_OPCODE:begin
                     o_reg_dest      = 1'b0; // rt
@@ -235,6 +289,9 @@ module control_unit#(
                     o_reg_write     = 1'b0; // escribe en rt
                     o_mem_to_reg    = 1'b0; // X
                     o_jump          = 1'b0;
+                    o_byte_en       = 1'b0;
+                    o_halfword_en   = 1'b0;
+                    o_word_en       = 1'b1;
                 end
                 J_OPCODE:begin
                     o_reg_dest      = 1'b0; // rt
@@ -245,6 +302,9 @@ module control_unit#(
                     o_reg_write     = 1'b0; // escribe en rt
                     o_mem_to_reg    = 1'b0; // X
                     o_jump          = 1'b1;
+                    o_byte_en       = 1'b0;
+                    o_halfword_en   = 1'b0;
+                    o_word_en       = 1'b0;
                 end
                 JAL_OPCODE:begin
                     o_reg_dest      = 1'b0; // rt
@@ -255,6 +315,9 @@ module control_unit#(
                     o_reg_write     = 1'b0; // escribe en rt
                     o_mem_to_reg    = 1'b0; // X
                     o_jump          = 1'b1; // TODO: ver si se necesta señal que haga $ra=PC+1
+                    o_byte_en       = 1'b0;
+                    o_halfword_en   = 1'b0;
+                    o_word_en       = 1'b0;
                 end
             endcase
         end

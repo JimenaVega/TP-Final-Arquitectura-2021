@@ -30,7 +30,10 @@ module ID_stage#(
         output [NB_PC-1:0]          o_ID_immediate,    // immediate 32b / function code
         output [NB_REG-1:0]         o_ID_rt,
         output [NB_REG-1:0]         o_ID_rd,
-        output [NB_PC-1:0]          o_ID_pc
+        output [NB_PC-1:0]          o_ID_pc,
+        output                      o_ID_byte_en,
+        output                      o_ID_halfword_en,
+        output                      o_ID_word_en
     );
     
     registers_bank registers_bank_1(.i_clock(i_clock),
@@ -55,7 +58,10 @@ module ID_stage#(
                                 .o_branch(o_ID_branch),         // MEM
                                 .o_reg_write(o_ID_reg_write),   // WB
                                 .o_mem_to_reg(o_ID_mem_to_reg), // WB
-                                .o_jump(o_ID_jump)
+                                .o_jump(o_ID_jump),
+                                .o_byte_en(o_ID_byte_en),
+                                .o_halfword_en(o_ID_halfword_en),
+                                .o_word_en(o_ID_word_en));
         );
 
     sign_extend sign_extend_1(.i_data(i_ID_inst[15:0]),

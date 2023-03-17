@@ -25,6 +25,9 @@ module EX_stage#(
         input [NB_IMM-1:0]      i_EX_immediate,
         input [NB_REG-1:0]      i_EX_rt,
         input [NB_REG-1:0]      i_EX_rd,
+        input                  i_EX_byte_en,
+        input                  i_EX_halfword_en,
+        input                  i_EX_word_en,
         
         output                  o_EX_reg_write,
         output                  o_EX_mem_to_reg,
@@ -35,7 +38,10 @@ module EX_stage#(
         output                  o_EX_zero,
         output [NB_DATA-1:0]    o_EX_alu_result,
         output [NB_DATA-1:0]    o_EX_data_a,
-        output [NB_REG-1:0]     o_EX_selected_reg
+        output [NB_REG-1:0]     o_EX_selected_reg,
+        output                  o_EX_byte_en,
+        output                  o_EX_halfword_en,
+        output                  o_EX_word_en
         
     );
     
@@ -87,5 +93,8 @@ module EX_stage#(
     assign o_EX_alu_result = alu_result;
     assign o_EX_data_a = i_EX_data_a;
     assign o_EX_selected_reg = selected_reg;
+    assign o_EX_byte_en = i_EX_byte_en;
+    assign o_EX_halfword_en = i_EX_halfword_en;
+    assign o_EX_word_en = i_EX_word_en;
 
 endmodule

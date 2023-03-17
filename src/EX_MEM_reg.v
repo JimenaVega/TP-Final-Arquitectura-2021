@@ -16,6 +16,9 @@ module EX_MEM_reg#(
         input                  EX_alu_result,
         input                  EX_data_a,
         input [NB_REG-1:0]     EX_selected_reg,
+        input                  EX_byte_en,
+        input                  EX_halfword_en,
+        input                  EX_word_en,
         
         output                  MEM_reg_write,
         output                  MEM_mem_to_reg,
@@ -26,7 +29,10 @@ module EX_MEM_reg#(
         output                  MEM_zero,
         output                  MEM_alu_result,
         output                  MEM_data_a,
-        output [NB_REG-1:0]     MEM_selected_reg
+        output [NB_REG-1:0]     MEM_selected_reg,
+        output                  MEM_byte_en,
+        output                  MEM_halfword_en,
+        output                  MEM_word_en
     );
     
     reg                  reg_write;
@@ -39,6 +45,9 @@ module EX_MEM_reg#(
     reg                  alu_result;
     reg                  data_a;
     reg [NB_REG-1:0]     selected_reg;
+    reg                  byte_en;
+    reg                  halfword_en;
+    reg                  word_en;
 
     always @(posedge i_clock) begin
         reg_write       <= EX_reg_write;
@@ -51,6 +60,9 @@ module EX_MEM_reg#(
         alu_result      <= EX_alu_result;
         data_a          <= EX_data_a;
         selected_reg    <= EX_selected_reg;
+        byte_en         <= EX_byte_en;
+        halfword_en     <= EX_halfword_en;
+        word_en         <= EX_word_en;
     end
 
     assign MEM_reg_write      = reg_write;
@@ -63,5 +75,8 @@ module EX_MEM_reg#(
     assign MEM_alu_result     = alu_result;
     assign MEM_data_a         = data_a;
     assign MEM_selected_reg   = selected_reg;
+    assign MEM_byte_en        = byte_en;
+    assign MEM_halfword_en    = halfword_en;
+    assign MEM_word_en        = word_en;
     
 endmodule

@@ -23,6 +23,9 @@ module ID_EX_reg#(
         input  [NB_IMM-1:0]      ID_immediate,
         input  [NB_REG-1:0]      ID_rt,
         input  [NB_REG-1:0]      ID_rd,
+        input                    ID_byte_en,
+        input                    ID_halfword_en,
+        input                    ID_word_en,
         
         output                   EX_reg_write,
         output                   EX_mem_to_reg,
@@ -37,7 +40,10 @@ module ID_EX_reg#(
         output [NB_DATA-1:0]     EX_data_b,
         output [NB_IMM-1:0]      EX_immediate,
         output [NB_REG-1:0]      EX_rt,
-        output [NB_REG-1:0]      EX_rd
+        output [NB_REG-1:0]      EX_rd,
+        output                   EX_byte_en,
+        output                   EX_halfword_en,
+        output                   EX_word_en
     );
     
     reg                 reg_write;
@@ -54,6 +60,9 @@ module ID_EX_reg#(
     reg [NB_IMM-1:0]    immediate;
     reg [NB_REG-1:0]    rt;
     reg [NB_REG-1:0]    rd;
+    reg                 byte_en;
+    reg                 halfword_en;
+    reg                 word_en;
 
     always @(posedge i_clock) begin
         reg_write   <= ID_reg_write;
@@ -70,21 +79,27 @@ module ID_EX_reg#(
         immediate   <= ID_immediate;
         rt          <= ID_rt;
         rd          <= ID_rd;
+        byte_en     <= ID_byte_en;
+        halfword_en <= ID_halfword_en;
+        word_en     <= ID_word_en;
     end
 
-    assign EX_reg_write  = reg_write;
-    assign EX_mem_to_reg = mem_to_reg;
-    assign EX_mem_read   = mem_read;
-    assign EX_mem_write  = mem_write;
-    assign EX_branch     = branch;
-    assign EX_alu_src    = alu_src;
-    assign EX_reg_dest    = reg_dest;
-    assign EX_alu_op     = alu_op;
-    assign EX_pc         = pc;
-    assign EX_data_a     = data_a;
-    assign EX_data_b     = data_b;
-    assign EX_immediate  = immediate;
-    assign EX_rt         = rt;
-    assign EX_rd         = rd;
+    assign EX_reg_write     = reg_write;
+    assign EX_mem_to_reg    = mem_to_reg;
+    assign EX_mem_read      = mem_read;
+    assign EX_mem_write     = mem_write;
+    assign EX_branch        = branch;
+    assign EX_alu_src       = alu_src;
+    assign EX_reg_dest      = reg_dest;
+    assign EX_alu_op        = alu_op;
+    assign EX_pc            = pc;
+    assign EX_data_a        = data_a;
+    assign EX_data_b        = data_b;
+    assign EX_immediate     = immediate;
+    assign EX_rt            = rt;
+    assign EX_rd            = rd;
+    assign EX_byte_en       = byte_en;
+    assign EX_halfword_en   = halfword_en;
+    assign EX_word_en       = word_en;
     
 endmodule

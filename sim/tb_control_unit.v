@@ -36,6 +36,9 @@ module tb_control_unit();
     wire                 branch;
     wire                 reg_write;
     wire                 mem_to_reg;
+    wire                 byte_en;
+    wire                 halfword_en;
+    wire                 word_en;
     
     initial begin
     
@@ -101,7 +104,10 @@ module tb_control_unit();
                               .o_mem_write(mem_write),
                               .o_branch(branch),
                               .o_reg_write(reg_write),
-                              .o_mem_to_reg(mem_to_reg)
+                              .o_mem_to_reg(mem_to_reg),
+                              .o_byte_en(byte_en),
+                              .o_halfword_en(halfword_en),
+                              .o_word_en(word_en)
                               );
 
 endmodule

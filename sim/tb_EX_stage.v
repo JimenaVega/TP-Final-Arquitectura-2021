@@ -1,41 +1,48 @@
 module EX_stage_tb;
 
   // Parameters
-  localparam  NB_ALU_OP = 6;
+  localparam  NB_ALU_OP   = 6;
   localparam  NB_ALU_CTRL = 4;
-  localparam  NB_IMM = 32;
-  localparam  NB_PC = 32;
-  localparam  NB_DATA = 32;
-  localparam  NB_REG = 5;
-  localparam  NB_FCODE = 6;
-  localparam  N_OP = 30;
+  localparam  NB_IMM      = 32;
+  localparam  NB_PC       = 32;
+  localparam  NB_DATA     = 32;
+  localparam  NB_REG      = 5;
+  localparam  NB_FCODE    = 6;
+  localparam  N_OP        = 30;
 
   // Ports
-  reg i_clock = 0;
-  reg i_EX_reg_write = 0;
-  reg i_EX_mem_to_reg = 0;
-  reg i_EX_mem_read = 0;
-  reg i_EX_mem_write = 0;
-  reg i_EX_branch = 0;
-  reg i_EX_alu_src = 0;
-  reg i_EX_reg_dest = 0;
+  reg                 i_clock           = 0;
+  reg                 i_EX_reg_write    = 0;
+  reg                 i_EX_mem_to_reg   = 0;
+  reg                 i_EX_mem_read     = 0;
+  reg                 i_EX_mem_write    = 0;
+  reg                 i_EX_branch       = 0;
+  reg                 i_EX_alu_src      = 0;
+  reg                 i_EX_reg_dest     = 0;
   reg [NB_ALU_OP-1:0] i_EX_alu_op;
-  reg [NB_PC-1:0] i_EX_pc;
-  reg [NB_DATA-1:0] i_EX_data_a;
-  reg [NB_DATA-1:0] i_EX_data_b;
-  reg [NB_IMM-1:0] i_EX_immediate;
-  reg [NB_REG-1:0] i_EX_rt;
-  reg [NB_REG-1:0] i_EX_rd;
-  wire o_EX_reg_write;
-  wire o_EX_mem_to_reg;
-  wire o_EX_mem_read;
-  wire o_EX_mem_write;
-  wire o_EX_branch;
-  wire [NB_PC-1:0] o_EX_branch_addr;
-  wire o_EX_zero;
-  wire [NB_DATA-1:0] o_EX_alu_result;
-  wire [NB_DATA-1:0] o_EX_data_a;
-  wire [NB_REG-1:0] o_EX_selected_reg;
+  reg [NB_PC-1:0]     i_EX_pc;
+  reg [NB_DATA-1:0]   i_EX_data_a;
+  reg [NB_DATA-1:0]   i_EX_data_b;
+  reg [NB_IMM-1:0]    i_EX_immediate;
+  reg [NB_REG-1:0]    i_EX_rt;
+  reg [NB_REG-1:0]    i_EX_rd;
+  reg                 i_EX_byte_en      = 0;
+  reg                 i_EX_halfword_en  = 0;
+  reg                 i_EX_word_en      = 0;
+
+  wire                o_EX_reg_write;
+  wire                o_EX_mem_to_reg;
+  wire                o_EX_mem_read;
+  wire                o_EX_mem_write;
+  wire                o_EX_branch;
+  wire [NB_PC-1:0]    o_EX_branch_addr;
+  wire                o_EX_zero;
+  wire [NB_DATA-1:0]  o_EX_alu_result;
+  wire [NB_DATA-1:0]  o_EX_data_a;
+  wire [NB_REG-1:0]   o_EX_selected_reg;
+  wire                o_EX_byte_en;
+  wire                o_EX_halfword_en;
+  wire                o_EX_word_en;
 
   EX_stage 
   #(
@@ -63,6 +70,9 @@ module EX_stage_tb;
     .i_EX_immediate(i_EX_immediate),
     .i_EX_rt(i_EX_rt),
     .i_EX_rd(i_EX_rd),
+    .i_EX_byte_en(i_EX_byte_en),
+    .i_EX_halfword_en(i_EX_halfword_en),
+    .i_EX_word_en(i_EX_word_en),
     .o_EX_reg_write(o_EX_reg_write),
     .o_EX_mem_to_reg(o_EX_mem_to_reg),
     .o_EX_mem_read(o_EX_mem_read),
@@ -72,7 +82,10 @@ module EX_stage_tb;
     .o_EX_zero(o_EX_zero),
     .o_EX_alu_result(o_EX_alu_result),
     .o_EX_data_a(o_EX_data_a),
-    .o_EX_selected_reg( o_EX_selected_reg)
+    .o_EX_selected_reg( o_EX_selected_reg),
+    .o_EX_byte_en(o_EX_byte_en),
+    .o_EX_halfword_en(o_EX_halfword_en),
+    .o_EX_word_en(o_EX_word_en)
   );
   
   reg [31:0] instruction [N_OP-1:0];
