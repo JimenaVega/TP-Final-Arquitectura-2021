@@ -1,6 +1,8 @@
 module EX_stage_tb;
 
   // Parameters
+  localparam  INIT_FILE ="/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/translator/output_r.mem";
+  localparam  N_TESTS = 2;
   localparam  NB_ALU_OP   = 6;
   localparam  NB_ALU_CTRL = 4;
   localparam  NB_IMM      = 32;
@@ -8,17 +10,17 @@ module EX_stage_tb;
   localparam  NB_DATA     = 32;
   localparam  NB_REG      = 5;
   localparam  NB_FCODE    = 6;
-  localparam  N_OP        = 30;
+  localparam  N_OP        = 9;
 
   // Ports
-  reg                 i_clock           = 0;
-  reg                 i_EX_reg_write    = 0;
-  reg                 i_EX_mem_to_reg   = 0;
-  reg                 i_EX_mem_read     = 0;
-  reg                 i_EX_mem_write    = 0;
-  reg                 i_EX_branch       = 0;
-  reg                 i_EX_alu_src      = 0;
-  reg                 i_EX_reg_dest     = 0;
+  reg                 i_clock;
+  reg                 i_EX_reg_write;
+  reg                 i_EX_mem_to_reg;
+  reg                 i_EX_mem_read;
+  reg                 i_EX_mem_write;
+  reg                 i_EX_branch;
+  reg                 i_EX_alu_src;
+  reg                 i_EX_reg_dst;
   reg [NB_ALU_OP-1:0] i_EX_alu_op;
   reg [NB_PC-1:0]     i_EX_pc;
   reg [NB_DATA-1:0]   i_EX_data_a;
@@ -43,6 +45,9 @@ module EX_stage_tb;
   wire                o_EX_byte_en;
   wire                o_EX_halfword_en;
   wire                o_EX_word_en;
+
+  integer             op_counter;
+  integer             tests_counter;
 
   EX_stage 
   #(
@@ -91,10 +96,10 @@ module EX_stage_tb;
   reg [31:0] instruction [N_OP-1:0];
 
   generate
-    if (INIT_FILE != "") begin: 
+    if (INIT_FILE != "") begin 
       initial
         $readmemb(INIT_FILE, instruction, 0, N_OP-1);
-    end else begin: 
+    end else begin 
       integer i;
       initial
         for (i = 0; i < N_OP; i = i + 1)
@@ -112,8 +117,8 @@ module EX_stage_tb;
     op_counter = 0;
     tests_counter = 0;
     i_EX_pc = 32'b0; // PC
-    i_EX_alu_src = 1'b1; // Se prueban operaciones tipo R, esta flag siempre a a ser 1
-    i_EX_reg_dest = 1'b1; // La salida del MUX siempre va a ser rd
+    i_EX_alu_src = 1'b0; // Se prueban operaciones tipo R, esta flag siempre a a ser 0
+    i_EX_reg_dst = 1'b1; // La salida del MUX siempre va a ser rd
 
     // flags no usadas en este stage
     i_EX_reg_write = 1'b0;
@@ -122,9 +127,13 @@ module EX_stage_tb;
     i_EX_mem_write = 1'b0;
     i_EX_branch = 1'b0;
 
-    for(op_counter = 0; op_counter <= N_OP; op_counter = op_counter+1)begin
+    for(op_counter = 0; op_counter < N_OP; op_counter = op_counter+1)begin
+    
+     $display("--------------------------------------------------------");
+     $display("op_counter=%0d, instruction=%b", op_counter, instruction[op_counter]);
+     $display("--------------------------------------------------------");
            
-      for(tests_counter = 0; tests_counter <= N_tests; tests_counter = tests_counter+1)begin
+      for(tests_counter = 0; tests_counter <= N_TESTS; tests_counter = tests_counter+1)begin
           #40
           i_EX_data_a = $urandom;
          
@@ -138,33 +147,45 @@ module EX_stage_tb;
           
           #40
           i_EX_alu_op = instruction[op_counter][31:26];
-          
+         
           #40
           if(!instruction[op_counter][31:26]) begin //R-type
             
             case(instruction[op_counter][6:0]) // funct
               6'b100000: begin // add
                 if(i_EX_data_a + i_EX_data_b !== o_EX_alu_result) begin
-                  $display("%b + %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
-                  $display("Error en la suma");
+                  $display("%0d + %0d = %0d", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
+                  $display("Error en add");
+                end
+                else begin
+                    $display("R-TYPE: add OPCODE:%b FUNCT:%b paso test [%0d]", instruction[op_counter][31:26], instruction[op_counter][6:0], tests_counter);
                 end
               end
               6'b100001: begin // addu
                 if(i_EX_data_a + i_EX_data_b !== o_EX_alu_result) begin
-                  $display("%b + %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
-                  $display("Error en la suma");
+                  $display("%d + %d = %d", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
+                  $display("Error en addu");
+                end
+                else begin
+                    $display("R-TYPE: addu OPCODE:%b FUNCT:%b paso test [%0d]", instruction[op_counter][31:26], instruction[op_counter][6:0], tests_counter);
                 end
               end
               6'b100010: begin // sub
                 if(i_EX_data_a - i_EX_data_b !== o_EX_alu_result) begin
                   $display("%b - %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
-                  $display("Error en la resta");
+                  $display("Error en la sub");
+                end
+                else begin
+                    $display("R-TYPE: sub OPCODE:%b FUNCT:%b paso test [%0d]", instruction[op_counter][31:26], instruction[op_counter][6:0], tests_counter);
                 end
               end
               6'b100011: begin  // subu
                 if(i_EX_data_a - i_EX_data_b !== o_EX_alu_result) begin
                   $display("%b - %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
-                  $display("Error en la resta");
+                  $display("Error en la subu");
+                end
+                else begin
+                    $display("R-TYPE: subu OPCODE:%b FUNCT:%b paso test [%0d]", instruction[op_counter][31:26], instruction[op_counter][6:0], tests_counter);
                 end
               end
               6'b100100: begin // and
@@ -172,11 +193,17 @@ module EX_stage_tb;
                   $display("%b & %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
                   $display("Error en la and");
                 end
+                else begin
+                    $display("R-TYPE: and OPCODE:%b FUNCT:%b paso test [%0d]", instruction[op_counter][31:26], instruction[op_counter][6:0], tests_counter);
+                end
               end
               6'b100111: begin //nor
                 if((~(i_EX_data_a | i_EX_data_b)) != o_EX_alu_result) begin
                   $display("~(%b | %b) = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
                   $display("Error en la nor");
+                end
+                else begin
+                    $display("R-TYPE: nor OPCODE:%b FUNCT:%b paso test [%0d]", instruction[op_counter][31:26], instruction[op_counter][6:0], tests_counter);
                 end
               end
               6'b100101: begin // or
@@ -184,17 +211,24 @@ module EX_stage_tb;
                   $display("%b | %b = %b)", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
                   $display("Error en la or");
                 end
+                else begin
+                    $display("R-TYPE: or OPCODE:%b FUNCT:%b paso test [%0d]", instruction[op_counter][31:26], instruction[op_counter][6:0], tests_counter);
+                end
               end
               6'b100110: begin // xor
                 if((i_EX_data_a ^ i_EX_data_b) !== o_EX_alu_result) begin
                   $display("%b ^ %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
                   $display("Error en la xor");
                 end
+                else begin
+                    $display("R-TYPE: xor OPCODE:%b FUNCT:%b paso test [%0d]", instruction[op_counter][31:26], instruction[op_counter][6:0], tests_counter);
+                end
               end
               // TODO: Agregar shifts
             endcase
           end
-          if(instruction[op_co])
+          else if(instruction[op_counter][31:26]) begin // I-type
+          $display("I-TYPE: OPCODE:%b FUNCT:%b", instruction[op_counter][31:26], instruction[op_counter][6:0]);
           case(instruction[op_counter][31:26])
               6'b100000: begin
                 if(i_EX_data_a + i_EX_immediate !== o_EX_alu_result) begin // lb
@@ -280,44 +314,12 @@ module EX_stage_tb;
                   $display("Error en slti");
                 end
               end
-              
-              // 34: if(i_EX_data_a - i_EX_immediate !== o_EX_alu_result) begin
-              //         $display("%b - %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
-              //         $display("Error en la resta");
-              //     end
-              // 36: if((i_EX_data_a & i_EX_immediate) !== o_EX_alu_result) begin
-              //         $display("%b & %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
-              //         $display("Error en la and");
-              //     end
-              // 37: if((i_EX_data_a | i_EX_immediate) !== o_EX_alu_result) begin
-              //         $display("%b | %b = %b)", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
-              //         $display("Error en la or");
-              //     end
-              // 38: if((i_EX_data_a ^ i_EX_immediate) !== o_EX_alu_result) begin
-              //         $display("%b ^ %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
-              //         $display("Error en la xor");
-              //     end
-              // 3:  begin
-              //         i_EX_data_b[NB_INPUTS-1] = 1'b0; //Quitamos el signo al dato B que nos indica cuantas veces shifteamos el dato A.
-                      
-              //         if((i_EX_data_a >>> i_EX_data_b) !== o_EX_alu_result) begin
-              //             $display("%b >>> %b = %b but expected: %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result, (i_EX_data_a >>> i_EX_data_b));
-              //             $display("Error en la sra");
-              //         end
-              //     end
-              // 2:  if((i_EX_data_a >> i_EX_data_b) !== o_EX_alu_result) begin
-              //         $display("%b >> %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
-              //         $display("Error en la srl");
-              //     end
-              // 39: if((~(i_EX_data_a | i_EX_data_b)) != o_EX_alu_result) begin
-              //         $display("~(%b | %b) = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
-              //         $display("Error en la nor");
-              //     end
           endcase
-      end
-
-      $display("Test %d terminado", op_counter);
-
+          end
+      end // inner for
+      $display("Test %0d terminado", op_counter);
+   end // outer for  
+    #40
     $finish;
   end
 

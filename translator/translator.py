@@ -18,7 +18,7 @@ def rType(instruction):
     result = []
     shift = 0
     shamt = [SLL, SRL, SRA] # Instructions that use shamt field 
-    shift_value = [SLLV, SRLV, SRAV] # Instructions of type $rd = $rt <<>> $rs
+    shift_value = [SLLV, SRLV, SRAV] # Instructions that use rs instead of shamt
     jumps = [JR, JALR]
 
     opcode = insCodes[instruction[0]][0]  # OPCODE
@@ -183,8 +183,8 @@ def convertToHex(line):
     return converted
 
 def main():
-    inp_file = open('all_inst.txt', 'r')
-    out_file = open('all_inst.mem', 'w')
+    inp_file = open('input_r.txt', 'r')
+    out_file = open('output_r.mem', 'w')
     line = inp_file.readline()
     choice = int(input("Choose conversion to binary [1] or hexa [0]: "))
     print('Converting file assembler to .mem binary...')
