@@ -62,7 +62,6 @@ module ID_stage#(
                                 .o_byte_en(o_ID_byte_en),
                                 .o_halfword_en(o_ID_halfword_en),
                                 .o_word_en(o_ID_word_en));
-        );
 
     sign_extend sign_extend_1(.i_data(i_ID_inst[15:0]),
                               .o_data(o_ID_immediate));
