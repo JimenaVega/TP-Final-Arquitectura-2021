@@ -18,7 +18,7 @@ module EX_stage_tb;
   reg i_EX_mem_write = 0;
   reg i_EX_branch = 0;
   reg i_EX_alu_src = 0;
-  reg i_EX_reg_dst = 0;
+  reg i_EX_reg_dest = 0;
   reg [NB_ALU_OP-1:0] i_EX_alu_op;
   reg [NB_PC-1:0] i_EX_pc;
   reg [NB_DATA-1:0] i_EX_data_a;
@@ -31,7 +31,7 @@ module EX_stage_tb;
   wire o_EX_mem_read;
   wire o_EX_mem_write;
   wire o_EX_branch;
-  wire [NB_PC-1:0] o_EX_branch_address;
+  wire [NB_PC-1:0] o_EX_branch_addr;
   wire o_EX_zero;
   wire [NB_DATA-1:0] o_EX_alu_result;
   wire [NB_DATA-1:0] o_EX_data_a;
@@ -55,7 +55,7 @@ module EX_stage_tb;
     .i_EX_mem_write(i_EX_mem_write),
     .i_EX_branch(i_EX_branch),
     .i_EX_alu_src(i_EX_alu_src),
-    .i_EX_reg_dst(i_EX_reg_dst),
+    .i_EX_reg_dest(i_EX_reg_dest),
     .i_EX_alu_op(i_EX_alu_op),
     .i_EX_pc(i_EX_pc),
     .i_EX_data_a(i_EX_data_a),
@@ -68,7 +68,7 @@ module EX_stage_tb;
     .o_EX_mem_read(o_EX_mem_read),
     .o_EX_mem_write(o_EX_mem_write),
     .o_EX_branch(o_EX_branch),
-    .o_EX_branch_address(o_EX_branch_address),
+    .o_EX_branch_addr(o_EX_branch_addr),
     .o_EX_zero(o_EX_zero),
     .o_EX_alu_result(o_EX_alu_result),
     .o_EX_data_a(o_EX_data_a),
@@ -100,7 +100,7 @@ module EX_stage_tb;
     tests_counter = 0;
     i_EX_pc = 32'b0; // PC
     i_EX_alu_src = 1'b1; // Se prueban operaciones tipo R, esta flag siempre a a ser 1
-    i_EX_reg_dst = 1'b1; // La salida del MUX siempre va a ser rd
+    i_EX_reg_dest = 1'b1; // La salida del MUX siempre va a ser rd
 
     // flags no usadas en este stage
     i_EX_reg_write = 1'b0;

@@ -12,7 +12,7 @@ module IF_stage#(
         input                       i_IF_pc_enable,
         input                       i_IF_pc_reset,
         input                       i_IF_read_enable,
-        input  [NB_PC-1:0]          i_IF_branch_address,
+        input  [NB_PC-1:0]          i_IF_branch_addr,
         input  [NB_PC-1:0]          i_IF_jump_address,
         
         output [NB_PC-1:0]          o_IF_adder_result,
@@ -40,7 +40,7 @@ module IF_stage#(
     
     mux2 mux2_1(.i_select(i_IF_branch),
                 .i_a(adder_result),
-                .i_b(i_IF_branch_address),
+                .i_b(i_IF_branch_addr),
                 .o_data(mux2_1_output));
                 
     mux2 mux2_2(.i_select(i_IF_jump),

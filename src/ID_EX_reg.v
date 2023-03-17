@@ -15,7 +15,7 @@ module ID_EX_reg#(
         input                    ID_mem_write,
         input                    ID_branch,
         input                    ID_alu_src,
-        input                    ID_reg_dst,
+        input                    ID_reg_dest,
         input  [NB_ALU_OP-1:0]   ID_alu_op,
         input  [NB_PC-1:0]       ID_pc,
         input  [NB_DATA-1:0]     ID_data_a,
@@ -30,7 +30,7 @@ module ID_EX_reg#(
         output                   EX_mem_write,
         output                   EX_branch,
         output                   EX_alu_src,
-        output                   EX_reg_dst,
+        output                   EX_reg_dest,
         output [NB_ALU_OP-1:0]   EX_alu_op,
         output [NB_PC-1:0]       EX_pc,
         output [NB_DATA-1:0]     EX_data_a,
@@ -46,7 +46,7 @@ module ID_EX_reg#(
     reg                 mem_write;
     reg                 branch;
     reg                 alu_src;
-    reg                 reg_dst;
+    reg                 reg_dest;
     reg [NB_ALU_OP-1:0] alu_op;
     reg [NB_PC-1:0]     pc;
     reg [NB_DATA-1:0]   data_a;
@@ -62,7 +62,7 @@ module ID_EX_reg#(
         mem_write   <= ID_mem_write;
         branch      <= ID_branch;
         alu_src     <= ID_alu_src;
-        reg_dst     <= ID_reg_dst;
+        reg_dest     <= ID_reg_dest;
         alu_op      <= ID_alu_op;
         pc          <= ID_pc;
         data_a      <= ID_data_a;
@@ -78,7 +78,7 @@ module ID_EX_reg#(
     assign EX_mem_write  = mem_write;
     assign EX_branch     = branch;
     assign EX_alu_src    = alu_src;
-    assign EX_reg_dst    = reg_dst;
+    assign EX_reg_dest    = reg_dest;
     assign EX_alu_op     = alu_op;
     assign EX_pc         = pc;
     assign EX_data_a     = data_a;
