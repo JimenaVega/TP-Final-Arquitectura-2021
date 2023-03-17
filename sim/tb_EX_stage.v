@@ -31,7 +31,7 @@ module EX_stage_tb;
   wire o_EX_mem_read;
   wire o_EX_mem_write;
   wire o_EX_branch;
-  wire [NB_PC-1:0] o_EX_branch_address;
+  wire [NB_PC-1:0] o_EX_branch_addr;
   wire o_EX_zero;
   wire [NB_DATA-1:0] o_EX_alu_result;
   wire [NB_DATA-1:0] o_EX_data_a;
@@ -68,7 +68,7 @@ module EX_stage_tb;
     .o_EX_mem_read(o_EX_mem_read),
     .o_EX_mem_write(o_EX_mem_write),
     .o_EX_branch(o_EX_branch),
-    .o_EX_branch_address(o_EX_branch_address),
+    .o_EX_branch_addr(o_EX_branch_addr),
     .o_EX_zero(o_EX_zero),
     .o_EX_alu_result(o_EX_alu_result),
     .o_EX_data_a(o_EX_data_a),
