@@ -26,7 +26,7 @@ module MEM_stage#(
         output [NB_DATA-1:0] o_MEM_mem_data,
         output [NB_REG-1:0]  o_MEM_selected_reg,   // WB register (rd or rt)
         output [NB_ADDR-1:0] o_MEM_alu_result,     // only for R type and stores (never loads)
-        output [NB_PC-1:0]   o_MEM_branch_address, // PC = o_MEM_branch_address
+        output [NB_PC-1:0]   o_MEM_branch_addr, // PC = o_MEM_branch_addr
         output               o_branch_zero,        // IF mux selector
         output               o_MEM_reg_write,      // WB stage flag
         output               o_MEM_mem_to_reg     // WB stage flag
@@ -45,7 +45,7 @@ module MEM_stage#(
     
     // IF
     assign o_branch_zero = i_MEM_zero & i_MEM_branch;
-    assign o_MEM_branch_address = i_MEM_branch_addr;
+    assign o_MEM_branch_addr = i_MEM_branch_addr;
 
     // WB
     assign o_MEM_alu_result =  i_MEM_alu_result;

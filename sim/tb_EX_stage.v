@@ -1,4 +1,4 @@
-module tb_EX_stage;
+module EX_stage_tb;
 
   // Parameters
   localparam  INIT_FILE ="/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/translator/output_r.mem";
@@ -33,7 +33,7 @@ module tb_EX_stage;
   wire o_EX_mem_read;
   wire o_EX_mem_write;
   wire o_EX_branch;
-  wire [NB_PC-1:0] o_EX_branch_address;
+  wire [NB_PC-1:0] o_EX_branch_addr;
   wire o_EX_zero;
   wire [NB_DATA-1:0] o_EX_alu_result;
   wire [NB_DATA-1:0] o_EX_data_a;
@@ -61,7 +61,7 @@ module tb_EX_stage;
     .i_EX_mem_write(i_EX_mem_write),
     .i_EX_branch(i_EX_branch),
     .i_EX_alu_src(i_EX_alu_src),
-    .i_EX_reg_dst(i_EX_reg_dst),
+    .i_EX_reg_dest(i_EX_reg_dest),
     .i_EX_alu_op(i_EX_alu_op),
     .i_EX_pc(i_EX_pc),
     .i_EX_data_a(i_EX_data_a),
@@ -74,7 +74,7 @@ module tb_EX_stage;
     .o_EX_mem_read(o_EX_mem_read),
     .o_EX_mem_write(o_EX_mem_write),
     .o_EX_branch(o_EX_branch),
-    .o_EX_branch_address(o_EX_branch_address),
+    .o_EX_branch_addr(o_EX_branch_addr),
     .o_EX_zero(o_EX_zero),
     .o_EX_alu_result(o_EX_alu_result),
     .o_EX_data_a(o_EX_data_a),
@@ -138,8 +138,7 @@ module tb_EX_stage;
          
           #40
           if(!instruction[op_counter][31:26]) begin //R-type
-          
-          
+            
             case(instruction[op_counter][6:0]) // funct
               6'b100000: begin // add
                 if(i_EX_data_a + i_EX_data_b !== o_EX_alu_result) begin
@@ -312,6 +311,6 @@ module tb_EX_stage;
     $finish;
   end
 
-  always #5 i_clock = ~i_clock;
+  always #10 clock = ~clock;
 
 endmodule

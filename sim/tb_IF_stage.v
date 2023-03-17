@@ -12,7 +12,7 @@ module tb_IF_stage;
   reg i_IF_pc_enable = 0;
   reg i_IF_pc_reset = 0;
   reg i_IF_read_enable = 0;
-  reg [NB_PC-1:0] i_IF_branch_address;
+  reg [NB_PC-1:0] i_IF_branch_addr;
   reg [NB_PC-1:0] i_IF_jump_address;
   wire [NB_PC-1:0] o_IF_adder_result;
   wire [NB_INSTRUCTION-1:0] o_IF_new_instruction;
@@ -31,7 +31,7 @@ module tb_IF_stage;
     .i_IF_pc_enable (i_IF_pc_enable ),
     .i_IF_pc_reset (i_IF_pc_reset ),
     .i_IF_read_enable (i_IF_read_enable ),
-    .i_IF_branch_address (i_IF_branch_address ),
+    .i_IF_branch_addr (i_IF_branch_addr ),
     .i_IF_jump_address (i_IF_jump_address ),
     .o_IF_adder_result (o_IF_adder_result ),
     .o_IF_new_instruction  ( o_IF_new_instruction)

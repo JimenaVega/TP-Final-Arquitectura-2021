@@ -17,7 +17,7 @@ module EX_stage#(
         input                   i_EX_mem_write,  // MEM stage flag
         input                   i_EX_branch,     // MEM stage flag
         input                   i_EX_alu_src,
-        input                   i_EX_reg_dst,
+        input                   i_EX_reg_dest,
         input [NB_ALU_OP-1:0]   i_EX_alu_op,
         input [NB_PC-1:0]       i_EX_pc,
         input [NB_DATA-1:0]     i_EX_data_a,
@@ -31,7 +31,7 @@ module EX_stage#(
         output                  o_EX_mem_read,
         output                  o_EX_mem_write,
         output                  o_EX_branch,
-        output [NB_PC-1:0]      o_EX_branch_address,
+        output [NB_PC-1:0]      o_EX_branch_addr,
         output                  o_EX_zero,
         output [NB_DATA-1:0]    o_EX_alu_result,
         output [NB_DATA-1:0]    o_EX_data_a,
@@ -40,7 +40,7 @@ module EX_stage#(
     );
     
     wire [NB_IMM-1:0]       shifted_imm;
-    wire [NB_PC-1:0]        branch_address;
+    wire [NB_PC-1:0]        branch_addr;
     wire [NB_DATA-1:0]      alu_data_b;
     wire                    zero;
     wire [NB_DATA-1:0]      alu_result;
@@ -52,7 +52,7 @@ module EX_stage#(
     
     adder adder_2(.i_a(i_EX_pc),
                   .i_b(shifted_imm),
-                  .o_result(branch_address));
+                  .o_result(branch_addr));
 
     alu alu_1(.i_a(i_EX_data_a),
               .i_b(alu_data_b),
@@ -72,7 +72,7 @@ module EX_stage#(
                 .i_b(i_EX_immediate),
                 .o_data(alu_data_b));
 
-    mux2 mux2_4(.i_select(i_EX_reg_dst),
+    mux2 mux2_4(.i_select(i_EX_reg_dest),
                 .i_a(i_EX_rt),
                 .i_b(i_EX_rd),
                 .o_data(selected_reg));
@@ -82,7 +82,7 @@ module EX_stage#(
     assign o_EX_mem_read = i_EX_mem_read;
     assign o_EX_mem_write = i_EX_mem_write;
     assign o_EX_branch = i_EX_branch;
-    assign o_EX_branch_address = branch_address;
+    assign o_EX_branch_addr = branch_addr;
     assign o_EX_zero = zero;
     assign o_EX_alu_result = alu_result;
     assign o_EX_data_a = i_EX_data_a;
