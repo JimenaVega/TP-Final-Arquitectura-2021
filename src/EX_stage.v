@@ -17,7 +17,7 @@ module EX_stage#(
         input                   i_EX_mem_write,  // MEM stage flag
         input                   i_EX_branch,     // MEM stage flag
         input                   i_EX_alu_src,
-        input                   i_EX_reg_dst,
+        input                   i_EX_reg_dest,
         input [NB_ALU_OP-1:0]   i_EX_alu_op,
         input [NB_PC-1:0]       i_EX_pc,
         input [NB_DATA-1:0]     i_EX_data_a,
@@ -72,7 +72,7 @@ module EX_stage#(
                 .i_b(i_EX_immediate),
                 .o_data(alu_data_b));
 
-    mux2 mux2_4(.i_select(i_EX_reg_dst),
+    mux2 mux2_4(.i_select(i_EX_reg_dest),
                 .i_a(i_EX_rt),
                 .i_b(i_EX_rd),
                 .o_data(selected_reg));

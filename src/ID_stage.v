@@ -7,7 +7,7 @@ module ID_stage#(
         parameter NB_OPCODE         = 6
     )
     (
-        input                       i_ID_clock,
+        input                       i_clock,
         input                       i_ID_reset,
         input                       i_ID_enable,
         input [NB_INST-1:0]         i_ID_inst,
@@ -33,7 +33,7 @@ module ID_stage#(
         output [NB_PC-1:0]          o_ID_pc
     );
     
-    registers_bank registers_bank_1(.i_clock(i_ID_clock),
+    registers_bank registers_bank_1(.i_clock(i_clock),
                                     .i_reset(i_ID_reset),
                                     .i_reg_write(i_ID_reg_write),   // Señal de control RegWrite proveniente de WB
                                     .i_read_reg_a(i_ID_inst[25:21]),

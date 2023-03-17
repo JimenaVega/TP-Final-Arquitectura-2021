@@ -11,7 +11,7 @@ module tb_ID_stage();
   parameter  NB_OPCODE      = 6;
 
   // Ports
-  reg i_ID_clock;
+  reg i_clock;
   reg i_ID_reset;
   reg i_ID_enable;
   reg [NB_INST-1:0] i_ID_inst;
@@ -39,7 +39,7 @@ module tb_ID_stage();
 //  $monitor("time=%t -> inst=%b, data_A=%b, data_B=%b, immed=%b, rt=%b, rd=%b, jmp_address=%b", $time, i_ID_inst, o_ID_data_a, o_ID_data_b, o_ID_immediate, o_ID_rt, o_ID_rd, o_ID_jump_address);
 
   initial begin
-    i_ID_clock = 1'b0;
+    i_clock = 1'b0;
     i_ID_reset = 1'b1;
     i_ID_enable = 1'b0;
     i_ID_inst = {NB_INST{1'b0}};
@@ -140,10 +140,10 @@ module tb_ID_stage();
     
   end
 
-  always #10 i_ID_clock = ~i_ID_clock;
+  always #10 i_clock = ~i_clock;
 
   ID_stage ID_stage_instance(
-    .i_ID_clock(i_ID_clock),
+    .i_clock(i_clock),
     .i_ID_reset(i_ID_reset),
     .i_ID_enable(i_ID_enable),
     .i_ID_inst(i_ID_inst),
