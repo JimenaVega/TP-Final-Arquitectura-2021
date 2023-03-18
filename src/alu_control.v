@@ -43,32 +43,83 @@ module alu_control#(
     (
         input      [NB_FCODE-1     : 0] i_funct_code, // Codigo de funcion para instrucciones tipo R
         input      [NB_OPCODE-1    : 0] i_alu_op,     // opcode
-        output reg [NB_ALU_CTRLI-1 : 0] o_alu_ctrl    // Senial que indica a la ALU que tipo de operaci�n ejecutar
+        output reg [NB_ALU_CTRLI-1 : 0] o_alu_ctrl,   // Senial que indica a la ALU que tipo de operacion ejecutar
+        output reg                      o_shamt_ctrl  // Senial de MUX: 0 -> shamt  1 -> data_a
     );
     
     always@(*) begin
-        case(i_alu_op)
-            RTYPE_OPCODE: // R-Type
-                case(i_funct_code)
-                    SLL_FCODE   : o_alu_ctrl = 4'h00;
-                    SRL_FCODE   : o_alu_ctrl = 4'h01;
-                    SRA_FCODE   : o_alu_ctrl = 4'h02;
-                    SLLV_FCODE  : o_alu_ctrl = 4'h00;
-                    SRLV_FCODE  : o_alu_ctrl = 4'h01;
-                    SRAV_FCODE  : o_alu_ctrl = 4'h02;
+        if(i_alu_op == RTYPE_OPCODE) begin // R-TYPE
+            case(i_funct_code)
+                    SLL_FCODE   : begin
+                        o_alu_ctrl = 4'h00;
+                        o_shamt_ctrl = 1'b0; // Elige shamt
+                    end 
+                    SRL_FCODE   : begin
+                        o_alu_ctrl = 4'h01;
+                        o_shamt_ctrl = 1'b0; // Elige shamt
+                    end
+                    SRA_FCODE   : begin
+                        o_alu_ctrl = 4'h02;
+                        o_shamt_ctrl = 1'b0; // Elige shamt
+                    end
+                    SLLV_FCODE  : begin
+                        o_alu_ctrl = 4'h00;
+                        o_shamt_ctrl = 1'b1; // Elige data_a (rs)
+                    end
+                    SRLV_FCODE  : begin
+                        o_alu_ctrl = 4'h01;
+                        o_shamt_ctrl = 1'b1; // Elige data_a (rs)
+                    end
+                    SRAV_FCODE  : begin
+                        o_alu_ctrl = 4'h02;
+                        o_shamt_ctrl = 1'b1; // Elige data_a (rs)
+
+                    end
 //                    JR_FCODE    : o_alu_ctrl = 4'h00;
 //                    JALR_FCODE  : o_alu_ctrl = 4'h00;
-                    ADD_FCODE   : o_alu_ctrl = 4'h03;
-                    ADDU_FCODE  : o_alu_ctrl = 4'h03;
-                    SUB_FCODE   : o_alu_ctrl = 4'h04;
-                    SUBU_FCODE  : o_alu_ctrl = 4'h04;
-                    AND_FCODE   : o_alu_ctrl = 4'h05;
-                    OR_FCODE    : o_alu_ctrl = 4'h06;
-                    XOR_FCODE   : o_alu_ctrl = 4'h07;
-                    NOR_FCODE   : o_alu_ctrl = 4'h08;
-                    SLT_FCODE   : o_alu_ctrl = 4'h09;
-                    default     : o_alu_ctrl = o_alu_ctrl;                      
-                endcase                
+                    ADD_FCODE   : begin
+                        o_alu_ctrl = 4'h03;
+                        o_shamt_ctrl = 1'b1; // Elige data_a
+                    end
+                    ADDU_FCODE  : begin
+                        o_alu_ctrl = 4'h03;
+                        o_shamt_ctrl = 1'b1; // Elige data_a
+                    end
+                    SUB_FCODE   : begin
+                        o_alu_ctrl = 4'h04;
+                        o_shamt_ctrl = 1'b1; // Elige data_a
+                    end
+                    SUBU_FCODE  : begin
+                        o_alu_ctrl = 4'h04;
+                        o_shamt_ctrl = 1'b1; // Elige data_a
+                    end
+                    AND_FCODE   : begin
+                        o_alu_ctrl = 4'h05;
+                        o_shamt_ctrl = 1'b1; // Elige data_a
+                    end
+                    OR_FCODE    : begin
+                        o_alu_ctrl = 4'h06;
+                        o_shamt_ctrl = 1'b1; // Elige data_a
+                    end
+                    XOR_FCODE   : begin
+                        o_alu_ctrl = 4'h07;
+                        o_shamt_ctrl = 1'b1; // Elige data_a
+                    end
+                    NOR_FCODE   : begin
+                        o_alu_ctrl = 4'h08;
+                        o_shamt_ctrl = 1'b1; // Elige data_a
+                    end
+                    SLT_FCODE   : begin
+                        o_alu_ctrl = 4'h09;
+                        o_shamt_ctrl = 1'b1; // Elige data_a
+                    end
+                    default     : begin
+                        o_alu_ctrl = o_alu_ctrl;
+                        o_shamt_ctrl = o_shamt_ctrl;
+                    end                      
+                endcase     
+        end 
+        else begin // I-TYPE             
             LB_OPCODE   : o_alu_ctrl = 4'h03;  // INSTRUCCION ITYPE - ADDI -> ADD de ALU
             LH_OPCODE   : o_alu_ctrl = 4'h03;
             LW_OPCODE   : o_alu_ctrl = 4'h03;
@@ -87,7 +138,7 @@ module alu_control#(
             BEQ_OPCODE  : o_alu_ctrl = 4'h0b;
             BNE_OPCODE  : o_alu_ctrl = 4'h0c;
             default     : o_alu_ctrl = o_alu_ctrl;
-        endcase
+        end
     end
     
 endmodule

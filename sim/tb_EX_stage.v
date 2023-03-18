@@ -26,6 +26,7 @@ module EX_stage_tb;
   reg [NB_DATA-1:0]   i_EX_data_a;
   reg [NB_DATA-1:0]   i_EX_data_b;
   reg [NB_IMM-1:0]    i_EX_immediate;
+  reg [NB_DATA-1:0]   i_EX_shamt;
   reg [NB_REG-1:0]    i_EX_rt;
   reg [NB_REG-1:0]    i_EX_rd;
   reg                 i_EX_byte_en      = 0;
@@ -73,6 +74,7 @@ module EX_stage_tb;
     .i_EX_data_a(i_EX_data_a),
     .i_EX_data_b(i_EX_data_b),
     .i_EX_immediate(i_EX_immediate),
+    .i_EX_shamt(i_EX_shamt),
     .i_EX_rt(i_EX_rt),
     .i_EX_rd(i_EX_rd),
     .i_EX_byte_en(i_EX_byte_en),
@@ -224,7 +226,68 @@ module EX_stage_tb;
                     $display("R-TYPE: xor OPCODE:%b FUNCT:%b paso test [%0d]", instruction[op_counter][31:26], instruction[op_counter][6:0], tests_counter);
                 end
               end
+              6'b101010: begin // slt
+                if(i_EX_data_a < i_EX_data_b != o_EX_alu_result) begin
+                  $display("%b < %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
+                  $display("Error en slti");
+                end
+              end
               // TODO: Agregar shifts
+              6'b000000: begin // sll
+                if((i_EX_data_b << i_EX_shamt) !== o_EX_alu_result) begin
+                  $display("%b << %0d = %b", i_EX_data_b, i_EX_shamt, o_EX_alu_result);
+                  $display("Error en sll");
+                end
+                else begin
+                  $display("R-TYPE: sll OPCODE:%b FUNCT:%b paso test [%0d]", instruction[op_counter][31:26], instruction[op_counter][6:0], tests_counter);
+                end
+              end
+              6'b000010: begin // srl
+                if((i_EX_data_b >> i_EX_shamt) !== o_EX_alu_result) begin
+                  $display("%b >> %0d = %b", i_EX_data_b, i_EX_shamt, o_EX_alu_result);
+                  $display("Error en srl");
+                end
+                else begin
+                  $display("R-TYPE: srl OPCODE:%b FUNCT:%b paso test [%0d]", instruction[op_counter][31:26], instruction[op_counter][6:0], tests_counter);
+                end
+              end
+              6'b000011: begin // sra
+                if((i_EX_data_b >>> i_EX_shamt) !== o_EX_alu_result) begin
+                  $display("%b >>> %0d = %b", i_EX_data_b, i_EX_shamt, o_EX_alu_result);
+                  $display("Error en sra");
+                end
+                else begin
+                  $display("R-TYPE: sra OPCODE:%b FUNCT:%b paso test [%0d]", instruction[op_counter][31:26], instruction[op_counter][6:0], tests_counter);
+                end
+              end
+              6'b000100: begin // sllv
+                if((i_EX_data_b << i_EX_data_a) !== o_EX_alu_result) begin
+                  $display("%b << %0d = %b", i_EX_data_b, i_EX_data_a, o_EX_alu_result);
+                  $display("Error en sllv");
+                end
+                else begin
+                  $display("R-TYPE: sllv OPCODE:%b FUNCT:%b paso test [%0d]", instruction[op_counter][31:26], instruction[op_counter][6:0], tests_counter);
+                end
+              end
+              6'b000110: begin // srlv
+                if((i_EX_data_b >> i_EX_data_a) !== o_EX_alu_result) begin
+                  $display("%b >> %0d = %b", i_EX_data_b, i_EX_data_a, o_EX_alu_result);
+                  $display("Error en srlv");
+                end
+                else begin
+                  $display("R-TYPE: srlv OPCODE:%b FUNCT:%b paso test [%0d]", instruction[op_counter][31:26], instruction[op_counter][6:0], tests_counter);
+                end
+              end
+              6'b000111: begin //srav
+                if((i_EX_data_b >>> i_EX_data_a) !== o_EX_alu_result) begin
+                  $display("%b >>> %0d = %b", i_EX_data_b, i_EX_data_a, o_EX_alu_result);
+                  $display("Error en srav");
+                end
+                else begin
+                  $display("R-TYPE: srav OPCODE:%b FUNCT:%b paso test [%0d]", instruction[op_counter][31:26], instruction[op_counter][6:0], tests_counter);
+                end
+              end
+
             endcase
           end
           else if(instruction[op_counter][31:26]) begin // I-type

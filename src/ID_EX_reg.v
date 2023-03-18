@@ -21,6 +21,7 @@ module ID_EX_reg#(
         input  [NB_DATA-1:0]     ID_data_a,
         input  [NB_DATA-1:0]     ID_data_b,
         input  [NB_IMM-1:0]      ID_immediate,
+        input  [NB_DATA-1:0]     ID_shamt,
         input  [NB_REG-1:0]      ID_rt,
         input  [NB_REG-1:0]      ID_rd,
         input                    ID_byte_en,
@@ -39,6 +40,7 @@ module ID_EX_reg#(
         output [NB_DATA-1:0]     EX_data_a,
         output [NB_DATA-1:0]     EX_data_b,
         output [NB_IMM-1:0]      EX_immediate,
+        output [NB_DATA-1:0]     EX_shamt,
         output [NB_REG-1:0]      EX_rt,
         output [NB_REG-1:0]      EX_rd,
         output                   EX_byte_en,
@@ -58,6 +60,7 @@ module ID_EX_reg#(
     reg [NB_DATA-1:0]   data_a;
     reg [NB_DATA-1:0]   data_b;
     reg [NB_IMM-1:0]    immediate;
+    reg [NB_DATA-1:0]   shamt,
     reg [NB_REG-1:0]    rt;
     reg [NB_REG-1:0]    rd;
     reg                 byte_en;
@@ -77,6 +80,7 @@ module ID_EX_reg#(
         data_a      <= ID_data_a;
         data_b      <= ID_data_b;
         immediate   <= ID_immediate;
+        shamt       <= ID_shamt;
         rt          <= ID_rt;
         rd          <= ID_rd;
         byte_en     <= ID_byte_en;
@@ -96,6 +100,7 @@ module ID_EX_reg#(
     assign EX_data_a        = data_a;
     assign EX_data_b        = data_b;
     assign EX_immediate     = immediate;
+    assign EX_immediate     = shamt;
     assign EX_rt            = rt;
     assign EX_rd            = rd;
     assign EX_byte_en       = byte_en;

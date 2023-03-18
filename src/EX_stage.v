@@ -23,11 +23,12 @@ module EX_stage#(
         input [NB_DATA-1:0]     i_EX_data_a,
         input [NB_DATA-1:0]     i_EX_data_b,
         input [NB_IMM-1:0]      i_EX_immediate,
+        input [NB_DATA-1:0]     i_EX_shamt,
         input [NB_REG-1:0]      i_EX_rt,
         input [NB_REG-1:0]      i_EX_rd,
-        input                  i_EX_byte_en,
-        input                  i_EX_halfword_en,
-        input                  i_EX_word_en,
+        input                   i_EX_byte_en,
+        input                   i_EX_halfword_en,
+        input                   i_EX_word_en,
         
         output                  o_EX_reg_write,
         output                  o_EX_mem_to_reg,
@@ -48,11 +49,14 @@ module EX_stage#(
     wire [NB_IMM-1:0]       shifted_imm;
     wire [NB_PC-1:0]        branch_addr;
     wire [NB_DATA-1:0]      alu_data_b;
+    wire [NB_DATA-1:0]      alu_data_a;
     wire                    zero;
     wire [NB_DATA-1:0]      alu_result;
     wire [NB_ALU_CTRL-1:0]  alu_ctrl;
     wire [NB_REG-1:0]       selected_reg;
     wire [NB_FCODE-1:0]     funct_code;
+    
+    wire                    select_shamt;
     
     assign funct_code = i_EX_immediate [NB_FCODE-1:0];
     
@@ -60,7 +64,7 @@ module EX_stage#(
                   .i_b(shifted_imm),
                   .o_result(branch_addr));
 
-    alu alu_1(.i_a(i_EX_data_a),
+    alu alu_1(.i_a(alu_data_a),
               .i_b(alu_data_b),
               .i_alu_ctrl(alu_ctrl),
               .o_zero(zero),
@@ -68,7 +72,8 @@ module EX_stage#(
 
     alu_control alu_control_1(.i_funct_code(funct_code), //chequear esto
                               .i_alu_op(i_EX_alu_op),
-                              .o_alu_ctrl(alu_ctrl));
+                              .o_alu_ctrl(alu_ctrl),
+                              .o_shamt_ctrl(select_shamt));
 
     shifter shifter_1(.i_data(i_EX_immediate),
                       .o_result(shifted_imm));
@@ -83,6 +88,11 @@ module EX_stage#(
                 .i_b(i_EX_rd),
                 .o_data(selected_reg));
 
+    mux2 mux2_5(.i_select(select_shamt),
+                .i_a(i_EX_shamt),
+                .i_b(i_EX_data_a),
+                .o_data(alu_data_a));
+
     assign o_EX_reg_write = i_EX_reg_write;
     assign o_EX_mem_to_reg = i_EX_mem_to_reg;
     assign o_EX_mem_read = i_EX_mem_read;
@@ -91,7 +101,7 @@ module EX_stage#(
     assign o_EX_branch_addr = branch_addr;
     assign o_EX_zero = zero;
     assign o_EX_alu_result = alu_result;
-    assign o_EX_data_a = i_EX_data_a;
+    assign o_EX_data_a = i_EX_data_a; // TODO: duda, esto esta bien?
     assign o_EX_selected_reg = selected_reg;
     assign o_EX_byte_en = i_EX_byte_en;
     assign o_EX_halfword_en = i_EX_halfword_en;

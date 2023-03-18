@@ -28,6 +28,7 @@ module ID_stage#(
         output [NB_DATA-1:0]        o_ID_data_a,
         output [NB_DATA-1:0]        o_ID_data_b,
         output [NB_PC-1:0]          o_ID_immediate,    // immediate 32b / function code
+        output [NB_DATA-1:0]        o_ID_shamt,
         output [NB_REG-1:0]         o_ID_rt,
         output [NB_REG-1:0]         o_ID_rd,
         output [NB_PC-1:0]          o_ID_pc,
@@ -65,6 +66,9 @@ module ID_stage#(
 
     sign_extend sign_extend_1(.i_data(i_ID_inst[15:0]),
                               .o_data(o_ID_immediate));
+    
+    extend extend(.i_data(i_ID_inst[10:16]),
+                  .o_data(o_ID_shamt));
 
     concat_module concat_module_1(.i_inst(i_ID_inst[25:0]),                           
                                   .i_next_pc(i_ID_pc[31:28]),          // PC+1[31:28]                
