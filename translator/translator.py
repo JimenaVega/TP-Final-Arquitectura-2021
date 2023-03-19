@@ -96,13 +96,14 @@ def iType(instruction):
         result.append(imm) 
             
     elif instruction[0] == LUI:
-        imm_b = bin(int(instruction[2]) & 0xffffffff)[2:] 
-        imm = imm_b.zfill(16) if int(instruction[2]) >= 0 else imm_b[16:]
-        result.append(imm)
 
         rs = 0
         result.append(bin(rs)[2:].zfill(5))
-       
+    
+        imm_b = bin(int(instruction[2]) & 0xffffffff)[2:]
+        imm = imm_b.zfill(16) if int(instruction[2]) >= 0 else imm_b[16:]
+        result.append(imm)
+
     else:
         rs = getRegister(instruction[2])
         result.append(bin(rs)[2:].zfill(5))  # rs
@@ -172,19 +173,14 @@ def getSeparatedInstruction(line):
 
 def convertToHex(line):
     separated = getSeparatedInstruction(line)
-    # if separated[0] == 'subi':
-    #     old = separated[:]
-    #     separated[0] = ADDI
-    #     separated[3] = str(-1 * int(separated[3]))
-    #     print('taking ', old, 'as ---->', separated)
     print("SEPARETED: ", separated)
     converted = instructionHandler[separated[0]](separated)
 
     return converted
 
 def main():
-    inp_file = open('input_r.txt', 'r')
-    out_file = open('output_r.mem', 'w')
+    inp_file = open('all_inst.txt', 'r')
+    out_file = open('all_inst.mem', 'w')
     line = inp_file.readline()
     choice = int(input("Choose conversion to binary [1] or hexa [0]: "))
     print('Converting file assembler to .mem binary...')
