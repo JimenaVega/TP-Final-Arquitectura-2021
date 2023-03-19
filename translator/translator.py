@@ -26,7 +26,8 @@ def rType(instruction):
 
     if instruction[0] in shamt:
         shift = int(instruction[3]) # shamt
-        result.append(bin(opcode)[2:].zfill(5))  # rs
+
+        result.append(bin(opcode)[2:].zfill(5))  
 
         rt = getRegister(instruction[2])
         result.append(bin(rt)[2:].zfill(5))  # rt
@@ -54,11 +55,11 @@ def rType(instruction):
         rd = 0
         result.append(bin(rd)[2:].zfill(5))
     else:
-        rs = getRegister(instruction[2])  # rs
-        result.append(bin(rs)[2:].zfill(5))  # rs
-
         rt = getRegister(instruction[3])
         result.append(bin(rt)[2:].zfill(5))  # rt
+
+        rs = getRegister(instruction[2])    
+        result.append(bin(rs)[2:].zfill(5))  # rs
 
         rd = getRegister(instruction[1])
         result.append(bin(rd)[2:].zfill(5))  # rd
@@ -66,7 +67,7 @@ def rType(instruction):
     result.append(bin(shift)[2:].zfill(5))  # shift
 
     func = insCodes[instruction[0]][1]     # Func Code
-    result.append(bin(func)[2:].zfill(6))  # Func Code
+    result.append(bin(func)[2:].zfill(6)) 
 
     bin_val = ''.join(result)
     hex_val = hex(int('0b' + bin_val, 2))[2:].zfill(8)
@@ -83,13 +84,14 @@ def iType(instruction):
     result.append(bin(opcode)[2:].zfill(6))  # OPCODE
 
     rt = getRegister(instruction[1])
-    result.append(bin(rt)[2:].zfill(5))  # rt
 
     if instruction[0] in load_store:
         baseAndImm = instruction[2].split('(')
 
         rs = getRegister(baseAndImm[1][:-1])
         result.append(bin(rs)[2:].zfill(5))  # rs
+
+        result.append(bin(rt)[2:].zfill(5))  # rt
 
         imm_b = bin(int(baseAndImm[0]) & 0xffffffff)[2:] 
         imm = imm_b.zfill(16) if int(baseAndImm[0]) >= 0 else imm_b[16:]
@@ -99,6 +101,8 @@ def iType(instruction):
 
         rs = 0
         result.append(bin(rs)[2:].zfill(5))
+
+        result.append(bin(rt)[2:].zfill(5))  # rt
     
         imm_b = bin(int(instruction[2]) & 0xffffffff)[2:]
         imm = imm_b.zfill(16) if int(instruction[2]) >= 0 else imm_b[16:]
@@ -107,6 +111,9 @@ def iType(instruction):
     else:
         rs = getRegister(instruction[2])
         result.append(bin(rs)[2:].zfill(5))  # rs
+
+        result.append(bin(rt)[2:].zfill(5))  # rt
+
         imm_b = bin(int(instruction[3]) & 0xffffffff)[2:] 
         imm = imm_b.zfill(16) if int(instruction[3]) >= 0 else imm_b[16:]
         result.append(imm)
