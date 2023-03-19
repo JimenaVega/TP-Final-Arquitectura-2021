@@ -146,9 +146,16 @@ module EX_stage_tb;
           i_EX_immediate = {16'b0, instruction[op_counter][16:0]}; // immediate incluido funct_code
           i_EX_rt = instruction[op_counter][20:16];
           i_EX_rd = instruction[op_counter][15:11];
-          
-          #40
           i_EX_alu_op = instruction[op_counter][31:26];
+
+          #40
+          // No esta instanciada la control unit, entonce se debe agregar el siguiente if para el MUX
+          if(instruction[op_counter][31]) begin // solo los loads y store son opcode[31]=1
+            i_EX_alu_src = 1'b1; // MUX elige data_b
+          end
+          else begin
+            i_EX_alu_src = 1'b0; // MUX elige immediate
+          end
          
           #40
           if(!instruction[op_counter][31:26]) begin //R-type
@@ -199,7 +206,7 @@ module EX_stage_tb;
                     $display("R-TYPE: and OPCODE:%b FUNCT:%b paso test [%0d]", instruction[op_counter][31:26], instruction[op_counter][6:0], tests_counter);
                 end
               end
-              6'b100111: begin //nor
+              6'b100111: begin // nor
                 if((~(i_EX_data_a | i_EX_data_b)) != o_EX_alu_result) begin
                   $display("~(%b | %b) = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
                   $display("Error en la nor");
@@ -232,7 +239,6 @@ module EX_stage_tb;
                   $display("Error en slti");
                 end
               end
-              // TODO: Agregar shifts
               6'b000000: begin // sll
                 if((i_EX_data_b << i_EX_shamt) !== o_EX_alu_result) begin
                   $display("%b << %0d = %b", i_EX_data_b, i_EX_shamt, o_EX_alu_result);
@@ -298,59 +304,89 @@ module EX_stage_tb;
                   $display("%b + %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
                   $display("Error en lb");
                 end
+                else begin
+                  $display("I-TYPE: lb OPCODE:%b paso test [%0d]", instruction[op_counter][31:26], tests_counter);
+                end
               end
               6'b100001: begin // lh
-                if(i_EX_data_a + i_EX_immediate !== o_EX_alu_result) begin // lb
+                if(i_EX_data_a + i_EX_immediate !== o_EX_alu_result) begin // lh
                   $display("%b + %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
                   $display("Error en lh");
                 end
+                else begin
+                  $display("I-TYPE: lh OPCODE:%b paso test [%0d]", instruction[op_counter][31:26], tests_counter);
+                end
               end
               6'b100010: begin // lhu
-                if(i_EX_data_a + i_EX_immediate !== o_EX_alu_result) begin // lb
+                if(i_EX_data_a + i_EX_immediate !== o_EX_alu_result) begin // lhu
                   $display("%b + %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
                   $display("Error en lhu");
                 end
+                else begin
+                  $display("I-TYPE: lhu OPCODE:%b paso test [%0d]", instruction[op_counter][31:26], tests_counter);
+                end
               end
               6'b100011: begin // lw
-                if(i_EX_data_a + i_EX_immediate !== o_EX_alu_result) begin // lb
+                if(i_EX_data_a + i_EX_immediate !== o_EX_alu_result) begin // lw
                   $display("%b + %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
                   $display("Error en lw");
                 end
+                else begin
+                  $display("I-TYPE: lw OPCODE:%b paso test [%0d]", instruction[op_counter][31:26], tests_counter);
+                end
               end
               6'b100100: begin // lwu
-                if(i_EX_data_a + i_EX_immediate !== o_EX_alu_result) begin // lb
+                if(i_EX_data_a + i_EX_immediate !== o_EX_alu_result) begin // lwu
                   $display("%b + %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
                   $display("Error en lwu");
                 end
+                else begin
+                  $display("I-TYPE: lwu OPCODE:%b paso test [%0d]", instruction[op_counter][31:26], tests_counter);
+                end
               end
               6'b100101: begin // lbu
-                if(i_EX_data_a + i_EX_immediate !== o_EX_alu_result) begin // lb
+                if(i_EX_data_a + i_EX_immediate !== o_EX_alu_result) begin // lbu
                   $display("%b + %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
                   $display("Error en lbu");
                 end
+                else begin
+                  $display("I-TYPE: lbu OPCODE:%b paso test [%0d]", instruction[op_counter][31:26], tests_counter);
+                end
               end
               6'b101000: begin // sb
-                if(i_EX_data_a + i_EX_immediate !== o_EX_alu_result) begin // lb
+                if(i_EX_data_a + i_EX_immediate !== o_EX_alu_result) begin // sb
                   $display("%b + %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
                   $display("Error en sb");
                 end
+                else begin
+                  $display("I-TYPE: sb OPCODE:%b paso test [%0d]", instruction[op_counter][31:26], tests_counter);
+                end
               end
               6'b101001: begin // sh
-                if(i_EX_data_a + i_EX_immediate !== o_EX_alu_result) begin // lb
+                if(i_EX_data_a + i_EX_immediate !== o_EX_alu_result) begin // sh
                   $display("%b + %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
-                  $display("Error en sw");
+                  $display("Error en sh");
+                end
+                else begin
+                  $display("I-TYPE: sh OPCODE:%b paso test [%0d]", instruction[op_counter][31:26], tests_counter);
                 end
               end
               6'b101011: begin // sw
-                if(i_EX_data_a + i_EX_immediate !== o_EX_alu_result) begin // lb
+                if(i_EX_data_a + i_EX_immediate !== o_EX_alu_result) begin // sw
                   $display("%b + %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
                   $display("Error en sw");
                 end
+                else begin
+                  $display("I-TYPE: sw OPCODE:%b paso test [%0d]", instruction[op_counter][31:26], tests_counter);
+                end
               end
               6'b001000: begin // addi
-                if(i_EX_data_a + i_EX_immediate !== o_EX_alu_result) begin // lb
+                if(i_EX_data_a + i_EX_immediate !== o_EX_alu_result) begin // addi
                   $display("%b + %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
                   $display("Error en addi");
+                end
+                else begin
+                  $display("I-TYPE: addi OPCODE:%b paso test [%0d]", instruction[op_counter][31:26], tests_counter);
                 end
               end
               6'b001101: begin // andi
@@ -358,11 +394,17 @@ module EX_stage_tb;
                   $display("%b & %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
                   $display("Error en andi");
                 end
+                else begin
+                  $display("I-TYPE: andi OPCODE:%b paso test [%0d]", instruction[op_counter][31:26], tests_counter);
+                end
               end
               6'b001101: begin // ori
                 if((i_EX_data_a | i_EX_immediate) !== o_EX_alu_result) begin
                   $display("%b | %b = %b)", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
-                  $display("Error en la or");
+                  $display("Error en la ori");
+                end
+                else begin
+                  $display("I-TYPE: ori OPCODE:%b paso test [%0d]", instruction[op_counter][31:26], tests_counter);
                 end
               end
               6'b001111: begin // lui
@@ -370,11 +412,44 @@ module EX_stage_tb;
                   $display("%b << 16 = %b", i_EX_data_a, o_EX_alu_result);
                   $display("Error en lui");
                 end
+                else begin
+                  $display("I-TYPE: lui OPCODE:%b paso test [%0d]", instruction[op_counter][31:26], tests_counter);
+                end
               end
               6'b001010: begin // slti
                 if(i_EX_data_a < i_EX_immediate != o_EX_alu_result) begin
                   $display("%b < %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
                   $display("Error en slti");
+                end
+                else begin
+                  $display("I-TYPE: slti OPCODE:%b paso test [%0d]", instruction[op_counter][31:26], tests_counter);
+                end
+              end
+              6'b000100: begin // beq
+                if((i_EX_data_a == i_EX_data_b) !== o_EX_alu_result) begin
+                  $display("%b == %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
+                  $display("Error en calculo de condicion de beq");
+                end
+                else if((i_EX_pc + (i_EX_immediate<<2)) != o_EX_branch_addr) begin
+                  $display("%b == %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
+                  $display("Error en calculo de direccion de beq");
+                end
+                else begin
+                  $display("I-TYPE: beq OPCODE:%b paso test [%0d]", instruction[op_counter][31:26], tests_counter);
+                end
+                
+              end
+              6'b000101: begin // bne
+                if((i_EX_data_a != i_EX_data_b) !== o_EX_alu_result) begin
+                  $display("%b != %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
+                  $display("Error en calculo de condicion bne");
+                end
+                else if((i_EX_pc + (i_EX_immediate<<2)) != o_EX_branch_addr) begin
+                  $display("%b == %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
+                  $display("Error en calculo de direccion de bne");
+                end
+                else begin
+                  $display("I-TYPE: bne OPCODE:%b paso test [%0d]", instruction[op_counter][31:26], tests_counter);
                 end
               end
           endcase
