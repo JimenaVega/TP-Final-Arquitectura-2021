@@ -8,7 +8,6 @@ module MEM_stage#(
     )
     (
         input i_clock,
-        input i_reset,
         input i_MEM_reg_write,  // WB stage flag
         input i_MEM_mem_to_reg, // WB stage flag
         input i_MEM_mem_read,   // read data memory flag

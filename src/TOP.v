@@ -5,12 +5,16 @@ module TOP#(
         parameter NB_INSTRUCTION    = 32,
         parameter NB_DATA           = 32,
         parameter NB_REG            = 5, 
-        parameter NB_ADDR = 32,
+        parameter NB_ADDR           = 32,
         parameter NB_OPCODE         = 6
     )
     (
         input                       i_clock,
-        input                       i_reset
+        input                       i_pc_enable,
+        input                       i_pc_reset,
+        input                       i_read_enable,
+        input                       i_ID_stage_reset,
+        input                       i_control_unit_enable
     );
     
     // IF_stage to IF_ID_reg
@@ -33,6 +37,7 @@ module TOP#(
     wire [NB_DATA-1:0]          ID_data_a;
     wire [NB_DATA-1:0]          ID_data_b;
     wire [NB_PC-1:0]            ID_immediate;
+    wire [NB_DATA-1:0]          ID_shamt;
     wire [NB_REG-1:0]           ID_rt;
     wire [NB_REG-1:0]           ID_rd;
     wire [NB_PC-1:0]            ID_pc;
@@ -56,6 +61,7 @@ module TOP#(
     wire [NB_DATA-1:0]          EX_data_a;
     wire [NB_DATA-1:0]          EX_data_b;
     wire [NB_PC-1:0]            EX_immediate;
+    wire [NB_DATA-1:0]          EX_shamt;
     wire [NB_REG-1:0]           EX_rt;
     wire [NB_REG-1:0]           EX_rd;
     wire [NB_PC-1:0]            EX_pc;
@@ -97,10 +103,12 @@ module TOP#(
     wire [NB_DATA-1:0]          MEM_mem_data;
     wire [NB_REG-1:0]           o_MEM_selected_reg;
     wire [NB_ADDR-1:0]          o_MEM_alu_result;
-    wire [NB_PC-1:0]            o_MEM_branch_addr;
-    wire                        MEM_branch_zero;
     wire                        o_MEM_reg_write;
     wire                        o_MEM_mem_to_reg;
+
+    // MEM_stage to IF_stage
+    wire [NB_PC-1:0]            o_MEM_branch_addr;
+    wire                        MEM_branch_zero;
 
     // MEM_WB_reg to WB_stage
     wire                        WB_reg_write;
@@ -117,12 +125,12 @@ module TOP#(
 
     
     IF_stage IF_stage_1(.i_clock(i_clock),
-                        .i_IF_branch(),
+                        .i_IF_branch(MEM_branch_zero),
                         .i_IF_jump(ID_jump),
-                        .i_IF_pc_enable(),
-                        .i_IF_pc_reset(),
-                        .i_IF_read_enable(),
-                        .i_IF_branch_addr(),
+                        .i_IF_pc_enable(i_pc_enable),
+                        .i_IF_pc_reset(i_pc_reset),
+                        .i_IF_read_enable(i_read_enable),
+                        .i_IF_branch_addr(o_MEM_branch_addr),
                         .i_IF_jump_address(ID_jump_address),
                         .o_IF_adder_result(IF_adder_result),
                         .o_IF_new_instruction(IF_new_instruction));
@@ -134,8 +142,8 @@ module TOP#(
                           .ID_new_instruction(ID_new_instruction));
     
     ID_stage ID_stage_1(.i_clock(i_clock),
-                        .i_ID_reset(),
-                        .i_ID_enable(),
+                        .i_ID_reset(i_ID_stage_reset),
+                        .i_ID_enable(i_control_unit_enable),
                         .i_ID_inst(ID_new_instruction),
                         .i_ID_pc(ID_adder_result),
                         .i_ID_write_data(WB_selected_data),
@@ -154,6 +162,7 @@ module TOP#(
                         .o_ID_data_a(ID_data_a),
                         .o_ID_data_b(ID_data_b),
                         .o_ID_immediate(ID_immediate),
+                        .o_ID_shamt(ID_shamt),
                         .o_ID_rt(ID_rt),
                         .o_ID_rd(ID_rd),
                         .o_ID_pc(ID_pc),
@@ -174,6 +183,7 @@ module TOP#(
                           .ID_data_a(ID_data_a),
                           .ID_data_b(ID_data_b),
                           .ID_immediate(ID_immediate),
+                          .ID_shamt(ID_shamt),
                           .ID_rt(ID_rt),
                           .ID_rd(ID_rd),
                           .ID_byte_en(ID_byte_en),
@@ -191,6 +201,7 @@ module TOP#(
                           .EX_data_a(EX_data_a),
                           .EX_data_b(EX_data_b),
                           .EX_immediate(EX_immediate),
+                          .EX_shamt(EX_shamt),
                           .EX_rt(EX_rt),
                           .EX_rd(EX_rd),
                           .EX_byte_en(EX_byte_en),
@@ -210,6 +221,7 @@ module TOP#(
                         .i_EX_data_a(EX_data_a),
                         .i_EX_data_b(EX_data_b),
                         .i_EX_immediate(EX_immediate),
+                        .i_EX_shamt(EX_shamt),
                         .i_EX_rt(EX_rt),
                         .i_EX_rd(EX_rd),
                         .i_EX_byte_en(EX_byte_en),
@@ -258,7 +270,6 @@ module TOP#(
                             .MEM_word_en(MEM_word_en));
                 
     MEM_stage MEM_stage_1(.i_clock(i_clock),
-                          .i_reset(),
                           .i_MEM_reg_write(MEM_reg_write),
                           .i_MEM_mem_to_reg(MEM_mem_to_reg),
                           .i_MEM_mem_read(MEM_mem_read),
