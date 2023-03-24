@@ -60,7 +60,7 @@ module ID_EX_reg#(
     reg [NB_DATA-1:0]   data_a;
     reg [NB_DATA-1:0]   data_b;
     reg [NB_IMM-1:0]    immediate;
-    reg [NB_DATA-1:0]   shamt,
+    reg [NB_DATA-1:0]   shamt;
     reg [NB_REG-1:0]    rt;
     reg [NB_REG-1:0]    rd;
     reg                 byte_en;

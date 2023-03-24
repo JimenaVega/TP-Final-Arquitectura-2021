@@ -32,7 +32,7 @@ module tb_ID_stage();
   wire [NB_DATA-1:0]    o_ID_data_a;
   wire [NB_DATA-1:0]    o_ID_data_b;
   wire [NB_PC-1:0]      o_ID_immediate;
-  wire [NB_DATA-1:0]    o_ID_shamt, // TODO: testear que salga con 32b 
+  wire [NB_DATA-1:0]    o_ID_shamt; // TODO: testear que salga con 32b 
   wire [NB_REG-1:0]     o_ID_rt;
   wire [NB_REG-1:0]     o_ID_rd;
   wire [NB_PC-1:0]      o_ID_pc;
