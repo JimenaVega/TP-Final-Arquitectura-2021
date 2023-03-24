@@ -8,7 +8,6 @@ module tb_MEM_stage;
 
   // Ports
   reg i_clock;
-  reg i_reset;
   reg i_MEM_reg_write;
   reg i_MEM_mem_to_reg;
   reg i_MEM_mem_read;
@@ -39,7 +38,6 @@ module tb_MEM_stage;
   )
   MEM_stage_1 (
     .i_clock(i_clock),
-    .i_reset(i_reset),
     .i_MEM_reg_write(i_MEM_reg_write),
     .i_MEM_mem_to_reg(i_MEM_mem_to_reg),
     .i_MEM_mem_read(i_MEM_mem_read),
@@ -64,7 +62,6 @@ module tb_MEM_stage;
 
   initial begin
     i_clock = 0;
-    i_reset = 1;
     i_MEM_reg_write = 0;
     i_MEM_mem_to_reg = 0;
     i_MEM_mem_read = 0;
@@ -80,7 +77,6 @@ module tb_MEM_stage;
     i_MEM_selected_reg = 5'd0;
     
     #20
-    i_reset = 0;
     
     i_MEM_mem_write = 1;
     
@@ -106,7 +102,6 @@ module tb_MEM_stage;
     #20
   
 //    i_clock = 0;
-//    i_reset = 1;
 //    i_MEM_reg_write = 1'b0;
 //    i_MEM_mem_to_reg  = 1'b0;
 //    i_mem_read_flag = 1'b0;
@@ -115,7 +110,6 @@ module tb_MEM_stage;
 //    i_MEM_zero = 1'b0;
     
 //    #40
-//    i_reset = 0;
 
 //    #40
 //    i_MEM_branch = 1'b0;

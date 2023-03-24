@@ -11,8 +11,15 @@ module alu#(
         output                              o_zero,
         output reg  [NB_REG-1 : 0]          o_result 
     );
+
+    reg zero = 0;
    
     always@(*) begin
+        if(o_result == 0)
+            zero = 1;
+        else
+            zero = 0;
+
         case(i_alu_ctrl)
             4'h0 : o_result =   i_b << i_a;      // SLL Shift left logical (r1<<r2) y SLLV
             4'h1 : o_result =   i_b >> i_a;      // SRL Shift right logical (r1>>r2) y SRLV
@@ -31,6 +38,6 @@ module alu#(
         endcase
     end
     
-    assign o_zero = o_result == 0; // Si o_result es igual a 0 se asigna un uno a o_zero
+    assign o_zero = zero;
        
 endmodule
