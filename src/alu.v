@@ -14,9 +14,9 @@ module alu#(
    
     always@(*) begin
         case(i_alu_ctrl)
-            4'h0 : o_result =   i_a << i_b;      // SLL Shift left logical (r1<<r2) y SLLV
-            4'h1 : o_result =   i_a >> i_b;      // SRL Shift right logical (r1>>r2) y SRLV
-            4'h2 : o_result =   i_a >>> i_b;     // SRA  Shift right arithmetic (r1>>>r2) y SRAV
+            4'h0 : o_result =   i_b << i_a;      // SLL Shift left logical (r1<<r2) y SLLV
+            4'h1 : o_result =   i_b >> i_a;      // SRL Shift right logical (r1>>r2) y SRLV
+            4'h2 : o_result =   i_b >>> i_a;     // SRA  Shift right arithmetic (r1>>>r2) y SRAV
             4'h3 : o_result =   i_a + i_b;       // ADD Sum (r1+r2)
             4'h4 : o_result =   i_a - i_b;       // SUB Substract (r1-r2)
             4'h5 : o_result =   i_a & i_b;       // AND Logical and (r1&r2)

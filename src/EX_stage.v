@@ -79,8 +79,8 @@ module EX_stage#(
                       .o_result(shifted_imm));
 
     mux2 mux2_3(.i_select(i_EX_alu_src),
-                .i_a(i_EX_immediate),
-                .i_b(i_EX_data_b),
+                .i_a(i_EX_data_b),
+                .i_b(i_EX_immediate),
                 .o_data(alu_data_b));
 
     mux2 mux2_4(.i_select(i_EX_reg_dest),

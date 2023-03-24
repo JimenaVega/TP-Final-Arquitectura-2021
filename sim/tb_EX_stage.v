@@ -1,7 +1,7 @@
-module EX_stage_tb;
+module tb_EX_stage;
 
   // Parameters
-  localparam  INIT_FILE ="/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/translator/output_r.mem";
+  localparam  INIT_FILE ="/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/translator/all_inst.mem";
   localparam  N_TESTS = 2;
   localparam  NB_ALU_OP   = 6;
   localparam  NB_ALU_CTRL = 4;
@@ -10,7 +10,7 @@ module EX_stage_tb;
   localparam  NB_DATA     = 32;
   localparam  NB_REG      = 5;
   localparam  NB_FCODE    = 6;
-  localparam  N_OP        = 9;
+  localparam  N_OP        = 32;
 
   // Ports
   reg                 i_clock;
@@ -141,6 +141,10 @@ module EX_stage_tb;
          
           #40
           i_EX_data_b = $urandom;
+//            i_EX_data_b = 32'hff;
+          
+          #40
+          i_EX_shamt = 2;          
        
           #40
           i_EX_immediate = {16'b0, instruction[op_counter][16:0]}; // immediate incluido funct_code
@@ -149,18 +153,13 @@ module EX_stage_tb;
           i_EX_alu_op = instruction[op_counter][31:26];
 
           #40
-          // No esta instanciada la control unit, entonce se debe agregar el siguiente if para el MUX
-          if(instruction[op_counter][31]) begin // solo los loads y store son opcode[31]=1
-            i_EX_alu_src = 1'b1; // MUX elige data_b
-          end
-          else begin
-            i_EX_alu_src = 1'b0; // MUX elige immediate
-          end
+          i_EX_alu_src = 1'b0; // MUX elige immediate
+       
          
           #40
           if(!instruction[op_counter][31:26]) begin //R-type
             
-            case(instruction[op_counter][6:0]) // funct
+            case(instruction[op_counter][5:0]) // funct
               6'b100000: begin // add
                 if(i_EX_data_a + i_EX_data_b !== o_EX_alu_result) begin
                   $display("%0d + %0d = %0d", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
@@ -236,34 +235,37 @@ module EX_stage_tb;
               6'b101010: begin // slt
                 if(i_EX_data_a < i_EX_data_b != o_EX_alu_result) begin
                   $display("%b < %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
-                  $display("Error en slti");
+                  $display("Error en slt");
+                end
+                else begin
+                    $display("R-TYPE: slt OPCODE:%b FUNCT:%b paso test [%0d]", instruction[op_counter][31:26], instruction[op_counter][6:0], tests_counter);
                 end
               end
               6'b000000: begin // sll
                 if((i_EX_data_b << i_EX_shamt) !== o_EX_alu_result) begin
                   $display("%b << %0d = %b", i_EX_data_b, i_EX_shamt, o_EX_alu_result);
-                  $display("Error en sll");
+                  $display("Error en SLL");
                 end
                 else begin
-                  $display("R-TYPE: sll OPCODE:%b FUNCT:%b paso test [%0d]", instruction[op_counter][31:26], instruction[op_counter][6:0], tests_counter);
+                  $display("R-TYPE: SLL OPCODE:%b FUNCT:%b paso test [%0d]", instruction[op_counter][31:26], instruction[op_counter][6:0], tests_counter);
                 end
               end
               6'b000010: begin // srl
                 if((i_EX_data_b >> i_EX_shamt) !== o_EX_alu_result) begin
                   $display("%b >> %0d = %b", i_EX_data_b, i_EX_shamt, o_EX_alu_result);
-                  $display("Error en srl");
+                  $display("Error en SRL");
                 end
                 else begin
-                  $display("R-TYPE: srl OPCODE:%b FUNCT:%b paso test [%0d]", instruction[op_counter][31:26], instruction[op_counter][6:0], tests_counter);
+                  $display("R-TYPE: SRL OPCODE:%b FUNCT:%b paso test [%0d]", instruction[op_counter][31:26], instruction[op_counter][6:0], tests_counter);
                 end
               end
               6'b000011: begin // sra
                 if((i_EX_data_b >>> i_EX_shamt) !== o_EX_alu_result) begin
                   $display("%b >>> %0d = %b", i_EX_data_b, i_EX_shamt, o_EX_alu_result);
-                  $display("Error en sra");
+                  $display("Error en SRA");
                 end
                 else begin
-                  $display("R-TYPE: sra OPCODE:%b FUNCT:%b paso test [%0d]", instruction[op_counter][31:26], instruction[op_counter][6:0], tests_counter);
+                  $display("R-TYPE: SRA OPCODE:%b FUNCT:%b paso test [%0d]", instruction[op_counter][31:26], instruction[op_counter][6:0], tests_counter);
                 end
               end
               6'b000100: begin // sllv
@@ -278,10 +280,10 @@ module EX_stage_tb;
               6'b000110: begin // srlv
                 if((i_EX_data_b >> i_EX_data_a) !== o_EX_alu_result) begin
                   $display("%b >> %0d = %b", i_EX_data_b, i_EX_data_a, o_EX_alu_result);
-                  $display("Error en srlv");
+                  $display("Error en SRLV");
                 end
                 else begin
-                  $display("R-TYPE: srlv OPCODE:%b FUNCT:%b paso test [%0d]", instruction[op_counter][31:26], instruction[op_counter][6:0], tests_counter);
+                  $display("R-TYPE: SRLV OPCODE:%b FUNCT:%b paso test [%0d]", instruction[op_counter][31:26], instruction[op_counter][6:0], tests_counter);
                 end
               end
               6'b000111: begin //srav
@@ -389,9 +391,9 @@ module EX_stage_tb;
                   $display("I-TYPE: addi OPCODE:%b paso test [%0d]", instruction[op_counter][31:26], tests_counter);
                 end
               end
-              6'b001101: begin // andi
+              6'b001100: begin // andi
                 if((i_EX_data_a & i_EX_immediate) !== o_EX_alu_result) begin
-                  $display("%b & %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
+                  $display("%b & %b = %b", i_EX_data_a, i_EX_immediate, o_EX_alu_result);
                   $display("Error en andi");
                 end
                 else begin
@@ -400,7 +402,7 @@ module EX_stage_tb;
               end
               6'b001101: begin // ori
                 if((i_EX_data_a | i_EX_immediate) !== o_EX_alu_result) begin
-                  $display("%b | %b = %b)", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
+                  $display("%b | %b = %b)", i_EX_data_a, i_EX_immediate, o_EX_alu_result);
                   $display("Error en la ori");
                 end
                 else begin
@@ -418,7 +420,7 @@ module EX_stage_tb;
               end
               6'b001010: begin // slti
                 if(i_EX_data_a < i_EX_immediate != o_EX_alu_result) begin
-                  $display("%b < %b = %b", i_EX_data_a, i_EX_data_b, o_EX_alu_result);
+                  $display("%b < %b = %b", i_EX_data_a, i_EX_immediate, o_EX_alu_result);
                   $display("Error en slti");
                 end
                 else begin
@@ -435,7 +437,7 @@ module EX_stage_tb;
                   $display("Error en calculo de direccion de beq");
                 end
                 else begin
-                  $display("I-TYPE: beq OPCODE:%b paso test [%0d]", instruction[op_counter][31:26], tests_counter);
+                  $display("I-TYPE: beq OPCODE:%b paso test de direccion y condicion [%0d]", instruction[op_counter][31:26], tests_counter);
                 end
                 
               end
@@ -449,7 +451,7 @@ module EX_stage_tb;
                   $display("Error en calculo de direccion de bne");
                 end
                 else begin
-                  $display("I-TYPE: bne OPCODE:%b paso test [%0d]", instruction[op_counter][31:26], tests_counter);
+                  $display("I-TYPE: bne OPCODE:%b paso test de direccion y condicion [%0d]", instruction[op_counter][31:26], tests_counter);
                 end
               end
           endcase
@@ -461,6 +463,6 @@ module EX_stage_tb;
     $finish;
   end
 
-  always #10 clock = ~clock;
+  always #10 i_clock = ~i_clock;
 
 endmodule
