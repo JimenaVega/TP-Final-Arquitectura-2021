@@ -15,7 +15,7 @@ module forwarding_unit (
         output reg  [NB_MUX-1:0]   o_forwarding_a,
         output reg  [NB_MUX-1:0]   o_forwarding_b
     );
-    always(*) begin
+    always@(*) begin
         if(i_reset) begin
             o_forwarding_a = 2'b0;
             o_forwarding_b = 2'b0;
