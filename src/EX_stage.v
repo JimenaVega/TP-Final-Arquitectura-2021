@@ -42,8 +42,9 @@ module EX_stage#(
         output [NB_REG-1:0]     o_EX_selected_reg,
         output                  o_EX_byte_en,
         output                  o_EX_halfword_en,
-        output                  o_EX_word_en
-        
+        output                  o_EX_word_en,
+        output                  o_EX_r31_ctrl,
+        output [NB_PC-1:0]      o_EX_pc
     );
     
     wire [NB_IMM-1:0]       shifted_imm;
@@ -53,10 +54,14 @@ module EX_stage#(
     wire                    zero;
     wire [NB_DATA-1:0]      alu_result;
     wire [NB_ALU_CTRL-1:0]  alu_ctrl;
+    wire [NB_REG-1:0]       rt_rd;
     wire [NB_REG-1:0]       selected_reg;
     wire [NB_FCODE-1:0]     funct_code;
     
     wire                    select_shamt;
+    wire                    r31_ctrl;
+
+    reg [NB_REG-1:0]        r31 = 5'd31;
     
     assign funct_code = i_EX_immediate [NB_FCODE-1:0];
     
@@ -73,7 +78,8 @@ module EX_stage#(
     alu_control alu_control_1(.i_funct_code(funct_code), //chequear esto
                               .i_alu_op(i_EX_alu_op),
                               .o_alu_ctrl(alu_ctrl),
-                              .o_shamt_ctrl(select_shamt));
+                              .o_shamt_ctrl(select_shamt),
+                              .o_r31_ctrl(r31_ctrl));
 
     shifter shifter_1(.i_data(i_EX_immediate),
                       .o_result(shifted_imm));
@@ -86,25 +92,32 @@ module EX_stage#(
     mux2 mux2_4(.i_select(i_EX_reg_dest),
                 .i_a(i_EX_rt),
                 .i_b(i_EX_rd),
+                .o_data(rt_rd));
+
+    mux2 mux2_5(.i_select(r31_ctrl),
+                .i_a(rt_rd),
+                .i_b(r31),
                 .o_data(selected_reg));
 
-    mux2 mux2_5(.i_select(select_shamt),
+    mux2 mux2_6(.i_select(select_shamt),
                 .i_a(i_EX_shamt),
                 .i_b(i_EX_data_a),
                 .o_data(alu_data_a));
 
-    assign o_EX_reg_write = i_EX_reg_write;
-    assign o_EX_mem_to_reg = i_EX_mem_to_reg;
-    assign o_EX_mem_read = i_EX_mem_read;
-    assign o_EX_mem_write = i_EX_mem_write;
-    assign o_EX_branch = i_EX_branch;
-    assign o_EX_branch_addr = branch_addr;
-    assign o_EX_zero = zero;
-    assign o_EX_alu_result = alu_result;
-    assign o_EX_data_a = i_EX_data_a; // TODO: duda, esto esta bien?
-    assign o_EX_selected_reg = selected_reg;
-    assign o_EX_byte_en = i_EX_byte_en;
-    assign o_EX_halfword_en = i_EX_halfword_en;
-    assign o_EX_word_en = i_EX_word_en;
+    assign o_EX_reg_write       = i_EX_reg_write;
+    assign o_EX_mem_to_reg      = i_EX_mem_to_reg;
+    assign o_EX_mem_read        = i_EX_mem_read;
+    assign o_EX_mem_write       = i_EX_mem_write;
+    assign o_EX_branch          = i_EX_branch;
+    assign o_EX_branch_addr     = branch_addr;
+    assign o_EX_zero            = zero;
+    assign o_EX_alu_result      = alu_result;
+    assign o_EX_data_a          = i_EX_data_a; // TODO: duda, esto esta bien?
+    assign o_EX_selected_reg    = selected_reg;
+    assign o_EX_byte_en         = i_EX_byte_en;
+    assign o_EX_halfword_en     = i_EX_halfword_en;
+    assign o_EX_word_en         = i_EX_word_en;
+    assign o_EX_r31_ctrl        = r31_ctrl;
+    assign o_EX_pc              = i_EX_pc;
 
 endmodule

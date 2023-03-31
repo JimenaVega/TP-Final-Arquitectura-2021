@@ -7,34 +7,39 @@ module tb_MEM_stage;
   localparam  NB_REG = 5;
 
   // Ports
-  reg i_clock;
-  reg i_MEM_reg_write;
-  reg i_MEM_mem_to_reg;
-  reg i_MEM_mem_read;
-  reg i_MEM_mem_write;
-  reg i_MEM_word_en;
-  reg i_MEM_halfword_en;
-  reg i_MEM_byte_en;
-  reg i_MEM_branch;
-  reg i_MEM_zero;
-  reg [NB_PC-1:0] i_MEM_branch_addr;
-  reg [NB_ADDR-1:0] i_MEM_alu_result;
-  reg [NB_DATA-1:0] i_MEM_write_data;
-  reg [NB_REG-1:0] i_MEM_selected_reg;
-  wire [NB_DATA-1:0] o_MEM_mem_data;
-  wire [NB_REG-1:0] o_MEM_selected_reg;
-  wire [NB_ADDR-1:0] o_MEM_alu_result;
-  wire [NB_PC-1:0] o_MEM_branch_addr;
-  wire o_MEM_branch_zero;
-  wire o_MEM_reg_write;
-  wire o_MEM_mem_to_reg;
+  reg                 i_clock;
+  reg                 i_MEM_reg_write;
+  reg                 i_MEM_mem_to_reg;
+  reg                 i_MEM_mem_read;
+  reg                 i_MEM_mem_write;
+  reg                 i_MEM_word_en;
+  reg                 i_MEM_halfword_en;
+  reg                 i_MEM_byte_en;
+  reg                 i_MEM_branch;
+  reg                 i_MEM_zero;
+  reg  [NB_PC-1:0]    i_MEM_branch_addr;
+  reg  [NB_ADDR-1:0]  i_MEM_alu_result;
+  reg  [NB_DATA-1:0]  i_MEM_write_data;
+  reg  [NB_REG-1:0]   i_MEM_selected_reg;
+  reg                 i_MEM_r31_ctrl;
+  reg  [NB_PC-1:0]    i_MEM_pc;
+  
+  wire [NB_DATA-1:0]  o_MEM_mem_data;
+  wire [NB_REG-1:0]   o_MEM_selected_reg;
+  wire [NB_ADDR-1:0]  o_MEM_alu_result;
+  wire [NB_PC-1:0]    o_MEM_branch_addr;
+  wire                o_MEM_branch_zero;
+  wire                o_MEM_reg_write;
+  wire                o_MEM_mem_to_reg;
+  wire                o_MEM_r31_ctrl;
+  wire [NB_PC-1:0]    o_MEM_pc; 
 
   MEM_stage 
   #(
     .NB_ADDR(NB_ADDR),
     .NB_DATA(NB_DATA),
     .NB_PC(NB_PC),
-    .NB_REG (NB_REG)
+    .NB_REG(NB_REG)
   )
   MEM_stage_1 (
     .i_clock(i_clock),
@@ -51,53 +56,59 @@ module tb_MEM_stage;
     .i_MEM_alu_result(i_MEM_alu_result),
     .i_MEM_write_data(i_MEM_write_data),
     .i_MEM_selected_reg(i_MEM_selected_reg),
+    .i_MEM_r31_ctrl(i_MEM_r31_ctrl),
+    .i_MEM_pc(i_MEM_pc),
     .o_MEM_mem_data(o_MEM_mem_data),
     .o_MEM_selected_reg(o_MEM_selected_reg),
     .o_MEM_alu_result(o_MEM_alu_result),
     .o_MEM_branch_addr(o_MEM_branch_addr),
     .o_MEM_branch_zero(o_MEM_branch_zero),
     .o_MEM_reg_write(o_MEM_reg_write),
-    .o_MEM_mem_to_reg(o_MEM_mem_to_reg)
+    .o_MEM_mem_to_reg(o_MEM_mem_to_reg),
+    .o_MEM_r31_ctrl(o_MEM_r31_ctrl),
+    .o_MEM_pc(o_MEM_pc)
   );
 
   initial begin
     i_clock = 0;
-    i_MEM_reg_write = 0;
-    i_MEM_mem_to_reg = 0;
-    i_MEM_mem_read = 0;
-    i_MEM_mem_write = 0;
-    i_MEM_word_en = 0;
-    i_MEM_halfword_en = 0;
-    i_MEM_byte_en = 0;
-    i_MEM_branch = 0;
-    i_MEM_zero = 0;
-    i_MEM_branch_addr = 32'd0;
-    i_MEM_alu_result = 32'd0;
-    i_MEM_write_data = 32'd0;
-    i_MEM_selected_reg = 5'd0;
+    i_MEM_reg_write     = 0;
+    i_MEM_mem_to_reg    = 0;
+    i_MEM_mem_read      = 0;
+    i_MEM_mem_write     = 0;
+    i_MEM_word_en       = 0;
+    i_MEM_halfword_en   = 0;
+    i_MEM_byte_en       = 0;
+    i_MEM_branch        = 0;
+    i_MEM_zero          = 0;
+    i_MEM_branch_addr   = 32'd0;
+    i_MEM_alu_result    = 32'd0;
+    i_MEM_write_data    = 32'd0;
+    i_MEM_selected_reg  = 5'd0;
+    i_MEM_r31_ctrl      = 1'b0;
+    i_MEM_pc      = 32'b0;
     
     #20
     
-    i_MEM_mem_write = 1;
+    i_MEM_mem_write     = 1;
     
-    i_MEM_byte_en = 1;
-    i_MEM_alu_result = 32'd10;
-    i_MEM_write_data = 32'd14;
-    
-    #20
-    
-    i_MEM_byte_en = 0;
-    i_MEM_word_en = 1;
-    i_MEM_alu_result = 32'd0;
-    i_MEM_write_data = 32'd257;
+    i_MEM_byte_en       = 1;
+    i_MEM_alu_result    = 32'd10;
+    i_MEM_write_data    = 32'd14;
     
     #20
-    i_MEM_mem_write = 0;
-    i_MEM_mem_read = 1;
     
-    i_MEM_word_en = 0;
-    i_MEM_halfword_en = 1;
-    i_MEM_alu_result = 32'd3;
+    i_MEM_byte_en       = 0;
+    i_MEM_word_en       = 1;
+    i_MEM_alu_result    = 32'd0;
+    i_MEM_write_data    = 32'd257;
+    
+    #20
+    i_MEM_mem_write     = 0;
+    i_MEM_mem_read      = 1;
+    
+    i_MEM_word_en       = 0;
+    i_MEM_halfword_en   = 1;
+    i_MEM_alu_result    = 32'd3;
     
     #20
   

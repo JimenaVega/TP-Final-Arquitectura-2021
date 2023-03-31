@@ -10,6 +10,7 @@ module tb_alu();
     parameter   SLLV_FCODE      = 6'h04;
     parameter   SRLV_FCODE      = 6'h06;
     parameter   SRAV_FCODE      = 6'h07;
+    parameter   JALR_FCODE      = 6'h09;
     parameter   ADD_FCODE       = 6'h20;
     parameter   ADDU_FCODE      = 6'h21;
     parameter   SUB_FCODE       = 6'h22;
@@ -59,6 +60,8 @@ module tb_alu();
     
     // ALU Control outputs
     wire [NB_ALU_CTRLI-1:0] alu_control_input;
+    wire                    shamt_ctrl;
+    wire                    r31_ctrl;
     
     // ALU outputs
     wire              zero;
@@ -155,7 +158,9 @@ module tb_alu();
     
     alu_control alu_control(.i_funct_code(function_code),
                             .i_ALU_op(instruction_opcode),
-                            .o_ALU_ctrl(alu_control_input)
+                            .o_ALU_ctrl(alu_control_input),
+                            .o_shamt_ctrl(shamt_ctrl),
+                            .o_r31_ctrl(r31_ctrl)
                             );
     
     alu alu(.i_a(a),
