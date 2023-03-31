@@ -46,6 +46,8 @@ module tb_EX_stage;
   wire                o_EX_byte_en;
   wire                o_EX_halfword_en;
   wire                o_EX_word_en;
+  wire                o_EX_r31_ctrl;
+  wire [NB_PC-1:0]    o_EX_pc;
 
   integer             op_counter;
   integer             tests_counter;
@@ -92,7 +94,9 @@ module tb_EX_stage;
     .o_EX_selected_reg( o_EX_selected_reg),
     .o_EX_byte_en(o_EX_byte_en),
     .o_EX_halfword_en(o_EX_halfword_en),
-    .o_EX_word_en(o_EX_word_en)
+    .o_EX_word_en(o_EX_word_en),
+    .o_EX_r31_ctrl(o_EX_r31_ctrl),
+    .o_EX_pc(o_EX_pc)
   );
   
   reg [31:0] instruction [N_OP-1:0];

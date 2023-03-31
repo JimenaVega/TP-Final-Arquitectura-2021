@@ -83,6 +83,8 @@ module TOP#(
     wire                        o_EX_byte_en;
     wire                        o_EX_halfword_en;
     wire                        o_EX_word_en;
+    wire                        EX_r31_ctrl;
+    wire [NB_PC-1:0]            o_EX_pc;
     
     // EX_MEM_reg to MEM_stage
     wire                        MEM_reg_write;
@@ -98,6 +100,8 @@ module TOP#(
     wire                        MEM_byte_en;
     wire                        MEM_halfword_en;
     wire                        MEM_word_en;
+    wire                        MEM_r31_ctrl;
+    wire [NB_PC-1:0]            MEM_pc;
 
     // MEM_stage to MEM_WB_reg
     wire [NB_DATA-1:0]          MEM_mem_data;
@@ -105,6 +109,8 @@ module TOP#(
     wire [NB_ADDR-1:0]          o_MEM_alu_result;
     wire                        o_MEM_reg_write;
     wire                        o_MEM_mem_to_reg;
+    wire                        o_MEM_r31_ctrl;
+    wire [NB_PC-1:0]            o_MEM_pc;
 
     // MEM_stage to IF_stage
     wire [NB_PC-1:0]            o_MEM_branch_addr;
@@ -116,6 +122,8 @@ module TOP#(
     wire [NB_DATA-1:0]          WB_mem_data;
     wire [NB_DATA-1:0]          WB_alu_result;
     wire [NB_REG-1:0]           WB_selected_reg;
+    wire                        WB_r31_ctrl;
+    wire [NB_PC-1:0]            WB_pc;
 
     // WB_stage to ID_stage
     wire                        o_WB_reg_write;
@@ -239,7 +247,9 @@ module TOP#(
                         .o_EX_selected_reg(EX_selected_reg),
                         .o_EX_byte_en(o_EX_byte_en),
                         .o_EX_halfword_en(o_EX_halfword_en),
-                        .o_EX_word_en(o_EX_word_en));
+                        .o_EX_word_en(o_EX_word_en),
+                        .o_EX_r31_ctrl(EX_r31_ctrl),
+                        .o_EX_pc(o_EX_pc));
                         
     EX_MEM_reg EX_MEM_reg_1(.i_clock(i_clock),
                             .EX_reg_write(o_EX_reg_write),
@@ -255,6 +265,8 @@ module TOP#(
                             .EX_byte_en(o_EX_byte_en),
                             .EX_halfword_en(o_EX_halfword_en),
                             .EX_word_en(o_EX_word_en),
+                            .EX_r31_crl(EX_r31_ctrl),
+                            .EX_pc(o_EX_pc),
                             .MEM_reg_write(MEM_reg_write),
                             .MEM_mem_to_reg(MEM_mem_to_reg),
                             .MEM_mem_read(MEM_mem_read),
@@ -267,7 +279,9 @@ module TOP#(
                             .MEM_selected_reg(MEM_selected_reg),
                             .MEM_byte_en(MEM_byte_en),
                             .MEM_halfword_en(MEM_halfword_en),
-                            .MEM_word_en(MEM_word_en));
+                            .MEM_word_en(MEM_word_en),
+                            .MEM_r31_ctrl(MEM_r31_ctrl),
+                            .MEM_pc(MEM_pc));
                 
     MEM_stage MEM_stage_1(.i_clock(i_clock),
                           .i_MEM_reg_write(MEM_reg_write),
@@ -283,13 +297,17 @@ module TOP#(
                           .i_MEM_alu_result(MEM_alu_result),
                           .i_MEM_write_data(MEM_data_a),
                           .i_MEM_selected_reg(MEM_selected_reg),
+                          .i_MEM_r31_ctrl(MEM_r31_ctrl),
+                          .i_MEM_pc(MEM_pc),
                           .o_MEM_mem_data(MEM_mem_data),
                           .o_MEM_selected_reg(o_MEM_selected_reg),
                           .o_MEM_alu_result(o_MEM_alu_result),
                           .o_MEM_branch_addr(o_MEM_branch_addr),
                           .o_MEM_branch_zero(MEM_branch_zero),
                           .o_MEM_reg_write(o_MEM_reg_write),
-                          .o_MEM_mem_to_reg(o_MEM_mem_to_reg));
+                          .o_MEM_mem_to_reg(o_MEM_mem_to_reg),
+                          .o_MEM_r31_ctrl(o_MEM_r31_ctrl),
+                          .o_MEM_pc(o_MEM_pc));
                          
     MEM_WB_reg MEM_WB_reg_1(.i_clock(i_clock),
                             .i_MEM_reg_write(o_MEM_reg_write),
@@ -297,17 +315,23 @@ module TOP#(
                             .i_MEM_mem_data(MEM_mem_data),
                             .i_MEM_alu_result(MEM_alu_result),
                             .i_MEM_selected_reg(MEM_selected_reg),
+                            .i_MEM_r31_ctrl(o_MEM_r31_ctrl),
+                            .i_MEM_pc(o_MEM_pc),
                             .o_WB_reg_write(WB_reg_write),
                             .o_WB_mem_to_reg(WB_mem_to_reg),
                             .o_WB_mem_data(WB_mem_data),
                             .o_WB_alu_result(WB_alu_result),
-                            .o_WB_selected_reg(WB_selected_reg));
+                            .o_WB_selected_reg(WB_selected_reg),
+                            .o_WB_r31_ctrl(WB_r31_ctrl),
+                            .o_WB_pc(WB_pc));
                           
     WB_stage WB_stage_1(.i_WB_reg_write(WB_reg_write),
                         .i_WB_mem_to_reg(WB_mem_to_reg),
                         .i_WB_mem_data(WB_mem_data),
                         .i_WB_alu_result(WB_alu_result),
                         .i_WB_selected_reg(WB_selected_reg),
+                        .i_WB_r31_ctrl(WB_r31_ctrl),
+                        .i_WB_pc(WB_pc),
                         .o_WB_reg_write(o_WB_reg_write),
                         .o_WB_selected_data(WB_selected_data),
                         .o_WB_selected_reg(o_WB_selected_reg));
