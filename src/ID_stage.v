@@ -34,7 +34,10 @@ module ID_stage#(
         output [NB_PC-1:0]          o_ID_pc,
         output                      o_ID_byte_en,
         output                      o_ID_halfword_en,
-        output                      o_ID_word_en
+        output                      o_ID_word_en,
+        output [NB_PC-1:0]          o_ID_r31_data, 
+        output                      o_ID_jr_jalr,
+
     );
 
     wire jr_jalr; // Para que register bank lea el r31
@@ -83,5 +86,7 @@ module ID_stage#(
     assign o_ID_rd = i_ID_inst[15:11];
     assign o_ID_rt = i_ID_inst[20:16];
     assign o_ID_pc = i_ID_pc;
+    assign o_ID_r31_data = o_ID_data_a;
+    assign o_ID_jr_jalr = jr_jalr;
 
 endmodule 
