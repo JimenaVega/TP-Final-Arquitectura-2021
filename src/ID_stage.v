@@ -36,10 +36,13 @@ module ID_stage#(
         output                      o_ID_halfword_en,
         output                      o_ID_word_en
     );
-    
+
+    wire jr_jalr; // Para que register bank lea el r31
+
     registers_bank registers_bank_1(.i_clock(i_clock),
                                     .i_reset(i_ID_reset),
                                     .i_reg_write(i_ID_reg_write),   // Señal de control RegWrite proveniente de WB
+                                    .i_jr_jalr(jr_jalr),
                                     .i_read_reg_a(i_ID_inst[25:21]),
                                     .i_read_reg_b(i_ID_inst[20:16]), 
                                     .i_write_reg(i_ID_write_reg),   // Address 5b
@@ -51,6 +54,7 @@ module ID_stage#(
     control_unit control_unit_1(.i_enable(i_ID_enable),
                                 .i_reset(i_ID_reset),           // Necesario para flush en controls hazard
                                 .i_opcode(i_ID_inst[31:26]),
+                                .i_funct(i_ID_inst[6:0]),
                                 .o_reg_dest(o_ID_reg_dest),     // EX
                                 .o_alu_op(o_ID_alu_op),         // EX REG?
                                 .o_alu_src(o_ID_alu_src),       // EX
@@ -62,7 +66,8 @@ module ID_stage#(
                                 .o_jump(o_ID_jump),
                                 .o_byte_en(o_ID_byte_en),
                                 .o_halfword_en(o_ID_halfword_en),
-                                .o_word_en(o_ID_word_en));
+                                .o_word_en(o_ID_word_en)
+                                .o_jr_jalr(jr_jalr));
 
     sign_extend sign_extend_1(.i_data(i_ID_inst[15:0]),
                               .o_data(o_ID_immediate));

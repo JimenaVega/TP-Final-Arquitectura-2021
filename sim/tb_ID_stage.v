@@ -96,6 +96,16 @@ module tb_ID_stage();
 
     #40
     $write("\n");
+    $display("Testing j 255;");
+    i_ID_inst = 32'b00111110000000000000000011111111; // J
+
+    #40
+    $write("\n");
+    $display("Testing jal 255;");
+    i_ID_inst = 32'b00101010000100010000000011111111; // JAL
+    
+    #40
+    $write("\n");
     $display("Testing jr $s0");
     i_ID_inst = 32'b00000010000000000000000000001000; // jr $s0;
 

@@ -22,11 +22,14 @@ module tb_control_unit();
     parameter   SB_OPCODE       = 6'h28; // ITYPE SB
     parameter   SH_OPCODE       = 6'h29; // ITYPE SH
     parameter   SW_OPCODE       = 6'h2b;  // ITYPE SW
+    parameter   JALR_FUNCT      = 6'h09,
+    parameter   JR_FUNCT        = 6'h08,
     
     reg                 clock;
     reg                 enable;
     reg                 reset;
     reg [NB_OPCODE-1:0] opcode;
+    reg                 funct;
     
     wire                 reg_dest;
     wire [NB_OPCODE-1:0] alu_op;
@@ -39,6 +42,7 @@ module tb_control_unit();
     wire                 byte_en;
     wire                 halfword_en;
     wire                 word_en;
+    wire                 jr_jalr;
     
     initial begin
     
@@ -50,7 +54,12 @@ module tb_control_unit();
         reset = 1'b0;
         enable = 1'b1;
         opcode = RTYPE_OPCODE;
-        
+        // jumps tipo R
+        #40
+        funct = JALR_FUNCT; 
+        #40
+        funct = JR_FUNCT;
+        // Tipo I
         #40
         opcode = BEQ_OPCODE;
         #40
@@ -97,6 +106,7 @@ module tb_control_unit();
     control_unit control_unit(.i_enable(enable),
                               .i_reset(reset),
                               .i_opcode(opcode),
+                              .i_funct(funct),
                               .o_reg_dest(reg_dest),
                               .o_alu_op(alu_op),
                               .o_alu_src(alu_src),
@@ -107,7 +117,8 @@ module tb_control_unit();
                               .o_mem_to_reg(mem_to_reg),
                               .o_byte_en(byte_en),
                               .o_halfword_en(halfword_en),
-                              .o_word_en(word_en)
+                              .o_word_en(word_en),
+                              .o_jr_jalr(jr_jalr),
                               );
 
 endmodule

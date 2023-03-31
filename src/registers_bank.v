@@ -9,6 +9,7 @@ module registers_bank#(
         input               i_clock,
         input               i_reset,
         input               i_reg_write,  // Señal de control RegWrite proveniente de WB
+        input               i_jr_jalr,
         input [NB_ADDR-1:0] i_read_reg_a,
         input [NB_ADDR-1:0] i_read_reg_b,
         input [NB_ADDR-1:0] i_write_reg,  // Address 
@@ -35,7 +36,13 @@ module registers_bank#(
         end 
         else begin
             // Lectura de registros
-            o_data_a_next <= registers[i_read_reg_a];
+            if(i_jr_jalr)begin
+                o_data_a_next <= registers[5'd31]; // Lectura de r31 
+            end
+            else begin
+                o_data_a_next <= registers[i_read_reg_a];
+            end
+            
             o_data_b_next <= registers[i_read_reg_b];
             
             // Escritura de registros
