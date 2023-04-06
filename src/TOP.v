@@ -47,7 +47,9 @@ module TOP#(
     
     // ID_stage to IF_stage
     wire                        ID_jump;
+    wire                        ID_jr_jalr;
     wire [NB_PC-1:0]            ID_jump_address;
+    wire [NB_PC-1:0]            ID_r31_data;
     
     // ID_EX_reg to EX_stage
     wire                        EX_reg_dest;
@@ -135,11 +137,13 @@ module TOP#(
     IF_stage IF_stage_1(.i_clock(i_clock),
                         .i_IF_branch(MEM_branch_zero),
                         .i_IF_j_jal(ID_jump),
+                        .i_IF_jr_jalr(ID_jr_jalr),
                         .i_IF_pc_enable(i_pc_enable),
                         .i_IF_pc_reset(i_pc_reset),
                         .i_IF_read_enable(i_read_enable),
                         .i_IF_branch_addr(o_MEM_branch_addr),
                         .i_IF_jump_address(ID_jump_address),
+                        .i_IF_r31_data(ID_r31_data),
                         .o_IF_adder_result(IF_adder_result),
                         .o_IF_new_instruction(IF_new_instruction));
                         
@@ -166,6 +170,7 @@ module TOP#(
                         .o_ID_reg_write(ID_reg_write),
                         .o_ID_mem_to_reg(ID_mem_to_reg),
                         .o_ID_jump(ID_jump),
+                        .o_ID_jr_jalr(ID_jr_jalr),
                         .o_ID_jump_address(ID_jump_address),
                         .o_ID_data_a(ID_data_a),
                         .o_ID_data_b(ID_data_b),
@@ -176,7 +181,8 @@ module TOP#(
                         .o_ID_pc(ID_pc),
                         .o_ID_byte_en(ID_byte_en),
                         .o_ID_halfword_en(ID_halfword_en),
-                        .o_ID_word_en(ID_word_en));
+                        .o_ID_word_en(ID_word_en),
+                        .o_ID_r31_data(ID_r31_data));
                         
     ID_EX_reg ID_EX_reg_1(.i_clock(i_clock),
                           .ID_reg_write(ID_reg_write),

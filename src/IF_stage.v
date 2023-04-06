@@ -25,6 +25,7 @@ module IF_stage#(
     wire [NB_PC-1:0]            adder_result; // PC+1
     wire [NB_PC-1:0]            mux2_1_output;
     wire [NB_PC-1:0]            mux2_2_output;
+    wire [NB_PC-1:0]            mux2_3_output;
     wire [NB_PC-1:0]            jump_address;
     wire [NB_INSTRUCTION-1:0]   new_instruction;
     
@@ -50,7 +51,7 @@ module IF_stage#(
                 .i_b(i_IF_jump_address),
                 .o_data(mux2_2_output));
 
-    mux2 mux2_3(.i_select(i_IF_r31_data),
+    mux2 mux2_3(.i_select(i_IF_jr_jalr),
                 .i_a(mux2_2_output),
                 .i_b(i_IF_r31_data),
                 .o_data(mux2_3_output));            

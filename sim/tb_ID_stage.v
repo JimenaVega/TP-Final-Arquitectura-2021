@@ -28,6 +28,7 @@ module tb_ID_stage();
   wire                  o_ID_branch;
   wire                  o_ID_reg_write;
   wire                  o_ID_jump;
+  wire                  o_ID_jr_jalr;
   wire [NB_PC-1:0]      o_ID_jump_address;
   wire [NB_DATA-1:0]    o_ID_data_a;
   wire [NB_DATA-1:0]    o_ID_data_b;
@@ -52,47 +53,47 @@ module tb_ID_stage();
     i_ID_write_reg  = {NB_REG{1'b0}};
     i_ID_reg_write  = 1'b0; // Don't WB bank register
     // $s0=16, $s1=17, $s2=18
-    #40
-    $write("\n");
-    $display("Testing add $s0,$s1,$s2");
-    i_ID_reset  = 1'b0;
-    i_ID_enable = 1'b1;
-    i_ID_inst   = 32'b00000010001100101000000000100000; // add $s0,$s1,$s2;
+//    #40
+//    $write("\n");
+//    $display("Testing add $s0,$s1,$s2");
+//    i_ID_reset  = 1'b0;
+//    i_ID_enable = 1'b1;
+//    i_ID_inst   = 32'b00000010001100101000000000100000; // add $s0,$s1,$s2;
 
-    #40
-    $write("\n");
-    $display("Testing addu $s0,$s1,$s2");
-    i_ID_inst = 32'b00000010001100101000000000100001; // addu $s0,$s1,$s2;
+//    #40
+//    $write("\n");
+//    $display("Testing addu $s0,$s1,$s2");
+//    i_ID_inst = 32'b00000010001100101000000000100001; // addu $s0,$s1,$s2;
 
-    #40
-    $write("\n");
-    $display("Testing sub $s0,$s1,$s2");
-    i_ID_inst = 32'b00000010001100101000000000100010; // sub $s0,$s1,$s2;
+//    #40
+//    $write("\n");
+//    $display("Testing sub $s0,$s1,$s2");
+//    i_ID_inst = 32'b00000010001100101000000000100010; // sub $s0,$s1,$s2;
 
-    #40
-    $write("\n");
-    $display("Testing and $s0,$s1,$s2");
-    i_ID_inst = 32'b00000010001100101000000000100100; // and $s0,$s1,$s2;
+//    #40
+//    $write("\n");
+//    $display("Testing and $s0,$s1,$s2");
+//    i_ID_inst = 32'b00000010001100101000000000100100; // and $s0,$s1,$s2;
 
-    #40
-    $write("\n");
-    $display("Testing nor $s0,$s1,$s2");
-    i_ID_inst = 32'b00000010001100101000000000100111; // nor $s0,$s1,$s2;
+//    #40
+//    $write("\n");
+//    $display("Testing nor $s0,$s1,$s2");
+//    i_ID_inst = 32'b00000010001100101000000000100111; // nor $s0,$s1,$s2;
 
-    #40
-    $write("\n");
-    $display("Testing or $s0,$s1,$s2");
-    i_ID_inst = 32'b00000010001100101000000000100101; // or $s0,$s1,$s2;
+//    #40
+//    $write("\n");
+//    $display("Testing or $s0,$s1,$s2");
+//    i_ID_inst = 32'b00000010001100101000000000100101; // or $s0,$s1,$s2;
 
-    #40
-    $write("\n");
-    $display("Testing xor $s0,$s1,$s2");
-    i_ID_inst = 32'b00000010001100101000000000100110; // xor $s0,$s1,$s2;
+//    #40
+//    $write("\n");
+//    $display("Testing xor $s0,$s1,$s2");
+//    i_ID_inst = 32'b00000010001100101000000000100110; // xor $s0,$s1,$s2;
 
-    #40
-    $write("\n");
-    $display("Testing slt $s0,$s1,$s2");
-    i_ID_inst = 32'b00000010001100101000000000101010; // slt $s0,$s1,$s2;
+//    #40
+//    $write("\n");
+//    $display("Testing slt $s0,$s1,$s2");
+//    i_ID_inst = 32'b00000010001100101000000000101010; // slt $s0,$s1,$s2;
 
     #40
     $write("\n");
@@ -114,40 +115,40 @@ module tb_ID_stage();
     $display("Testing jalr $s0");
     i_ID_inst = 32'b00000010000000000000000000001001; // jalr $s0;
 
-    #40
-    $write("\n");
-    $display("Testing lb $s0,2($t0);");
-    i_ID_inst = 32'b10000010000010000000000000000010;
+//    #40
+//    $write("\n");
+//    $display("Testing lb $s0,2($t0);");
+//    i_ID_inst = 32'b10000010000010000000000000000010;
 
-    #40
-    $write("\n");
-    $display("Testing sw $s0,-2($t0);");
-    i_ID_inst = 32'b10101110000010001111111111111110;
+//    #40
+//    $write("\n");
+//    $display("Testing sw $s0,-2($t0);");
+//    i_ID_inst = 32'b10101110000010001111111111111110;
 
-    #40
-    $write("\n");
-    $display("Testing addi $s0,$s1,255;");
-    i_ID_inst = 32'b00100010000100010000000011111111;
+//    #40
+//    $write("\n");
+//    $display("Testing addi $s0,$s1,255;");
+//    i_ID_inst = 32'b00100010000100010000000011111111;
 
-    #40
-    $write("\n");
-    $display("Testing lui $s0,255;");
-    i_ID_inst = 32'b00111110000000000001111111100000;
+//    #40
+//    $write("\n");
+//    $display("Testing lui $s0,255;");
+//    i_ID_inst = 32'b00111110000000000001111111100000;
 
     #40
     $write("\n");
     $display("Testing beq $s0,$s1,255;");
     i_ID_inst = 32'b00010010000100010000000011111111;
-
+    
     #40
     $write("\n");
-    $display("Testing j 255;");
-    i_ID_inst = 32'b00001000000000000000000011111111;
-
+    $display("Testing sll");
+    i_ID_inst = 32'b00000000000100011000000011000000;
+    
     #40
     $write("\n");
-    $display("Testing jal 255;");
-    i_ID_inst = 32'b00001100000000000000000011111111;
+    $display("Testing sll");
+    i_ID_inst = 32'b00000000000100011000000011000000;
     
     #200
     $finish;

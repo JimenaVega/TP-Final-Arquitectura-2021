@@ -24,6 +24,7 @@ module ID_stage#(
         output                      o_ID_reg_write,    // WB, signal
         output                      o_ID_mem_to_reg,   // WB, signal
         output                      o_ID_jump,         // ID, signal
+        output                      o_ID_jr_jalr,
         output [NB_PC-1:0]          o_ID_jump_address,  
         output [NB_DATA-1:0]        o_ID_data_a,
         output [NB_DATA-1:0]        o_ID_data_b,
@@ -35,9 +36,7 @@ module ID_stage#(
         output                      o_ID_byte_en,
         output                      o_ID_halfword_en,
         output                      o_ID_word_en,
-        output [NB_PC-1:0]          o_ID_r31_data, 
-        output                      o_ID_jr_jalr
-
+        output [NB_PC-1:0]          o_ID_r31_data 
     );
 
     wire jr_jalr; // Para que register bank lea el r31

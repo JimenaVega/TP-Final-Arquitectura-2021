@@ -59,6 +59,7 @@ module control_unit#(
             o_reg_write     = 1'b0;
             o_mem_to_reg    = 1'b0;
             o_jump          = 1'b0;
+            o_jr_jalr       = 1'b0;
         end
         if(i_enable) begin
             o_alu_op = i_opcode;
