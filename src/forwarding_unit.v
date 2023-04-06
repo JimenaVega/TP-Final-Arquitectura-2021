@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module forwarding_unit (
+module forwarding_unit #(
         parameter NB_REG    = 5,
         parameter NB_MUX    = 2
     )    

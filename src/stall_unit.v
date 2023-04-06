@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
-module stall_unit (
-    parameter NB_DATA    = 32,
+module stall_unit #(
+        parameter NB_DATA    = 32
     )    
     (   
         input                       i_reset,
@@ -11,7 +11,7 @@ module stall_unit (
         input       [NB_DATA-1 : 0] i_IF_ID_rs, // Next inst
         output reg                  o_select_control_nop, // 0 -> i_control_signals 1 -> flush signals
         output reg                  o_enable_IF_ID_reg,   // 0 -> disable 1 -> enable
-        output reg                  o_enable_pc,          // 0 -> disable 1 -> enable
+        output reg                  o_enable_pc          // 0 -> disable 1 -> enable
     );
 
     always@(*) begin
