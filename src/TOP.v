@@ -134,7 +134,7 @@ module TOP#(
     
     IF_stage IF_stage_1(.i_clock(i_clock),
                         .i_IF_branch(MEM_branch_zero),
-                        .i_IF_jump(ID_jump),
+                        .i_IF_j_jal(ID_jump),
                         .i_IF_pc_enable(i_pc_enable),
                         .i_IF_pc_reset(i_pc_reset),
                         .i_IF_read_enable(i_read_enable),
@@ -265,7 +265,7 @@ module TOP#(
                             .EX_byte_en(o_EX_byte_en),
                             .EX_halfword_en(o_EX_halfword_en),
                             .EX_word_en(o_EX_word_en),
-                            .EX_r31_crl(EX_r31_ctrl),
+                            .EX_r31_ctrl(EX_r31_ctrl),
                             .EX_pc(o_EX_pc),
                             .MEM_reg_write(MEM_reg_write),
                             .MEM_mem_to_reg(MEM_mem_to_reg),
