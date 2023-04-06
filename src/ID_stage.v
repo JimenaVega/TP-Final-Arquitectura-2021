@@ -1,3 +1,5 @@
+`timescale 1ns / 1ps
+
 module ID_stage#(
         parameter NB_PC_CONSTANT    = 3,
         parameter NB_INST           = 32,
