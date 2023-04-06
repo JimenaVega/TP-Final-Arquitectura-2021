@@ -25,7 +25,7 @@ module control_unit#(
         parameter   J_OPCODE        = 6'h02, // JTYPE J
         parameter   JAL_OPCODE      = 6'h03,  // JTYPE JAL
         parameter   JALR_FUNCT      = 6'h09,
-        parameter   JR_FUNCT        = 6'h08,
+        parameter   JR_FUNCT        = 6'h08
     )
     (   
         input                       i_enable,
@@ -45,7 +45,7 @@ module control_unit#(
         output reg                  o_byte_en,
         output reg                  o_halfword_en,
         output reg                  o_word_en,
-        output reg                  o_jr_jalr,
+        output reg                  o_jr_jalr
     );
 
     always@(*) begin

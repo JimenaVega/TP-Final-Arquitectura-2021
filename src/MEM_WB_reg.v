@@ -21,7 +21,7 @@ module MEM_WB_reg#(
         output [NB_DATA-1:0]    o_WB_alu_result,   // i_WB_mem_to_reg = 0
         output [NB_REG-1:0]     o_WB_selected_reg,
         output                  o_WB_r31_ctrl,
-        output [NB_PC-1:0]      o_WB_pc,
+        output [NB_PC-1:0]      o_WB_pc
     );
 
     reg                 reg_write;

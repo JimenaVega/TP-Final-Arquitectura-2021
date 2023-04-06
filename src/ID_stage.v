@@ -36,7 +36,7 @@ module ID_stage#(
         output                      o_ID_halfword_en,
         output                      o_ID_word_en,
         output [NB_PC-1:0]          o_ID_r31_data, 
-        output                      o_ID_jr_jalr,
+        output                      o_ID_jr_jalr
 
     );
 
@@ -69,7 +69,7 @@ module ID_stage#(
                                 .o_jump(o_ID_jump),
                                 .o_byte_en(o_ID_byte_en),
                                 .o_halfword_en(o_ID_halfword_en),
-                                .o_word_en(o_ID_word_en)
+                                .o_word_en(o_ID_word_en),
                                 .o_jr_jalr(jr_jalr));
 
     sign_extend sign_extend_1(.i_data(i_ID_inst[15:0]),
