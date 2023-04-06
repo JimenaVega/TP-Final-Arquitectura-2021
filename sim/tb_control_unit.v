@@ -22,8 +22,8 @@ module tb_control_unit();
     parameter   SB_OPCODE       = 6'h28; // ITYPE SB
     parameter   SH_OPCODE       = 6'h29; // ITYPE SH
     parameter   SW_OPCODE       = 6'h2b;  // ITYPE SW
-    parameter   JALR_FUNCT      = 6'h09,
-    parameter   JR_FUNCT        = 6'h08,
+    parameter   JALR_FUNCT      = 6'h09;
+    parameter   JR_FUNCT        = 6'h08;
     
     reg                 clock;
     reg                 enable;
@@ -118,7 +118,6 @@ module tb_control_unit();
                               .o_byte_en(byte_en),
                               .o_halfword_en(halfword_en),
                               .o_word_en(word_en),
-                              .o_jr_jalr(jr_jalr),
-                              );
+                              .o_jr_jalr(jr_jalr));
 
 endmodule

@@ -15,7 +15,7 @@ module tb_IF_stage;
   reg i_IF_read_enable;
   reg [NB_PC-1:0] i_IF_branch_addr;
   reg [NB_PC-1:0] i_IF_jump_address;
-  reg [NB_PC-1:0] i_IF_r31_data, 
+  reg [NB_PC-1:0] i_IF_r31_data;
   wire [NB_PC-1:0] o_IF_adder_result;
   wire [NB_INSTRUCTION-1:0] o_IF_new_instruction;
 

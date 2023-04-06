@@ -9,7 +9,7 @@ module tb_registers_bank();
     reg                 clock;
     reg                 reset;
     reg                 reg_write;
-    reg                 jr_jalr,
+    reg                 jr_jalr;
     reg [NB_ADDR-1:0]   read_reg_a;
     reg [NB_ADDR-1:0]   read_reg_b;
     reg [NB_ADDR-1:0]   write_reg;
