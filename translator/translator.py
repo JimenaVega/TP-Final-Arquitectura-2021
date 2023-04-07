@@ -140,6 +140,7 @@ def parse_in_bytes(line, n=8):
 def convert_instruction(line, choice):
     separated = get_separeted_instruction(line)
     converted = mnemonic_type[separated[0]](separated)
+    file.write(converted[1] + '\n')
     parsed_string = parse_in_bytes(converted[1]) if choice else parse_in_bytes(converted[0], n=2)
     return parsed_string
 
@@ -189,11 +190,14 @@ mnemonic_type = {
 
 INPUT_FILE_NAME = 'all_inst.txt'
 OUTPUT_FILE_NAME = 'all_inst_bin.mem'
+TEST_FILE = 'all_inst_complete.mem'
 
+file = open(TEST_FILE, 'w')
 
 def main():
     inp_file = open(INPUT_FILE_NAME, 'r')
     out_file = open(OUTPUT_FILE_NAME, 'w')
+    
 
     line = inp_file.readline()
     choice = int(input("Choose conversion to binary [1] or hex [0]: "))
@@ -201,6 +205,7 @@ def main():
 
     while line:
         bin_hex = convert_instruction(line[:-2], choice)
+        
         for byte in bin_hex:
             out_file.write(byte + '\n')
 
@@ -211,6 +216,7 @@ def main():
 
     inp_file.close()
     out_file.close()
+    file.close()
 
 
 if __name__ == "__main__":
