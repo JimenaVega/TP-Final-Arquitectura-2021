@@ -133,7 +133,7 @@ def get_separeted_instruction(line):
     return line_split
 
 
-def parse_in_bytes(line, n=4):
+def parse_in_bytes(line, n=8):
     return [line[i:i + n] for i in range(0, len(line), n)]
 
 
