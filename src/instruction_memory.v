@@ -7,11 +7,11 @@
 
 module instruction_memory#(
   parameter MEMORY_WIDTH = 8,              // Specify RAM data width
-  parameter MEMORY_DEPTH = 256,              // Specify RAM depth (number of entries)
+  parameter MEMORY_DEPTH = 64,              // Specify RAM depth (number of entries)
   parameter NB_ADDR = 32,
   parameter NB_INSTRUCTION = 32,
   parameter RAM_PERFORMANCE = "LOW_LATENCY",// Select "HIGH_PERFORMANCE" or "LOW_LATENCY" 
-  parameter INIT_FILE = "C:/Users/alejo/Downloads/instructions.mem"       // Specify name/location of RAM initialization file if using one (leave blank if not)
+  parameter INIT_FILE = "/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/translator/r_inst_bin.mem"       // Specify name/location of RAM initialization file if using one (leave blank if not)
 ) 
 (
   input i_clock,                            // Clock
@@ -37,11 +37,15 @@ module instruction_memory#(
   endgenerate
 
   always @(posedge i_clock) begin
-    if (i_read_enable)
-      ram_data[31:24] <= BRAM[i_read_addr];
-      ram_data[23:16] <= BRAM[i_read_addr+1];
-      ram_data[15:8]  <= BRAM[i_read_addr+2];
-      ram_data[7:0]   <= BRAM[i_read_addr+3];
+      if (i_read_enable) begin
+          ram_data[31:24] <= BRAM[i_read_addr];
+          ram_data[23:16] <= BRAM[i_read_addr+1];
+          ram_data[15:8]  <= BRAM[i_read_addr+2];
+          ram_data[7:0]   <= BRAM[i_read_addr+3];
+      end
+      else begin
+        ram_data <= {NB_INSTRUCTION{1'b0}};
+      end  
   end
 
   //  The following code generates HIGH_PERFORMANCE (use output register) or LOW_LATENCY (no output register)
