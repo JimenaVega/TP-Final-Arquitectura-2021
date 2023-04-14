@@ -41,7 +41,8 @@ module ID_stage#(
         output [NB_PC-1:0]          o_ID_r31_data 
     );
 
-    wire jr_jalr; // Para que register bank lea el r31
+    wire                jr_jalr; // Para que register bank lea el r31
+    wire [NB_INST-1:0]  delayed_inst;
 
     registers_bank registers_bank_1(.i_clock(i_clock),
                                     .i_reset(i_ID_reset),
@@ -74,19 +75,22 @@ module ID_stage#(
                                 .o_word_en(o_ID_word_en),
                                 .o_jr_jalr(jr_jalr));
 
-    sign_extend sign_extend_1(.i_data(i_ID_inst[15:0]),
+    sign_extend sign_extend_1(.i_data(delayed_inst[15:0]),
                               .o_data(o_ID_immediate));
     
-    extend extend(.i_data(i_ID_inst[16:10]),
+    extend extend(.i_data(delayed_inst[16:10]),
                   .o_data(o_ID_shamt));
 
     concat_module concat_module_1(.i_inst(i_ID_inst[25:0]),                           
                                   .i_next_pc(i_ID_pc[31:28]),          // PC+1[31:28]                
                                   .o_jump_addr(o_ID_jump_address));
+
+    delay_reg delay_reg_1(.i_inst(i_ID_inst),
+                          .o_delayed_inst(delayed_inst));
     
     // TODO: Agregar wires intermedios
-    assign o_ID_rd = i_ID_inst[15:11];
-    assign o_ID_rt = i_ID_inst[20:16];
+    assign o_ID_rd = delayed_inst[15:11];
+    assign o_ID_rt = delayed_inst[20:16];
     assign o_ID_pc = i_ID_pc;
     assign o_ID_r31_data = o_ID_data_a;
     assign o_ID_jr_jalr = jr_jalr;

@@ -7,11 +7,12 @@
 
 module instruction_memory#(
   parameter MEMORY_WIDTH = 8,              // Specify RAM data width
-  parameter MEMORY_DEPTH = 64,              // Specify RAM depth (number of entries)
+  parameter MEMORY_DEPTH = 256,              // Specify RAM depth (number of entries)
   parameter NB_ADDR = 32,
   parameter NB_INSTRUCTION = 32,
   parameter RAM_PERFORMANCE = "LOW_LATENCY",// Select "HIGH_PERFORMANCE" or "LOW_LATENCY" 
-  parameter INIT_FILE = "/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/translator/r_inst_bin.mem"       // Specify name/location of RAM initialization file if using one (leave blank if not)
+  // parameter INIT_FILE = "/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/translator/r_inst_bin.mem"
+  parameter INIT_FILE = "C:/Users/alejo/Downloads/instructions.mem"
 ) 
 (
   input i_clock,                            // Clock
