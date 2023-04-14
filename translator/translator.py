@@ -140,7 +140,6 @@ def parse_in_bytes(line, n=8):
 def convert_instruction(line, choice):
     separated = get_separeted_instruction(line)
     converted = mnemonic_type[separated[0]](separated)
-    file.write(converted[1] + '\n')
     parsed_string = parse_in_bytes(converted[1]) if choice else parse_in_bytes(converted[0], n=2)
     return parsed_string
 
@@ -188,11 +187,8 @@ mnemonic_type = {
     J: jType, JAL: jType, JALR: rType, JR: rType,
 }
 
-INPUT_FILE_NAME = 'all_inst.txt'
-OUTPUT_FILE_NAME = 'all_inst_bin.mem'
-TEST_FILE = 'all_inst_complete.mem'
-
-file = open(TEST_FILE, 'w')
+INPUT_FILE_NAME = 'i_inst.txt'
+OUTPUT_FILE_NAME = 'i_inst_bin.mem'
 
 def main():
     inp_file = open(INPUT_FILE_NAME, 'r')
@@ -216,7 +212,6 @@ def main():
 
     inp_file.close()
     out_file.close()
-    file.close()
 
 
 if __name__ == "__main__":
