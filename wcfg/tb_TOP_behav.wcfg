@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="133201fs"></ZoomEndTime>
-      <Cursor1Time time="0fs"></Cursor1Time>
+      <ZoomStartTime time="21784fs"></ZoomStartTime>
+      <ZoomEndTime time="71085fs"></ZoomEndTime>
+      <Cursor1Time time="50000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="195"></NameColumnWidth>
-      <ValueColumnWidth column_width="71"></ValueColumnWidth>
+      <ValueColumnWidth column_width="67"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="10" />
+   <WVObjectSize size="9" />
    <wvobject fp_name="/tb_TOP/i_clock" type="logic">
       <obj_property name="ElementShortName">i_clock</obj_property>
       <obj_property name="ObjectShortName">i_clock</obj_property>
@@ -45,7 +45,6 @@
    <wvobject fp_name="group418" type="group">
       <obj_property name="label">IF_STAGE</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="group403" type="group">
          <obj_property name="label">PC</obj_property>
          <obj_property name="DisplayName">label</obj_property>
@@ -165,45 +164,580 @@
          <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/o_read_data" type="array">
             <obj_property name="ElementShortName">o_read_data[31:0]</obj_property>
             <obj_property name="ObjectShortName">o_read_data[31:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
          </wvobject>
          <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM" type="array">
-            <obj_property name="ElementShortName">BRAM[255:0][7:0]</obj_property>
-            <obj_property name="ObjectShortName">BRAM[255:0][7:0]</obj_property>
+            <obj_property name="ElementShortName">BRAM[69:0][7:0]</obj_property>
+            <obj_property name="ObjectShortName">BRAM[69:0][7:0]</obj_property>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[69]" type="array">
+               <obj_property name="ElementShortName">[69][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[69][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[68]" type="array">
+               <obj_property name="ElementShortName">[68][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[68][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[67]" type="array">
+               <obj_property name="ElementShortName">[67][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[67][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[66]" type="array">
+               <obj_property name="ElementShortName">[66][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[66][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[65]" type="array">
+               <obj_property name="ElementShortName">[65][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[65][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[64]" type="array">
+               <obj_property name="ElementShortName">[64][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[64][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[63]" type="array">
+               <obj_property name="ElementShortName">[63][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[63][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[62]" type="array">
+               <obj_property name="ElementShortName">[62][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[62][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[61]" type="array">
+               <obj_property name="ElementShortName">[61][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[61][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[60]" type="array">
+               <obj_property name="ElementShortName">[60][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[60][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[59]" type="array">
+               <obj_property name="ElementShortName">[59][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[59][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[58]" type="array">
+               <obj_property name="ElementShortName">[58][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[58][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[57]" type="array">
+               <obj_property name="ElementShortName">[57][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[57][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[56]" type="array">
+               <obj_property name="ElementShortName">[56][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[56][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[55]" type="array">
+               <obj_property name="ElementShortName">[55][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[55][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[54]" type="array">
+               <obj_property name="ElementShortName">[54][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[54][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[53]" type="array">
+               <obj_property name="ElementShortName">[53][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[53][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[52]" type="array">
+               <obj_property name="ElementShortName">[52][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[52][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[51]" type="array">
+               <obj_property name="ElementShortName">[51][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[51][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[50]" type="array">
+               <obj_property name="ElementShortName">[50][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[50][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[49]" type="array">
+               <obj_property name="ElementShortName">[49][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[49][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[48]" type="array">
+               <obj_property name="ElementShortName">[48][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[48][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[47]" type="array">
+               <obj_property name="ElementShortName">[47][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[47][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[46]" type="array">
+               <obj_property name="ElementShortName">[46][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[46][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[45]" type="array">
+               <obj_property name="ElementShortName">[45][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[45][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[44]" type="array">
+               <obj_property name="ElementShortName">[44][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[44][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[43]" type="array">
+               <obj_property name="ElementShortName">[43][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[43][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[42]" type="array">
+               <obj_property name="ElementShortName">[42][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[42][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[41]" type="array">
+               <obj_property name="ElementShortName">[41][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[41][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[40]" type="array">
+               <obj_property name="ElementShortName">[40][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[40][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[39]" type="array">
+               <obj_property name="ElementShortName">[39][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[39][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[38]" type="array">
+               <obj_property name="ElementShortName">[38][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[38][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[37]" type="array">
+               <obj_property name="ElementShortName">[37][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[37][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[36]" type="array">
+               <obj_property name="ElementShortName">[36][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[36][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[35]" type="array">
+               <obj_property name="ElementShortName">[35][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[35][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[34]" type="array">
+               <obj_property name="ElementShortName">[34][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[34][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[33]" type="array">
+               <obj_property name="ElementShortName">[33][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[33][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[32]" type="array">
+               <obj_property name="ElementShortName">[32][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[32][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[31]" type="array">
+               <obj_property name="ElementShortName">[31][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[31][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[30]" type="array">
+               <obj_property name="ElementShortName">[30][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[30][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[29]" type="array">
+               <obj_property name="ElementShortName">[29][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[29][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[28]" type="array">
+               <obj_property name="ElementShortName">[28][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[28][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[27]" type="array">
+               <obj_property name="ElementShortName">[27][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[27][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[26]" type="array">
+               <obj_property name="ElementShortName">[26][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[26][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[25]" type="array">
+               <obj_property name="ElementShortName">[25][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[25][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[24]" type="array">
+               <obj_property name="ElementShortName">[24][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[24][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[23]" type="array">
+               <obj_property name="ElementShortName">[23][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[23][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[22]" type="array">
+               <obj_property name="ElementShortName">[22][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[22][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[21]" type="array">
+               <obj_property name="ElementShortName">[21][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[21][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[20]" type="array">
+               <obj_property name="ElementShortName">[20][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[20][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[19]" type="array">
+               <obj_property name="ElementShortName">[19][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[19][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[18]" type="array">
+               <obj_property name="ElementShortName">[18][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[18][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[17]" type="array">
+               <obj_property name="ElementShortName">[17][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[17][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[16]" type="array">
+               <obj_property name="ElementShortName">[16][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[16][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[15]" type="array">
+               <obj_property name="ElementShortName">[15][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[15][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[14]" type="array">
+               <obj_property name="ElementShortName">[14][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[14][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[13]" type="array">
+               <obj_property name="ElementShortName">[13][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[13][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[12]" type="array">
+               <obj_property name="ElementShortName">[12][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[12][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[11]" type="array">
+               <obj_property name="ElementShortName">[11][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[11][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[10]" type="array">
+               <obj_property name="ElementShortName">[10][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[10][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[9]" type="array">
+               <obj_property name="ElementShortName">[9][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[9][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[8]" type="array">
+               <obj_property name="ElementShortName">[8][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[8][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[7]" type="array">
+               <obj_property name="ElementShortName">[7][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[7][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[6]" type="array">
+               <obj_property name="ElementShortName">[6][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[6][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[5]" type="array">
+               <obj_property name="ElementShortName">[5][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[5][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[4]" type="array">
+               <obj_property name="ElementShortName">[4][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[4][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[3]" type="array">
+               <obj_property name="ElementShortName">[3][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[3][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[2]" type="array">
+               <obj_property name="ElementShortName">[2][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[2][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[1]" type="array">
+               <obj_property name="ElementShortName">[1][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[1][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM[0]" type="array">
+               <obj_property name="ElementShortName">[0][7:0]</obj_property>
+               <obj_property name="ObjectShortName">[0][7:0]</obj_property>
+               <obj_property name="Radix">BINARYRADIX</obj_property>
+            </wvobject>
          </wvobject>
       </wvobject>
    </wvobject>
    <wvobject fp_name="group419" type="group">
       <obj_property name="label">ID_STAGE</obj_property>
       <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/tb_TOP/TOP_1/ID_stage_1/i_ID_inst" type="array">
+         <obj_property name="ElementShortName">i_ID_inst[31:0]</obj_property>
+         <obj_property name="ObjectShortName">i_ID_inst[31:0]</obj_property>
+      </wvobject>
       <wvobject fp_name="group421" type="group">
          <obj_property name="label">CONTROL_UNIT</obj_property>
          <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
          <wvobject fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/i_reset" type="logic">
             <obj_property name="ElementShortName">i_reset</obj_property>
             <obj_property name="ObjectShortName">i_reset</obj_property>
          </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/o_reg_dest" type="logic">
+            <obj_property name="ElementShortName">o_reg_dest</obj_property>
+            <obj_property name="ObjectShortName">o_reg_dest</obj_property>
+            <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/o_alu_src" type="logic">
+            <obj_property name="ElementShortName">o_alu_src</obj_property>
+            <obj_property name="ObjectShortName">o_alu_src</obj_property>
+            <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/o_mem_read" type="logic">
+            <obj_property name="ElementShortName">o_mem_read</obj_property>
+            <obj_property name="ObjectShortName">o_mem_read</obj_property>
+            <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/o_mem_write" type="logic">
+            <obj_property name="ElementShortName">o_mem_write</obj_property>
+            <obj_property name="ObjectShortName">o_mem_write</obj_property>
+            <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/o_branch" type="logic">
+            <obj_property name="ElementShortName">o_branch</obj_property>
+            <obj_property name="ObjectShortName">o_branch</obj_property>
+            <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/o_reg_write" type="logic">
+            <obj_property name="ElementShortName">o_reg_write</obj_property>
+            <obj_property name="ObjectShortName">o_reg_write</obj_property>
+            <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/o_mem_to_reg" type="logic">
+            <obj_property name="ElementShortName">o_mem_to_reg</obj_property>
+            <obj_property name="ObjectShortName">o_mem_to_reg</obj_property>
+            <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
          <wvobject fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/o_jump" type="logic">
             <obj_property name="ElementShortName">o_jump</obj_property>
             <obj_property name="ObjectShortName">o_jump</obj_property>
+            <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/o_byte_en" type="logic">
+            <obj_property name="ElementShortName">o_byte_en</obj_property>
+            <obj_property name="ObjectShortName">o_byte_en</obj_property>
+            <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/o_halfword_en" type="logic">
+            <obj_property name="ElementShortName">o_halfword_en</obj_property>
+            <obj_property name="ObjectShortName">o_halfword_en</obj_property>
+            <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/o_word_en" type="logic">
+            <obj_property name="ElementShortName">o_word_en</obj_property>
+            <obj_property name="ObjectShortName">o_word_en</obj_property>
+            <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/o_jr_jalr" type="logic">
+            <obj_property name="ElementShortName">o_jr_jalr</obj_property>
+            <obj_property name="ObjectShortName">o_jr_jalr</obj_property>
+            <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
       </wvobject>
    </wvobject>
-   <wvobject fp_name="/tb_TOP/TOP_1/EX_stage_1/alu_1/o_zero" type="logic">
-      <obj_property name="ElementShortName">o_zero</obj_property>
-      <obj_property name="ObjectShortName">o_zero</obj_property>
-      <obj_property name="CustomSignalColor">#D2691E</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
+   <wvobject fp_name="group172" type="group">
+      <obj_property name="label">EX_STAGE</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="group183" type="group">
+         <obj_property name="label">FLAGS</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_reg_dest" type="logic">
+            <obj_property name="ElementShortName">i_EX_reg_dest</obj_property>
+            <obj_property name="ObjectShortName">i_EX_reg_dest</obj_property>
+            <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_alu_src" type="logic">
+            <obj_property name="ElementShortName">i_EX_alu_src</obj_property>
+            <obj_property name="ObjectShortName">i_EX_alu_src</obj_property>
+            <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_mem_read" type="logic">
+            <obj_property name="ElementShortName">i_EX_mem_read</obj_property>
+            <obj_property name="ObjectShortName">i_EX_mem_read</obj_property>
+            <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_mem_write" type="logic">
+            <obj_property name="ElementShortName">i_EX_mem_write</obj_property>
+            <obj_property name="ObjectShortName">i_EX_mem_write</obj_property>
+            <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_branch" type="logic">
+            <obj_property name="ElementShortName">i_EX_branch</obj_property>
+            <obj_property name="ObjectShortName">i_EX_branch</obj_property>
+            <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_reg_write" type="logic">
+            <obj_property name="ElementShortName">i_EX_reg_write</obj_property>
+            <obj_property name="ObjectShortName">i_EX_reg_write</obj_property>
+            <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_mem_to_reg" type="logic">
+            <obj_property name="ElementShortName">i_EX_mem_to_reg</obj_property>
+            <obj_property name="ObjectShortName">i_EX_mem_to_reg</obj_property>
+            <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_byte_en" type="logic">
+            <obj_property name="ElementShortName">i_EX_byte_en</obj_property>
+            <obj_property name="ObjectShortName">i_EX_byte_en</obj_property>
+            <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_halfword_en" type="logic">
+            <obj_property name="ElementShortName">i_EX_halfword_en</obj_property>
+            <obj_property name="ObjectShortName">i_EX_halfword_en</obj_property>
+            <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_word_en" type="logic">
+            <obj_property name="ElementShortName">i_EX_word_en</obj_property>
+            <obj_property name="ObjectShortName">i_EX_word_en</obj_property>
+            <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+      </wvobject>
    </wvobject>
-   <wvobject fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/o_branch" type="logic">
-      <obj_property name="ElementShortName">o_branch</obj_property>
-      <obj_property name="ObjectShortName">o_branch</obj_property>
-      <obj_property name="CustomSignalColor">#D2691E</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_TOP/TOP_1/MEM_stage_1/o_MEM_branch_zero" type="logic">
-      <obj_property name="ElementShortName">o_MEM_branch_zero</obj_property>
-      <obj_property name="ObjectShortName">o_MEM_branch_zero</obj_property>
-      <obj_property name="CustomSignalColor">#D2691E</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
+   <wvobject fp_name="group184" type="group">
+      <obj_property name="label">MEM_STAGE</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="group186" type="group">
+         <obj_property name="label">FLAGS</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_MEM_mem_read" type="logic">
+            <obj_property name="ElementShortName">i_MEM_mem_read</obj_property>
+            <obj_property name="ObjectShortName">i_MEM_mem_read</obj_property>
+            <obj_property name="CustomSignalColor">#808000</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_MEM_mem_write" type="logic">
+            <obj_property name="ElementShortName">i_MEM_mem_write</obj_property>
+            <obj_property name="ObjectShortName">i_MEM_mem_write</obj_property>
+            <obj_property name="CustomSignalColor">#808000</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_MEM_branch" type="logic">
+            <obj_property name="ElementShortName">i_MEM_branch</obj_property>
+            <obj_property name="ObjectShortName">i_MEM_branch</obj_property>
+            <obj_property name="CustomSignalColor">#808000</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_MEM_reg_write" type="logic">
+            <obj_property name="ElementShortName">i_MEM_reg_write</obj_property>
+            <obj_property name="ObjectShortName">i_MEM_reg_write</obj_property>
+            <obj_property name="CustomSignalColor">#808000</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_MEM_mem_to_reg" type="logic">
+            <obj_property name="ElementShortName">i_MEM_mem_to_reg</obj_property>
+            <obj_property name="ObjectShortName">i_MEM_mem_to_reg</obj_property>
+            <obj_property name="CustomSignalColor">#808000</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_MEM_byte_en" type="logic">
+            <obj_property name="ElementShortName">i_MEM_byte_en</obj_property>
+            <obj_property name="ObjectShortName">i_MEM_byte_en</obj_property>
+            <obj_property name="CustomSignalColor">#808000</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_MEM_halfword_en" type="logic">
+            <obj_property name="ElementShortName">i_MEM_halfword_en</obj_property>
+            <obj_property name="ObjectShortName">i_MEM_halfword_en</obj_property>
+            <obj_property name="CustomSignalColor">#808000</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_MEM_word_en" type="logic">
+            <obj_property name="ElementShortName">i_MEM_word_en</obj_property>
+            <obj_property name="ObjectShortName">i_MEM_word_en</obj_property>
+            <obj_property name="CustomSignalColor">#808000</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+      </wvobject>
    </wvobject>
 </wave_config>

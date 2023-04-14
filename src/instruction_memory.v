@@ -7,7 +7,7 @@
 
 module instruction_memory#(
   parameter MEMORY_WIDTH = 8,              // Specify RAM data width
-  parameter MEMORY_DEPTH = 256,              // Specify RAM depth (number of entries)
+  parameter MEMORY_DEPTH = 70,              // Specify RAM depth (number of entries)
   parameter NB_ADDR = 32,
   parameter NB_INSTRUCTION = 32,
   parameter RAM_PERFORMANCE = "LOW_LATENCY",// Select "HIGH_PERFORMANCE" or "LOW_LATENCY" 
