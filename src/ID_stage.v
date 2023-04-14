@@ -55,7 +55,8 @@ module ID_stage#(
                                     .o_data_b(o_ID_data_b));
 
 
-    control_unit control_unit_1(.i_enable(i_ID_enable),
+    control_unit control_unit_1(.i_clock(i_clock),
+                                .i_enable(i_ID_enable),
                                 .i_reset(i_ID_reset),           // Necesario para flush en controls hazard
                                 .i_opcode(i_ID_inst[31:26]),
                                 .i_funct(i_ID_inst[6:0]),

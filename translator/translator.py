@@ -187,8 +187,8 @@ mnemonic_type = {
     J: jType, JAL: jType, JALR: rType, JR: rType,
 }
 
-INPUT_FILE_NAME = 'i_inst.txt'
-OUTPUT_FILE_NAME = 'i_inst_bin.mem'
+INPUT_FILE_NAME = 'r_inst.txt'
+OUTPUT_FILE_NAME = 'r_inst_hex.mem'
 
 def main():
     inp_file = open(INPUT_FILE_NAME, 'r')

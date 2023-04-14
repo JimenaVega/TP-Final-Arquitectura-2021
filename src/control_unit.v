@@ -27,7 +27,7 @@ module control_unit#(
         parameter   JALR_FUNCT      = 6'h09,
         parameter   JR_FUNCT        = 6'h08
     )
-    (   
+    (   input                       i_clock,
         input                       i_enable,
         input                       i_reset,        // Necesario para flush en controls hazard
         input [NB_OPCODE-1:0]       i_opcode,
@@ -48,309 +48,309 @@ module control_unit#(
         output reg                  o_jr_jalr
     );
 
-    always@(*) begin
+    always@(posedge i_clock) begin
         if(i_reset) begin
-            o_alu_op        = {NB_OPCODE{1'b0}};
-            o_reg_dest      = 1'b0;
-            o_alu_src       = 1'b0;
-            o_mem_read      = 1'b0;
-            o_mem_write     = 1'b0;
-            o_branch        = 1'b0;
-            o_reg_write     = 1'b0;
-            o_mem_to_reg    = 1'b0;
-            o_jump          = 1'b0;
-            o_jr_jalr       = 1'b0;
+            o_alu_op        <= {NB_OPCODE{1'b0}};
+            o_reg_dest      <= 1'b0;
+            o_alu_src       <= 1'b0;
+            o_mem_read      <= 1'b0;
+            o_mem_write     <= 1'b0;
+            o_branch        <= 1'b0;
+            o_reg_write     <= 1'b0;
+            o_mem_to_reg    <= 1'b0;
+            o_jump          <= 1'b0;
+            o_jr_jalr       <= 1'b0;
         end
         if(i_enable) begin
             o_alu_op = i_opcode;
             case(i_opcode)
                 RTYPE_OPCODE:begin
 
-                    o_reg_dest      = 1'b1; // rd
-                    o_alu_src       = 1'b0; // rt
-                    o_mem_read      = 1'b0; // no accede a mem
-                    o_mem_write     = 1'b0; // no accede a mem
-                    o_branch        = 1'b0; // no es branch
-                    o_reg_write     = 1'b1; // escribe en bank register
-                    o_mem_to_reg    = 1'b0; // read salida ALU
-                    o_jump          = 1'b0;
-                    o_byte_en       = 1'b0;
-                    o_halfword_en   = 1'b0;
-                    o_word_en       = 1'b0;
+                    o_reg_dest      <= 1'b1; // rd
+                    o_alu_src       <= 1'b0; // rt
+                    o_mem_read      <= 1'b0; // no accede a mem
+                    o_mem_write     <= 1'b0; // no accede a mem
+                    o_branch        <= 1'b0; // no es branch
+                    o_reg_write     <= 1'b1; // escribe en bank register
+                    o_mem_to_reg    <= 1'b0; // read salida ALU
+                    o_jump          <= 1'b0;
+                    o_byte_en       <= 1'b0;
+                    o_halfword_en   <= 1'b0;
+                    o_word_en       <= 1'b0;
 
                     if((i_funct == JALR_FUNCT) || (i_funct == JR_FUNCT)) begin
-                        o_jr_jalr = 1'b1;
+                        o_jr_jalr <= 1'b1;
                     end
                     else begin
-                        o_jr_jalr = 1'b0;
+                        o_jr_jalr <= 1'b0;
                     end
 
                 end
                 BEQ_OPCODE:begin
-                    o_reg_dest      = 1'b0; // X
-                    o_alu_src       = 1'b0; // rt
-                    o_mem_read      = 1'b0; // no accede a mem
-                    o_mem_write     = 1'b0; // no accede a mem
-                    o_branch        = 1'b1; // es branch
-                    o_reg_write     = 1'b0; // no escribe en bank register
-                    o_mem_to_reg    = 1'b0; // X
-                    o_jump          = 1'b0;
-                    o_byte_en       = 1'b0;
-                    o_halfword_en   = 1'b0;
-                    o_word_en       = 1'b0;
-                    o_jr_jalr       = 1'b0;
+                    o_reg_dest      <= 1'b0; // X
+                    o_alu_src       <= 1'b0; // rt
+                    o_mem_read      <= 1'b0; // no accede a mem
+                    o_mem_write     <= 1'b0; // no accede a mem
+                    o_branch        <= 1'b1; // es branch
+                    o_reg_write     <= 1'b0; // no escribe en bank register
+                    o_mem_to_reg    <= 1'b0; // X
+                    o_jump          <= 1'b0;
+                    o_byte_en       <= 1'b0;
+                    o_halfword_en   <= 1'b0;
+                    o_word_en       <= 1'b0;
+                    o_jr_jalr       <= 1'b0;
                 end
                 BNE_OPCODE:begin
-                    o_reg_dest      = 1'b0; // X
-                    o_alu_src       = 1'b0; // rt
-                    o_mem_read      = 1'b0; // no accede a mem
-                    o_mem_write     = 1'b0; // no accede a mem
-                    o_branch        = 1'b1; // es branch
-                    o_reg_write     = 1'b0; // no escribe en bank register
-                    o_mem_to_reg    = 1'b0; // X
-                    o_jump          = 1'b0;
-                    o_byte_en       = 1'b0;
-                    o_halfword_en   = 1'b0;
-                    o_word_en       = 1'b0;
-                    o_jr_jalr       = 1'b0;
+                    o_reg_dest      <= 1'b0; // X
+                    o_alu_src       <= 1'b0; // rt
+                    o_mem_read      <= 1'b0; // no accede a mem
+                    o_mem_write     <= 1'b0; // no accede a mem
+                    o_branch        <= 1'b1; // es branch
+                    o_reg_write     <= 1'b0; // no escribe en bank register
+                    o_mem_to_reg    <= 1'b0; // X
+                    o_jump          <= 1'b0;
+                    o_byte_en       <= 1'b0;
+                    o_halfword_en   <= 1'b0;
+                    o_word_en       <= 1'b0;
+                    o_jr_jalr       <= 1'b0;
                 end
                 ADDI_OPCODE:begin
-                    o_reg_dest      = 1'b0; // rt
-                    o_alu_src       = 1'b1; // immediate
-                    o_mem_read      = 1'b0; // no accede a mem
-                    o_mem_write     = 1'b0; // no accede a mem
-                    o_branch        = 1'b0; // no es branch
-                    o_reg_write     = 1'b1; // escribe en bank register
-                    o_mem_to_reg    = 1'b0; // read salida ALU
-                    o_jump          = 1'b0;
-                    o_byte_en       = 1'b0;
-                    o_halfword_en   = 1'b0;
-                    o_word_en       = 1'b0;
-                    o_jr_jalr       = 1'b0;
+                    o_reg_dest      <= 1'b0; // rt
+                    o_alu_src       <= 1'b1; // immediate
+                    o_mem_read      <= 1'b0; // no accede a mem
+                    o_mem_write     <= 1'b0; // no accede a mem
+                    o_branch        <= 1'b0; // no es branch
+                    o_reg_write     <= 1'b1; // escribe en bank register
+                    o_mem_to_reg    <= 1'b0; // read salida ALU
+                    o_jump          <= 1'b0;
+                    o_byte_en       <= 1'b0;
+                    o_halfword_en   <= 1'b0;
+                    o_word_en       <= 1'b0;
+                    o_jr_jalr       <= 1'b0;
                 end
                 SLTI_OPCODE:begin
-                    o_reg_dest      = 1'b0; // rt
-                    o_alu_src       = 1'b1; // immediate
-                    o_mem_read      = 1'b0; // no accede a mem
-                    o_mem_write     = 1'b0; // no accede a mem
-                    o_branch        = 1'b0; // no es branch
-                    o_reg_write     = 1'b1; // escribe en bank register
-                    o_mem_to_reg    = 1'b0; // read salida ALU
-                    o_jump          = 1'b0;
-                    o_byte_en       = 1'b0;
-                    o_halfword_en   = 1'b0;
-                    o_word_en       = 1'b0;
-                    o_jr_jalr       = 1'b0;
+                    o_reg_dest      <= 1'b0; // rt
+                    o_alu_src       <= 1'b1; // immediate
+                    o_mem_read      <= 1'b0; // no accede a mem
+                    o_mem_write     <= 1'b0; // no accede a mem
+                    o_branch        <= 1'b0; // no es branch
+                    o_reg_write     <= 1'b1; // escribe en bank register
+                    o_mem_to_reg    <= 1'b0; // read salida ALU
+                    o_jump          <= 1'b0;
+                    o_byte_en       <= 1'b0;
+                    o_halfword_en   <= 1'b0;
+                    o_word_en       <= 1'b0;
+                    o_jr_jalr       <= 1'b0;
                 end
                 ANDI_OPCODE:begin
-                    o_reg_dest      = 1'b0; // rt
-                    o_alu_src       = 1'b1; // immediate
-                    o_mem_read      = 1'b0; // no accede a mem
-                    o_mem_write     = 1'b0; // no accede a mem
-                    o_branch        = 1'b0; // no es branch
-                    o_reg_write     = 1'b1; // escribe en bank register
-                    o_mem_to_reg    = 1'b0; // read salida ALU
-                    o_jump          = 1'b0;
-                    o_byte_en       = 1'b0;
-                    o_halfword_en   = 1'b0;
-                    o_word_en       = 1'b0;
-                    o_jr_jalr       = 1'b0;
+                    o_reg_dest      <= 1'b0; // rt
+                    o_alu_src       <= 1'b1; // immediate
+                    o_mem_read      <= 1'b0; // no accede a mem
+                    o_mem_write     <= 1'b0; // no accede a mem
+                    o_branch        <= 1'b0; // no es branch
+                    o_reg_write     <= 1'b1; // escribe en bank register
+                    o_mem_to_reg    <= 1'b0; // read salida ALU
+                    o_jump          <= 1'b0;
+                    o_byte_en       <= 1'b0;
+                    o_halfword_en   <= 1'b0;
+                    o_word_en       <= 1'b0;
+                    o_jr_jalr       <= 1'b0;
                 end
                 ORI_OPCODE:begin
-                    o_reg_dest      = 1'b0; // rt
-                    o_alu_src       = 1'b1; // immediate
-                    o_mem_read      = 1'b0; // no accede a mem
-                    o_mem_write     = 1'b0; // no accede a mem
-                    o_branch        = 1'b0; // no es branch
-                    o_reg_write     = 1'b1; // escribe en bank register
-                    o_mem_to_reg    = 1'b0; // read salida ALU
-                    o_jump          = 1'b0;
-                    o_byte_en       = 1'b0;
-                    o_halfword_en   = 1'b0;
-                    o_word_en       = 1'b0;
-                    o_jr_jalr       = 1'b0;
+                    o_reg_dest      <= 1'b0; // rt
+                    o_alu_src       <= 1'b1; // immediate
+                    o_mem_read      <= 1'b0; // no accede a mem
+                    o_mem_write     <= 1'b0; // no accede a mem
+                    o_branch        <= 1'b0; // no es branch
+                    o_reg_write     <= 1'b1; // escribe en bank register
+                    o_mem_to_reg    <= 1'b0; // read salida ALU
+                    o_jump          <= 1'b0;
+                    o_byte_en       <= 1'b0;
+                    o_halfword_en   <= 1'b0;
+                    o_word_en       <= 1'b0;
+                    o_jr_jalr       <= 1'b0;
                 end
                 XORI_OPCODE:begin
-                    o_reg_dest      = 1'b0; // rt
-                    o_alu_src       = 1'b1; // immediate
-                    o_mem_read      = 1'b0; // no accede a mem
-                    o_mem_write     = 1'b0; // no accede a mem
-                    o_branch        = 1'b0; // no es branch
-                    o_reg_write     = 1'b1; // escribe en bank register
-                    o_mem_to_reg    = 1'b0; // read salida ALU
-                    o_jump          = 1'b0;
-                    o_byte_en       = 1'b0;
-                    o_halfword_en   = 1'b0;
-                    o_word_en       = 1'b0;
-                    o_jr_jalr       = 1'b0;
+                    o_reg_dest      <= 1'b0; // rt
+                    o_alu_src       <= 1'b1; // immediate
+                    o_mem_read      <= 1'b0; // no accede a mem
+                    o_mem_write     <= 1'b0; // no accede a mem
+                    o_branch        <= 1'b0; // no es branch
+                    o_reg_write     <= 1'b1; // escribe en bank register
+                    o_mem_to_reg    <= 1'b0; // read salida ALU
+                    o_jump          <= 1'b0;
+                    o_byte_en       <= 1'b0;
+                    o_halfword_en   <= 1'b0;
+                    o_word_en       <= 1'b0;
+                    o_jr_jalr       <= 1'b0;
                 end
                 LUI_OPCODE:begin
-                    o_reg_dest      = 1'b0; // rt
-                    o_alu_src       = 1'b1; // immediate
-                    o_mem_read      = 1'b0; // no accede a mem
-                    o_mem_write     = 1'b0; // no accede a mem
-                    o_branch        = 1'b0; // no es branch
-                    o_reg_write     = 1'b1; // escribe en bank register
-                    o_mem_to_reg    = 1'b0; // read salida ALU
-                    o_jump          = 1'b0;
-                    o_byte_en       = 1'b0;
-                    o_halfword_en   = 1'b0;
-                    o_word_en       = 1'b0;
-                    o_jr_jalr       = 1'b0;
+                    o_reg_dest      <= 1'b0; // rt
+                    o_alu_src       <= 1'b1; // immediate
+                    o_mem_read      <= 1'b0; // no accede a mem
+                    o_mem_write     <= 1'b0; // no accede a mem
+                    o_branch        <= 1'b0; // no es branch
+                    o_reg_write     <= 1'b1; // escribe en bank register
+                    o_mem_to_reg    <= 1'b0; // read salida ALU
+                    o_jump          <= 1'b0;
+                    o_byte_en       <= 1'b0;
+                    o_halfword_en   <= 1'b0;
+                    o_word_en       <= 1'b0;
+                    o_jr_jalr       <= 1'b0;
                 end
                 LB_OPCODE:begin
-                    o_reg_dest      = 1'b0; // rt
-                    o_alu_src       = 1'b1; // immediate
-                    o_mem_read      = 1'b1; // read mem
-                    o_mem_write     = 1'b0; // no write mem
-                    o_branch        = 1'b0; // no es branch
-                    o_reg_write     = 1'b1; // escribe en rt
-                    o_mem_to_reg    = 1'b1; // read salida data memory
-                    o_jump          = 1'b0;
-                    o_byte_en       = 1'b1;
-                    o_halfword_en   = 1'b0;
-                    o_word_en       = 1'b0;
-                    o_jr_jalr       = 1'b0;
+                    o_reg_dest      <= 1'b0; // rt
+                    o_alu_src       <= 1'b1; // immediate
+                    o_mem_read      <= 1'b1; // read mem
+                    o_mem_write     <= 1'b0; // no write mem
+                    o_branch        <= 1'b0; // no es branch
+                    o_reg_write     <= 1'b1; // escribe en rt
+                    o_mem_to_reg    <= 1'b1; // read salida data memory
+                    o_jump          <= 1'b0;
+                    o_byte_en       <= 1'b1;
+                    o_halfword_en   <= 1'b0;
+                    o_word_en       <= 1'b0;
+                    o_jr_jalr       <= 1'b0;
                 end
                 LH_OPCODE:begin
-                    o_reg_dest      = 1'b0; // rt
-                    o_alu_src       = 1'b1; // immediate
-                    o_mem_read      = 1'b1; // read mem
-                    o_mem_write     = 1'b0; // no write mem
-                    o_branch        = 1'b0; // no es branch
-                    o_reg_write     = 1'b1; // escribe en rt
-                    o_mem_to_reg    = 1'b1; // read salida data memory
-                    o_jump          = 1'b0;
-                    o_byte_en       = 1'b0;
-                    o_halfword_en   = 1'b1;
-                    o_word_en       = 1'b0;
-                    o_jr_jalr       = 1'b0;
+                    o_reg_dest      <= 1'b0; // rt
+                    o_alu_src       <= 1'b1; // immediate
+                    o_mem_read      <= 1'b1; // read mem
+                    o_mem_write     <= 1'b0; // no write mem
+                    o_branch        <= 1'b0; // no es branch
+                    o_reg_write     <= 1'b1; // escribe en rt
+                    o_mem_to_reg    <= 1'b1; // read salida data memory
+                    o_jump          <= 1'b0;
+                    o_byte_en       <= 1'b0;
+                    o_halfword_en   <= 1'b1;
+                    o_word_en       <= 1'b0;
+                    o_jr_jalr       <= 1'b0;
                 end
                 LHU_OPCODE:begin
-                    o_reg_dest      = 1'b0; // rt
-                    o_alu_src       = 1'b1; // immediate
-                    o_mem_read      = 1'b1; // read mem
-                    o_mem_write     = 1'b0; // no write mem
-                    o_branch        = 1'b0; // no es branch
-                    o_reg_write     = 1'b1; // escribe en rt
-                    o_mem_to_reg    = 1'b1; // read salida data memory
-                    o_jump          = 1'b0;
-                    o_byte_en       = 1'b0;
-                    o_halfword_en   = 1'b1;
-                    o_word_en       = 1'b0;
-                    o_jr_jalr       = 1'b0;
+                    o_reg_dest      <= 1'b0; // rt
+                    o_alu_src       <= 1'b1; // immediate
+                    o_mem_read      <= 1'b1; // read mem
+                    o_mem_write     <= 1'b0; // no write mem
+                    o_branch        <= 1'b0; // no es branch
+                    o_reg_write     <= 1'b1; // escribe en rt
+                    o_mem_to_reg    <= 1'b1; // read salida data memory
+                    o_jump          <= 1'b0;
+                    o_byte_en       <= 1'b0;
+                    o_halfword_en   <= 1'b1;
+                    o_word_en       <= 1'b0;
+                    o_jr_jalr       <= 1'b0;
                 end
                 LW_OPCODE:begin
-                    o_reg_dest      = 1'b0; // rt
-                    o_alu_src       = 1'b1; // immediate
-                    o_mem_read      = 1'b1; // read mem
-                    o_mem_write     = 1'b0; // no write mem
-                    o_branch        = 1'b0; // no es branch
-                    o_reg_write     = 1'b1; // escribe en rt
-                    o_mem_to_reg    = 1'b1; // read salida data memory
-                    o_jump          = 1'b0;
-                    o_byte_en       = 1'b0;
-                    o_halfword_en   = 1'b0;
-                    o_word_en       = 1'b1;
-                    o_jr_jalr       = 1'b0;
+                    o_reg_dest      <= 1'b0; // rt
+                    o_alu_src       <= 1'b1; // immediate
+                    o_mem_read      <= 1'b1; // read mem
+                    o_mem_write     <= 1'b0; // no write mem
+                    o_branch        <= 1'b0; // no es branch
+                    o_reg_write     <= 1'b1; // escribe en rt
+                    o_mem_to_reg    <= 1'b1; // read salida data memory
+                    o_jump          <= 1'b0;
+                    o_byte_en       <= 1'b0;
+                    o_halfword_en   <= 1'b0;
+                    o_word_en       <= 1'b1;
+                    o_jr_jalr       <= 1'b0;
                 end
                 LWU_OPCODE:begin
-                    o_reg_dest      = 1'b0; // rt
-                    o_alu_src       = 1'b1; // immediate
-                    o_mem_read      = 1'b1; // read mem
-                    o_mem_write     = 1'b0; // no write mem
-                    o_branch        = 1'b0; // no es branch
-                    o_reg_write     = 1'b1; // escribe en rt
-                    o_mem_to_reg    = 1'b1; // read salida data memory
-                    o_jump          = 1'b0;
-                    o_byte_en       = 1'b0;
-                    o_halfword_en   = 1'b0;
-                    o_word_en       = 1'b1;
-                    o_jr_jalr       = 1'b0;
+                    o_reg_dest      <= 1'b0; // rt
+                    o_alu_src       <= 1'b1; // immediate
+                    o_mem_read      <= 1'b1; // read mem
+                    o_mem_write     <= 1'b0; // no write mem
+                    o_branch        <= 1'b0; // no es branch
+                    o_reg_write     <= 1'b1; // escribe en rt
+                    o_mem_to_reg    <= 1'b1; // read salida data memory
+                    o_jump          <= 1'b0;
+                    o_byte_en       <= 1'b0;
+                    o_halfword_en   <= 1'b0;
+                    o_word_en       <= 1'b1;
+                    o_jr_jalr       <= 1'b0;
                 end
                 LBU_OPCODE:begin
-                    o_reg_dest      = 1'b0; // rt
-                    o_alu_src       = 1'b1; // immediate
-                    o_mem_read      = 1'b1; // read mem
-                    o_mem_write     = 1'b0; // no write mem
-                    o_branch        = 1'b0; // no es branch
-                    o_reg_write     = 1'b1; // escribe en rt
-                    o_mem_to_reg    = 1'b1; // read salida data memory
-                    o_jump          = 1'b0;
-                    o_byte_en       = 1'b1;
-                    o_halfword_en   = 1'b0;
-                    o_word_en       = 1'b0;
-                    o_jr_jalr       = 1'b0;
+                    o_reg_dest      <= 1'b0; // rt
+                    o_alu_src       <= 1'b1; // immediate
+                    o_mem_read      <= 1'b1; // read mem
+                    o_mem_write     <= 1'b0; // no write mem
+                    o_branch        <= 1'b0; // no es branch
+                    o_reg_write     <= 1'b1; // escribe en rt
+                    o_mem_to_reg    <= 1'b1; // read salida data memory
+                    o_jump          <= 1'b0;
+                    o_byte_en       <= 1'b1;
+                    o_halfword_en   <= 1'b0;
+                    o_word_en       <= 1'b0;
+                    o_jr_jalr       <= 1'b0;
                 end
                 SB_OPCODE:begin
-                    o_reg_dest      = 1'b0; // rt
-                    o_alu_src       = 1'b1; // immediate
-                    o_mem_read      = 1'b0; // no read mem
-                    o_mem_write     = 1'b1; // write mem
-                    o_branch        = 1'b0; // no es branch
-                    o_reg_write     = 1'b0; // escribe en rt
-                    o_mem_to_reg    = 1'b0; // X
-                    o_jump          = 1'b0;
-                    o_byte_en       = 1'b1;
-                    o_halfword_en   = 1'b0;
-                    o_word_en       = 1'b0;
-                    o_jr_jalr       = 1'b0;
+                    o_reg_dest      <= 1'b0; // rt
+                    o_alu_src       <= 1'b1; // immediate
+                    o_mem_read      <= 1'b0; // no read mem
+                    o_mem_write     <= 1'b1; // write mem
+                    o_branch        <= 1'b0; // no es branch
+                    o_reg_write     <= 1'b0; // escribe en rt
+                    o_mem_to_reg    <= 1'b0; // X
+                    o_jump          <= 1'b0;
+                    o_byte_en       <= 1'b1;
+                    o_halfword_en   <= 1'b0;
+                    o_word_en       <= 1'b0;
+                    o_jr_jalr       <= 1'b0;
                 end
                 SH_OPCODE:begin
-                    o_reg_dest      = 1'b0; // rt
-                    o_alu_src       = 1'b1; // immediate
-                    o_mem_read      = 1'b0; // no read mem
-                    o_mem_write     = 1'b1; // write mem
-                    o_branch        = 1'b0; // no es branch
-                    o_reg_write     = 1'b0; // escribe en rt
-                    o_mem_to_reg    = 1'b0; // X
-                    o_jump          = 1'b0;
-                    o_byte_en       = 1'b0;
-                    o_halfword_en   = 1'b1;
-                    o_word_en       = 1'b0;
-                    o_jr_jalr       = 1'b0;
+                    o_reg_dest      <= 1'b0; // rt
+                    o_alu_src       <= 1'b1; // immediate
+                    o_mem_read      <= 1'b0; // no read mem
+                    o_mem_write     <= 1'b1; // write mem
+                    o_branch        <= 1'b0; // no es branch
+                    o_reg_write     <= 1'b0; // escribe en rt
+                    o_mem_to_reg    <= 1'b0; // X
+                    o_jump          <= 1'b0;
+                    o_byte_en       <= 1'b0;
+                    o_halfword_en   <= 1'b1;
+                    o_word_en       <= 1'b0;
+                    o_jr_jalr       <= 1'b0;
                 end
                 SW_OPCODE:begin
-                    o_reg_dest      = 1'b0; // rt
-                    o_alu_src       = 1'b1; // immediate
-                    o_mem_read      = 1'b0; // no read mem
-                    o_mem_write     = 1'b1; // write mem
-                    o_branch        = 1'b0; // no es branch
-                    o_reg_write     = 1'b0; // escribe en rt
-                    o_mem_to_reg    = 1'b0; // X
-                    o_jump          = 1'b0;
-                    o_byte_en       = 1'b0;
-                    o_halfword_en   = 1'b0;
-                    o_word_en       = 1'b1;
-                    o_jr_jalr       = 1'b0;
+                    o_reg_dest      <= 1'b0; // rt
+                    o_alu_src       <= 1'b1; // immediate
+                    o_mem_read      <= 1'b0; // no read mem
+                    o_mem_write     <= 1'b1; // write mem
+                    o_branch        <= 1'b0; // no es branch
+                    o_reg_write     <= 1'b0; // escribe en rt
+                    o_mem_to_reg    <= 1'b0; // X
+                    o_jump          <= 1'b0;
+                    o_byte_en       <= 1'b0;
+                    o_halfword_en   <= 1'b0;
+                    o_word_en       <= 1'b1;
+                    o_jr_jalr       <= 1'b0;
                 end
                 J_OPCODE:begin
-                    o_reg_dest      = 1'b0; // rt
-                    o_alu_src       = 1'b0; // immediate
-                    o_mem_read      = 1'b0; // no read mem
-                    o_mem_write     = 1'b0; // no write mem
-                    o_branch        = 1'b0; // no es branch
-                    o_reg_write     = 1'b0; // escribe en rt
-                    o_mem_to_reg    = 1'b0; // X
-                    o_jump          = 1'b1;
-                    o_byte_en       = 1'b0;
-                    o_halfword_en   = 1'b0;
-                    o_word_en       = 1'b0;
-                    o_jr_jalr       = 1'b0;
+                    o_reg_dest      <= 1'b0; // rt
+                    o_alu_src       <= 1'b0; // immediate
+                    o_mem_read      <= 1'b0; // no read mem
+                    o_mem_write     <= 1'b0; // no write mem
+                    o_branch        <= 1'b0; // no es branch
+                    o_reg_write     <= 1'b0; // escribe en rt
+                    o_mem_to_reg    <= 1'b0; // X
+                    o_jump          <= 1'b1;
+                    o_byte_en       <= 1'b0;
+                    o_halfword_en   <= 1'b0;
+                    o_word_en       <= 1'b0;
+                    o_jr_jalr       <= 1'b0;
                 end
                 JAL_OPCODE:begin
-                    o_reg_dest      = 1'b0; // rt
-                    o_alu_src       = 1'b0; // immediate
-                    o_mem_read      = 1'b0; // no read mem
-                    o_mem_write     = 1'b0; // no write mem
-                    o_branch        = 1'b0; // no es branch
-                    o_reg_write     = 1'b0; // escribe en rt
-                    o_mem_to_reg    = 1'b0; // X
-                    o_jump          = 1'b1; // TODO: ver si se necesta señal que haga $ra=PC+1
-                    o_byte_en       = 1'b0;
-                    o_halfword_en   = 1'b0;
-                    o_word_en       = 1'b0;
-                    o_jr_jalr       = 1'b0;
+                    o_reg_dest      <= 1'b0; // rt
+                    o_alu_src       <= 1'b0; // immediate
+                    o_mem_read      <= 1'b0; // no read mem
+                    o_mem_write     <= 1'b0; // no write mem
+                    o_branch        <= 1'b0; // no es branch
+                    o_reg_write     <= 1'b0; // escribe en rt
+                    o_mem_to_reg    <= 1'b0; // X
+                    o_jump          <= 1'b1; // TODO: ver si se necesta señal que haga $ra=PC+1
+                    o_byte_en       <= 1'b0;
+                    o_halfword_en   <= 1'b0;
+                    o_word_en       <= 1'b0;
+                    o_jr_jalr       <= 1'b0;
                 end
             endcase
         end
