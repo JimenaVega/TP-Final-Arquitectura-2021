@@ -4,6 +4,7 @@ module delay_reg#(
         parameter NB_INST           = 32
     )
     (
+        input                   i_clock,
         input [NB_INST-1:0]     i_inst,
         
         output [NB_INST-1:0]    o_delayed_inst

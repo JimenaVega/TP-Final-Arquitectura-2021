@@ -85,7 +85,8 @@ module ID_stage#(
                                   .i_next_pc(i_ID_pc[31:28]),          // PC+1[31:28]                
                                   .o_jump_addr(o_ID_jump_address));
 
-    delay_reg delay_reg_1(.i_inst(i_ID_inst),
+    delay_reg delay_reg_1(.i_clock(i_clock),
+                          .i_inst(i_ID_inst),
                           .o_delayed_inst(delayed_inst));
     
     // TODO: Agregar wires intermedios
