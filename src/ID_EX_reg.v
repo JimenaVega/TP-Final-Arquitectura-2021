@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 module ID_EX_reg#(
-        parameter NB_ALU_OP   = 3,
+        parameter NB_ALU_OP   = 6,
         parameter NB_IMM      = 32,
         parameter NB_PC       = 32,
         parameter NB_DATA     = 32,
@@ -74,7 +74,7 @@ module ID_EX_reg#(
         mem_write   <= ID_mem_write;
         branch      <= ID_branch;
         alu_src     <= ID_alu_src;
-        reg_dest     <= ID_reg_dest;
+        reg_dest    <= ID_reg_dest;
         alu_op      <= ID_alu_op;
         pc          <= ID_pc;
         data_a      <= ID_data_a;
@@ -100,7 +100,7 @@ module ID_EX_reg#(
     assign EX_data_a        = data_a;
     assign EX_data_b        = data_b;
     assign EX_immediate     = immediate;
-    assign EX_immediate     = shamt;
+    assign EX_shamt         = shamt;
     assign EX_rt            = rt;
     assign EX_rd            = rd;
     assign EX_byte_en       = byte_en;
