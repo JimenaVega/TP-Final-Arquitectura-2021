@@ -12,14 +12,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="188.687 ns"></ZoomEndTime>
-      <Cursor1Time time="55.000 ns"></Cursor1Time>
+      <ZoomEndTime time="162.578 ns"></ZoomEndTime>
+      <Cursor1Time time="13.097 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="196"></NameColumnWidth>
-      <ValueColumnWidth column_width="70"></ValueColumnWidth>
+      <NameColumnWidth column_width="195"></NameColumnWidth>
+      <ValueColumnWidth column_width="94"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="10" />
+   <WVObjectSize size="8" />
    <wvobject type="logic" fp_name="/tb_TOP/i_clock">
       <obj_property name="ElementShortName">i_clock</obj_property>
       <obj_property name="ObjectShortName">i_clock</obj_property>
@@ -46,11 +46,34 @@
       <obj_property name="label">ID_STAGE</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="isExpanded"></obj_property>
+      <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/o_ID_alu_op">
+         <obj_property name="ElementShortName">o_ID_alu_op[5:0]</obj_property>
+         <obj_property name="ObjectShortName">o_ID_alu_op[5:0]</obj_property>
+         <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/o_ID_immediate">
+         <obj_property name="ElementShortName">o_ID_immediate[31:0]</obj_property>
+         <obj_property name="ObjectShortName">o_ID_immediate[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/o_ID_shamt">
+         <obj_property name="ElementShortName">o_ID_shamt[31:0]</obj_property>
+         <obj_property name="ObjectShortName">o_ID_shamt[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/o_ID_rt">
+         <obj_property name="ElementShortName">o_ID_rt[4:0]</obj_property>
+         <obj_property name="ObjectShortName">o_ID_rt[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/o_ID_rd">
+         <obj_property name="ElementShortName">o_ID_rd[4:0]</obj_property>
+         <obj_property name="ObjectShortName">o_ID_rd[4:0]</obj_property>
+      </wvobject>
       <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/i_ID_inst">
          <obj_property name="ElementShortName">i_ID_inst[31:0]</obj_property>
          <obj_property name="ObjectShortName">i_ID_inst[31:0]</obj_property>
          <obj_property name="CustomSignalColor">#FFFF00</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="Radix">BINARYRADIX</obj_property>
       </wvobject>
       <wvobject type="group" fp_name="group1251">
          <obj_property name="label">REGISTER_BANK</obj_property>
@@ -67,18 +90,17 @@
          <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/i_read_reg_b">
             <obj_property name="ElementShortName">i_read_reg_b[4:0]</obj_property>
             <obj_property name="ObjectShortName">i_read_reg_b[4:0]</obj_property>
-            <obj_property name="Radix">BINARYRADIX</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
          <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/i_read_reg_a">
             <obj_property name="ElementShortName">i_read_reg_a[4:0]</obj_property>
             <obj_property name="ObjectShortName">i_read_reg_a[4:0]</obj_property>
-            <obj_property name="Radix">BINARYRADIX</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
       </wvobject>
       <wvobject type="group" fp_name="group421">
          <obj_property name="label">CONTROL_UNIT</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="isExpanded"></obj_property>
          <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/i_opcode">
             <obj_property name="ElementShortName">i_opcode[5:0]</obj_property>
             <obj_property name="ObjectShortName">i_opcode[5:0]</obj_property>
@@ -91,6 +113,12 @@
          <wvobject type="logic" fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/o_reg_dest">
             <obj_property name="ElementShortName">o_reg_dest</obj_property>
             <obj_property name="ObjectShortName">o_reg_dest</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/ID_stage_1/o_ID_reg_dest">
+            <obj_property name="ElementShortName">o_ID_reg_dest</obj_property>
+            <obj_property name="ObjectShortName">o_ID_reg_dest</obj_property>
+            <obj_property name="CustomSignalColor">#00FF7F</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
          <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/o_alu_op">
             <obj_property name="ElementShortName">o_alu_op[5:0]</obj_property>
@@ -136,6 +164,67 @@
             <obj_property name="ElementShortName">o_jr_jalr</obj_property>
             <obj_property name="ObjectShortName">o_jr_jalr</obj_property>
          </wvobject>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group250">
+      <obj_property name="label">EX_STAGE</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_alu_src">
+         <obj_property name="ElementShortName">i_EX_alu_src</obj_property>
+         <obj_property name="ObjectShortName">i_EX_alu_src</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_reg_dest">
+         <obj_property name="ElementShortName">i_EX_reg_dest</obj_property>
+         <obj_property name="ObjectShortName">i_EX_reg_dest</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_alu_op">
+         <obj_property name="ElementShortName">i_EX_alu_op[5:0]</obj_property>
+         <obj_property name="ObjectShortName">i_EX_alu_op[5:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_pc">
+         <obj_property name="ElementShortName">i_EX_pc[31:0]</obj_property>
+         <obj_property name="ObjectShortName">i_EX_pc[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_data_a">
+         <obj_property name="ElementShortName">i_EX_data_a[31:0]</obj_property>
+         <obj_property name="ObjectShortName">i_EX_data_a[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_data_b">
+         <obj_property name="ElementShortName">i_EX_data_b[31:0]</obj_property>
+         <obj_property name="ObjectShortName">i_EX_data_b[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_immediate">
+         <obj_property name="ElementShortName">i_EX_immediate[31:0]</obj_property>
+         <obj_property name="ObjectShortName">i_EX_immediate[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_shamt">
+         <obj_property name="ElementShortName">i_EX_shamt[31:0]</obj_property>
+         <obj_property name="ObjectShortName">i_EX_shamt[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_rt">
+         <obj_property name="ElementShortName">i_EX_rt[4:0]</obj_property>
+         <obj_property name="ObjectShortName">i_EX_rt[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_rd">
+         <obj_property name="ElementShortName">i_EX_rd[4:0]</obj_property>
+         <obj_property name="ObjectShortName">i_EX_rd[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/o_EX_alu_result">
+         <obj_property name="ElementShortName">o_EX_alu_result[31:0]</obj_property>
+         <obj_property name="ObjectShortName">o_EX_alu_result[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/o_EX_selected_reg">
+         <obj_property name="ElementShortName">o_EX_selected_reg[4:0]</obj_property>
+         <obj_property name="ObjectShortName">o_EX_selected_reg[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/o_EX_branch_addr">
+         <obj_property name="ElementShortName">o_EX_branch_addr[31:0]</obj_property>
+         <obj_property name="ObjectShortName">o_EX_branch_addr[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_EX_reg_1/EX_alu_op">
+         <obj_property name="ElementShortName">EX_alu_op[5:0]</obj_property>
+         <obj_property name="ObjectShortName">EX_alu_op[5:0]</obj_property>
       </wvobject>
    </wvobject>
    <wvobject type="group" fp_name="group418">
@@ -265,23 +354,5 @@
             <obj_property name="ObjectShortName">o_data[31:0]</obj_property>
          </wvobject>
       </wvobject>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/o_MEM_branch_zero">
-      <obj_property name="ElementShortName">o_MEM_branch_zero</obj_property>
-      <obj_property name="ObjectShortName">o_MEM_branch_zero</obj_property>
-      <obj_property name="CustomSignalColor">#D2691E</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/o_branch">
-      <obj_property name="ElementShortName">o_branch</obj_property>
-      <obj_property name="ObjectShortName">o_branch</obj_property>
-      <obj_property name="CustomSignalColor">#D2691E</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_TOP/TOP_1/EX_stage_1/alu_1/o_zero">
-      <obj_property name="ElementShortName">o_zero</obj_property>
-      <obj_property name="ObjectShortName">o_zero</obj_property>
-      <obj_property name="CustomSignalColor">#D2691E</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
 </wave_config>

@@ -89,12 +89,12 @@ module EX_stage#(
                 .i_b(i_EX_immediate),
                 .o_data(alu_data_b));
 
-    mux2 mux2_4(.i_select(i_EX_reg_dest),
+    mux2 #(.NB(5)) mux2_4(.i_select(i_EX_reg_dest),
                 .i_a(i_EX_rt),
                 .i_b(i_EX_rd),
                 .o_data(rt_rd));
 
-    mux2 mux2_5(.i_select(r31_ctrl),
+    mux2 #(.NB(5)) mux2_5(.i_select(r31_ctrl),
                 .i_a(rt_rd),
                 .i_b(r31),
                 .o_data(selected_reg));
