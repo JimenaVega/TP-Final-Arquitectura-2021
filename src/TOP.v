@@ -96,8 +96,8 @@ module TOP#(
     wire                        MEM_branch;
     wire [NB_PC-1:0]            MEM_branch_addr;
     wire                        MEM_zero;
-    wire                        MEM_alu_result;
-    wire                        MEM_data_a;
+    wire [NB_DATA-1:0]          MEM_alu_result;
+    wire [NB_DATA-1:0]          MEM_data_a;
     wire [NB_REG-1:0]           MEM_selected_reg;
     wire                        MEM_byte_en;
     wire                        MEM_halfword_en;

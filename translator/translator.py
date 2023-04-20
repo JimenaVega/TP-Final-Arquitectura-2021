@@ -188,12 +188,12 @@ mnemonic_type = {
 }
 
 INPUT_FILE_NAME = 'r_inst.txt'
-OUTPUT_FILE_NAME = 'r_inst_hex.mem'
+OUTPUT_FILE_NAME = 'r_inst_bin.mem'
+
 
 def main():
     inp_file = open(INPUT_FILE_NAME, 'r')
     out_file = open(OUTPUT_FILE_NAME, 'w')
-    
 
     line = inp_file.readline()
     choice = int(input("Choose conversion to binary [1] or hex [0]: "))
@@ -201,7 +201,7 @@ def main():
 
     while line:
         bin_hex = convert_instruction(line[:-2], choice)
-        
+
         for byte in bin_hex:
             out_file.write(byte + '\n')
 

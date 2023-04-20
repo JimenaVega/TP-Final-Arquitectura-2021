@@ -13,8 +13,8 @@ module EX_MEM_reg#(
         input                   EX_branch,
         input [NB_PC-1:0]       EX_branch_addr,
         input                   EX_zero,
-        input                   EX_alu_result,
-        input                   EX_data_a,
+        input [NB_PC-1:0]       EX_alu_result,
+        input [NB_PC-1:0]       EX_data_a,
         input [NB_REG-1:0]      EX_selected_reg,
         input                   EX_byte_en,
         input                   EX_halfword_en,
@@ -29,8 +29,8 @@ module EX_MEM_reg#(
         output                  MEM_branch,
         output [NB_PC-1:0]      MEM_branch_addr,
         output                  MEM_zero,
-        output                  MEM_alu_result,
-        output                  MEM_data_a,
+        output [NB_PC-1:0]      MEM_alu_result,
+        output [NB_PC-1:0]      MEM_data_a,
         output [NB_REG-1:0]     MEM_selected_reg,
         output                  MEM_byte_en,
         output                  MEM_halfword_en,
@@ -46,8 +46,8 @@ module EX_MEM_reg#(
     reg                 branch;
     reg [NB_PC-1:0]     branch_addr;
     reg                 zero;
-    reg                 alu_result;
-    reg                 data_a;
+    reg [NB_PC-1:0]     alu_result;
+    reg [NB_PC-1:0]     data_a;
     reg [NB_REG-1:0]    selected_reg;
     reg                 byte_en;
     reg                 halfword_en;
