@@ -20,12 +20,12 @@ module WB_stage#(
 
     wire [NB_DATA-1:0] mux2_5_data;
 
-    mux2 mux2_5(.i_select(i_WB_mem_to_reg),
+    mux2 mux2_10(.i_select(i_WB_mem_to_reg),
                 .i_a(i_WB_alu_result),
                 .i_b(i_WB_mem_data),
                 .o_data(mux2_5_data));
 
-    mux2 mux2_6(.i_select(i_WB_r31_ctrl),
+    mux2 mux2_11(.i_select(i_WB_r31_ctrl),
                 .i_a(mux2_5_data),
                 .i_b(i_WB_pc),
                 .o_data(o_WB_selected_data));
