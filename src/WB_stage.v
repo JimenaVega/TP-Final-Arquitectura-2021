@@ -31,6 +31,6 @@ module WB_stage#(
                 .o_data(o_WB_selected_data));
     
     assign o_WB_reg_write       = i_WB_reg_write;
-    assign i_WB_selected_reg    = o_WB_selected_reg;
+    assign o_WB_selected_reg    = i_WB_selected_reg;
 
 endmodule
