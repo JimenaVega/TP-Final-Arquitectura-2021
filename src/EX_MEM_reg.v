@@ -55,7 +55,7 @@ module EX_MEM_reg#(
     reg                 r31_ctrl;
     reg [NB_PC-1:0]     pc;  
 
-    always @(posedge i_clock) begin
+    always @(negedge i_clock) begin
         reg_write       <= EX_reg_write;
         mem_to_reg      <= EX_mem_to_reg;
         mem_read        <= EX_mem_read;

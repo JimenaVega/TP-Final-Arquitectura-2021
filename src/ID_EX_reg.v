@@ -67,7 +67,7 @@ module ID_EX_reg#(
     reg                 halfword_en;
     reg                 word_en;
 
-    always @(posedge i_clock) begin
+    always @(negedge i_clock) begin
         reg_write   <= ID_reg_write;
         mem_to_reg  <= ID_mem_to_reg;
         mem_read    <= ID_mem_read;

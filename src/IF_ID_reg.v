@@ -16,7 +16,7 @@ module IF_ID_reg#(
     reg [NB_PC-1:0]             adder_result;
     reg [NB_INSTRUCTION-1:0]    new_instruction;
 
-    always @(posedge i_clock) begin
+    always @(negedge i_clock) begin
         adder_result    <= IF_adder_result;
         new_instruction <= IF_new_instruction;
     end
