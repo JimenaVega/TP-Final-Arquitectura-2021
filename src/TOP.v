@@ -320,7 +320,7 @@ module TOP#(
                             .i_MEM_mem_to_reg(o_MEM_mem_to_reg),
                             .i_MEM_mem_data(MEM_mem_data),
                             .i_MEM_alu_result(MEM_alu_result),
-                            .i_MEM_selected_reg(MEM_selected_reg),
+                            .i_MEM_selected_reg(o_MEM_selected_reg),
                             .i_MEM_r31_ctrl(o_MEM_r31_ctrl),
                             .i_MEM_pc(o_MEM_pc),
                             .o_WB_reg_write(WB_reg_write),
