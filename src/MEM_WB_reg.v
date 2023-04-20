@@ -32,7 +32,7 @@ module MEM_WB_reg#(
     reg                 r31_ctrl;
     reg [NB_PC-1:0]     pc;
 
-    always@(posedge i_clock) begin
+    always@(negedge i_clock) begin
         reg_write       <= i_MEM_reg_write;
         mem_to_reg      <= i_MEM_mem_to_reg;
         mem_data        <= i_MEM_mem_data;
