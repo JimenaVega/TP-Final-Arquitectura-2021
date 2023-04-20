@@ -20,7 +20,7 @@ module data_memory#(
   input  i_word_en,
   input  i_halfword_en,
   input  i_byte_en,
-  input  [NB_ADDR-1:0]      i_address,       // Write and read address bus, width determined from RAM_DEPTH
+  input  [NB_ADDR-1:0] i_address,       // Write and read address bus, width determined from RAM_DEPTH
   input  [NB_DATA-1:0] i_write_data,    // RAM input data
   output [NB_DATA-1:0] o_read_data      // RAM output data
 );
@@ -38,6 +38,8 @@ module data_memory#(
 
 
   always @(posedge i_clock) begin
+    BRAM[17]   <= 8'd7; // borrar
+    BRAM[18]   <= 8'd8; // borrar
     if (i_mem_write_flag)
       case ({i_word_en, i_halfword_en, i_byte_en})
         3'b001:

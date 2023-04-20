@@ -84,7 +84,7 @@ module EX_stage#(
     shifter shifter_1(.i_data(i_EX_immediate),
                       .o_result(shifted_imm));
 
-    mux2 mux2_3(.i_select(i_EX_alu_src),
+    mux2 mux2_7(.i_select(i_EX_alu_src),
                 .i_a(i_EX_data_b),
                 .i_b(i_EX_immediate),
                 .o_data(alu_data_b));
