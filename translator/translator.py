@@ -57,11 +57,12 @@ def rType(instruction):
         rd = 0
         result.append(bin(rd)[2:].zfill(5))
     else:
-        rt = get_register(instruction[3])
-        result.append(bin(rt)[2:].zfill(5))  # rt
 
         rs = get_register(instruction[2])
         result.append(bin(rs)[2:].zfill(5))  # rs
+        
+        rt = get_register(instruction[3])
+        result.append(bin(rt)[2:].zfill(5))  # rt
 
         rd = get_register(instruction[1])
         result.append(bin(rd)[2:].zfill(5))  # rd
