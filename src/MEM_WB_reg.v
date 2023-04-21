@@ -26,7 +26,7 @@ module MEM_WB_reg#(
 
     reg                 reg_write;
     reg                 mem_to_reg; // MUX selector
-    reg                 mem_data;   // i_WB_mem_to_reg = 1
+    reg [NB_DATA-1:0]   mem_data;   // i_WB_mem_to_reg = 1
     reg [NB_DATA-1:0]   alu_result; // i_WB_mem_to_reg = 0
     reg [NB_REG-1:0]    selected_reg;
     reg                 r31_ctrl;
