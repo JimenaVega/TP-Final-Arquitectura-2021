@@ -80,7 +80,8 @@ module ID_stage#(
     extend extend(.i_data(i_ID_inst[10:6]),
                   .o_data(o_ID_shamt));
 
-    concat_module concat_module_1(.i_inst(i_ID_inst[25:0]),                           
+    concat_module concat_module_1(.i_clock(i_clock),
+                                  .i_inst(i_ID_inst[25:0]),                           
                                   .i_next_pc(i_ID_pc[31:28]),          // PC+1[31:28]                
                                   .o_jump_addr(o_ID_jump_address));
     
