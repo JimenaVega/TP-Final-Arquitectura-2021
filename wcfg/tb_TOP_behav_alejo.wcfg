@@ -11,12 +11,12 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="436833fs"></ZoomStartTime>
-      <ZoomEndTime time="536634fs"></ZoomEndTime>
-      <Cursor1Time time="520000fs"></Cursor1Time>
+      <ZoomStartTime time="48885fs"></ZoomStartTime>
+      <ZoomEndTime time="151686fs"></ZoomEndTime>
+      <Cursor1Time time="105000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="192"></NameColumnWidth>
+      <NameColumnWidth column_width="188"></NameColumnWidth>
       <ValueColumnWidth column_width="58"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="10" />
@@ -213,6 +213,7 @@
             <obj_property name="ElementShortName">registers[31:0][31:0]</obj_property>
             <obj_property name="ObjectShortName">registers[31:0][31:0]</obj_property>
             <obj_property name="isExpanded"></obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
             <wvobject fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[31]" type="array">
                <obj_property name="ElementShortName">[31][31:0]</obj_property>
                <obj_property name="ObjectShortName">[31][31:0]</obj_property>
@@ -378,6 +379,7 @@
       <wvobject fp_name="group421" type="group">
          <obj_property name="label">CONTROL_UNIT</obj_property>
          <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
          <wvobject fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/i_reset" type="logic">
             <obj_property name="ElementShortName">i_reset</obj_property>
             <obj_property name="ObjectShortName">i_reset</obj_property>
@@ -477,6 +479,21 @@
          <obj_property name="CustomSignalColor">#FFD700</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
+      <wvobject fp_name="group242" type="group">
+         <obj_property name="label">SIGN_EXTEND</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/tb_TOP/TOP_1/ID_stage_1/sign_extend_1/i_data" type="array">
+            <obj_property name="ElementShortName">i_data[15:0]</obj_property>
+            <obj_property name="ObjectShortName">i_data[15:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP/TOP_1/ID_stage_1/sign_extend_1/o_data" type="array">
+            <obj_property name="ElementShortName">o_data[31:0]</obj_property>
+            <obj_property name="ObjectShortName">o_data[31:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+      </wvobject>
    </wvobject>
    <wvobject fp_name="group172" type="group">
       <obj_property name="label">EX_STAGE</obj_property>
@@ -551,26 +568,6 @@
          <obj_property name="label">MUX_3</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/tb_TOP/TOP_1/EX_stage_1/mux2_3/i_select" type="logic">
-            <obj_property name="ElementShortName">i_select</obj_property>
-            <obj_property name="ObjectShortName">i_select</obj_property>
-            <obj_property name="CustomSignalColor">#F0E68C</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
-         </wvobject>
-         <wvobject fp_name="/tb_TOP/TOP_1/EX_stage_1/mux2_3/i_a" type="array">
-            <obj_property name="ElementShortName">i_a[31:0]</obj_property>
-            <obj_property name="ObjectShortName">i_a[31:0]</obj_property>
-            <obj_property name="CustomSignalColor">#F0E68C</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject fp_name="/tb_TOP/TOP_1/EX_stage_1/mux2_3/i_b" type="array">
-            <obj_property name="ElementShortName">i_b[31:0]</obj_property>
-            <obj_property name="ObjectShortName">i_b[31:0]</obj_property>
-            <obj_property name="CustomSignalColor">#F0E68C</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
       </wvobject>
       <wvobject fp_name="group1065" type="group">
          <obj_property name="label">ALU</obj_property>
@@ -624,6 +621,7 @@
       <wvobject fp_name="/tb_TOP/TOP_1/MEM_stage_1/data_memory_1/BRAM" type="array">
          <obj_property name="ElementShortName">BRAM[127:0][7:0]</obj_property>
          <obj_property name="ObjectShortName">BRAM[127:0][7:0]</obj_property>
+         <obj_property name="isExpanded"></obj_property>
       </wvobject>
       <wvobject fp_name="group186" type="group">
          <obj_property name="label">FLAGS</obj_property>
