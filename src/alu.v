@@ -31,7 +31,7 @@ module alu#(
             4'h7 : o_result =   i_a ^ i_b;       // XOR Logical xor (r1^r2)
             4'h8 : o_result = ~(i_a | i_b);      // NOR Logical nor ~(r1|r2)
             4'h9 : o_result =   i_a < i_b;       // SLT Compare (r1<r2)
-            4'ha : o_result =   i_a << 16;       // SLL16
+            4'ha : o_result =   i_b << 16;       // SLL16
             4'hb : o_result =   i_a == i_b;      // BEQ
             4'hc : o_result =   i_a != i_b;      // BNEQ   
             default : o_result =  {NB_REG{1'b0}}; 
