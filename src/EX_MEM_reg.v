@@ -14,7 +14,7 @@ module EX_MEM_reg#(
         input [NB_PC-1:0]       EX_branch_addr,
         input                   EX_zero,
         input [NB_PC-1:0]       EX_alu_result,
-        input [NB_PC-1:0]       EX_data_a,
+        input [NB_PC-1:0]       EX_data_b,
         input [NB_REG-1:0]      EX_selected_reg,
         input                   EX_byte_en,
         input                   EX_halfword_en,
@@ -30,7 +30,7 @@ module EX_MEM_reg#(
         output [NB_PC-1:0]      MEM_branch_addr,
         output                  MEM_zero,
         output [NB_PC-1:0]      MEM_alu_result,
-        output [NB_PC-1:0]      MEM_data_a,
+        output [NB_PC-1:0]      MEM_data_b,
         output [NB_REG-1:0]     MEM_selected_reg,
         output                  MEM_byte_en,
         output                  MEM_halfword_en,
@@ -47,7 +47,7 @@ module EX_MEM_reg#(
     reg [NB_PC-1:0]     branch_addr;
     reg                 zero;
     reg [NB_PC-1:0]     alu_result;
-    reg [NB_PC-1:0]     data_a;
+    reg [NB_PC-1:0]     data_b;
     reg [NB_REG-1:0]    selected_reg;
     reg                 byte_en;
     reg                 halfword_en;
@@ -64,7 +64,7 @@ module EX_MEM_reg#(
         branch_addr     <= EX_branch_addr;
         zero            <= EX_zero;
         alu_result      <= EX_alu_result;
-        data_a          <= EX_data_a;
+        data_b          <= EX_data_b;
         selected_reg    <= EX_selected_reg;
         byte_en         <= EX_byte_en;
         halfword_en     <= EX_halfword_en;
@@ -81,7 +81,7 @@ module EX_MEM_reg#(
     assign MEM_branch_addr  = branch_addr;
     assign MEM_zero         = zero;
     assign MEM_alu_result   = alu_result;
-    assign MEM_data_a       = data_a;
+    assign MEM_data_b       = data_b;
     assign MEM_selected_reg = selected_reg;
     assign MEM_byte_en      = byte_en;
     assign MEM_halfword_en  = halfword_en;
