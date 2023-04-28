@@ -1,7 +1,7 @@
 module rx_uart
     #(
-        parameter DBIT = 8,     // Number of bits of data
-        parameter SB_TICK = 16, // sampling rate for 19200 bauds
+        parameter DBIT = 8,      // Number of bits of data
+        parameter SB_TICK = 16,  // sampling rate for 19200 bauds
         parameter NB_STATE = 2
     )
     (

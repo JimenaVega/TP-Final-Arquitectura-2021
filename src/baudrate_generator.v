@@ -1,6 +1,7 @@
 module baudrate_generator 
     #(parameter NB_COUNT = 8,
-      parameter N_TICKS  = 163) //preguntar 
+      parameter N_TICKS  = 163
+      ) //preguntar 
     (input wire i_clock,
      input wire i_reset,
      output wire o_br_clock);

@@ -3,7 +3,7 @@
 module tx_uart 
 #(parameter DBIT = 8,
   parameter NB_STATE = 2,
-  parameter SB_TICK = 16 // sampling rate for 19200 bauds
+  parameter SB_TICK = 16   // sampling rate for 19200 bauds
   ) 
 (
     input i_clock,

@@ -2,7 +2,8 @@
 
 	module UART
 			#(parameter NB_DATA = 8,
-			parameter NB_OP =6)
+			parameter NB_OP =6
+			)
 			(
 			input wire i_clock,
 			input wire i_reset,
