@@ -19,7 +19,7 @@ module MEM_stage#(
         input                   i_MEM_zero,             // zero flag 
         input [NB_PC-1:0]       i_MEM_branch_addr,  
         input [NB_ADDR-1:0]     i_MEM_alu_result,       // write and read address in data memory
-        input [NB_DATA-1:0]     i_MEM_write_data,       // data to write in data memory - data A in EX
+        input [NB_DATA-1:0]     i_MEM_write_data,       // data to write in data memory - data B in EX
         input [NB_REG-1:0]      i_MEM_selected_reg,     // WB register (rd or rt)
         input                   i_MEM_r31_ctrl,
         input [NB_PC-1:0]       i_MEM_pc,

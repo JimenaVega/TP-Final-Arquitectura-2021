@@ -80,7 +80,7 @@ module TOP#(
     wire [NB_PC-1:0]            EX_branch_addr;
     wire                        EX_zero;
     wire [NB_DATA-1:0]          EX_alu_result;
-    wire [NB_DATA-1:0]          o_EX_data_a;
+    wire [NB_DATA-1:0]          o_EX_data_b;
     wire [NB_REG-1:0]           EX_selected_reg;
     wire                        o_EX_byte_en;
     wire                        o_EX_halfword_en;
@@ -97,7 +97,7 @@ module TOP#(
     wire [NB_PC-1:0]            MEM_branch_addr;
     wire                        MEM_zero;
     wire [NB_DATA-1:0]          MEM_alu_result;
-    wire [NB_DATA-1:0]          MEM_data_a;
+    wire [NB_DATA-1:0]          MEM_data_b;
     wire [NB_REG-1:0]           MEM_selected_reg;
     wire                        MEM_byte_en;
     wire                        MEM_halfword_en;
@@ -249,7 +249,7 @@ module TOP#(
                         .o_EX_branch_addr(EX_branch_addr),
                         .o_EX_zero(EX_zero),
                         .o_EX_alu_result(EX_alu_result),
-                        .o_EX_data_a(o_EX_data_a),
+                        .o_EX_data_b(o_EX_data_b),
                         .o_EX_selected_reg(EX_selected_reg),
                         .o_EX_byte_en(o_EX_byte_en),
                         .o_EX_halfword_en(o_EX_halfword_en),
@@ -266,7 +266,7 @@ module TOP#(
                             .EX_branch_addr(EX_branch_addr),
                             .EX_zero(EX_zero),
                             .EX_alu_result(EX_alu_result),
-                            .EX_data_a(o_EX_data_a),
+                            .EX_data_b(o_EX_data_b),
                             .EX_selected_reg(EX_selected_reg),
                             .EX_byte_en(o_EX_byte_en),
                             .EX_halfword_en(o_EX_halfword_en),
@@ -281,7 +281,7 @@ module TOP#(
                             .MEM_branch_addr(MEM_branch_addr),
                             .MEM_zero(MEM_zero),
                             .MEM_alu_result(MEM_alu_result),
-                            .MEM_data_a(MEM_data_a),
+                            .MEM_data_b(MEM_data_b),
                             .MEM_selected_reg(MEM_selected_reg),
                             .MEM_byte_en(MEM_byte_en),
                             .MEM_halfword_en(MEM_halfword_en),
@@ -301,7 +301,7 @@ module TOP#(
                           .i_MEM_zero(MEM_zero),
                           .i_MEM_branch_addr(MEM_branch_addr),
                           .i_MEM_alu_result(MEM_alu_result),
-                          .i_MEM_write_data(MEM_data_a),
+                          .i_MEM_write_data(MEM_data_b),
                           .i_MEM_selected_reg(MEM_selected_reg),
                           .i_MEM_r31_ctrl(MEM_r31_ctrl),
                           .i_MEM_pc(MEM_pc),

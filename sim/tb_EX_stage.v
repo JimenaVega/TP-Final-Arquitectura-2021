@@ -43,7 +43,7 @@ module tb_EX_stage;
   wire [NB_PC-1:0]    o_EX_branch_addr;
   wire                o_EX_zero;
   wire [NB_DATA-1:0]  o_EX_alu_result;
-  wire [NB_DATA-1:0]  o_EX_data_a;
+  wire [NB_DATA-1:0]  o_EX_data_b;
   wire [NB_REG-1:0]   o_EX_selected_reg;
   wire                o_EX_byte_en;
   wire                o_EX_halfword_en;
@@ -92,7 +92,7 @@ module tb_EX_stage;
     .o_EX_branch_addr(o_EX_branch_addr),
     .o_EX_zero(o_EX_zero),
     .o_EX_alu_result(o_EX_alu_result),
-    .o_EX_data_a(o_EX_data_a),
+    .o_EX_data_b(o_EX_data_b),
     .o_EX_selected_reg( o_EX_selected_reg),
     .o_EX_byte_en(o_EX_byte_en),
     .o_EX_halfword_en(o_EX_halfword_en),

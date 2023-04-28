@@ -38,7 +38,7 @@ module EX_stage#(
         output [NB_PC-1:0]      o_EX_branch_addr,
         output                  o_EX_zero,
         output [NB_DATA-1:0]    o_EX_alu_result,
-        output [NB_DATA-1:0]    o_EX_data_a,
+        output [NB_DATA-1:0]    o_EX_data_b,
         output [NB_REG-1:0]     o_EX_selected_reg,
         output                  o_EX_byte_en,
         output                  o_EX_halfword_en,
@@ -112,7 +112,7 @@ module EX_stage#(
     assign o_EX_branch_addr     = branch_addr;
     assign o_EX_zero            = zero;
     assign o_EX_alu_result      = alu_result;
-    assign o_EX_data_a          = i_EX_data_a; // TODO: duda, esto esta bien?
+    assign o_EX_data_b          = i_EX_data_b; // TODO: duda, esto esta bien? Pues no, no esta bien
     assign o_EX_selected_reg    = selected_reg;
     assign o_EX_byte_en         = i_EX_byte_en;
     assign o_EX_halfword_en     = i_EX_halfword_en;
