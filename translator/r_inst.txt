@@ -1,5 +1,4 @@
 add $s0,$s1,$s2;
 and $s0,$s1,$s2;
 lb $s4,2($t0);
-j 255;
-hlt;
+add $s0,$s1,$s2;
