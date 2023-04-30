@@ -7,8 +7,12 @@ def jType(instruction):
     opcode = mnemonic_code[instruction[0]][0]  # OPCODE
     result.append(bin(opcode)[2:].zfill(6))  # OPCODE
 
-    loc = int(instruction[1])
-    imm = bin(loc)[2:].zfill(26)  # imm
+    if instruction[0] != HLT:
+        loc = int(instruction[1])
+        imm = bin(loc)[2:].zfill(26)
+    else:
+        imm = bin(0)[2:].zfill(26)
+
     result.append(imm)  # imm
 
     bin_val = ''.join(result)
@@ -129,6 +133,10 @@ def get_register(value):
 
 def get_separeted_instruction(line):
     line_split = line.split(" ")
+
+    if line == HLT:
+        return line_split
+
     split_second = line_split.pop(1).split(",")
     line_split.extend(split_second)
     return line_split
@@ -169,7 +177,7 @@ mnemonic_code = {
     ADDI: (0x8, 0), ANDI: (0xc, 0), ORI: (0xd, 0), XORI: (0xe, 0),
     LUI: (0xf, 0), SLTI: (0xa, 0), BEQ: (0x4, 0), BNE: (0x5, 0),
 
-    J: (0x2, 0), JALR: (0, 0x9), JR: (0, 0x8), JAL: (0x3, 0),
+    J: (0x2, 0), JALR: (0, 0x9), JR: (0, 0x8), JAL: (0x3, 0), HLT: (0x3f, 0),
 }
 
 mnemonic_type = {
