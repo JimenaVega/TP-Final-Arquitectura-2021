@@ -40,3 +40,6 @@ JALR = 'jalr' # pc=rs
 #TYPE-J
 J = 'j' # pc=pc_upper|(target<<2)
 JAL = 'jal' # r31=pc; pc=target<<2
+
+#NONE 
+HLT = 'hlt'

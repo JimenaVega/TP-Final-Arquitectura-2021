@@ -185,7 +185,7 @@ mnemonic_type = {
     ADDI: iType, ANDI: iType, ORI: iType, XORI: iType,
     LUI: iType, SLTI: iType, BEQ: iType, BNE: iType,
 
-    J: jType, JAL: jType, JALR: rType, JR: rType,
+    J: jType, JAL: jType, JALR: rType, JR: rType, HLT: jType,
 }
 
 INPUT_FILE_NAME = 'r_inst.txt'
