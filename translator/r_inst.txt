@@ -1,4 +1,10 @@
-add $s0,$s1,$s2;
+addi $s0,$s1,15;
+addi $s2,$s1,1;
 and $s0,$s1,$s2;
+or $s5,$s3,$s4;
 lb $s4,2($t0);
+jr $s2;
 add $s0,$s1,$s2;
+slt $s0,$s1,$s2;
+sll $s0,$s1,3;
+srl $s0,$s1,3;
