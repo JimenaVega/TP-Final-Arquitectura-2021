@@ -169,7 +169,7 @@ mnemonic_code = {
     ADDI: (0x8, 0), ANDI: (0xc, 0), ORI: (0xd, 0), XORI: (0xe, 0),
     LUI: (0xf, 0), SLTI: (0xa, 0), BEQ: (0x4, 0), BNE: (0x5, 0),
 
-    J: (0x2, 0), JALR: (0, 0x9), JR: (0, 0x8), JAL: (0x3, 0),
+    J: (0x2, 0), JALR: (0, 0x9), JR: (0, 0x8), JAL: (0x3, 0), HLT: (0x3f, 0),
 }
 
 mnemonic_type = {
