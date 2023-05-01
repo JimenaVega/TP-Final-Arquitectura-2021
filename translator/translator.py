@@ -7,8 +7,12 @@ def jType(instruction):
     opcode = mnemonic_code[instruction[0]][0]  # OPCODE
     result.append(bin(opcode)[2:].zfill(6))  # OPCODE
 
-    loc = int(instruction[1])
-    imm = bin(loc)[2:].zfill(26)  # imm
+    if instruction[0] != HLT:
+        loc = int(instruction[1])
+        imm = bin(loc)[2:].zfill(26)
+    else:
+        imm = bin(0)[2:].zfill(26)
+
     result.append(imm)  # imm
 
     bin_val = ''.join(result)
@@ -129,6 +133,10 @@ def get_register(value):
 
 def get_separeted_instruction(line):
     line_split = line.split(" ")
+
+    if line == HLT:
+        return line_split
+
     split_second = line_split.pop(1).split(",")
     line_split.extend(split_second)
     return line_split

@@ -1,18 +1,20 @@
 `timescale 1ns / 1ps
 
 module IF_stage#(
-        //parameter NB_PC_CONSTANT    = 3,
         parameter NB_PC             = 32,
-        parameter NB_INSTRUCTION    = 32
+        parameter NB_INSTRUCTION    = 32,
+        parameter NB_MEM_WIDTH      = 8
     )
     (
         input                       i_clock,
-        input                       i_IF_branch,  // 1 -> Hay branch, 0 -> No hay branch
-        input                       i_IF_j_jal,   // 1 -> Hay jump, 0 -> No hay jump
-        input                       i_IF_jr_jalr, // 1 -> Hay jump, 0 -> No hay jump
+        input                       i_IF_branch,       // 1 -> Hay branch, 0 -> No hay branch
+        input                       i_IF_j_jal,        // 1 -> Hay jump, 0 -> No hay jump
+        input                       i_IF_jr_jalr,      // 1 -> Hay jump, 0 -> No hay jump
         input                       i_IF_pc_enable,
         input                       i_IF_pc_reset,
         input                       i_IF_read_enable,
+        input                       i_IF_write_enable, // DEBUG_UNIT control
+        input  [NB_MEM_WIDTH-1:0]   i_IF_write_data,   // DEBUG_UNIT control 
         input  [NB_PC-1:0]          i_IF_branch_addr,
         input  [NB_PC-1:0]          i_IF_jump_address, // J y JAL
         input  [NB_PC-1:0]          i_IF_r31_data,     // JR y JALR
@@ -57,8 +59,10 @@ module IF_stage#(
                 .o_data(mux2_3_output));            
     
     instruction_memory instruction_memory_1(.i_clock(i_clock),
+                                            .i_write_enable(i_IF_write_enable),
                                             .i_read_enable(i_IF_read_enable),
-                                            .i_read_addr(new_pc_value),
+                                            .i_write_data(i_IF_write_data),
+                                            .i_addr(new_pc_value),
                                             .o_read_data(new_instruction));
     
     assign o_IF_adder_result    = adder_result;                   

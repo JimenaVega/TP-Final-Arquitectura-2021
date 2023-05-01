@@ -6,13 +6,16 @@ module TOP#(
         parameter NB_DATA           = 32,
         parameter NB_REG            = 5, 
         parameter NB_ADDR           = 32,
-        parameter NB_OPCODE         = 6
+        parameter NB_OPCODE         = 6,
+        parameter NB_MEM_WIDTH      = 8  // Todas las memorias, excepto bank register tienen WIDTH = 8
     )
     (
         input                       i_clock,
         input                       i_pc_enable,
         input                       i_pc_reset,
         input                       i_read_enable,
+        input                       i_write_enable,     // DEBUG UNIT
+        input [NB_MEM_WIDTH-1:0]    i_write_data,       // DEBUG UNIT
         input                       i_ID_stage_reset,
         input                       i_control_unit_enable
     );
@@ -141,6 +144,8 @@ module TOP#(
                         .i_IF_pc_enable(i_pc_enable),
                         .i_IF_pc_reset(i_pc_reset),
                         .i_IF_read_enable(i_read_enable),
+                        .i_IF_write_enable(i_write_enable),
+                        .i_IF_write_data(i_write_data),
                         .i_IF_branch_addr(o_MEM_branch_addr),
                         .i_IF_jump_address(ID_jump_address),
                         .i_IF_r31_data(ID_r31_data),
