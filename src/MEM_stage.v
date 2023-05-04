@@ -41,7 +41,7 @@ module MEM_stage#(
                               .i_word_en(i_MEM_word_en),
                               .i_halfword_en(i_MEM_halfword_en),
                               .i_byte_en(i_MEM_byte_en),                           
-                              .i_address(i_MEM_alu_result),   
+                              .i_address(i_MEM_alu_result[6:0]),   
                               .i_write_data(i_MEM_write_data),    
                               .o_read_data(o_MEM_mem_data)
     );
