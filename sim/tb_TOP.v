@@ -52,8 +52,8 @@ module tb_TOP;
       
       #20
       i_pc_enable           = 1'b1;
-      i_read_enable         = 1'b0;
-      i_write_enable        = 1'b1; 
+      i_read_enable         = 1'b1;
+      i_write_enable        = 1'b0; 
       i_write_data          = {NB_MEM_WIDTH{1'b1}};
       i_pc_reset            = 1'b0;
       i_ID_stage_reset      = 1'b0;

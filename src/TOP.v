@@ -17,7 +17,9 @@ module TOP#(
         input                       i_write_enable,     // DEBUG UNIT
         input [NB_MEM_WIDTH-1:0]    i_write_data,       // DEBUG UNIT
         input                       i_ID_stage_reset,
-        input                       i_control_unit_enable
+        input                       i_control_unit_enable,
+
+        output [NB_DATA-1:0]        o_EX_alu_result
     );
     
     // IF_stage to IF_ID_reg
@@ -90,6 +92,8 @@ module TOP#(
     wire                        o_EX_word_en;
     wire                        EX_r31_ctrl;
     wire [NB_PC-1:0]            o_EX_pc;
+
+    assign                      o_EX_alu_result = EX_alu_result;
     
     // EX_MEM_reg to MEM_stage
     wire                        MEM_reg_write;
