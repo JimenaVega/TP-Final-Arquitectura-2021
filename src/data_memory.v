@@ -40,7 +40,7 @@ module data_memory#(
   always @(posedge i_clock) begin
     BRAM[17]   <= 8'd7; // borrar
     BRAM[18]   <= 8'd8; // borrar
-    if (i_mem_write_flag)
+    if (i_mem_write_flag) begin
       case ({i_word_en, i_halfword_en, i_byte_en})
         3'b001:
             BRAM[i_address]   <= i_write_data[7:0];
@@ -56,7 +56,8 @@ module data_memory#(
         end
         default: BRAM[i_address] <= i_write_data;
       endcase
-    if (i_mem_read_flag)
+    end  
+    if (i_mem_read_flag) begin
       case ({i_word_en, i_halfword_en, i_byte_en})
         3'b001:begin
             ram_data[31:24] <= 8'b0;
@@ -78,6 +79,7 @@ module data_memory#(
         end
         default: ram_data <= BRAM[i_address];
       endcase
+    end  
   end
 
   //  The following code generates HIGH_PERFORMANCE (use output register) or LOW_LATENCY (no output register)
