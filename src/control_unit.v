@@ -62,7 +62,7 @@ module control_unit#(
             o_jr_jalr       <= 1'b0;
         end
         if(i_enable) begin
-            o_alu_op = i_opcode;
+            o_alu_op <= i_opcode;
             case(i_opcode)
                 RTYPE_OPCODE:begin
 
