@@ -21,9 +21,10 @@ module tb_control_unit();
     parameter   LBU_OPCODE      = 6'h25; // ITYPE LBU
     parameter   SB_OPCODE       = 6'h28; // ITYPE SB
     parameter   SH_OPCODE       = 6'h29; // ITYPE SH
-    parameter   SW_OPCODE       = 6'h2b;  // ITYPE SW
+    parameter   SW_OPCODE       = 6'h2b; // ITYPE SW
     parameter   JALR_FUNCT      = 6'h09;
     parameter   JR_FUNCT        = 6'h08;
+    parameter   HLT_OPCODE      = 6'h3f;
     
     reg                 clock;
     reg                 enable;
@@ -43,6 +44,7 @@ module tb_control_unit();
     wire                 halfword_en;
     wire                 word_en;
     wire                 jr_jalr;
+    wire                 hlt;
     
     initial begin
     
@@ -94,6 +96,8 @@ module tb_control_unit();
         opcode = SH_OPCODE;
         #40
         opcode = SW_OPCODE;
+        #40
+        opode = HLT_OPCODE;
         
         #200
         
@@ -118,6 +122,7 @@ module tb_control_unit();
                               .o_byte_en(byte_en),
                               .o_halfword_en(halfword_en),
                               .o_word_en(word_en),
-                              .o_jr_jalr(jr_jalr));
+                              .o_jr_jalr(jr_jalr),
+                              .o_hlt(hlt));
 
 endmodule

@@ -21,6 +21,7 @@ module EX_MEM_reg#(
         input                   EX_word_en,
         input                   EX_r31_ctrl,
         input [NB_PC-1:0]       EX_pc,
+        input                   EX_hlt,
         
         output                  MEM_reg_write,
         output                  MEM_mem_to_reg,
@@ -36,7 +37,8 @@ module EX_MEM_reg#(
         output                  MEM_halfword_en,
         output                  MEM_word_en,
         output                  MEM_r31_ctrl,
-        output [NB_PC-1:0]      MEM_pc
+        output [NB_PC-1:0]      MEM_pc,
+        output                  MEM_hlt
     );
     
     reg                 reg_write;
@@ -54,6 +56,7 @@ module EX_MEM_reg#(
     reg                 word_en;
     reg                 r31_ctrl;
     reg [NB_PC-1:0]     pc;  
+    reg                 hlt;
 
     always @(negedge i_clock) begin
         reg_write       <= EX_reg_write;
@@ -71,6 +74,7 @@ module EX_MEM_reg#(
         word_en         <= EX_word_en;
         r31_ctrl        <= EX_r31_ctrl;
         pc              <= EX_pc;
+        hlt             <= EX_hlt;
     end
 
     assign MEM_reg_write    = reg_write;
@@ -88,5 +92,6 @@ module EX_MEM_reg#(
     assign MEM_word_en      = word_en;
     assign MEM_r31_ctrl     = r31_ctrl;
     assign MEM_pc           = pc;
+    assign MEM_hlt          = hlt;
     
 endmodule

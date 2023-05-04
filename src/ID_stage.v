@@ -26,6 +26,7 @@ module ID_stage#(
         output                      o_ID_reg_write,    // WB, signal
         output                      o_ID_mem_to_reg,   // WB, signal
         output                      o_ID_jump,         // ID, signal
+        output                      o_ID_hlt,
         output                      o_ID_jr_jalr,
         output [NB_PC-1:0]          o_ID_jump_address,  
         output [NB_DATA-1:0]        o_ID_data_a,
@@ -72,7 +73,8 @@ module ID_stage#(
                                 .o_byte_en(o_ID_byte_en),
                                 .o_halfword_en(o_ID_halfword_en),
                                 .o_word_en(o_ID_word_en),
-                                .o_jr_jalr(jr_jalr));
+                                .o_jr_jalr(jr_jalr),
+                                .o_hlt(o_ID_hlt));
 
     sign_extend sign_extend_1(.i_data(i_ID_inst[15:0]),
                               .o_data(o_ID_immediate));

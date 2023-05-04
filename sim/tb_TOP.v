@@ -21,6 +21,8 @@ module tb_TOP;
   reg i_ID_stage_reset;
   reg i_control_unit_enable;
 
+  wire o_hlt;
+
   TOP 
   #(.NB_PC(NB_PC),
     .NB_INSTRUCTION(NB_INSTRUCTION),
@@ -37,7 +39,8 @@ module tb_TOP;
          .i_write_enable(i_write_enable),
          .i_write_data(i_write_data),
          .i_ID_stage_reset(i_ID_stage_reset),
-         .i_control_unit_enable(i_control_unit_enable));
+         .i_control_unit_enable(i_control_unit_enable),
+         .o_hlt(o_hlt));
 
   initial begin
     begin
@@ -52,9 +55,9 @@ module tb_TOP;
       
       #20
       i_pc_enable           = 1'b1;
-      i_read_enable         = 1'b0;
-      i_write_enable        = 1'b1; 
-      i_write_data          = {NB_MEM_WIDTH{1'b1}};
+      i_read_enable         = 1'b1;
+//      i_write_enable        = 1'b1; 
+//      i_write_data          = {NB_MEM_WIDTH{1'b1}};
       i_pc_reset            = 1'b0;
       i_ID_stage_reset      = 1'b0;
       i_control_unit_enable = 1'b1;

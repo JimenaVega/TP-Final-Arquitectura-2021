@@ -25,7 +25,8 @@ module control_unit#(
         parameter   J_OPCODE        = 6'h02, // JTYPE J
         parameter   JAL_OPCODE      = 6'h03,  // JTYPE JAL
         parameter   JALR_FUNCT      = 6'h09,
-        parameter   JR_FUNCT        = 6'h08
+        parameter   JR_FUNCT        = 6'h08,
+        parameter   HLT_OPCODE      = 6'h3f
     )
     (   input                       i_clock,
         input                       i_enable,
@@ -45,7 +46,8 @@ module control_unit#(
         output reg                  o_byte_en,
         output reg                  o_halfword_en,
         output reg                  o_word_en,
-        output reg                  o_jr_jalr
+        output reg                  o_jr_jalr,      // Hacia register bank
+        output reg                  o_hlt           // END OF PROGRAM
     );
 
     always@(posedge i_clock) begin
@@ -60,6 +62,7 @@ module control_unit#(
             o_mem_to_reg    <= 1'b0;
             o_jump          <= 1'b0;
             o_jr_jalr       <= 1'b0;
+            o_hlt           <= 1'b0;
         end
         if(i_enable) begin
             o_alu_op = i_opcode;
@@ -77,9 +80,10 @@ module control_unit#(
                     o_byte_en       <= 1'b0;
                     o_halfword_en   <= 1'b0;
                     o_word_en       <= 1'b0;
+                    o_hlt           <= 1'b0;
 
                     if((i_funct == JALR_FUNCT) || (i_funct == JR_FUNCT)) begin
-                        o_jr_jalr <= 1'b1;
+                        o_jr_jalr <= 1'b1; // Ambas escriben en el PC=$rs
                     end
                     else begin
                         o_jr_jalr <= 1'b0;
@@ -99,6 +103,7 @@ module control_unit#(
                     o_halfword_en   <= 1'b0;
                     o_word_en       <= 1'b0;
                     o_jr_jalr       <= 1'b0;
+                    o_hlt           <= 1'b0;
                 end
                 BNE_OPCODE:begin
                     o_reg_dest      <= 1'b0; // X
@@ -113,6 +118,7 @@ module control_unit#(
                     o_halfword_en   <= 1'b0;
                     o_word_en       <= 1'b0;
                     o_jr_jalr       <= 1'b0;
+                    o_hlt           <= 1'b0;
                 end
                 ADDI_OPCODE:begin
                     o_reg_dest      <= 1'b0; // rt
@@ -127,6 +133,7 @@ module control_unit#(
                     o_halfword_en   <= 1'b0;
                     o_word_en       <= 1'b0;
                     o_jr_jalr       <= 1'b0;
+                    o_hlt           <= 1'b0;
                 end
                 SLTI_OPCODE:begin
                     o_reg_dest      <= 1'b0; // rt
@@ -141,6 +148,7 @@ module control_unit#(
                     o_halfword_en   <= 1'b0;
                     o_word_en       <= 1'b0;
                     o_jr_jalr       <= 1'b0;
+                    o_hlt           <= 1'b0;
                 end
                 ANDI_OPCODE:begin
                     o_reg_dest      <= 1'b0; // rt
@@ -155,6 +163,7 @@ module control_unit#(
                     o_halfword_en   <= 1'b0;
                     o_word_en       <= 1'b0;
                     o_jr_jalr       <= 1'b0;
+                    o_hlt           <= 1'b0;
                 end
                 ORI_OPCODE:begin
                     o_reg_dest      <= 1'b0; // rt
@@ -169,6 +178,7 @@ module control_unit#(
                     o_halfword_en   <= 1'b0;
                     o_word_en       <= 1'b0;
                     o_jr_jalr       <= 1'b0;
+                    o_hlt           <= 1'b0;
                 end
                 XORI_OPCODE:begin
                     o_reg_dest      <= 1'b0; // rt
@@ -183,6 +193,7 @@ module control_unit#(
                     o_halfword_en   <= 1'b0;
                     o_word_en       <= 1'b0;
                     o_jr_jalr       <= 1'b0;
+                    o_hlt           <= 1'b0;
                 end
                 LUI_OPCODE:begin
                     o_reg_dest      <= 1'b0; // rt
@@ -197,6 +208,7 @@ module control_unit#(
                     o_halfword_en   <= 1'b0;
                     o_word_en       <= 1'b0;
                     o_jr_jalr       <= 1'b0;
+                    o_hlt           <= 1'b0;
                 end
                 LB_OPCODE:begin
                     o_reg_dest      <= 1'b0; // rt
@@ -211,6 +223,7 @@ module control_unit#(
                     o_halfword_en   <= 1'b0;
                     o_word_en       <= 1'b0;
                     o_jr_jalr       <= 1'b0;
+                    o_hlt           <= 1'b0;
                 end
                 LH_OPCODE:begin
                     o_reg_dest      <= 1'b0; // rt
@@ -225,6 +238,7 @@ module control_unit#(
                     o_halfword_en   <= 1'b1;
                     o_word_en       <= 1'b0;
                     o_jr_jalr       <= 1'b0;
+                    o_hlt           <= 1'b0;
                 end
                 LHU_OPCODE:begin
                     o_reg_dest      <= 1'b0; // rt
@@ -239,6 +253,7 @@ module control_unit#(
                     o_halfword_en   <= 1'b1;
                     o_word_en       <= 1'b0;
                     o_jr_jalr       <= 1'b0;
+                    o_hlt           <= 1'b0;
                 end
                 LW_OPCODE:begin
                     o_reg_dest      <= 1'b0; // rt
@@ -253,6 +268,7 @@ module control_unit#(
                     o_halfword_en   <= 1'b0;
                     o_word_en       <= 1'b1;
                     o_jr_jalr       <= 1'b0;
+                    o_hlt           <= 1'b0;
                 end
                 LWU_OPCODE:begin
                     o_reg_dest      <= 1'b0; // rt
@@ -267,6 +283,7 @@ module control_unit#(
                     o_halfword_en   <= 1'b0;
                     o_word_en       <= 1'b1;
                     o_jr_jalr       <= 1'b0;
+                    o_hlt           <= 1'b0;
                 end
                 LBU_OPCODE:begin
                     o_reg_dest      <= 1'b0; // rt
@@ -281,6 +298,7 @@ module control_unit#(
                     o_halfword_en   <= 1'b0;
                     o_word_en       <= 1'b0;
                     o_jr_jalr       <= 1'b0;
+                    o_hlt           <= 1'b0;
                 end
                 SB_OPCODE:begin
                     o_reg_dest      <= 1'b0; // rt
@@ -295,6 +313,7 @@ module control_unit#(
                     o_halfword_en   <= 1'b0;
                     o_word_en       <= 1'b0;
                     o_jr_jalr       <= 1'b0;
+                    o_hlt           <= 1'b0;
                 end
                 SH_OPCODE:begin
                     o_reg_dest      <= 1'b0; // rt
@@ -309,6 +328,7 @@ module control_unit#(
                     o_halfword_en   <= 1'b1;
                     o_word_en       <= 1'b0;
                     o_jr_jalr       <= 1'b0;
+                    o_hlt           <= 1'b0;
                 end
                 SW_OPCODE:begin
                     o_reg_dest      <= 1'b0; // rt
@@ -323,6 +343,7 @@ module control_unit#(
                     o_halfword_en   <= 1'b0;
                     o_word_en       <= 1'b1;
                     o_jr_jalr       <= 1'b0;
+                    o_hlt           <= 1'b0;
                 end
                 J_OPCODE:begin
                     o_reg_dest      <= 1'b0; // rt
@@ -337,6 +358,7 @@ module control_unit#(
                     o_halfword_en   <= 1'b0;
                     o_word_en       <= 1'b0;
                     o_jr_jalr       <= 1'b0;
+                    o_hlt           <= 1'b0;
                 end
                 JAL_OPCODE:begin
                     o_reg_dest      <= 1'b0; // rt
@@ -351,6 +373,22 @@ module control_unit#(
                     o_halfword_en   <= 1'b0;
                     o_word_en       <= 1'b0;
                     o_jr_jalr       <= 1'b0;
+                    o_hlt           <= 1'b0;
+                end
+                HLT_OPCODE:begin
+                    o_reg_dest      <= 1'b0; // rt
+                    o_alu_src       <= 1'b0; // immediate
+                    o_mem_read      <= 1'b0; // no read mem
+                    o_mem_write     <= 1'b0; // no write mem
+                    o_branch        <= 1'b0; // no es branch
+                    o_reg_write     <= 1'b0; // escribe en rt
+                    o_mem_to_reg    <= 1'b0; // X
+                    o_jump          <= 1'b0; // dont jump
+                    o_byte_en       <= 1'b0;
+                    o_halfword_en   <= 1'b0;
+                    o_word_en       <= 1'b0;
+                    o_jr_jalr       <= 1'b0;
+                    o_hlt           <= 1'b1; // END OF PROGRAM
                 end
             endcase
         end

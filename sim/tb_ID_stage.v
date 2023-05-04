@@ -28,7 +28,7 @@ module tb_ID_stage();
   wire                  o_ID_branch;
   wire                  o_ID_reg_write;
   wire                  o_ID_jump;
-  wire                  o_ID_jr_jalr;
+  wire                  o_ID_hlt;
   wire [NB_PC-1:0]      o_ID_jump_address;
   wire [NB_DATA-1:0]    o_ID_data_a;
   wire [NB_DATA-1:0]    o_ID_data_b;
@@ -173,6 +173,7 @@ module tb_ID_stage();
     .o_ID_branch(o_ID_branch),
     .o_ID_reg_write(o_ID_reg_write),
     .o_ID_jump(o_ID_jump),
+    .o_ID_hlt(o_ID_hlt),
     .o_ID_jump_address(o_ID_jump_address),
     .o_ID_data_a(o_ID_data_a),
     .o_ID_data_b(o_ID_data_b),

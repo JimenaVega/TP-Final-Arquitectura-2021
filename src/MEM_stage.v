@@ -23,6 +23,7 @@ module MEM_stage#(
         input [NB_REG-1:0]      i_MEM_selected_reg,     // WB register (rd or rt)
         input                   i_MEM_r31_ctrl,
         input [NB_PC-1:0]       i_MEM_pc,
+        input                   i_MEM_hlt,
 
         output [NB_DATA-1:0]    o_MEM_mem_data,
         output [NB_REG-1:0]     o_MEM_selected_reg,     // WB register (rd or rt)
@@ -32,8 +33,8 @@ module MEM_stage#(
         output                  o_MEM_reg_write,        // WB stage flag
         output                  o_MEM_mem_to_reg,       // WB stage flag
         output                  o_MEM_r31_ctrl,
-        output [NB_PC-1:0]      o_MEM_pc
-    );
+        output [NB_PC-1:0]      o_MEM_pc,
+        output                  o_MEM_hlt );
 
     data_memory data_memory_1(.i_clock(i_clock),                           
                               .i_mem_write_flag(i_MEM_mem_write),                   
@@ -57,5 +58,6 @@ module MEM_stage#(
     assign o_MEM_mem_to_reg     = i_MEM_mem_to_reg;
     assign o_MEM_r31_ctrl       = i_MEM_r31_ctrl;
     assign o_MEM_pc             = i_MEM_pc;
+    assign o_MEM_hlt            = i_MEM_hlt;
 
 endmodule

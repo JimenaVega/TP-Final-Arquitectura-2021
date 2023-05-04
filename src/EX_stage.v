@@ -29,6 +29,7 @@ module EX_stage#(
         input                   i_EX_byte_en,
         input                   i_EX_halfword_en,
         input                   i_EX_word_en,
+        input                   i_EX_hlt,
         
         output                  o_EX_reg_write,
         output                  o_EX_mem_to_reg,
@@ -44,7 +45,8 @@ module EX_stage#(
         output                  o_EX_halfword_en,
         output                  o_EX_word_en,
         output                  o_EX_r31_ctrl,
-        output [NB_PC-1:0]      o_EX_pc
+        output [NB_PC-1:0]      o_EX_pc,
+        output                  o_EX_hlt
     );
     
     wire [NB_IMM-1:0]       shifted_imm;
@@ -119,5 +121,6 @@ module EX_stage#(
     assign o_EX_word_en         = i_EX_word_en;
     assign o_EX_r31_ctrl        = r31_ctrl;
     assign o_EX_pc              = i_EX_pc;
+    assign o_EX_hlt             = i_EX_hlt;
 
 endmodule

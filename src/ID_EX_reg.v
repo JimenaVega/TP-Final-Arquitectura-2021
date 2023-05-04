@@ -27,6 +27,7 @@ module ID_EX_reg#(
         input                    ID_byte_en,
         input                    ID_halfword_en,
         input                    ID_word_en,
+        input                    ID_hlt,
         
         output                   EX_reg_write,
         output                   EX_mem_to_reg,
@@ -45,7 +46,8 @@ module ID_EX_reg#(
         output [NB_REG-1:0]      EX_rd,
         output                   EX_byte_en,
         output                   EX_halfword_en,
-        output                   EX_word_en
+        output                   EX_word_en,
+        output                   EX_hlt
     );
     
     reg                 reg_write;
@@ -66,6 +68,7 @@ module ID_EX_reg#(
     reg                 byte_en;
     reg                 halfword_en;
     reg                 word_en;
+    reg                 hlt;
 
     always @(negedge i_clock) begin
         reg_write   <= ID_reg_write;
@@ -86,6 +89,7 @@ module ID_EX_reg#(
         byte_en     <= ID_byte_en;
         halfword_en <= ID_halfword_en;
         word_en     <= ID_word_en;
+        hlt         <= ID_hlt;
     end
 
     assign EX_reg_write     = reg_write;
@@ -106,5 +110,6 @@ module ID_EX_reg#(
     assign EX_byte_en       = byte_en;
     assign EX_halfword_en   = halfword_en;
     assign EX_word_en       = word_en;
+    assign EX_hlt           = hlt;
     
 endmodule

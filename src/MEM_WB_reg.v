@@ -14,6 +14,7 @@ module MEM_WB_reg#(
         input [NB_REG-1:0]      i_MEM_selected_reg,
         input                   i_MEM_r31_ctrl,
         input [NB_PC-1:0]       i_MEM_pc,
+        input                   i_MEM_hlt,
 
         output                  o_WB_reg_write,
         output                  o_WB_mem_to_reg,                 // MUX selector
@@ -21,7 +22,8 @@ module MEM_WB_reg#(
         output [NB_DATA-1:0]    o_WB_alu_result,   // i_WB_mem_to_reg = 0
         output [NB_REG-1:0]     o_WB_selected_reg,
         output                  o_WB_r31_ctrl,
-        output [NB_PC-1:0]      o_WB_pc
+        output [NB_PC-1:0]      o_WB_pc,
+        output                  o_WB_hlt    // a DEBUG UNIT
     );
 
     reg                 reg_write;
@@ -31,6 +33,7 @@ module MEM_WB_reg#(
     reg [NB_REG-1:0]    selected_reg;
     reg                 r31_ctrl;
     reg [NB_PC-1:0]     pc;
+    reg                 hlt;
 
     always@(negedge i_clock) begin
         reg_write       <= i_MEM_reg_write;
@@ -40,6 +43,7 @@ module MEM_WB_reg#(
         selected_reg    <= i_MEM_selected_reg;
         r31_ctrl        <= i_MEM_r31_ctrl;
         pc              <= i_MEM_pc;
+        hlt             <= i_MEM_hlt;
     end
 
     assign o_WB_reg_write       = reg_write;
@@ -49,5 +53,6 @@ module MEM_WB_reg#(
     assign o_WB_selected_reg    = selected_reg;
     assign o_WB_r31_ctrl        = r31_ctrl;
     assign o_WB_pc              = pc;
+    assign o_WB_hlt             = hlt;
 
 endmodule
