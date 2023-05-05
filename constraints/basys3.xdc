@@ -44,8 +44,8 @@ set_property PACKAGE_PIN T1 [get_ports {i_clock_reset}]
  
 
 # LEDs
-# set_property PACKAGE_PIN U16 [get_ports {LED[0]}]					
-# 	set_property IOSTANDARD LVCMOS33 [get_ports {LED[0]}]
+set_property PACKAGE_PIN U16 [get_ports {o_hlt}]					
+	set_property IOSTANDARD LVCMOS33 [get_ports {o_hlt}]
 # set_property PACKAGE_PIN E19 [get_ports {LED[1]}]					
 # 	set_property IOSTANDARD LVCMOS33 [get_ports {LED[1]}]
 # set_property PACKAGE_PIN U19 [get_ports {LED[2]}]					

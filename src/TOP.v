@@ -346,7 +346,8 @@ module TOP#(
                           .o_MEM_reg_write(o_MEM_reg_write),
                           .o_MEM_mem_to_reg(o_MEM_mem_to_reg),
                           .o_MEM_r31_ctrl(o_MEM_r31_ctrl),
-                          .o_MEM_pc(o_MEM_pc));
+                          .o_MEM_pc(o_MEM_pc),
+                          .o_MEM_hlt(o_MEM_hlt));
                          
     MEM_WB_reg MEM_WB_reg_1(.i_clock(clk_wiz),
                             .i_MEM_reg_write(o_MEM_reg_write),
