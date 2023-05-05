@@ -13,6 +13,7 @@ module tb_TOP;
 
   // Ports
   reg i_clock;
+  reg i_clock_reset;
   reg i_pc_enable;
   reg i_pc_reset;
   reg i_read_enable;
@@ -42,6 +43,7 @@ module tb_TOP;
   initial begin
     begin
       i_clock               = 1'b0;
+      i_clock_reset         = 1'b0;
       i_pc_enable           = 1'b0;
       i_read_enable         = 1'b0;
       i_write_enable        = 1'b0; // DEBUG UNIT

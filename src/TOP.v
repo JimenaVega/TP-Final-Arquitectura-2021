@@ -11,6 +11,7 @@ module TOP#(
     )
     (
         input                       i_clock,
+        input                       i_clock_reset,
         input                       i_pc_enable,
         input                       i_pc_reset,
         input                       i_read_enable,
@@ -29,7 +30,7 @@ module TOP#(
       // Clock out ports  
       .clk_out1(clk_wiz),
       // Status and control signals               
-      .reset(reset), 
+      .reset(i_clock_reset), 
       .locked(locked),
      // Clock in ports
       .clk_in1(i_clock)
