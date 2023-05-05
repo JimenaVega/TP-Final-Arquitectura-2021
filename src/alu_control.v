@@ -51,6 +51,11 @@ module alu_control#(
     );
     
     always@(*) begin
+        // Inicializacion para que no se produzca un inferred latch
+        o_alu_ctrl = 4'h00;
+        o_shamt_ctrl = 1'b0;
+        o_r31_ctrl = 1'b0;
+
         case(i_alu_op)
             RTYPE_OPCODE: begin
                 case(i_funct_code)

@@ -60,7 +60,7 @@ module ID_stage#(
                                 .i_enable(i_ID_enable),
                                 .i_reset(i_ID_reset),           // Necesario para flush en controls hazard
                                 .i_opcode(i_ID_inst[31:26]),
-                                .i_funct(i_ID_inst[6:0]),
+                                .i_funct(i_ID_inst[5:0]),
                                 .o_reg_dest(o_ID_reg_dest),     // EX
                                 .o_alu_op(o_ID_alu_op),         // EX REG?
                                 .o_alu_src(o_ID_alu_src),       // EX
@@ -79,7 +79,7 @@ module ID_stage#(
     sign_extend sign_extend_1(.i_data(i_ID_inst[15:0]),
                               .o_data(o_ID_immediate));
     
-    extend extend(.i_data(i_ID_inst[10:6]),
+    extend extend(.i_data(i_ID_inst[10:7]),
                   .o_data(o_ID_shamt));
 
     concat_module concat_module_1(.i_clock(i_clock),
