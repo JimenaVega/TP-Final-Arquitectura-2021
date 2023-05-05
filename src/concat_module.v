@@ -15,8 +15,8 @@ module concat_module#(
 
     // always@(i_inst, i_next_pc) begin
     always@(posedge i_clock) begin  
-        o_jump_addr[NB_LOWER_BITS-1:0] <= 2'b00;
-        o_jump_addr[NB_ADDR+1:NB_LOWER_BITS] <= i_inst; 
-        o_jump_addr[NB_PC-1:NB_ADDR+1] <= i_next_pc;
+        o_jump_addr[NB_LOWER_BITS-1:0] <= 2'b00; // [1:0]
+        o_jump_addr[NB_ADDR+1:NB_LOWER_BITS] <= i_inst; // [27:2]
+        o_jump_addr[NB_PC-1:NB_ADDR+2] <= i_next_pc; // [31:28]
     end
 endmodule
