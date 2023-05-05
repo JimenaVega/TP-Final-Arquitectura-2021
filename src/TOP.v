@@ -250,8 +250,7 @@ module TOP#(
                           .EX_word_en(EX_word_en),
                           .EX_hlt(EX_hlt));
     
-    EX_stage EX_stage_1(.i_clock(clk_wiz),
-                        .i_EX_reg_write(EX_reg_write),
+    EX_stage EX_stage_1(.i_EX_reg_write(EX_reg_write),
                         .i_EX_mem_to_reg(EX_mem_to_reg),
                         .i_EX_mem_read(EX_mem_read),
                         .i_EX_mem_write(EX_mem_write),

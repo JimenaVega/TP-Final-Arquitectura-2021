@@ -10,7 +10,6 @@ module EX_stage#(
         parameter NB_FCODE    = 6
     )
     (
-        input                   i_clock,
         input                   i_EX_reg_write,  // WB stage flag
         input                   i_EX_mem_to_reg, // WB stage flag
         input                   i_EX_mem_read,   // MEM stage flag
