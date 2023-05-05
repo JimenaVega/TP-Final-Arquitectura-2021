@@ -59,7 +59,7 @@ module tb_TOP;
       i_ID_stage_reset      = 1'b0;
       i_control_unit_enable = 1'b1;
       
-      #500
+      #700
       $finish;
     end
   end

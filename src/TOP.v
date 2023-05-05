@@ -22,6 +22,19 @@ module TOP#(
         output [NB_DATA-1:0]        o_EX_alu_result
     );
     
+    wire clk_wiz;
+    
+    clk_wiz_0 inst
+      (
+      // Clock out ports  
+      .clk_out1(clk_wiz),
+      // Status and control signals               
+      .reset(reset), 
+      .locked(locked),
+     // Clock in ports
+      .clk_in1(i_clock)
+      );
+    
     // IF_stage to IF_ID_reg
     wire [NB_PC-1:0]            IF_adder_result;
     wire [NB_INSTRUCTION-1:0]   IF_new_instruction;
@@ -141,7 +154,7 @@ module TOP#(
 
 
     
-    IF_stage IF_stage_1(.i_clock(i_clock),
+    IF_stage IF_stage_1(.i_clock(clk_wiz),
                         .i_IF_branch(MEM_branch_zero),
                         .i_IF_j_jal(ID_jump),
                         .i_IF_jr_jalr(ID_jr_jalr),
@@ -156,13 +169,13 @@ module TOP#(
                         .o_IF_adder_result(IF_adder_result),
                         .o_IF_new_instruction(IF_new_instruction));
                         
-    IF_ID_reg IF_ID_reg_1(.i_clock(i_clock),
+    IF_ID_reg IF_ID_reg_1(.i_clock(clk_wiz),
                           .IF_adder_result(IF_adder_result),
                           .IF_new_instruction(IF_new_instruction),
                           .ID_adder_result(ID_adder_result),
                           .ID_new_instruction(ID_new_instruction));
     
-    ID_stage ID_stage_1(.i_clock(i_clock),
+    ID_stage ID_stage_1(.i_clock(clk_wiz),
                         .i_ID_reset(i_ID_stage_reset),
                         .i_ID_enable(i_control_unit_enable),
                         .i_ID_inst(ID_new_instruction),
@@ -193,7 +206,7 @@ module TOP#(
                         .o_ID_word_en(ID_word_en),
                         .o_ID_r31_data(ID_r31_data));
                         
-    ID_EX_reg ID_EX_reg_1(.i_clock(i_clock),
+    ID_EX_reg ID_EX_reg_1(.i_clock(clk_wiz),
                           .ID_reg_write(ID_reg_write),
                           .ID_mem_to_reg(ID_mem_to_reg),
                           .ID_mem_read(ID_mem_read),
@@ -231,7 +244,7 @@ module TOP#(
                           .EX_halfword_en(EX_halfword_en),
                           .EX_word_en(EX_word_en));
     
-    EX_stage EX_stage_1(.i_clock(i_clock),
+    EX_stage EX_stage_1(.i_clock(clk_wiz),
                         .i_EX_reg_write(EX_reg_write),
                         .i_EX_mem_to_reg(EX_mem_to_reg),
                         .i_EX_mem_read(EX_mem_read),
@@ -266,7 +279,7 @@ module TOP#(
                         .o_EX_r31_ctrl(EX_r31_ctrl),
                         .o_EX_pc(o_EX_pc));
                         
-    EX_MEM_reg EX_MEM_reg_1(.i_clock(i_clock),
+    EX_MEM_reg EX_MEM_reg_1(.i_clock(clk_wiz),
                             .EX_reg_write(o_EX_reg_write),
                             .EX_mem_to_reg(o_EX_mem_to_reg),
                             .EX_mem_read(o_EX_mem_read),
@@ -298,7 +311,7 @@ module TOP#(
                             .MEM_r31_ctrl(MEM_r31_ctrl),
                             .MEM_pc(MEM_pc));
                 
-    MEM_stage MEM_stage_1(.i_clock(i_clock),
+    MEM_stage MEM_stage_1(.i_clock(clk_wiz),
                           .i_MEM_reg_write(MEM_reg_write),
                           .i_MEM_mem_to_reg(MEM_mem_to_reg),
                           .i_MEM_mem_read(MEM_mem_read),
@@ -324,7 +337,7 @@ module TOP#(
                           .o_MEM_r31_ctrl(o_MEM_r31_ctrl),
                           .o_MEM_pc(o_MEM_pc));
                          
-    MEM_WB_reg MEM_WB_reg_1(.i_clock(i_clock),
+    MEM_WB_reg MEM_WB_reg_1(.i_clock(clk_wiz),
                             .i_MEM_reg_write(o_MEM_reg_write),
                             .i_MEM_mem_to_reg(o_MEM_mem_to_reg),
                             .i_MEM_mem_data(MEM_mem_data),
