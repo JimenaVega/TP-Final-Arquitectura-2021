@@ -18,7 +18,7 @@ module TOP#(
         input [NB_MEM_WIDTH-1:0]    i_write_data,       // DEBUG UNIT
         input                       i_ID_stage_reset,
         input                       i_control_unit_enable,
-        output                      o_hlt               // DEBUG UNIT
+        output                      o_hlt               // DEBUG UNIT added
     );
     
     // IF_stage to IF_ID_reg
