@@ -11,7 +11,10 @@ module ID_stage#(
     (
         input                       i_clock,
         input                       i_ID_reset,
-        input                       i_ID_enable,
+        input                       i_ID_cu_enable,         // Debug Unit
+        input                       i_ID_rb_enable,         // Debug Unit
+        input                       i_ID_rb_read_enable,    // Debug Unit
+        input [NB_REG-1:0]          i_ID_rb_read_address,   // Debug Unit
         input [NB_INST-1:0]         i_ID_inst,
         input [NB_PC-1:0]           i_ID_pc,
         input [NB_DATA-1:0]         i_ID_write_data,   // from WB, data to write
@@ -45,6 +48,9 @@ module ID_stage#(
     wire                jr_jalr; // Para que register bank lea el r31
 
     registers_bank registers_bank_1(.i_clock(i_clock),
+                                    .i_enable(i_ID_rb_enable), // Debug Unit
+                                    .i_read_enable(i_ID_rb_read_enable), // Debug Unit
+                                    .i_read_address(i_ID_rb_read_address), // Debug Unit
                                     .i_reset(i_ID_reset),
                                     .i_reg_write(i_ID_reg_write),   // Señal de control RegWrite proveniente de WB
                                     .i_jr_jalr(jr_jalr),
@@ -57,7 +63,7 @@ module ID_stage#(
 
 
     control_unit control_unit_1(.i_clock(i_clock),
-                                .i_enable(i_ID_enable),
+                                .i_enable(i_ID_cu_enable),      // Debug Unit
                                 .i_reset(i_ID_reset),           // Necesario para flush en controls hazard
                                 .i_opcode(i_ID_inst[31:26]),
                                 .i_funct(i_ID_inst[5:0]),

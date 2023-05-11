@@ -8,6 +8,7 @@ module tb_TOP;
   localparam  NB_DATA = 32;
   localparam  NB_REG = 5;
   localparam  NB_ADDR = 32;
+  localparam  NB_DM_ADDR = 7;
   localparam  NB_OPCODE = 6;
   localparam  NB_MEM_WIDTH = 8;
 
@@ -17,12 +18,24 @@ module tb_TOP;
   reg i_pc_enable;
   reg i_pc_reset;
   reg i_read_enable;
-  reg i_write_enable;     // DEBUG UNIT
-  reg [NB_MEM_WIDTH-1:0] i_write_data;  // DEBUG UNIT
   reg i_ID_stage_reset;
-  reg i_control_unit_enable;
 
-  wire o_hlt;
+  reg i_im_enable;          // Debug Unit
+  reg i_im_write_enable;    // Debug Unit
+  reg i_im_data;            // Debug Unit
+  reg i_im_address;         // Debug Unit
+  reg i_rb_enable;          // Debug Unit
+  reg i_rb_read_enable;     // Debug Unit
+  reg i_rb_address;         // Debug Unit
+  reg i_dm_enable;          // Debug Unit
+  reg i_dm_read_enable;     // Debug Unit
+  reg i_dm_read_address;    // Debug Unit
+  reg i_cu_enable;          // Debug Unit
+
+  wire o_pc_value;          // Debug Unit
+  wire o_rb_data;           // Debug Unit
+  wire o_dm_data;           // Debug Unit
+  wire o_hlt;               // Debug Unit
 
   TOP 
   #(.NB_PC(NB_PC),
@@ -30,18 +43,31 @@ module tb_TOP;
     .NB_DATA(NB_DATA),
     .NB_REG(NB_REG),
     .NB_ADDR(NB_ADDR),
+    .NB_DM_ADDR(NB_DM_ADDR),
     .NB_OPCODE(NB_OPCODE),
     .NB_MEM_WIDTH(NB_MEM_WIDTH) // Todas las memorias, excepto bank register tienen WIDTH = 8
 )
   TOP_1 (.i_clock(i_clock),
+         .i_clock_reset(i_clock_reset)
          .i_pc_enable(i_pc_enable),
          .i_pc_reset(i_pc_reset),
          .i_read_enable( i_read_enable),
-         .i_write_enable(i_write_enable),
-         .i_write_data(i_write_data),
          .i_ID_stage_reset(i_ID_stage_reset),
-         .i_control_unit_enable(i_control_unit_enable),
-         .o_hlt(o_hlt));
+         .i_im_enable(i_im_enable),             // Debug Unit
+         .i_im_write_enable(i_im_write_enable), // Debug Unit
+         .i_im_data(i_im_data),                 // Debug Unit
+         .i_im_address(i_im_address),           // Debug Unit
+         .i_rb_enable(i_rb_enable),             // Debug Unit
+         .i_rb_read_enable(i_rb_read_enable),   // Debug Unit
+         .i_rb_address(i_rb_address),           // Debug Unit
+         .i_dm_enable(i_dm_enable),             // Debug Unit
+         .i_dm_read_enable(i_dm_read_enable),   // Debug Unit
+         .i_dm_read_address(i_dm_read_address), // Debug Unit
+         .i_cu_enable(i_cu_enable),             // Debug Unit
+         .o_pc_value(o_pc_value),               // Debug Unit
+         .o_rb_data(o_rb_data),                 // Debug Unit
+         .o_dm_data(o_dm_data),                 // Debug Unit
+         .o_hlt(o_hlt));                        // Debug Unit
 
   initial begin
     begin
@@ -49,20 +75,18 @@ module tb_TOP;
       i_clock_reset         = 1'b0;
       i_pc_enable           = 1'b0;
       i_read_enable         = 1'b0;
-      i_write_enable        = 1'b0; // DEBUG UNIT
-      i_write_data          = {NB_MEM_WIDTH{1'b0}}; // DEBUG UNIT
+      i_im_write_enable     = 1'b0; // DEBUG UNIT
       i_pc_reset            = 1'b1;
       i_ID_stage_reset      = 1'b1;
-      i_control_unit_enable = 1'b0;
+      i_cu_enable = 1'b0;
       
       #20
       i_pc_enable           = 1'b1;
       i_read_enable         = 1'b1;
-      i_write_enable        = 1'b0; 
-      i_write_data          = {NB_MEM_WIDTH{1'b1}};
+      i_im_write_enable     = 1'b0; 
       i_pc_reset            = 1'b0;
       i_ID_stage_reset      = 1'b0;
-      i_control_unit_enable = 1'b1;
+      i_cu_enable = 1'b1;
       
       #700
       $finish;

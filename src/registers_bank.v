@@ -14,6 +14,10 @@ module registers_bank#(
         input [NB_ADDR-1:0] i_read_reg_b,
         input [NB_ADDR-1:0] i_write_reg,  // Address 
         input [NB_DATA-1:0] i_write_data, // Data
+
+        input               i_enable,       // Debug Unit
+        input               i_read_enable,  // Debug Unit
+        input [NB_ADDR-1:0] i_read_address, // Debug Unit
               
         output [NB_DATA-1:0] o_data_a,
         output [NB_DATA-1:0] o_data_b 
@@ -35,19 +39,26 @@ module registers_bank#(
             o_data_b_next  =  {NB_DATA{1'b0}};
         end 
         else begin
-            // Lectura de registros
-            if(i_jr_jalr)begin
-                o_data_a_next <= registers[5'd31]; // Lectura de r31 
+            if(i_enable) begin
+                if(i_read_enable) begin     // Lectura del RB desde la Debug Unit
+                    o_data_a_next <= registers[i_read_address];
+                end
+                else begin                  // Funcionamiento normal
+                    // Lectura de registros
+                    if(i_jr_jalr)begin
+                        o_data_a_next <= registers[5'd31]; // Lectura de r31 
+                    end
+                    else begin
+                        o_data_a_next <= registers[i_read_reg_a];
+                    end
+                    
+                    o_data_b_next <= registers[i_read_reg_b];
+                    
+                    // Escritura de registros
+                    if(i_reg_write)
+                        registers[i_write_reg] <= i_write_data;
+                end
             end
-            else begin
-                o_data_a_next <= registers[i_read_reg_a];
-            end
-            
-            o_data_b_next <= registers[i_read_reg_b];
-            
-            // Escritura de registros
-            if(i_reg_write)
-                registers[i_write_reg] <= i_write_data;
         end
     end
     
