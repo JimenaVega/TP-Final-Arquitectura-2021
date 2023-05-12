@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="17.030 ns"></ZoomStartTime>
-      <ZoomEndTime time="46.421 ns"></ZoomEndTime>
-      <Cursor1Time time="85.000 ns"></Cursor1Time>
+      <ZoomStartTime time="13.267 ns"></ZoomStartTime>
+      <ZoomEndTime time="44.699 ns"></ZoomEndTime>
+      <Cursor1Time time="125.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="231"></NameColumnWidth>
-      <ValueColumnWidth column_width="70"></ValueColumnWidth>
+      <ValueColumnWidth column_width="66"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="13" />
+   <WVObjectSize size="15" />
    <wvobject type="logic" fp_name="/tb_TOP/i_clock">
       <obj_property name="ElementShortName">i_clock</obj_property>
       <obj_property name="ObjectShortName">i_clock</obj_property>
@@ -308,6 +308,7 @@
             <obj_property name="ObjectShortName">i_opcode[5:0]</obj_property>
             <obj_property name="CustomSignalColor">#FFD700</obj_property>
             <obj_property name="UseCustomSignalColor">true</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
          </wvobject>
          <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/i_funct">
             <obj_property name="ElementShortName">i_funct[5:0]</obj_property>
@@ -399,10 +400,23 @@
       <obj_property name="ElementShortName">i_clock</obj_property>
       <obj_property name="ObjectShortName">i_clock</obj_property>
    </wvobject>
+   <wvobject type="logic" fp_name="/tb_TOP/TOP_1/ID_stage_1/o_ID_hlt">
+      <obj_property name="ElementShortName">o_ID_hlt</obj_property>
+      <obj_property name="ObjectShortName">o_ID_hlt</obj_property>
+      <obj_property name="CustomSignalColor">#E0FFFF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
    <wvobject type="group" fp_name="group250">
       <obj_property name="label">EX_STAGE</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_hlt">
+         <obj_property name="ElementShortName">i_EX_hlt</obj_property>
+         <obj_property name="ObjectShortName">i_EX_hlt</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/EX_stage_1/o_EX_hlt">
+         <obj_property name="ElementShortName">o_EX_hlt</obj_property>
+         <obj_property name="ObjectShortName">o_EX_hlt</obj_property>
+      </wvobject>
       <wvobject type="group" fp_name="group403">
          <obj_property name="label">MUX 6 data a/shamt</obj_property>
          <obj_property name="DisplayName">label</obj_property>
@@ -607,10 +621,21 @@
    <wvobject type="group" fp_name="group169">
       <obj_property name="label">MEM STAGE</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_clock">
          <obj_property name="ElementShortName">i_clock</obj_property>
          <obj_property name="ObjectShortName">i_clock</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_MEM_hlt">
+         <obj_property name="ElementShortName">i_MEM_hlt</obj_property>
+         <obj_property name="ObjectShortName">i_MEM_hlt</obj_property>
+         <obj_property name="CustomSignalColor">#E0FFFF</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/o_MEM_hlt">
+         <obj_property name="ElementShortName">o_MEM_hlt</obj_property>
+         <obj_property name="ObjectShortName">o_MEM_hlt</obj_property>
+         <obj_property name="CustomSignalColor">#E0FFFF</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
       <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_MEM_mem_read">
          <obj_property name="ElementShortName">i_MEM_mem_read</obj_property>
@@ -730,10 +755,26 @@
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
    </wvobject>
+   <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_MEM_hlt">
+      <obj_property name="ElementShortName">i_MEM_hlt</obj_property>
+      <obj_property name="ObjectShortName">i_MEM_hlt</obj_property>
+   </wvobject>
    <wvobject type="group" fp_name="group186">
       <obj_property name="label">WB STAGE</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/WB_stage_1/i_WB_hlt">
+         <obj_property name="ElementShortName">i_WB_hlt</obj_property>
+         <obj_property name="ObjectShortName">i_WB_hlt</obj_property>
+         <obj_property name="CustomSignalColor">#E0FFFF</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/WB_stage_1/o_WB_hlt">
+         <obj_property name="ElementShortName">o_WB_hlt</obj_property>
+         <obj_property name="ObjectShortName">o_WB_hlt</obj_property>
+         <obj_property name="CustomSignalColor">#E0FFFF</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
       <wvobject type="logic" fp_name="/tb_TOP/TOP_1/WB_stage_1/i_WB_mem_to_reg">
          <obj_property name="ElementShortName">i_WB_mem_to_reg</obj_property>
          <obj_property name="ObjectShortName">i_WB_mem_to_reg</obj_property>
