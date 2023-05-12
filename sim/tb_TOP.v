@@ -20,22 +20,22 @@ module tb_TOP;
   reg i_read_enable;
   reg i_ID_stage_reset;
 
-  reg i_im_enable;          // Debug Unit
-  reg i_im_write_enable;    // Debug Unit
-  reg i_im_data;            // Debug Unit
-  reg i_im_address;         // Debug Unit
-  reg i_rb_enable;          // Debug Unit
-  reg i_rb_read_enable;     // Debug Unit
-  reg i_rb_address;         // Debug Unit
-  reg i_dm_enable;          // Debug Unit
-  reg i_dm_read_enable;     // Debug Unit
-  reg i_dm_read_address;    // Debug Unit
-  reg i_cu_enable;          // Debug Unit
+  reg 						i_im_enable;         // Debug Unit
+  reg 						i_im_write_enable;   // Debug Unit
+  reg [NB_MEM_WIDTH-1:0] 	i_im_data;           // Debug Unit
+  reg [NB_ADDR-1:0]			i_im_address;        // Debug Unit
+  reg 						i_rb_enable;         // Debug Unit
+  reg 						i_rb_read_enable;    // Debug Unit
+  reg [NB_REG-1:0]			i_rb_address;        // Debug Unit
+  reg 						i_dm_enable;         // Debug Unit
+  reg 						i_dm_read_enable;    // Debug Unit
+  reg [NB_DM_ADDR-1:0]		i_dm_read_address;   // Debug Unit
+  reg 						i_cu_enable;         // Debug Unit
 
-  wire o_pc_value;          // Debug Unit
-  wire o_rb_data;           // Debug Unit
-  wire o_dm_data;           // Debug Unit
-  wire o_hlt;               // Debug Unit
+  wire [NB_PC-1:0]			o_pc_value;          // Debug Unit
+  wire [NB_DATA-1:0]		o_rb_data;           // Debug Unit
+  wire [NB_MEM_WIDTH-1:0]	o_dm_data;           // Debug Unit
+  wire 						o_hlt;               // Debug Unit
 
   TOP 
   #(.NB_PC(NB_PC),
@@ -48,7 +48,7 @@ module tb_TOP;
     .NB_MEM_WIDTH(NB_MEM_WIDTH) // Todas las memorias, excepto bank register tienen WIDTH = 8
 )
   TOP_1 (.i_clock(i_clock),
-         .i_clock_reset(i_clock_reset)
+         .i_clock_reset(i_clock_reset),
          .i_pc_enable(i_pc_enable),
          .i_pc_reset(i_pc_reset),
          .i_read_enable( i_read_enable),
@@ -70,27 +70,41 @@ module tb_TOP;
          .o_hlt(o_hlt));                        // Debug Unit
 
   initial begin
-    begin
-      i_clock               = 1'b0;
-      i_clock_reset         = 1'b0;
-      i_pc_enable           = 1'b0;
-      i_read_enable         = 1'b0;
-      i_im_write_enable     = 1'b0; // DEBUG UNIT
-      i_pc_reset            = 1'b1;
-      i_ID_stage_reset      = 1'b1;
-      i_cu_enable = 1'b0;
+    i_clock 			= 1'b0;
+    i_clock_reset 		= 1'b0;
+    i_pc_enable 		= 1'b0;
+    i_pc_reset 			= 1'b1;
+    i_read_enable 		= 1'b0;
+    i_ID_stage_reset 	= 1'b1;
+
+    i_im_enable 		= 1'b0;
+    i_im_write_enable 	= 1'b0;
+    i_im_data 			= 8'd0;
+    i_im_address 		= 32'd0;
+
+    i_rb_enable 		= 1'b0;
+    i_rb_read_enable 	= 1'b0;
+    i_rb_address 		= 5'd0;
+
+    i_dm_enable 		= 1'b0;
+    i_dm_read_enable 	= 1'b0;
+    i_dm_read_address 	= 7'd0;
+
+    i_cu_enable = 0;
+
+	#20
+	i_pc_enable         = 1'b1;
+	i_pc_reset          = 1'b0;
+	i_ID_stage_reset    = 1'b0;
+	i_read_enable       = 1'b1;
+
+	i_im_enable 		= 1'b1;
+	i_rb_enable 		= 1'b1;
+	i_dm_enable 		= 1'b1;
+	i_cu_enable 		= 1'b1;
       
-      #20
-      i_pc_enable           = 1'b1;
-      i_read_enable         = 1'b1;
-      i_im_write_enable     = 1'b0; 
-      i_pc_reset            = 1'b0;
-      i_ID_stage_reset      = 1'b0;
-      i_cu_enable = 1'b1;
-      
-      #700
-      $finish;
-    end
+	#700
+	$finish;
   end
 
   always

@@ -85,7 +85,7 @@ module data_memory#(
       end
 	  
 	  if(i_read_enable) begin			// Debug Unit
-		byte_data <= BRAM[i_read_address]
+		byte_data <= BRAM[i_read_address];
 	  end
     end
   end

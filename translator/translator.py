@@ -196,8 +196,8 @@ mnemonic_type = {
     J: jType, JAL: jType, JALR: rType, JR: rType, HLT: jType,
 }
 
-INPUT_FILE_NAME = 'r_inst.txt'
-OUTPUT_FILE_NAME = 'r_inst_bin.mem'
+INPUT_FILE_NAME = 'C:/Users/alejo/OneDrive/Documents/GitHub/TP-Final-Arquitectura-2021/translator/instructions.txt'
+OUTPUT_FILE_NAME = 'C:/Users/alejo/OneDrive/Documents/GitHub/TP-Final-Arquitectura-2021/translator/instructions.mem'
 
 
 def main():
