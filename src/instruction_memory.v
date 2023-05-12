@@ -11,13 +11,16 @@ module instruction_memory#(
   parameter NB_ADDR = 32,
   parameter NB_INSTRUCTION = 32,
   parameter RAM_PERFORMANCE = "LOW_LATENCY",// Select "HIGH_PERFORMANCE" or "LOW_LATENCY" 
-  parameter INIT_FILE = "/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/translator/r_inst_bin.mem"
+  // parameter INIT_FILE = "/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/translator/r_inst_bin.mem"
+  parameter INIT_FILE = "C:/Users/alejo/OneDrive/Documents/GitHub/TP-Final-Arquitectura-2021/translator/instructions.mem"
 ) 
 (
-  input                       i_clock,                              
+  input                       i_clock,
+  input                       i_enable,       // Debug Unit Control                            
   input                       i_read_enable,  
-  input                       i_write_enable,
-  input  [MEMORY_WIDTH-1:0]   i_write_data,
+  input                       i_write_enable, // Debug Unit Control   
+  input  [MEMORY_WIDTH-1:0]   i_write_data,   // Debug Unit Control
+  input  [NB_ADDR-1:0]        i_write_addr,   // Debug Unit Control
   input  [NB_ADDR-1:0]        i_addr,         // Read address bus, width determined from RAM_DEPTH
   output [NB_INSTRUCTION-1:0] o_read_data     // RAM output data
 );
@@ -39,6 +42,7 @@ module instruction_memory#(
   endgenerate
 
   always @(posedge i_clock) begin
+    if(i_enable) begin
       if (i_read_enable) begin
           ram_data[31:24] <= BRAM[i_addr];
           ram_data[23:16] <= BRAM[i_addr+1];
@@ -50,8 +54,9 @@ module instruction_memory#(
       end
       
       if(i_write_enable) begin
-        BRAM[i_addr]   <= i_write_data;
+        BRAM[i_write_addr]   <= i_write_data;
       end
+    end
   end
 
   //  The following code generates HIGH_PERFORMANCE (use output register) or LOW_LATENCY (no output register)

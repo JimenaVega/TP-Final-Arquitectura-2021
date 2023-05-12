@@ -6,6 +6,7 @@ module TOP#(
         parameter NB_DATA           = 32,
         parameter NB_REG            = 5, 
         parameter NB_ADDR           = 32,
+        parameter NB_DM_ADDR        = 7,
         parameter NB_OPCODE         = 6,
         parameter NB_MEM_WIDTH      = 8  // Todas las memorias, excepto bank register tienen WIDTH = 8
     )
@@ -15,12 +16,31 @@ module TOP#(
         input                       i_pc_enable,
         input                       i_pc_reset,
         input                       i_read_enable,
-        input                       i_write_enable,     // DEBUG UNIT
-        input [NB_MEM_WIDTH-1:0]    i_write_data,       // DEBUG UNIT
         input                       i_ID_stage_reset,
-        input                       i_control_unit_enable,
-        output                      o_hlt               // DEBUG UNIT added
+
+        input                       i_im_enable,          // DEBUG UNIT
+        input                       i_im_write_enable,    // DEBUG UNIT
+        input [NB_MEM_WIDTH-1:0]    i_im_data,            // DEBUG UNIT
+        input [NB_ADDR-1:0]         i_im_address,         // DEBUG UNIT
+
+        input                       i_rb_enable,          // DEBUG UNIT
+        input                       i_rb_read_enable,     // DEBUG UNIT
+        input [NB_REG-1:0]          i_rb_address,         // DEBUG UNIT
+
+        input                       i_dm_enable,          // DEBUG UNIT
+        input                       i_dm_read_enable,     // DEBUG UNIT
+        input [NB_DM_ADDR-1:0]      i_dm_read_address,    // DEBUG UNIT
+
+        input                       i_cu_enable,          // DEBUG UNIT
+
+        output                      o_hlt,                // DEBUG UNIT
+        output [NB_PC-1:0]          o_pc_value,           // DEBUG UNIT
+        output [NB_DATA-1:0]        o_rb_data,            // DEBUG UNIT
+        output [NB_MEM_WIDTH-1:0]   o_dm_data             // DEBUG UNIT
     );
+
+    assign o_pc_value = IF_adder_result;
+    assign o_rb_data  = ID_data_a;
     
     wire clk_wiz;
     
@@ -157,30 +177,35 @@ module TOP#(
 
 
     
-    IF_stage IF_stage_1(.i_clock(clk_wiz),
+    IF_stage IF_stage_1(.i_clock(i_clock),
+                        .i_IF_im_enable(i_im_enable),
                         .i_IF_branch(MEM_branch_zero),
                         .i_IF_j_jal(ID_jump),
                         .i_IF_jr_jalr(ID_jr_jalr),
                         .i_IF_pc_enable(i_pc_enable),
                         .i_IF_pc_reset(i_pc_reset),
                         .i_IF_read_enable(i_read_enable),
-                        .i_IF_write_enable(i_write_enable),
-                        .i_IF_write_data(i_write_data),
+                        .i_IF_write_enable(i_im_write_enable),
+                        .i_IF_write_data(i_im_data),
+                        .i_IF_write_addr(i_im_address),
                         .i_IF_branch_addr(o_MEM_branch_addr),
                         .i_IF_jump_address(ID_jump_address),
                         .i_IF_r31_data(ID_r31_data),
                         .o_IF_adder_result(IF_adder_result),
                         .o_IF_new_instruction(IF_new_instruction));
                         
-    IF_ID_reg IF_ID_reg_1(.i_clock(clk_wiz),
+    IF_ID_reg IF_ID_reg_1(.i_clock(i_clock),
                           .IF_adder_result(IF_adder_result),
                           .IF_new_instruction(IF_new_instruction),
                           .ID_adder_result(ID_adder_result),
                           .ID_new_instruction(ID_new_instruction));
     
-    ID_stage ID_stage_1(.i_clock(clk_wiz),
+    ID_stage ID_stage_1(.i_clock(i_clock),
                         .i_ID_reset(i_ID_stage_reset),
-                        .i_ID_enable(i_control_unit_enable),
+                        .i_ID_rb_enable(i_rb_enable), // Debug Unit
+                        .i_ID_rb_read_enable(i_rb_read_enable), // Debug Unit
+                        .i_ID_rb_read_address(i_rb_address), // Debug Unit
+                        .i_ID_cu_enable(i_cu_enable),  // Debug Unit
                         .i_ID_inst(ID_new_instruction),
                         .i_ID_pc(ID_adder_result),
                         .i_ID_write_data(WB_selected_data),
@@ -210,7 +235,7 @@ module TOP#(
                         .o_ID_word_en(ID_word_en),
                         .o_ID_r31_data(ID_r31_data));
                         
-    ID_EX_reg ID_EX_reg_1(.i_clock(clk_wiz),
+    ID_EX_reg ID_EX_reg_1(.i_clock(i_clock),
                           .ID_reg_write(ID_reg_write),
                           .ID_mem_to_reg(ID_mem_to_reg),
                           .ID_mem_read(ID_mem_read),
@@ -286,7 +311,7 @@ module TOP#(
                         .o_EX_pc(o_EX_pc),
                         .o_EX_hlt(o_EX_hlt));
                         
-    EX_MEM_reg EX_MEM_reg_1(.i_clock(clk_wiz),
+    EX_MEM_reg EX_MEM_reg_1(.i_clock(i_clock),
                             .EX_reg_write(o_EX_reg_write),
                             .EX_mem_to_reg(o_EX_mem_to_reg),
                             .EX_mem_read(o_EX_mem_read),
@@ -320,7 +345,10 @@ module TOP#(
                             .MEM_pc(MEM_pc),
                             .MEM_hlt(MEM_hlt));
                 
-    MEM_stage MEM_stage_1(.i_clock(clk_wiz),
+    MEM_stage MEM_stage_1(.i_clock(i_clock),
+                          .i_MEM_dm_enable(i_dm_enable),  // Debug Unit
+                          .i_MEM_dm_read_enable(i_dm_read_enable),  // Debug Unit
+                          .i_MEM_dm_read_address(i_dm_read_address),  // Debug Unit
                           .i_MEM_reg_write(MEM_reg_write),
                           .i_MEM_mem_to_reg(MEM_mem_to_reg),
                           .i_MEM_mem_read(MEM_mem_read),
@@ -346,9 +374,10 @@ module TOP#(
                           .o_MEM_mem_to_reg(o_MEM_mem_to_reg),
                           .o_MEM_r31_ctrl(o_MEM_r31_ctrl),
                           .o_MEM_pc(o_MEM_pc),
+                          .o_MEM_byte_data(o_dm_data),  // Debug Unit
                           .o_MEM_hlt(o_MEM_hlt));
                          
-    MEM_WB_reg MEM_WB_reg_1(.i_clock(clk_wiz),
+    MEM_WB_reg MEM_WB_reg_1(.i_clock(i_clock),
                             .i_MEM_reg_write(o_MEM_reg_write),
                             .i_MEM_mem_to_reg(o_MEM_mem_to_reg),
                             .i_MEM_mem_data(MEM_mem_data),
