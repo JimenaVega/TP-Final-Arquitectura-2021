@@ -1,6 +1,4 @@
 `timescale 1ns / 1ps
-
-
 //  Xilinx Simple Dual Port Single Clock RAM
 //  This code implements a parameterizable SDP single clock memory.
 //  If a reset or enable is not necessary, it may be tied off or removed from the code.
@@ -11,8 +9,8 @@ module instruction_memory#(
   parameter NB_ADDR = 32,
   parameter NB_INSTRUCTION = 32,
   parameter RAM_PERFORMANCE = "LOW_LATENCY",// Select "HIGH_PERFORMANCE" or "LOW_LATENCY" 
-  // parameter INIT_FILE = "/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/translator/r_inst_bin.mem"
-  parameter INIT_FILE = "C:/Users/alejo/OneDrive/Documents/GitHub/TP-Final-Arquitectura-2021/translator/instructions.mem"
+  parameter INIT_FILE = "/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/translator/inst.mem"
+  // parameter INIT_FILE = "C:/Users/alejo/OneDrive/Documents/GitHub/TP-Final-Arquitectura-2021/translator/instructions.mem"
 ) 
 (
   input                       i_clock,
