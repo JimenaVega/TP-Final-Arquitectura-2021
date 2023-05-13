@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="13.267 ns"></ZoomStartTime>
-      <ZoomEndTime time="44.699 ns"></ZoomEndTime>
-      <Cursor1Time time="125.000 ns"></Cursor1Time>
+      <ZoomStartTime time="7.711 ns"></ZoomStartTime>
+      <ZoomEndTime time="133.905 ns"></ZoomEndTime>
+      <Cursor1Time time="40.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="231"></NameColumnWidth>
+      <NameColumnWidth column_width="223"></NameColumnWidth>
       <ValueColumnWidth column_width="66"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="15" />
+   <WVObjectSize size="13" />
    <wvobject type="logic" fp_name="/tb_TOP/i_clock">
       <obj_property name="ElementShortName">i_clock</obj_property>
       <obj_property name="ObjectShortName">i_clock</obj_property>
@@ -36,14 +36,6 @@
       <obj_property name="ElementShortName">i_read_enable</obj_property>
       <obj_property name="ObjectShortName">i_read_enable</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/tb_TOP/TOP_1/i_write_enable">
-      <obj_property name="ElementShortName">i_write_enable</obj_property>
-      <obj_property name="ObjectShortName">i_write_enable</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/tb_TOP/TOP_1/i_write_data">
-      <obj_property name="ElementShortName">i_write_data[7:0]</obj_property>
-      <obj_property name="ObjectShortName">i_write_data[7:0]</obj_property>
-   </wvobject>
    <wvobject type="logic" fp_name="/tb_TOP/TOP_1/IF_stage_1/i_IF_branch">
       <obj_property name="ElementShortName">i_IF_branch</obj_property>
       <obj_property name="ObjectShortName">i_IF_branch</obj_property>
@@ -53,7 +45,6 @@
    <wvobject type="group" fp_name="group418">
       <obj_property name="label">IF_STAGE</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject type="logic" fp_name="/tb_TOP/TOP_1/IF_stage_1/i_IF_write_enable">
          <obj_property name="ElementShortName">i_IF_write_enable</obj_property>
          <obj_property name="ObjectShortName">i_IF_write_enable</obj_property>
@@ -205,7 +196,17 @@
    <wvobject type="group" fp_name="group419">
       <obj_property name="label">ID_STAGE</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/ID_stage_1/i_clock">
+         <obj_property name="ElementShortName">i_clock</obj_property>
+         <obj_property name="ObjectShortName">i_clock</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/i_ID_pc">
+         <obj_property name="ElementShortName">i_ID_pc[31:0]</obj_property>
+         <obj_property name="ObjectShortName">i_ID_pc[31:0]</obj_property>
+         <obj_property name="CustomSignalColor">#800080</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
       <wvobject type="group" fp_name="group130">
          <obj_property name="label">EXTEND shamt</obj_property>
          <obj_property name="DisplayName">label</obj_property>
@@ -218,10 +219,6 @@
             <obj_property name="ObjectShortName">o_data[31:0]</obj_property>
             <obj_property name="Radix">BINARYRADIX</obj_property>
          </wvobject>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/ID_stage_1/i_clock">
-         <obj_property name="ElementShortName">i_clock</obj_property>
-         <obj_property name="ObjectShortName">i_clock</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/o_ID_alu_op">
          <obj_property name="ElementShortName">o_ID_alu_op[5:0]</obj_property>
@@ -293,10 +290,6 @@
             <obj_property name="ElementShortName">i_write_reg[4:0]</obj_property>
             <obj_property name="ObjectShortName">i_write_reg[4:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/i_jr_jalr">
-            <obj_property name="ElementShortName">i_jr_jalr</obj_property>
-            <obj_property name="ObjectShortName">i_jr_jalr</obj_property>
          </wvobject>
       </wvobject>
       <wvobject type="group" fp_name="group421">
@@ -379,8 +372,8 @@
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
          <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/concat_module_1/i_inst">
-            <obj_property name="ElementShortName">i_inst[24:0]</obj_property>
-            <obj_property name="ObjectShortName">i_inst[24:0]</obj_property>
+            <obj_property name="ElementShortName">i_inst[25:0]</obj_property>
+            <obj_property name="ObjectShortName">i_inst[25:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
          <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/concat_module_1/i_next_pc">
@@ -409,6 +402,7 @@
    <wvobject type="group" fp_name="group250">
       <obj_property name="label">EX_STAGE</obj_property>
       <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
       <wvobject type="logic" fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_hlt">
          <obj_property name="ElementShortName">i_EX_hlt</obj_property>
          <obj_property name="ObjectShortName">i_EX_hlt</obj_property>
@@ -495,7 +489,6 @@
       <wvobject type="group" fp_name="group239">
          <obj_property name="label">ALU CTRL</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="isExpanded"></obj_property>
          <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/alu_control_1/i_funct_code">
             <obj_property name="ElementShortName">i_funct_code[5:0]</obj_property>
             <obj_property name="ObjectShortName">i_funct_code[5:0]</obj_property>
@@ -530,25 +523,29 @@
             <obj_property name="ObjectShortName">i_a[31:0]</obj_property>
             <obj_property name="CustomSignalColor">#800080</obj_property>
             <obj_property name="UseCustomSignalColor">true</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
          </wvobject>
          <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/alu_1/i_b">
             <obj_property name="ElementShortName">i_b[31:0]</obj_property>
             <obj_property name="ObjectShortName">i_b[31:0]</obj_property>
             <obj_property name="CustomSignalColor">#800080</obj_property>
             <obj_property name="UseCustomSignalColor">true</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
          </wvobject>
          <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/alu_1/o_result">
             <obj_property name="ElementShortName">o_result[31:0]</obj_property>
             <obj_property name="ObjectShortName">o_result[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
             <obj_property name="CustomSignalColor">#00FFFF</obj_property>
             <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
          <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/alu_1/i_alu_ctrl">
             <obj_property name="ElementShortName">i_alu_ctrl[3:0]</obj_property>
             <obj_property name="ObjectShortName">i_alu_ctrl[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/EX_stage_1/alu_1/oe">
+            <obj_property name="ElementShortName">oe</obj_property>
+            <obj_property name="ObjectShortName">oe</obj_property>
          </wvobject>
          <wvobject type="logic" fp_name="/tb_TOP/TOP_1/EX_stage_1/alu_1/o_zero">
             <obj_property name="ElementShortName">o_zero</obj_property>
@@ -567,7 +564,7 @@
          <obj_property name="ObjectShortName">i_EX_data_b[31:0]</obj_property>
          <obj_property name="CustomSignalColor">#800080</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
       </wvobject>
       <wvobject type="logic" fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_reg_dest">
          <obj_property name="ElementShortName">i_EX_reg_dest</obj_property>
