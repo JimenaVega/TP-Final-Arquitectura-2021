@@ -84,9 +84,9 @@ module data_memory#(
         endcase
       end
 	  
-	  if(i_read_enable) begin			// Debug Unit
-		byte_data <= BRAM[i_read_address];
-	  end
+      if(i_read_enable) begin			// Debug Unit
+        byte_data <= BRAM[i_read_address];
+      end
     end
   end
 
