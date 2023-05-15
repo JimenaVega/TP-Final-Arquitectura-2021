@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="76801fs"></ZoomEndTime>
-      <Cursor1Time time="0fs"></Cursor1Time>
+      <ZoomStartTime time="511658334fs"></ZoomStartTime>
+      <ZoomEndTime time="511707946fs"></ZoomEndTime>
+      <Cursor1Time time="511682978fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="191"></NameColumnWidth>
-      <ValueColumnWidth column_width="69"></ValueColumnWidth>
+      <NameColumnWidth column_width="200"></NameColumnWidth>
+      <ValueColumnWidth column_width="61"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="8" />
+   <WVObjectSize size="10" />
    <wvobject fp_name="/tb_TOP_debug_unit/i_clock" type="logic">
       <obj_property name="ElementShortName">i_clock</obj_property>
       <obj_property name="ObjectShortName">i_clock</obj_property>
@@ -36,6 +36,10 @@
       <obj_property name="ElementShortName">send</obj_property>
       <obj_property name="ObjectShortName">send</obj_property>
    </wvobject>
+   <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/mem_addr" type="array">
+      <obj_property name="ElementShortName">mem_addr[6:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_addr[6:0]</obj_property>
+   </wvobject>
    <wvobject fp_name="group18" type="group">
       <obj_property name="label">DEBUG_UNIT</obj_property>
       <obj_property name="DisplayName">label</obj_property>
@@ -47,6 +51,8 @@
       <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/debug_unit_1/i_tx_done" type="logic">
          <obj_property name="ElementShortName">i_tx_done</obj_property>
          <obj_property name="ObjectShortName">i_tx_done</obj_property>
+         <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/debug_unit_1/i_dm_data" type="array">
          <obj_property name="ElementShortName">i_dm_data[7:0]</obj_property>
@@ -62,11 +68,43 @@
          <obj_property name="ElementShortName">state[4:0]</obj_property>
          <obj_property name="ObjectShortName">state[4:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="CustomSignalColor">#FFA500</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/debug_unit_1/next_state" type="array">
          <obj_property name="ElementShortName">next_state[4:0]</obj_property>
          <obj_property name="ObjectShortName">next_state[4:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="CustomSignalColor">#FFA500</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/debug_unit_1/count_dm_tx_done" type="array">
+         <obj_property name="ElementShortName">count_dm_tx_done[6:0]</obj_property>
+         <obj_property name="ObjectShortName">count_dm_tx_done[6:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/debug_unit_1/count_dm_tx_done_next" type="array">
+         <obj_property name="ElementShortName">count_dm_tx_done_next[6:0]</obj_property>
+         <obj_property name="ObjectShortName">count_dm_tx_done_next[6:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/debug_unit_1/send_data" type="array">
+         <obj_property name="ElementShortName">send_data[7:0]</obj_property>
+         <obj_property name="ObjectShortName">send_data[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="CustomSignalColor">#800080</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/debug_unit_1/send_data_next" type="array">
+         <obj_property name="ElementShortName">send_data_next[7:0]</obj_property>
+         <obj_property name="ObjectShortName">send_data_next[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="CustomSignalColor">#800080</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/debug_unit_1/o_dm_enable" type="logic">
          <obj_property name="ElementShortName">o_dm_enable</obj_property>
@@ -77,12 +115,16 @@
          <obj_property name="ObjectShortName">o_dm_read_enable</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/debug_unit_1/o_dm_addr" type="array">
-         <obj_property name="ElementShortName">o_dm_addr[5:0]</obj_property>
-         <obj_property name="ObjectShortName">o_dm_addr[5:0]</obj_property>
+         <obj_property name="ElementShortName">o_dm_addr[6:0]</obj_property>
+         <obj_property name="ObjectShortName">o_dm_addr[6:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/debug_unit_1/o_tx_start" type="logic">
+         <obj_property name="ElementShortName">o_tx_start</obj_property>
+         <obj_property name="ObjectShortName">o_tx_start</obj_property>
       </wvobject>
    </wvobject>
    <wvobject fp_name="group25" type="group">
-      <obj_property name="label">DB_UART</obj_property>
+      <obj_property name="label">DU_UART</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="group28" type="group">
@@ -111,9 +153,34 @@
          <obj_property name="label">RX</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_debug_unit/rx_uart_instance/state" type="array">
+            <obj_property name="ElementShortName">state[1:0]</obj_property>
+            <obj_property name="ObjectShortName">state[1:0]</obj_property>
+            <obj_property name="CustomSignalColor">#0000FF</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_debug_unit/rx_uart_instance/next_state" type="array">
+            <obj_property name="ElementShortName">next_state[1:0]</obj_property>
+            <obj_property name="ObjectShortName">next_state[1:0]</obj_property>
+            <obj_property name="CustomSignalColor">#0000FF</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_debug_unit/rx_uart_instance/tick_counter" type="array">
+            <obj_property name="ElementShortName">tick_counter[3:0]</obj_property>
+            <obj_property name="ObjectShortName">tick_counter[3:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_debug_unit/rx_uart_instance/data_counter" type="array">
+            <obj_property name="ElementShortName">data_counter[2:0]</obj_property>
+            <obj_property name="ObjectShortName">data_counter[2:0]</obj_property>
+         </wvobject>
          <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_debug_unit/i_rx" type="logic">
             <obj_property name="ElementShortName">i_rx</obj_property>
             <obj_property name="ObjectShortName">i_rx</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_debug_unit/rx_uart_instance/i_s_tick" type="logic">
+            <obj_property name="ElementShortName">i_s_tick</obj_property>
+            <obj_property name="ObjectShortName">i_s_tick</obj_property>
          </wvobject>
          <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_debug_unit/o_rx_done_tick" type="logic">
             <obj_property name="ElementShortName">o_rx_done_tick</obj_property>
@@ -134,20 +201,45 @@
          <obj_property name="label">TX</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_external/i_tx_start" type="logic">
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_external/tx_uart_instance_2/state" type="array">
+            <obj_property name="ElementShortName">state[1:0]</obj_property>
+            <obj_property name="ObjectShortName">state[1:0]</obj_property>
+            <obj_property name="CustomSignalColor">#0000FF</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_external/tx_uart_instance_2/next_state" type="array">
+            <obj_property name="ElementShortName">next_state[1:0]</obj_property>
+            <obj_property name="ObjectShortName">next_state[1:0]</obj_property>
+            <obj_property name="CustomSignalColor">#0000FF</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_external/tx_uart_instance_2/tick_counter" type="array">
+            <obj_property name="ElementShortName">tick_counter[3:0]</obj_property>
+            <obj_property name="ObjectShortName">tick_counter[3:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_external/tx_uart_instance_2/data_counter" type="array">
+            <obj_property name="ElementShortName">data_counter[2:0]</obj_property>
+            <obj_property name="ObjectShortName">data_counter[2:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_external/tx_uart_instance_2/i_s_tick" type="logic">
+            <obj_property name="ElementShortName">i_s_tick</obj_property>
+            <obj_property name="ObjectShortName">i_s_tick</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_external/tx_uart_instance_2/i_tx_start" type="logic">
             <obj_property name="ElementShortName">i_tx_start</obj_property>
             <obj_property name="ObjectShortName">i_tx_start</obj_property>
          </wvobject>
-         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_external/i_tx" type="array">
-            <obj_property name="ElementShortName">i_tx[7:0]</obj_property>
-            <obj_property name="ObjectShortName">i_tx[7:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_external/tx_uart_instance_2/i_data" type="array">
+            <obj_property name="ElementShortName">i_data[7:0]</obj_property>
+            <obj_property name="ObjectShortName">i_data[7:0]</obj_property>
+            <obj_property name="Radix">BINARYRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_external/o_tx" type="logic">
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_external/tx_uart_instance_2/o_tx" type="logic">
             <obj_property name="ElementShortName">o_tx</obj_property>
             <obj_property name="ObjectShortName">o_tx</obj_property>
          </wvobject>
-         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_external/o_tx_done_tick" type="logic">
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_external/tx_uart_instance_2/o_tx_done_tick" type="logic">
             <obj_property name="ElementShortName">o_tx_done_tick</obj_property>
             <obj_property name="ObjectShortName">o_tx_done_tick</obj_property>
          </wvobject>
@@ -156,11 +248,31 @@
          <obj_property name="label">RX</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_external/i_rx" type="logic">
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_external/rx_uart_instance/state" type="array">
+            <obj_property name="ElementShortName">state[1:0]</obj_property>
+            <obj_property name="ObjectShortName">state[1:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_external/rx_uart_instance/next_state" type="array">
+            <obj_property name="ElementShortName">next_state[1:0]</obj_property>
+            <obj_property name="ObjectShortName">next_state[1:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_external/rx_uart_instance/tick_counter" type="array">
+            <obj_property name="ElementShortName">tick_counter[3:0]</obj_property>
+            <obj_property name="ObjectShortName">tick_counter[3:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_external/rx_uart_instance/data_counter" type="array">
+            <obj_property name="ElementShortName">data_counter[2:0]</obj_property>
+            <obj_property name="ObjectShortName">data_counter[2:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_external/rx_uart_instance/i_rx" type="logic">
             <obj_property name="ElementShortName">i_rx</obj_property>
             <obj_property name="ObjectShortName">i_rx</obj_property>
          </wvobject>
-         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_external/o_rx_done_tick" type="logic">
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_external/rx_uart_instance/i_s_tick" type="logic">
+            <obj_property name="ElementShortName">i_s_tick</obj_property>
+            <obj_property name="ObjectShortName">i_s_tick</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_external/rx_uart_instance/o_rx_done_tick" type="logic">
             <obj_property name="ElementShortName">o_rx_done_tick</obj_property>
             <obj_property name="ObjectShortName">o_rx_done_tick</obj_property>
          </wvobject>
@@ -188,6 +300,11 @@
          <obj_property name="ObjectShortName">i_read_address[6:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
+      <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/byte_data" type="array">
+         <obj_property name="ElementShortName">byte_data[7:0]</obj_property>
+         <obj_property name="ObjectShortName">byte_data[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
       <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/o_byte_data" type="array">
          <obj_property name="ElementShortName">o_byte_data[7:0]</obj_property>
          <obj_property name="ObjectShortName">o_byte_data[7:0]</obj_property>
@@ -197,6 +314,533 @@
          <obj_property name="ElementShortName">BRAM[127:0][7:0]</obj_property>
          <obj_property name="ObjectShortName">BRAM[127:0][7:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[127]" type="array">
+            <obj_property name="ElementShortName">[127][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[127][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[126]" type="array">
+            <obj_property name="ElementShortName">[126][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[126][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[125]" type="array">
+            <obj_property name="ElementShortName">[125][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[125][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[124]" type="array">
+            <obj_property name="ElementShortName">[124][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[124][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[123]" type="array">
+            <obj_property name="ElementShortName">[123][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[123][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[122]" type="array">
+            <obj_property name="ElementShortName">[122][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[122][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[121]" type="array">
+            <obj_property name="ElementShortName">[121][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[121][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[120]" type="array">
+            <obj_property name="ElementShortName">[120][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[120][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[119]" type="array">
+            <obj_property name="ElementShortName">[119][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[119][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[118]" type="array">
+            <obj_property name="ElementShortName">[118][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[118][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[117]" type="array">
+            <obj_property name="ElementShortName">[117][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[117][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[116]" type="array">
+            <obj_property name="ElementShortName">[116][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[116][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[115]" type="array">
+            <obj_property name="ElementShortName">[115][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[115][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[114]" type="array">
+            <obj_property name="ElementShortName">[114][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[114][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[113]" type="array">
+            <obj_property name="ElementShortName">[113][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[113][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[112]" type="array">
+            <obj_property name="ElementShortName">[112][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[112][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[111]" type="array">
+            <obj_property name="ElementShortName">[111][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[111][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[110]" type="array">
+            <obj_property name="ElementShortName">[110][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[110][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[109]" type="array">
+            <obj_property name="ElementShortName">[109][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[109][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[108]" type="array">
+            <obj_property name="ElementShortName">[108][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[108][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[107]" type="array">
+            <obj_property name="ElementShortName">[107][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[107][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[106]" type="array">
+            <obj_property name="ElementShortName">[106][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[106][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[105]" type="array">
+            <obj_property name="ElementShortName">[105][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[105][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[104]" type="array">
+            <obj_property name="ElementShortName">[104][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[104][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[103]" type="array">
+            <obj_property name="ElementShortName">[103][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[103][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[102]" type="array">
+            <obj_property name="ElementShortName">[102][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[102][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[101]" type="array">
+            <obj_property name="ElementShortName">[101][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[101][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[100]" type="array">
+            <obj_property name="ElementShortName">[100][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[100][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[99]" type="array">
+            <obj_property name="ElementShortName">[99][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[99][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[98]" type="array">
+            <obj_property name="ElementShortName">[98][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[98][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[97]" type="array">
+            <obj_property name="ElementShortName">[97][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[97][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[96]" type="array">
+            <obj_property name="ElementShortName">[96][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[96][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[95]" type="array">
+            <obj_property name="ElementShortName">[95][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[95][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[94]" type="array">
+            <obj_property name="ElementShortName">[94][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[94][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[93]" type="array">
+            <obj_property name="ElementShortName">[93][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[93][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[92]" type="array">
+            <obj_property name="ElementShortName">[92][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[92][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[91]" type="array">
+            <obj_property name="ElementShortName">[91][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[91][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[90]" type="array">
+            <obj_property name="ElementShortName">[90][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[90][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[89]" type="array">
+            <obj_property name="ElementShortName">[89][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[89][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[88]" type="array">
+            <obj_property name="ElementShortName">[88][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[88][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[87]" type="array">
+            <obj_property name="ElementShortName">[87][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[87][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[86]" type="array">
+            <obj_property name="ElementShortName">[86][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[86][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[85]" type="array">
+            <obj_property name="ElementShortName">[85][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[85][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[84]" type="array">
+            <obj_property name="ElementShortName">[84][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[84][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[83]" type="array">
+            <obj_property name="ElementShortName">[83][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[83][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[82]" type="array">
+            <obj_property name="ElementShortName">[82][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[82][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[81]" type="array">
+            <obj_property name="ElementShortName">[81][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[81][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[80]" type="array">
+            <obj_property name="ElementShortName">[80][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[80][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[79]" type="array">
+            <obj_property name="ElementShortName">[79][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[79][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[78]" type="array">
+            <obj_property name="ElementShortName">[78][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[78][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[77]" type="array">
+            <obj_property name="ElementShortName">[77][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[77][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[76]" type="array">
+            <obj_property name="ElementShortName">[76][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[76][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[75]" type="array">
+            <obj_property name="ElementShortName">[75][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[75][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[74]" type="array">
+            <obj_property name="ElementShortName">[74][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[74][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[73]" type="array">
+            <obj_property name="ElementShortName">[73][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[73][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[72]" type="array">
+            <obj_property name="ElementShortName">[72][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[72][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[71]" type="array">
+            <obj_property name="ElementShortName">[71][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[71][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[70]" type="array">
+            <obj_property name="ElementShortName">[70][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[70][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[69]" type="array">
+            <obj_property name="ElementShortName">[69][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[69][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[68]" type="array">
+            <obj_property name="ElementShortName">[68][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[68][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[67]" type="array">
+            <obj_property name="ElementShortName">[67][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[67][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[66]" type="array">
+            <obj_property name="ElementShortName">[66][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[66][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[65]" type="array">
+            <obj_property name="ElementShortName">[65][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[65][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[64]" type="array">
+            <obj_property name="ElementShortName">[64][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[64][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[63]" type="array">
+            <obj_property name="ElementShortName">[63][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[63][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[62]" type="array">
+            <obj_property name="ElementShortName">[62][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[62][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[61]" type="array">
+            <obj_property name="ElementShortName">[61][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[61][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[60]" type="array">
+            <obj_property name="ElementShortName">[60][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[60][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[59]" type="array">
+            <obj_property name="ElementShortName">[59][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[59][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[58]" type="array">
+            <obj_property name="ElementShortName">[58][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[58][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[57]" type="array">
+            <obj_property name="ElementShortName">[57][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[57][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[56]" type="array">
+            <obj_property name="ElementShortName">[56][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[56][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[55]" type="array">
+            <obj_property name="ElementShortName">[55][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[55][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[54]" type="array">
+            <obj_property name="ElementShortName">[54][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[54][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[53]" type="array">
+            <obj_property name="ElementShortName">[53][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[53][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[52]" type="array">
+            <obj_property name="ElementShortName">[52][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[52][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[51]" type="array">
+            <obj_property name="ElementShortName">[51][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[51][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[50]" type="array">
+            <obj_property name="ElementShortName">[50][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[50][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[49]" type="array">
+            <obj_property name="ElementShortName">[49][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[49][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[48]" type="array">
+            <obj_property name="ElementShortName">[48][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[48][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[47]" type="array">
+            <obj_property name="ElementShortName">[47][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[47][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[46]" type="array">
+            <obj_property name="ElementShortName">[46][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[46][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[45]" type="array">
+            <obj_property name="ElementShortName">[45][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[45][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[44]" type="array">
+            <obj_property name="ElementShortName">[44][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[44][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[43]" type="array">
+            <obj_property name="ElementShortName">[43][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[43][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[42]" type="array">
+            <obj_property name="ElementShortName">[42][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[42][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[41]" type="array">
+            <obj_property name="ElementShortName">[41][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[41][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[40]" type="array">
+            <obj_property name="ElementShortName">[40][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[40][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[39]" type="array">
+            <obj_property name="ElementShortName">[39][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[39][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[38]" type="array">
+            <obj_property name="ElementShortName">[38][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[38][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[37]" type="array">
+            <obj_property name="ElementShortName">[37][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[37][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[36]" type="array">
+            <obj_property name="ElementShortName">[36][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[36][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[35]" type="array">
+            <obj_property name="ElementShortName">[35][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[35][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[34]" type="array">
+            <obj_property name="ElementShortName">[34][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[34][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[33]" type="array">
+            <obj_property name="ElementShortName">[33][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[33][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[32]" type="array">
+            <obj_property name="ElementShortName">[32][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[32][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[31]" type="array">
+            <obj_property name="ElementShortName">[31][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[31][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[30]" type="array">
+            <obj_property name="ElementShortName">[30][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[30][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[29]" type="array">
+            <obj_property name="ElementShortName">[29][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[29][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[28]" type="array">
+            <obj_property name="ElementShortName">[28][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[28][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[27]" type="array">
+            <obj_property name="ElementShortName">[27][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[27][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[26]" type="array">
+            <obj_property name="ElementShortName">[26][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[26][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[25]" type="array">
+            <obj_property name="ElementShortName">[25][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[25][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[24]" type="array">
+            <obj_property name="ElementShortName">[24][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[24][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[23]" type="array">
+            <obj_property name="ElementShortName">[23][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[23][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[22]" type="array">
+            <obj_property name="ElementShortName">[22][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[22][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[21]" type="array">
+            <obj_property name="ElementShortName">[21][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[21][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[20]" type="array">
+            <obj_property name="ElementShortName">[20][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[20][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[19]" type="array">
+            <obj_property name="ElementShortName">[19][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[19][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[18]" type="array">
+            <obj_property name="ElementShortName">[18][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[18][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[17]" type="array">
+            <obj_property name="ElementShortName">[17][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[17][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[16]" type="array">
+            <obj_property name="ElementShortName">[16][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[16][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[15]" type="array">
+            <obj_property name="ElementShortName">[15][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[15][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[14]" type="array">
+            <obj_property name="ElementShortName">[14][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[14][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[13]" type="array">
+            <obj_property name="ElementShortName">[13][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[13][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[12]" type="array">
+            <obj_property name="ElementShortName">[12][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[12][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[11]" type="array">
+            <obj_property name="ElementShortName">[11][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[11][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[10]" type="array">
+            <obj_property name="ElementShortName">[10][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[10][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[9]" type="array">
+            <obj_property name="ElementShortName">[9][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[9][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[8]" type="array">
+            <obj_property name="ElementShortName">[8][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[8][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[7]" type="array">
+            <obj_property name="ElementShortName">[7][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[7][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[6]" type="array">
+            <obj_property name="ElementShortName">[6][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[6][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[5]" type="array">
+            <obj_property name="ElementShortName">[5][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[5][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[4]" type="array">
+            <obj_property name="ElementShortName">[4][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[4][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[3]" type="array">
+            <obj_property name="ElementShortName">[3][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[2]" type="array">
+            <obj_property name="ElementShortName">[2][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[1]" type="array">
+            <obj_property name="ElementShortName">[1][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/data_memory_1/BRAM[0]" type="array">
+            <obj_property name="ElementShortName">[0][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][7:0]</obj_property>
+            <obj_property name="Radix">BINARYRADIX</obj_property>
+         </wvobject>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group177" type="group">
+      <obj_property name="label">BAUDRATE_GEN</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_debug_unit/bg_instance/counter" type="array">
+         <obj_property name="ElementShortName">counter[7:0]</obj_property>
+         <obj_property name="ObjectShortName">counter[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_debug_unit/bg_instance/o_br_clock" type="logic">
+         <obj_property name="ElementShortName">o_br_clock</obj_property>
+         <obj_property name="ObjectShortName">o_br_clock</obj_property>
       </wvobject>
    </wvobject>
 </wave_config>

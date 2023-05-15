@@ -42,6 +42,8 @@ module data_memory#(
 
 
   always @(posedge i_clock) begin
+    BRAM[0] <= 8'b01011010; // borrar
+    BRAM[1] <= 8'b11111111; // borrar
     if(i_enable) begin
       if (i_mem_write_flag) begin
         case ({i_word_en, i_halfword_en, i_byte_en})
@@ -96,7 +98,7 @@ module data_memory#(
 
       // The following is a 1 clock cycle read latency at the cost of a longer clock-to-out timing
        assign o_read_data = ram_data;
-	   assign o_byte_data = byte_data;
+	     assign o_byte_data = byte_data;
 
     end
   endgenerate

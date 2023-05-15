@@ -2,7 +2,7 @@ module tb_TOP_debug_unit;
 
   // Parameters
   localparam  BYTE = 8;
-  localparam  ADDR = 6;
+  localparam  ADDR = 7;
 
   // Ports
   reg               i_clock;
@@ -23,12 +23,15 @@ module tb_TOP_debug_unit;
     command = 8'd0;
     send    = 1'b0;
 
-    #40
+    #100
     i_reset = 1'b0;
     command = 8'd8;
     send    = 1'b1;
+    
+    #100
+    send    = 1'b0;
 
-    #500
+    #500000000
     
     $finish;
   end

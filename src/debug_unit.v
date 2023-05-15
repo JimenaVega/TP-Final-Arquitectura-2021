@@ -8,7 +8,7 @@ module debug_unit#(
     parameter NB_ADDR     = 32,
     parameter NB_ADDR_RB  = 4,
     parameter BYTES_IN_32 = 4,
-    parameter NB_ADDR_DM  = 6, 
+    parameter NB_ADDR_DM  = 7, 
     parameter BR_SIZE     = 32,
     parameter MEM_SIZE    = 256
 )    
@@ -96,8 +96,8 @@ always @(posedge i_clock) begin
         // im_data                 <= 1'b0;
         im_write                <= 1'b0;
         // DATA MEMORY
-        count_dm_tx_done        <= 1'b0;
-        count_dm_tx_done_next   <= 1'b0;
+        count_dm_tx_done        <= 7'b0;
+        count_dm_tx_done_next   <= 7'b0;
         dm_enable               <= 1'b0;
         dm_read_enable          <= 1'b0;
         // TX
@@ -118,16 +118,19 @@ always @(posedge i_clock) begin
         count_dm_tx_done    <= count_dm_tx_done_next;
         // TX
         send_data           <= send_data_next;
+        tx_start            <= tx_start_next;
     end
 end
 
 // Next sate logic
 always @(*) begin
-    next_state      = state;
-    next_im_size    = im_size;
+    next_state              = state;
+    next_im_size            = im_size;
+    count_dm_tx_done_next   = count_dm_tx_done;
 
     case (state)
         IDLE: begin
+            // count_dm_tx_done_next = 0;
             if(i_rx_done) begin
                 case (i_rx_data)
                     COMMAND_A: next_state = SIZE;
@@ -137,61 +140,61 @@ always @(*) begin
                 endcase
             end
         end
-        SIZE: begin
-            if(i_rx_done) begin
-                if(im_count == N_SIZE) begin
-                    next_state      = DATA;
-                    next_im_count   = 1'b0;
-                end
-                else begin
-                    next_im_size    = {i_rx_data, next_im_size[NB_SIZE-1:NB_DATA]};//  Primero mandar el LSB
-                    next_im_count   = im_count + 1;
-                end
-            end
-        end
-        DATA: begin
-            if(i_rx_done) begin
-                if(im_data_count == im_count) begin
-                    next_state          = READY;
-                    next_im_data_count  = 1'b0; // INSTRUCTION MEMORY write address
-                    next_im_write       = 1'b0;
-                end
-                else begin
-                    next_im_data_count  = im_data_count + 1;
-                    next_im_write       = 1'b1;  // enable escritura en INSTRUCTION MEMORY
-                end
-            end
-        end
-        READY: begin
-            if(i_rx_done) begin
-                if(i_rx_data == COMMAND_D) begin // Modo continuo
-                    next_state = START;
-                end
-                else if (i_rx_data == COMMAND_E) begin // Modo step by step
-                    next_state = STEP_BY_STEP;
-                end
-            end
-        end
-        START: begin // Modo continuo
-            if(i_hlt) begin
-                next_state = IDLE;
-                // TODO: Agregar LED de fin de ejecucion.
-            end
-            else begin
+        // SIZE: begin
+        //     if(i_rx_done) begin
+        //         if(im_count == N_SIZE) begin
+        //             next_state      = DATA;
+        //             next_im_count   = 1'b0;
+        //         end
+        //         else begin
+        //             next_im_size    = {i_rx_data, next_im_size[NB_SIZE-1:NB_DATA]};//  Primero mandar el LSB
+        //             next_im_count   = im_count + 1;
+        //         end
+        //     end
+        // end
+        // DATA: begin
+        //     if(i_rx_done) begin
+        //         if(im_data_count == im_count) begin
+        //             next_state          = READY;
+        //             next_im_data_count  = 1'b0; // INSTRUCTION MEMORY write address
+        //             next_im_write       = 1'b0;
+        //         end
+        //         else begin
+        //             next_im_data_count  = im_data_count + 1;
+        //             next_im_write       = 1'b1;  // enable escritura en INSTRUCTION MEMORY
+        //         end
+        //     end
+        // end
+        // READY: begin
+        //     if(i_rx_done) begin
+        //         if(i_rx_data == COMMAND_D) begin // Modo continuo
+        //             next_state = START;
+        //         end
+        //         else if (i_rx_data == COMMAND_E) begin // Modo step by step
+        //             next_state = STEP_BY_STEP;
+        //         end
+        //     end
+        // end
+        // START: begin // Modo continuo
+        //     if(i_hlt) begin
+        //         next_state = IDLE;
+        //         // TODO: Agregar LED de fin de ejecucion.
+        //     end
+        //     else begin
 
 
-                // TODO: COMPLETAR
+        //         // TODO: COMPLETAR
 
-            end
-        end
-        STEP_BY_STEP: begin // Modo step by step
+        //     end
+        // end
+        // STEP_BY_STEP: begin // Modo step by step
 
 
             // TODO: COMPLETAR
 
 
-        end
-        SEND_BR: begin
+        // end
+        // SEND_BR: begin
 //            if(count_dm_tx_done_next == 0) begin
                 
 //            end
@@ -205,41 +208,20 @@ always @(*) begin
 //                end
 //            end
             
-        end
+        // end
         SEND_MEM: begin
+            dm_read_enable  = 1'b1;
+            dm_enable       = 1'b1;
+            tx_start_next   = 1'b1;
             send_data_next  = i_dm_data;
             
-            if(i_tx_done) begin
+            if(i_tx_done == 1'b1) begin
                 count_dm_tx_done_next   = count_dm_tx_done + 1;
-                tx_start_next           = 1'b0;
             end
-            else begin
-                tx_start_next           = 1'b1;
-            end
-
-            // TODO: VER COMO ENVIAR EL PRIMER DATO (TX_DONE=0)
-            // if(i_tx_done) begin
-            //     if (count_dm_tx_done == (MEM_SIZE-1)) begin
-            //         next_state              = IDLE;
-
-            //         count_dm_tx_done_next   = 0;
-            //         o_dm_enable             = 0;
-            //         o_dm_read_enable        = 0;
-                    
-            //         o_tx_start              = 0;
-            //     end
-            //     else begin
-            //         o_tx_start              = 1;
-            //         count_dm_tx_done_next   = count_dm_tx_done + 1; // address
-            //         o_dm_enable             = 1;
-            //         o_dm_read_enable        = 1;
-            //         send_data_next          = i_dm_data;
-            //     end
-            // end
         end
-        SEND_PC: begin
+        // SEND_PC: begin
             
-        end
+        // end
 
     endcase
 end
