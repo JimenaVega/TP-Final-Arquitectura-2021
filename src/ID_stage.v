@@ -30,7 +30,7 @@ module ID_stage#(
         output                      o_ID_mem_to_reg,   // WB, signal
         output                      o_ID_jump,         // ID, signal
         output                      o_ID_hlt,
-        output                      o_ID_jr_jalr,
+        output                      o_ID_jr_jalr,      // IF
         output [NB_PC-1:0]          o_ID_jump_address,  
         output [NB_DATA-1:0]        o_ID_data_a,
         output [NB_DATA-1:0]        o_ID_data_b,
@@ -53,7 +53,6 @@ module ID_stage#(
                                     .i_read_address(i_ID_rb_read_address), // Debug Unit
                                     .i_reset(i_ID_reset),
                                     .i_reg_write(i_ID_reg_write),   // Señal de control RegWrite proveniente de WB
-                                    .i_jr_jalr(jr_jalr),
                                     .i_read_reg_a(i_ID_inst[25:21]),
                                     .i_read_reg_b(i_ID_inst[20:16]), 
                                     .i_write_reg(i_ID_write_reg),   // Address 5b
@@ -79,7 +78,7 @@ module ID_stage#(
                                 .o_byte_en(o_ID_byte_en),
                                 .o_halfword_en(o_ID_halfword_en),
                                 .o_word_en(o_ID_word_en),
-                                .o_jr_jalr(jr_jalr),
+                                .o_jr_jalr(jr_jalr),             // IF
                                 .o_hlt(o_ID_hlt));
 
     sign_extend sign_extend_1(.i_data(i_ID_inst[15:0]),
