@@ -8,7 +8,8 @@ module TOP#(
         parameter NB_ADDR           = 32,
         parameter NB_DM_ADDR        = 7,
         parameter NB_OPCODE         = 6,
-        parameter NB_MEM_WIDTH      = 8  // Todas las memorias, excepto bank register tienen WIDTH = 8
+        parameter NB_MEM_WIDTH      = 8,  // Todas las memorias, excepto bank register tienen WIDTH = 8
+        parameter NB_SEL            = 2
     )
     (
         input                       i_clock,
@@ -17,6 +18,7 @@ module TOP#(
         input                       i_pc_reset,
         input                       i_read_enable,
         input                       i_ID_stage_reset,
+        input                       i_ctrl_reset,         // FORWARDING UNIT
 
         input                       i_im_enable,          // DEBUG UNIT
         input                       i_im_write_enable,    // DEBUG UNIT
@@ -79,6 +81,7 @@ module TOP#(
     wire [NB_DATA-1:0]          ID_shamt;
     wire [NB_REG-1:0]           ID_rt;
     wire [NB_REG-1:0]           ID_rd;
+    wire [NB_REG-1:0]           ID_rs;
     wire [NB_PC-1:0]            ID_pc;
     wire                        ID_byte_en;
     wire                        ID_halfword_en;
@@ -106,6 +109,7 @@ module TOP#(
     wire [NB_DATA-1:0]          EX_shamt;
     wire [NB_REG-1:0]           EX_rt;
     wire [NB_REG-1:0]           EX_rd;
+    wire [NB_REG-1:0]           EX_rs;
     wire [NB_PC-1:0]            EX_pc;
     wire                        EX_byte_en;
     wire                        EX_halfword_en;
@@ -176,7 +180,9 @@ module TOP#(
     wire [NB_DATA-1:0]          WB_selected_data;
     wire [NB_REG-1:0]           o_WB_selected_reg;
 
-
+    // FORWADING UNIT
+    wire [NB_SEL-1:0]           forwarding_a;
+    wire [NB_SEL-1:0]           forwarding_b;
     
     IF_stage IF_stage_1(.i_clock(i_clock),
                         .i_IF_im_enable(i_im_enable),
@@ -230,6 +236,7 @@ module TOP#(
                         .o_ID_shamt(ID_shamt),
                         .o_ID_rt(ID_rt),
                         .o_ID_rd(ID_rd),
+                        .o_ID_rs(ID_rs),
                         .o_ID_pc(ID_pc),
                         .o_ID_byte_en(ID_byte_en),
                         .o_ID_halfword_en(ID_halfword_en),
@@ -252,6 +259,7 @@ module TOP#(
                           .ID_shamt(ID_shamt),
                           .ID_rt(ID_rt),
                           .ID_rd(ID_rd),
+                          .ID_rs(ID_rs),
                           .ID_byte_en(ID_byte_en),
                           .ID_halfword_en(ID_halfword_en),
                           .ID_word_en(ID_word_en),
@@ -271,6 +279,7 @@ module TOP#(
                           .EX_shamt(EX_shamt),
                           .EX_rt(EX_rt),
                           .EX_rd(EX_rd),
+                          .EX_rs(EX_rs),
                           .EX_byte_en(EX_byte_en),
                           .EX_halfword_en(EX_halfword_en),
                           .EX_word_en(EX_word_en),
@@ -295,6 +304,10 @@ module TOP#(
                         .i_EX_halfword_en(EX_halfword_en),
                         .i_EX_word_en(EX_word_en),
                         .i_EX_hlt(EX_hlt),
+                        .i_EX_mem_fwd_data(MEM_alu_result),  // forwarded from MEM
+                        .i_EX_wb_fwd_data(WB_selected_data), // forwarded from WB
+                        .i_EX_fwd_a(forwarding_a),           // FORWARDING UNIT
+                        .i_EX_fwd_b(forwarding_b),           // FORWARDING UNIT
                         .o_EX_reg_write(o_EX_reg_write),
                         .o_EX_mem_to_reg(o_EX_mem_to_reg),
                         .o_EX_mem_read(o_EX_mem_read),
@@ -358,7 +371,6 @@ module TOP#(
                           .i_MEM_word_en(MEM_word_en),
                           .i_MEM_halfword_en(MEM_halfword_en),
                           .i_MEM_byte_en(MEM_byte_en),
-                          .i_MEM_branch(MEM_branch),
                           .i_MEM_zero(MEM_zero),
                           .i_MEM_branch_addr(MEM_branch_addr),
                           .i_MEM_alu_result(MEM_alu_result),
@@ -409,5 +421,16 @@ module TOP#(
                         .o_WB_selected_data(WB_selected_data),
                         .o_WB_selected_reg(o_WB_selected_reg),
                         .o_WB_hlt(o_hlt));
+  
+    // HAZARDS
+    forwarding_unit forwarding_unit_1(.i_reset(i_ctrl_reset),
+                                      .i_EX_MEM_rd(MEM_selected_reg),
+                                      .i_MEM_WB_rd(WB_selected_reg),
+                                      .i_rt(EX_rt),                   // data_b
+                                      .i_rs(EX_rs),                   // data_a
+                                      .i_MEM_write_reg(MEM_reg_write),
+                                      .i_WB_write_reg(WB_reg_write),
+                                      .o_forwarding_a(forwarding_a),  // to EX
+                                      .o_forwarding_b(forwarding_b)); // to EX                                         
 
 endmodule

@@ -39,6 +39,7 @@ module registers_bank#(
         end 
         else begin
             if(i_enable) begin
+            
                 if(i_read_enable) begin     // Lectura del RB desde la Debug Unit
                     o_data_a_next <= registers[i_read_address];
                 end
@@ -47,10 +48,17 @@ module registers_bank#(
                     o_data_a_next <= registers[i_read_reg_a];
                     o_data_b_next <= registers[i_read_reg_b];
                     
-                    // Escritura de registros
-                    if(i_reg_write)
-                        registers[i_write_reg] <= i_write_data;
+                    
                 end
+            end
+        end
+    end
+
+    always @(*) begin
+        if(i_enable)begin
+            // Escritura de registros
+            if(i_reg_write) begin
+                registers[i_write_reg] <= i_write_data;
             end
         end
     end

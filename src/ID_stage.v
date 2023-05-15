@@ -38,6 +38,7 @@ module ID_stage#(
         output [NB_DATA-1:0]        o_ID_shamt,
         output [NB_REG-1:0]         o_ID_rt,
         output [NB_REG-1:0]         o_ID_rd,
+        output [NB_REG-1:0]         o_ID_rs,
         output [NB_PC-1:0]          o_ID_pc,
         output                      o_ID_byte_en,
         output                      o_ID_halfword_en,
@@ -95,6 +96,7 @@ module ID_stage#(
     // TODO: Agregar wires intermedios
     assign o_ID_rd = i_ID_inst[15:11];
     assign o_ID_rt = i_ID_inst[20:16];
+    assign o_ID_rs = i_ID_inst[25:21];
     assign o_ID_pc = i_ID_pc;
     assign o_ID_r31_data = o_ID_data_a;
     assign o_ID_jr_jalr = jr_jalr;
