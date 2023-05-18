@@ -33,14 +33,14 @@ module forwarding_unit #(
                 o_forwarding_a = 2'b10; // El dato viene de WB
             end
             else begin
-                o_forwarding_a = 2'b0; // No hay forwarding para A
+                o_forwarding_a = 2'b0;  // No hay forwarding para A
             end
             
             // Operando B
             if((i_EX_MEM_rd == i_rt) && i_MEM_write_reg) begin
                 o_forwarding_b = 2'b01; // El dato viene de MEM
             end
-            else if ((i_MEM_WB_rd == i_rt) && i_MEM_write_reg) begin
+            else if ((i_MEM_WB_rd == i_rt) && i_WB_write_reg) begin
                 o_forwarding_b = 2'b10; // El dato viene de WB
             end
             else begin

@@ -11,17 +11,18 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="4.902 ns"></ZoomStartTime>
-      <ZoomEndTime time="39.881 ns"></ZoomEndTime>
-      <Cursor1Time time="100.000 ns"></Cursor1Time>
+      <ZoomStartTime time="692.915 ns"></ZoomStartTime>
+      <ZoomEndTime time="725.417 ns"></ZoomEndTime>
+      <Cursor1Time time="720.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="204"></NameColumnWidth>
-      <ValueColumnWidth column_width="84"></ValueColumnWidth>
+      <ValueColumnWidth column_width="80"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="14" />
+   <WVObjectSize size="15" />
    <wave_markers>
-      <marker label="" time="110661" />
+      <marker label="" time="139991" />
+      <marker label="" time="120324" />
    </wave_markers>
    <wvobject type="logic" fp_name="/tb_TOP/i_pc_enable">
       <obj_property name="ElementShortName">i_pc_enable</obj_property>
@@ -358,11 +359,175 @@
             <obj_property name="ElementShortName">registers[31:0][31:0]</obj_property>
             <obj_property name="ObjectShortName">registers[31:0][31:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            <obj_property name="isExpanded"></obj_property>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[31]">
+               <obj_property name="ElementShortName">[31][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[31][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[30]">
+               <obj_property name="ElementShortName">[30][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[30][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[29]">
+               <obj_property name="ElementShortName">[29][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[29][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[28]">
+               <obj_property name="ElementShortName">[28][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[28][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[27]">
+               <obj_property name="ElementShortName">[27][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[27][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[26]">
+               <obj_property name="ElementShortName">[26][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[26][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[25]">
+               <obj_property name="ElementShortName">[25][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[25][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[24]">
+               <obj_property name="ElementShortName">[24][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[24][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[23]">
+               <obj_property name="ElementShortName">[23][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[23][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[22]">
+               <obj_property name="ElementShortName">[22][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[22][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[21]">
+               <obj_property name="ElementShortName">[21][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[21][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[20]">
+               <obj_property name="ElementShortName">[20][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[20][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[19]">
+               <obj_property name="ElementShortName">[19][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[19][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[18]">
+               <obj_property name="ElementShortName">[18][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[18][31:0]</obj_property>
+               <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+               <obj_property name="UseCustomSignalColor">true</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[17]">
+               <obj_property name="ElementShortName">[17][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[17][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[16]">
+               <obj_property name="ElementShortName">[16][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[16][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[15]">
+               <obj_property name="ElementShortName">[15][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[15][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[14]">
+               <obj_property name="ElementShortName">[14][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[14][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[13]">
+               <obj_property name="ElementShortName">[13][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[13][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[12]">
+               <obj_property name="ElementShortName">[12][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[12][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[11]">
+               <obj_property name="ElementShortName">[11][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[11][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[10]">
+               <obj_property name="ElementShortName">[10][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[10][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[9]">
+               <obj_property name="ElementShortName">[9][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[9][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[8]">
+               <obj_property name="ElementShortName">[8][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[8][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[7]">
+               <obj_property name="ElementShortName">[7][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[7][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[6]">
+               <obj_property name="ElementShortName">[6][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[6][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[5]">
+               <obj_property name="ElementShortName">[5][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[5][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[4]">
+               <obj_property name="ElementShortName">[4][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[4][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[3]">
+               <obj_property name="ElementShortName">[3][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[3][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[2]">
+               <obj_property name="ElementShortName">[2][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[2][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[1]">
+               <obj_property name="ElementShortName">[1][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[1][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[0]">
+               <obj_property name="ElementShortName">[0][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[0][31:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
          </wvobject>
       </wvobject>
       <wvobject type="group" fp_name="group421">
          <obj_property name="label">CONTROL_UNIT</obj_property>
          <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
          <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/i_opcode">
             <obj_property name="ElementShortName">i_opcode[5:0]</obj_property>
             <obj_property name="ObjectShortName">i_opcode[5:0]</obj_property>
@@ -468,6 +633,7 @@
    <wvobject type="group" fp_name="group226">
       <obj_property name="label">FORWARDING_UNIT</obj_property>
       <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
       <wvobject type="array" fp_name="/tb_TOP/TOP_1/forwarding_unit_1/i_EX_MEM_rd">
          <obj_property name="ElementShortName">i_EX_MEM_rd[4:0]</obj_property>
          <obj_property name="ObjectShortName">i_EX_MEM_rd[4:0]</obj_property>
@@ -513,7 +679,7 @@
       <wvobject type="array" fp_name="/tb_TOP/TOP_1/forwarding_unit_1/o_forwarding_b">
          <obj_property name="ElementShortName">o_forwarding_b[1:0]</obj_property>
          <obj_property name="ObjectShortName">o_forwarding_b[1:0]</obj_property>
-         <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+         <obj_property name="CustomSignalColor">#800080</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
    </wvobject>
@@ -524,7 +690,6 @@
       <wvobject type="group" fp_name="group520">
          <obj_property name="label">ADDER2</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="isExpanded"></obj_property>
          <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/adder_2/i_a">
             <obj_property name="ElementShortName">i_a[31:0]</obj_property>
             <obj_property name="ObjectShortName">i_a[31:0]</obj_property>
@@ -550,6 +715,81 @@
       <wvobject type="logic" fp_name="/tb_TOP/i_clock">
          <obj_property name="ElementShortName">i_clock</obj_property>
          <obj_property name="ObjectShortName">i_clock</obj_property>
+      </wvobject>
+      <wvobject type="group" fp_name="group255">
+         <obj_property name="label">mux4_9 -&gt; DATO B</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux4_9/i_select">
+            <obj_property name="ElementShortName">i_select[1:0]</obj_property>
+            <obj_property name="ObjectShortName">i_select[1:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux4_9/i_a">
+            <obj_property name="ElementShortName">i_a[31:0]</obj_property>
+            <obj_property name="ObjectShortName">i_a[31:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux4_9/i_b">
+            <obj_property name="ElementShortName">i_b[31:0]</obj_property>
+            <obj_property name="ObjectShortName">i_b[31:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux4_9/i_c">
+            <obj_property name="ElementShortName">i_c[31:0]</obj_property>
+            <obj_property name="ObjectShortName">i_c[31:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux4_9/i_d">
+            <obj_property name="ElementShortName">i_d[31:0]</obj_property>
+            <obj_property name="ObjectShortName">i_d[31:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux4_9/o_data">
+            <obj_property name="ElementShortName">o_data[31:0]</obj_property>
+            <obj_property name="ObjectShortName">o_data[31:0]</obj_property>
+            <obj_property name="CustomSignalColor">#800080</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject type="group" fp_name="group247">
+         <obj_property name="label">mux4_8 -&gt; DATO A</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux4_8/i_select">
+            <obj_property name="ElementShortName">i_select[1:0]</obj_property>
+            <obj_property name="ObjectShortName">i_select[1:0]</obj_property>
+            <obj_property name="CustomSignalColor">#00FF00</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux4_8/i_a">
+            <obj_property name="ElementShortName">i_a[31:0]</obj_property>
+            <obj_property name="ObjectShortName">i_a[31:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux4_8/i_b">
+            <obj_property name="ElementShortName">i_b[31:0]</obj_property>
+            <obj_property name="ObjectShortName">i_b[31:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux4_8/i_c">
+            <obj_property name="ElementShortName">i_c[31:0]</obj_property>
+            <obj_property name="ObjectShortName">i_c[31:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux4_8/i_d">
+            <obj_property name="ElementShortName">i_d[31:0]</obj_property>
+            <obj_property name="ObjectShortName">i_d[31:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux4_8/o_data">
+            <obj_property name="ElementShortName">o_data[31:0]</obj_property>
+            <obj_property name="ObjectShortName">o_data[31:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            <obj_property name="CustomSignalColor">#800080</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
       </wvobject>
       <wvobject type="group" fp_name="group142">
          <obj_property name="label">ALU</obj_property>
@@ -742,6 +982,10 @@
          <obj_property name="ElementShortName">o_EX_branch_addr[31:0]</obj_property>
          <obj_property name="ObjectShortName">o_EX_branch_addr[31:0]</obj_property>
       </wvobject>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux4_8/i_select">
+      <obj_property name="ElementShortName">i_select[1:0]</obj_property>
+      <obj_property name="ObjectShortName">i_select[1:0]</obj_property>
    </wvobject>
    <wvobject type="group" fp_name="group169">
       <obj_property name="label">MEM STAGE</obj_property>
