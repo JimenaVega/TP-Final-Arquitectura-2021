@@ -20,6 +20,7 @@ module ID_stage#(
         input [NB_DATA-1:0]         i_ID_write_data,   // from WB, data to write
         input [NB_REG-1:0]          i_ID_write_reg,    // from WB, address to write
         input                       i_ID_reg_write,    // from control_unit, enable write reg
+        input                       i_ID_ctrl_sel,
         output                      o_ID_reg_dest,     // EX, signal
         output [NB_OPCODE-1:0]      o_ID_alu_op,       // EX, signal
         output                      o_ID_alu_src,      // EX, signal
@@ -67,6 +68,7 @@ module ID_stage#(
                                 .i_reset(i_ID_reset),           // Necesario para flush en controls hazard
                                 .i_opcode(i_ID_inst[31:26]),
                                 .i_funct(i_ID_inst[5:0]),
+                                .i_ctrl_sel(i_ID_ctrl_sel),     // STALL UNIT: 0 -> señales normales 1 -> flush
                                 .o_reg_dest(o_ID_reg_dest),     // EX
                                 .o_alu_op(o_ID_alu_op),         // EX REG?
                                 .o_alu_src(o_ID_alu_src),       // EX

@@ -47,8 +47,7 @@ module registers_bank#(
                   
                     o_data_a_next <= registers[i_read_reg_a];
                     o_data_b_next <= registers[i_read_reg_b];
-                    
-                    
+                
                 end
             end
         end

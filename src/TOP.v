@@ -86,6 +86,10 @@ module TOP#(
     wire                        ID_byte_en;
     wire                        ID_halfword_en;
     wire                        ID_word_en;
+    // from STALL UNIT 
+    wire                        ID_ctrl_sel;
+    wire                        enable_IF_ID_reg;
+    wire                        enable_pc;
     
     // ID_stage to IF_stage
     wire                        ID_jump;
@@ -198,10 +202,12 @@ module TOP#(
                         .i_IF_branch_addr(o_MEM_branch_addr),
                         .i_IF_jump_address(ID_jump_address),
                         .i_IF_r31_data(ID_r31_data),
+                        .i_IF_enable_pc(enable_pc),
                         .o_IF_adder_result(IF_adder_result),
                         .o_IF_new_instruction(IF_new_instruction));
                         
     IF_ID_reg IF_ID_reg_1(.i_clock(i_clock),
+                          .i_enable_IF_ID_reg(enable_IF_ID_reg), // STALL UNIT
                           .IF_adder_result(IF_adder_result),
                           .IF_new_instruction(IF_new_instruction),
                           .ID_adder_result(ID_adder_result),
@@ -218,6 +224,7 @@ module TOP#(
                         .i_ID_write_data(WB_selected_data),
                         .i_ID_write_reg(o_WB_selected_reg),
                         .i_ID_reg_write(o_WB_reg_write),
+                        .i_ID_ctrl_sel(ID_ctrl_sel),
                         .o_ID_reg_dest(ID_reg_dest),
                         .o_ID_alu_op(ID_alu_op),
                         .o_ID_alu_src(ID_alu_src),
@@ -431,6 +438,14 @@ module TOP#(
                                       .i_MEM_write_reg(MEM_reg_write),
                                       .i_WB_write_reg(WB_reg_write),
                                       .o_forwarding_a(forwarding_a),  // to EX
-                                      .o_forwarding_b(forwarding_b)); // to EX                                         
+                                      .o_forwarding_b(forwarding_b)); // to EX    
 
+    stall_unit stall_unit_1(.i_reset(i_ctrl_reset),
+                            .i_ID_EX_mem_read(EX_mem_read),
+                            .i_ID_EX_rt(EX_rt),
+                            .i_IF_ID_rt(ID_new_instruction[20:16]),
+                            .i_IF_ID_rs(ID_new_instruction[25:21]),
+                            .o_select_control_nop(ID_ctrl_sel), //  0 -> señales normales 1 -> flush
+                            .o_enable_IF_ID_reg(enable_IF_ID_reg),
+                            .o_enable_pc(enable_pc));
 endmodule

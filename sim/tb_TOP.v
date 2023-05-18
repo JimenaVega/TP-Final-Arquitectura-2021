@@ -19,6 +19,7 @@ module tb_TOP;
   reg i_pc_reset;
   reg i_read_enable;
   reg i_ID_stage_reset;
+  reg i_ctrl_reset;
 
   reg 						i_im_enable;         // Debug Unit
   reg 						i_im_write_enable;   // Debug Unit
@@ -51,6 +52,7 @@ module tb_TOP;
          .i_clock_reset(i_clock_reset),
          .i_pc_enable(i_pc_enable),
          .i_pc_reset(i_pc_reset),
+         .i_ctrl_reset(i_ctrl_reset),
          .i_read_enable( i_read_enable),
          .i_ID_stage_reset(i_ID_stage_reset),
          .i_im_enable(i_im_enable),             // Debug Unit
@@ -74,6 +76,7 @@ module tb_TOP;
     i_clock_reset 		= 1'b0;
     i_pc_enable 		= 1'b0;
     i_pc_reset 			= 1'b1;
+    i_ctrl_reset        = 1'b1;
     i_read_enable 		= 1'b0;
     i_ID_stage_reset 	= 1'b1;
 
@@ -94,6 +97,7 @@ module tb_TOP;
 
 	#20
 	i_pc_enable         = 1'b1;
+	i_ctrl_reset        = 1'b0;
 	i_pc_reset          = 1'b0;
 	i_ID_stage_reset    = 1'b0;
 	i_read_enable       = 1'b1;
