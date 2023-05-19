@@ -31,7 +31,8 @@ module TOP_debug_unit#(
     wire [DWORD-1:0]    rb_data;
     wire [RB_ADDR-1:0]  rb_addr;
 
-    reg             zero = 0;
+    reg                 zero = 0;
+    reg [DWORD-1:0]     pc = 10;
     
     debug_unit debug_unit_1(.i_clock(i_clock),
                             .i_reset(i_reset),
@@ -39,7 +40,7 @@ module TOP_debug_unit#(
                             .i_rx_done(uart_du_rx_done),
                             .i_tx_done(uart_du_tx_done),
                             .i_rx_data(uart_du_received),
-                            .i_pc_value(),
+                            .i_pc_value(pc),
                             .i_dm_data(mem_data),
                             .i_br_data(rb_data),
                             .o_im_data(),

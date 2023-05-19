@@ -7,12 +7,13 @@ module debug_unit#(
     parameter N_SIZE      = 2,  // 2B de frame para obtener el total de los datos (size)
     parameter NB_ADDR     = 32,
     parameter NB_ADDR_RB  = 5,
-    parameter NB_BYTE_CTR = 3,
+    parameter NB_BYTE_CTR = 2,
     parameter NB_ADDR_DM  = 7, 
     parameter BR_SIZE     = 32,
     parameter MEM_SIZE    = 256,
     parameter DM_DEPTH    = 128,
-    parameter RB_DEPTH    = 32
+    parameter RB_DEPTH    = 32,
+    parameter NB_PC_CTR   = 2
 )    
 (
     input                   i_clock,
@@ -85,6 +86,9 @@ reg [NB_BYTE_CTR-1:0]   count_br_byte,      next_count_br_byte;     // cuenta ha
 reg                     rb_read_enable;
 reg                     rb_enable;
 
+// PC
+reg [NB_PC_CTR-1:0]     count_pc,           next_count_pc;
+
 // TX
 reg [NB_DATA-1:0]       send_data;         // DM & BR -> TX
 reg                     tx_start,           tx_start_next;
@@ -98,8 +102,6 @@ always @(posedge i_clock) begin
         im_size                 <= 1'b0;
         im_count                <= 1'b0;
         im_data_count           <= 1'b0;
-
-        // im_data                 <= 1'b0;
         im_write                <= 1'b0;
 
         // DATA MEMORY
@@ -111,15 +113,17 @@ always @(posedge i_clock) begin
         // REGISTERS BANK
         count_br_tx_done        <= 5'b0;
         next_count_br_tx_done   <= 5'b0;
-        count_br_byte           <= 3'b0;
-        next_count_br_byte      <= 3'b0;
+        count_br_byte           <= 2'b0;
+        next_count_br_byte      <= 2'b0;
         rb_enable               <= 1'b0;
         rb_read_enable          <= 1'b0;
+
+        // PC
+        count_pc                <= 2'b0;
+        next_count_pc           <= 2'b0;
         
         // TX
         send_data               <= 1'b0;
-
-        // send_data_next          <= 1'b0;
         tx_start                <= 1'b0;
         tx_start_next           <= 1'b0;
     end
@@ -128,7 +132,6 @@ always @(posedge i_clock) begin
         // INSTRUCTION MEMORY
         im_size             <= next_im_size;    
         im_count            <= next_im_count;
-//        im_data             <= next_im_data;
         im_data_count       <= next_im_data_count;
         im_write            <= next_im_write;
         // DATA MEMORY
@@ -136,9 +139,9 @@ always @(posedge i_clock) begin
         // REGISTERS BANK
         count_br_byte       <= next_count_br_byte;
         count_br_tx_done    <= next_count_br_tx_done;
-        // TX
-        // send_data           <= send_data_next;
         tx_start            <= tx_start_next;
+        // PC
+        count_pc            <= next_count_pc;
     end
 end
 
@@ -149,8 +152,9 @@ always @(*) begin
     count_dm_tx_done_next   = count_dm_tx_done;
     next_count_br_byte      = count_br_byte;
     next_count_br_tx_done   = count_br_tx_done;
+    next_count_pc           = count_pc;
 
-    case (state)
+    case(state)
         IDLE: begin
             if(i_rx_done) begin
                 case (i_rx_data)
@@ -161,23 +165,42 @@ always @(*) begin
                 endcase
             end
         end
+        SEND_PC: begin
+            tx_start_next = 1'b1;
+
+            case(count_pc)
+                2'd0:   send_data = i_pc_value[31:24];
+                2'd1:   send_data = i_pc_value[23:16];
+                2'd2:   send_data = i_pc_value[15:8];
+                2'd3:   send_data = i_pc_value[7:0];
+            endcase
+
+            if(i_tx_done)begin
+                next_count_pc = count_pc + 1;
+
+                if(count_pc == 2'd3)begin
+                    tx_start_next   = 1'b0;
+                    next_state      = IDLE;
+                end
+            end
+        end
         SEND_BR: begin
             rb_read_enable  = 1'b1;
             rb_enable       = 1'b0;
             tx_start_next   = 1'b1;
             case(next_count_br_byte)
-                3'd0:   send_data = i_br_data[31:24];
-                3'd1:   send_data = i_br_data[23:16];
-                3'd2:   send_data = i_br_data[15:8];
-                3'd3:   send_data = i_br_data[7:0];
+                2'd0:   send_data = i_br_data[31:24];
+                2'd1:   send_data = i_br_data[23:16];
+                2'd2:   send_data = i_br_data[15:8];
+                2'd3:   send_data = i_br_data[7:0];
             endcase
 
             if(i_tx_done)begin
                 next_count_br_byte = count_br_byte + 1;
 
-                if(count_br_byte == 3'd3)begin
+                if(count_br_byte == 2'd3)begin
                     next_count_br_tx_done   = count_br_tx_done + 1;
-                    next_count_br_byte      = 3'd0;
+                    next_count_br_byte      = 2'd0;
 
                     if(count_br_tx_done == RB_DEPTH-1)begin
                         rb_read_enable  = 1'b0;
