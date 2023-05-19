@@ -10,7 +10,8 @@ module debug_unit#(
     parameter BYTES_IN_32 = 4,
     parameter NB_ADDR_DM  = 7, 
     parameter BR_SIZE     = 32,
-    parameter MEM_SIZE    = 256
+    parameter MEM_SIZE    = 256,
+    parameter DM_DEPTH    = 128
 )    
 (
     input                   i_clock,
@@ -82,7 +83,7 @@ reg [NB_ADDR_RB-1:0]    count_br_tx_done,   next_count_br_tx_done;
 reg [NB_ADDR_RB-1:0]    count_br_byte,      next_count_br_byte;     // cuenta hasta BYTES_IN_32 (4 bytes)
 
 // TX
-reg [NB_DATA-1:0]       send_data,          send_data_next;         // DM & BR -> TX
+reg [NB_DATA-1:0]       send_data;         // DM & BR -> TX
 reg                     tx_start,           tx_start_next;
 
 // Memory
@@ -102,7 +103,7 @@ always @(posedge i_clock) begin
         dm_read_enable          <= 1'b0;
         // TX
         send_data               <= 1'b0;
-        send_data_next          <= 1'b0;
+        // send_data_next          <= 1'b0;
         tx_start                <= 1'b0;
         tx_start_next           <= 1'b0;
     end
@@ -117,7 +118,7 @@ always @(posedge i_clock) begin
         // DATA MEMORY
         count_dm_tx_done    <= count_dm_tx_done_next;
         // TX
-        send_data           <= send_data_next;
+        // send_data           <= send_data_next;
         tx_start            <= tx_start_next;
     end
 end
@@ -131,6 +132,7 @@ always @(*) begin
     case (state)
         IDLE: begin
             // count_dm_tx_done_next = 0;
+
             if(i_rx_done) begin
                 case (i_rx_data)
                     COMMAND_A: next_state = SIZE;
@@ -195,29 +197,25 @@ always @(*) begin
 
         // end
         // SEND_BR: begin
-//            if(count_dm_tx_done_next == 0) begin
-                
-//            end
-//            else begin
-//                if(i_tx_done) begin
-//                    if (count_dm_tx_done == )
-//                    count_dm_tx_done_next = count_dm_tx_done + 1;
-
-//                    // TODO: COMPLETAR
-
-//                end
-//            end
-            
+        //     br_read_enable
         // end
         SEND_MEM: begin
             dm_read_enable  = 1'b1;
             dm_enable       = 1'b1;
             tx_start_next   = 1'b1;
-            send_data_next  = i_dm_data;
-            
-            if(i_tx_done == 1'b1) begin
-                count_dm_tx_done_next   = count_dm_tx_done + 1;
+            send_data       = i_dm_data;
+
+            if(i_tx_done)begin
+                count_dm_tx_done_next = count_dm_tx_done + 1;
+
+                if(count_dm_tx_done == DM_DEPTH-1)begin
+                    dm_read_enable  = 1'b0;
+                    dm_enable       = 1'b0;
+                    tx_start_next   = 1'b0;
+                    next_state      = IDLE;
+                end
             end
+
         end
         // SEND_PC: begin
             
@@ -235,6 +233,8 @@ assign o_im_addr            = im_data_count;
 assign o_dm_addr            = count_dm_tx_done; // Cada vez que haya un tx_done, se avanza +1 address
 assign o_dm_enable          = dm_enable;
 assign o_dm_read_enable     = dm_read_enable;
+
+// REGISTER BANK
 
 // TX
 assign o_tx_data            = send_data;
