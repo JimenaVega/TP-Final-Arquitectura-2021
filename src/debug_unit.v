@@ -6,12 +6,13 @@ module debug_unit#(
     parameter NB_SIZE     = 16, // 2B x 8 b, el tamaño de los datos a recibir en bits
     parameter N_SIZE      = 2,  // 2B de frame para obtener el total de los datos (size)
     parameter NB_ADDR     = 32,
-    parameter NB_ADDR_RB  = 4,
-    parameter BYTES_IN_32 = 4,
+    parameter NB_ADDR_RB  = 5,
+    parameter NB_BYTE_CTR = 3,
     parameter NB_ADDR_DM  = 7, 
     parameter BR_SIZE     = 32,
     parameter MEM_SIZE    = 256,
-    parameter DM_DEPTH    = 128
+    parameter DM_DEPTH    = 128,
+    parameter RB_DEPTH    = 32
 )    
 (
     input                   i_clock,
@@ -80,7 +81,9 @@ reg                     dm_enable;
 
 // BANK REGISTER
 reg [NB_ADDR_RB-1:0]    count_br_tx_done,   next_count_br_tx_done; 
-reg [NB_ADDR_RB-1:0]    count_br_byte,      next_count_br_byte;     // cuenta hasta BYTES_IN_32 (4 bytes)
+reg [NB_BYTE_CTR-1:0]   count_br_byte,      next_count_br_byte;     // cuenta hasta 4 bytes
+reg                     rb_read_enable;
+reg                     rb_enable;
 
 // TX
 reg [NB_DATA-1:0]       send_data;         // DM & BR -> TX
@@ -90,19 +93,32 @@ reg                     tx_start,           tx_start_next;
 always @(posedge i_clock) begin
     if(i_reset) begin
         state <= IDLE;
+
         // INSTRUCTION MEMORY 
         im_size                 <= 1'b0;
         im_count                <= 1'b0;
         im_data_count           <= 1'b0;
+
         // im_data                 <= 1'b0;
         im_write                <= 1'b0;
+
         // DATA MEMORY
         count_dm_tx_done        <= 7'b0;
         count_dm_tx_done_next   <= 7'b0;
         dm_enable               <= 1'b0;
         dm_read_enable          <= 1'b0;
+
+        // REGISTERS BANK
+        count_br_tx_done        <= 5'b0;
+        next_count_br_tx_done   <= 5'b0;
+        count_br_byte           <= 3'b0;
+        next_count_br_byte      <= 3'b0;
+        rb_enable               <= 1'b0;
+        rb_read_enable          <= 1'b0;
+        
         // TX
         send_data               <= 1'b0;
+
         // send_data_next          <= 1'b0;
         tx_start                <= 1'b0;
         tx_start_next           <= 1'b0;
@@ -117,6 +133,9 @@ always @(posedge i_clock) begin
         im_write            <= next_im_write;
         // DATA MEMORY
         count_dm_tx_done    <= count_dm_tx_done_next;
+        // REGISTERS BANK
+        count_br_byte       <= next_count_br_byte;
+        count_br_tx_done    <= next_count_br_tx_done;
         // TX
         // send_data           <= send_data_next;
         tx_start            <= tx_start_next;
@@ -128,11 +147,11 @@ always @(*) begin
     next_state              = state;
     next_im_size            = im_size;
     count_dm_tx_done_next   = count_dm_tx_done;
+    next_count_br_byte      = count_br_byte;
+    next_count_br_tx_done   = count_br_tx_done;
 
     case (state)
         IDLE: begin
-            // count_dm_tx_done_next = 0;
-
             if(i_rx_done) begin
                 case (i_rx_data)
                     COMMAND_A: next_state = SIZE;
@@ -142,63 +161,33 @@ always @(*) begin
                 endcase
             end
         end
-        // SIZE: begin
-        //     if(i_rx_done) begin
-        //         if(im_count == N_SIZE) begin
-        //             next_state      = DATA;
-        //             next_im_count   = 1'b0;
-        //         end
-        //         else begin
-        //             next_im_size    = {i_rx_data, next_im_size[NB_SIZE-1:NB_DATA]};//  Primero mandar el LSB
-        //             next_im_count   = im_count + 1;
-        //         end
-        //     end
-        // end
-        // DATA: begin
-        //     if(i_rx_done) begin
-        //         if(im_data_count == im_count) begin
-        //             next_state          = READY;
-        //             next_im_data_count  = 1'b0; // INSTRUCTION MEMORY write address
-        //             next_im_write       = 1'b0;
-        //         end
-        //         else begin
-        //             next_im_data_count  = im_data_count + 1;
-        //             next_im_write       = 1'b1;  // enable escritura en INSTRUCTION MEMORY
-        //         end
-        //     end
-        // end
-        // READY: begin
-        //     if(i_rx_done) begin
-        //         if(i_rx_data == COMMAND_D) begin // Modo continuo
-        //             next_state = START;
-        //         end
-        //         else if (i_rx_data == COMMAND_E) begin // Modo step by step
-        //             next_state = STEP_BY_STEP;
-        //         end
-        //     end
-        // end
-        // START: begin // Modo continuo
-        //     if(i_hlt) begin
-        //         next_state = IDLE;
-        //         // TODO: Agregar LED de fin de ejecucion.
-        //     end
-        //     else begin
+        SEND_BR: begin
+            rb_read_enable  = 1'b1;
+            rb_enable       = 1'b0;
+            tx_start_next   = 1'b1;
+            case(next_count_br_byte)
+                3'd0:   send_data = i_br_data[31:24];
+                3'd1:   send_data = i_br_data[23:16];
+                3'd2:   send_data = i_br_data[15:8];
+                3'd3:   send_data = i_br_data[7:0];
+            endcase
 
+            if(i_tx_done)begin
+                next_count_br_byte = count_br_byte + 1;
 
-        //         // TODO: COMPLETAR
+                if(count_br_byte == 3'd3)begin
+                    next_count_br_tx_done   = count_br_tx_done + 1;
+                    next_count_br_byte      = 3'd0;
 
-        //     end
-        // end
-        // STEP_BY_STEP: begin // Modo step by step
-
-
-            // TODO: COMPLETAR
-
-
-        // end
-        // SEND_BR: begin
-        //     br_read_enable
-        // end
+                    if(count_br_tx_done == RB_DEPTH-1)begin
+                        rb_read_enable  = 1'b0;
+                        rb_enable       = 1'b0;
+                        tx_start_next   = 1'b0;
+                        next_state      = IDLE;
+                    end
+                end
+            end
+        end
         SEND_MEM: begin
             dm_read_enable  = 1'b1;
             dm_enable       = 1'b1;
@@ -215,7 +204,6 @@ always @(*) begin
                     next_state      = IDLE;
                 end
             end
-
         end
         // SEND_PC: begin
             
@@ -235,6 +223,9 @@ assign o_dm_enable          = dm_enable;
 assign o_dm_read_enable     = dm_read_enable;
 
 // REGISTER BANK
+assign o_rb_addr            = count_br_tx_done;
+assign o_rb_enable          = rb_enable;
+assign o_rb_read_enable     = rb_read_enable;
 
 // TX
 assign o_tx_data            = send_data;
