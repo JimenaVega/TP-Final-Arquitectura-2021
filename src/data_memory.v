@@ -42,6 +42,14 @@ module data_memory#(
 
 
   always @(posedge i_clock) begin
+    BRAM[0] <= 8'b01011010; // borrar
+    BRAM[1] <= 8'b11111111; // borrar
+    BRAM[2] <= 8'b11111100; // borrar
+    BRAM[3] <= 8'b11111101; // borrar
+    BRAM[4] <= 8'b11111110; // borrar
+    BRAM[5] <= 8'b11111111; // borrar
+    BRAM[126] <= 8'b11111110; // borrar
+    BRAM[127] <= 8'b11111111; // borrar
     if(i_enable) begin
       if (i_mem_write_flag) begin
         case ({i_word_en, i_halfword_en, i_byte_en})
@@ -84,11 +92,18 @@ module data_memory#(
         endcase
       end
 	  
-	  if(i_read_enable) begin			// Debug Unit
-		byte_data <= BRAM[i_read_address];
-	  end
+      // if(i_read_enable) begin			// Debug Unit
+      //   byte_data <= BRAM[i_read_address];
+      // end
     end
   end
+
+  always@(*)begin
+    if(i_read_enable) begin			// Debug Unit
+      byte_data = BRAM[i_read_address];
+    end
+  end
+  
 
   //  The following code generates HIGH_PERFORMANCE (use output register) or LOW_LATENCY (no output register)
   generate
@@ -96,7 +111,7 @@ module data_memory#(
 
       // The following is a 1 clock cycle read latency at the cost of a longer clock-to-out timing
        assign o_read_data = ram_data;
-	   assign o_byte_data = byte_data;
+	     assign o_byte_data = byte_data;
 
     end
   endgenerate
