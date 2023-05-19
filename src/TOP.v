@@ -8,7 +8,8 @@ module TOP#(
         parameter NB_ADDR           = 32,
         parameter NB_DM_ADDR        = 7,
         parameter NB_OPCODE         = 6,
-        parameter NB_MEM_WIDTH      = 8  // Todas las memorias, excepto bank register tienen WIDTH = 8
+        parameter NB_MEM_WIDTH      = 8,  // Todas las memorias, excepto bank register tienen WIDTH = 8
+        parameter NB_SEL            = 2
     )
     (
         input                       i_clock,
@@ -17,6 +18,7 @@ module TOP#(
         input                       i_pc_reset,
         input                       i_read_enable,
         input                       i_ID_stage_reset,
+        input                       i_ctrl_reset,         // FORWARDING UNIT
 
         input                       i_im_enable,          // DEBUG UNIT
         input                       i_im_write_enable,    // DEBUG UNIT
@@ -39,9 +41,6 @@ module TOP#(
         output [NB_MEM_WIDTH-1:0]   o_dm_data,            // DEBUG UNIT
         output                      o_oe                  // overflow exception
     );
-
-    assign o_pc_value = IF_adder_result;
-    assign o_rb_data  = ID_data_a;
     
     wire clk_wiz;
     
@@ -51,7 +50,7 @@ module TOP#(
       .clk_out1(clk_wiz),
       // Status and control signals               
       .reset(i_clock_reset), 
-      .locked(locked),
+      .locked(),
      // Clock in ports
       .clk_in1(i_clock)
       );
@@ -79,10 +78,17 @@ module TOP#(
     wire [NB_DATA-1:0]          ID_shamt;
     wire [NB_REG-1:0]           ID_rt;
     wire [NB_REG-1:0]           ID_rd;
+    wire [NB_REG-1:0]           ID_rs;
     wire [NB_PC-1:0]            ID_pc;
     wire                        ID_byte_en;
     wire                        ID_halfword_en;
     wire                        ID_word_en;
+    // from STALL UNIT 
+    wire                        ID_ctrl_sel;
+    wire                        enable_IF_ID_reg;
+    wire                        enable_pc;
+    wire                        flush_IF;
+    wire                        flush_EX;
     
     // ID_stage to IF_stage
     wire                        ID_jump;
@@ -106,6 +112,7 @@ module TOP#(
     wire [NB_DATA-1:0]          EX_shamt;
     wire [NB_REG-1:0]           EX_rt;
     wire [NB_REG-1:0]           EX_rd;
+    wire [NB_REG-1:0]           EX_rs;
     wire [NB_PC-1:0]            EX_pc;
     wire                        EX_byte_en;
     wire                        EX_halfword_en;
@@ -175,8 +182,11 @@ module TOP#(
     wire                        o_WB_reg_write;
     wire [NB_DATA-1:0]          WB_selected_data;
     wire [NB_REG-1:0]           o_WB_selected_reg;
+    wire                        WB_hlt;
 
-
+    // FORWADING UNIT
+    wire [NB_SEL-1:0]           forwarding_a;
+    wire [NB_SEL-1:0]           forwarding_b;
     
     IF_stage IF_stage_1(.i_clock(i_clock),
                         .i_IF_im_enable(i_im_enable),
@@ -192,10 +202,13 @@ module TOP#(
                         .i_IF_branch_addr(o_MEM_branch_addr),
                         .i_IF_jump_address(ID_jump_address),
                         .i_IF_r31_data(ID_r31_data),
+                        .i_IF_enable_pc(enable_pc),
                         .o_IF_adder_result(IF_adder_result),
                         .o_IF_new_instruction(IF_new_instruction));
                         
     IF_ID_reg IF_ID_reg_1(.i_clock(i_clock),
+                          .i_enable_IF_ID_reg(enable_IF_ID_reg), // STALL UNIT: 1 -> data hazard (stall) 0 -> !data_hazard
+                          .i_flush(flush_IF),                    // STALL UNIT: 1 -> control hazards     0 -> !control_hazard
                           .IF_adder_result(IF_adder_result),
                           .IF_new_instruction(IF_new_instruction),
                           .ID_adder_result(ID_adder_result),
@@ -203,15 +216,16 @@ module TOP#(
     
     ID_stage ID_stage_1(.i_clock(i_clock),
                         .i_ID_reset(i_ID_stage_reset),
-                        .i_ID_rb_enable(i_rb_enable), // Debug Unit
+                        .i_ID_rb_enable(i_rb_enable),           // Debug Unit
                         .i_ID_rb_read_enable(i_rb_read_enable), // Debug Unit
-                        .i_ID_rb_read_address(i_rb_address), // Debug Unit
-                        .i_ID_cu_enable(i_cu_enable),  // Debug Unit
+                        .i_ID_rb_read_address(i_rb_address),    // Debug Unit
+                        .i_ID_cu_enable(i_cu_enable),           // Debug Unit
                         .i_ID_inst(ID_new_instruction),
                         .i_ID_pc(ID_adder_result),
                         .i_ID_write_data(WB_selected_data),
                         .i_ID_write_reg(o_WB_selected_reg),
                         .i_ID_reg_write(o_WB_reg_write),
+                        .i_ID_ctrl_sel(ID_ctrl_sel),
                         .o_ID_reg_dest(ID_reg_dest),
                         .o_ID_alu_op(ID_alu_op),
                         .o_ID_alu_src(ID_alu_src),
@@ -230,6 +244,7 @@ module TOP#(
                         .o_ID_shamt(ID_shamt),
                         .o_ID_rt(ID_rt),
                         .o_ID_rd(ID_rd),
+                        .o_ID_rs(ID_rs),
                         .o_ID_pc(ID_pc),
                         .o_ID_byte_en(ID_byte_en),
                         .o_ID_halfword_en(ID_halfword_en),
@@ -252,6 +267,7 @@ module TOP#(
                           .ID_shamt(ID_shamt),
                           .ID_rt(ID_rt),
                           .ID_rd(ID_rd),
+                          .ID_rs(ID_rs),
                           .ID_byte_en(ID_byte_en),
                           .ID_halfword_en(ID_halfword_en),
                           .ID_word_en(ID_word_en),
@@ -271,6 +287,7 @@ module TOP#(
                           .EX_shamt(EX_shamt),
                           .EX_rt(EX_rt),
                           .EX_rd(EX_rd),
+                          .EX_rs(EX_rs),
                           .EX_byte_en(EX_byte_en),
                           .EX_halfword_en(EX_halfword_en),
                           .EX_word_en(EX_word_en),
@@ -295,6 +312,10 @@ module TOP#(
                         .i_EX_halfword_en(EX_halfword_en),
                         .i_EX_word_en(EX_word_en),
                         .i_EX_hlt(EX_hlt),
+                        .i_EX_mem_fwd_data(MEM_alu_result),  // forwarded from MEM
+                        .i_EX_wb_fwd_data(WB_selected_data), // forwarded from WB
+                        .i_EX_fwd_a(forwarding_a),           // FORWARDING UNIT
+                        .i_EX_fwd_b(forwarding_b),           // FORWARDING UNIT
                         .o_EX_reg_write(o_EX_reg_write),
                         .o_EX_mem_to_reg(o_EX_mem_to_reg),
                         .o_EX_mem_read(o_EX_mem_read),
@@ -314,6 +335,7 @@ module TOP#(
                         .o_EX_oe(o_oe));
                         
     EX_MEM_reg EX_MEM_reg_1(.i_clock(i_clock),
+                            .i_flush(flush_EX),
                             .EX_reg_write(o_EX_reg_write),
                             .EX_mem_to_reg(o_EX_mem_to_reg),
                             .EX_mem_read(o_EX_mem_read),
@@ -409,5 +431,31 @@ module TOP#(
                         .o_WB_selected_data(WB_selected_data),
                         .o_WB_selected_reg(o_WB_selected_reg),
                         .o_WB_hlt(o_hlt));
+  
+    // HAZARDS
+    forwarding_unit forwarding_unit_1(.i_reset(i_ctrl_reset),
+                                      .i_EX_MEM_rd(MEM_selected_reg),
+                                      .i_MEM_WB_rd(WB_selected_reg),
+                                      .i_rt(EX_rt),                   // data_b
+                                      .i_rs(EX_rs),                   // data_a
+                                      .i_MEM_write_reg(MEM_reg_write),
+                                      .i_WB_write_reg(WB_reg_write),
+                                      .o_forwarding_a(forwarding_a),  // to EX
+                                      .o_forwarding_b(forwarding_b)); // to EX    
+
+    stall_unit stall_unit_1(.i_reset(i_ctrl_reset),
+                            .i_branch_taken(MEM_branch_zero), // from MEM
+                            .i_ID_EX_mem_read(EX_mem_read),
+                            .i_ID_EX_rt(EX_rt),
+                            .i_IF_ID_rt(ID_new_instruction[20:16]),
+                            .i_IF_ID_rs(ID_new_instruction[25:21]),
+                            .o_select_control_nop(ID_ctrl_sel), //  0 -> señales normales 1 -> flush
+                            .o_enable_IF_ID_reg(enable_IF_ID_reg),
+                            .o_enable_pc(enable_pc),
+                            .o_flush_IF(flush_IF),
+                            .o_flush_EX(flush_EX));
+
+  assign o_pc_value = IF_adder_result;
+  assign o_rb_data  = ID_data_a;         
 
 endmodule

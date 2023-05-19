@@ -20,6 +20,7 @@ module IF_stage#(
         input  [NB_PC-1:0]          i_IF_branch_addr,
         input  [NB_PC-1:0]          i_IF_jump_address,  // J y JAL
         input  [NB_PC-1:0]          i_IF_r31_data,      // JR y JALR
+        input                       i_IF_enable_pc,      // STALL UNIT
         
         output [NB_PC-1:0]          o_IF_adder_result,  // PC+1
         output [NB_INSTRUCTION-1:0] o_IF_new_instruction
@@ -39,6 +40,7 @@ module IF_stage#(
                                       .i_clock(i_clock),
                                       .i_reset(i_IF_pc_reset),
                                       .i_mux_pc(mux2_3_output),
+                                      .i_enable_pc(i_enable_pc),
                                       .o_pc_mem(new_pc_value));
     
     adder adder_1(.i_a(new_pc_value),

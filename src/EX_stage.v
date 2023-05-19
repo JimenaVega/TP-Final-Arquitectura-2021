@@ -7,7 +7,8 @@ module EX_stage#(
         parameter NB_PC       = 32, // TODO: estaba en 6
         parameter NB_DATA     = 32,
         parameter NB_REG      = 5,
-        parameter NB_FCODE    = 6
+        parameter NB_FCODE    = 6,
+        parameter NB_SEL      = 2
     )
     (
         input                   i_EX_reg_write,  // WB stage flag
@@ -29,6 +30,10 @@ module EX_stage#(
         input                   i_EX_halfword_en,
         input                   i_EX_word_en,
         input                   i_EX_hlt,
+        input [NB_DATA-1:0]     i_EX_mem_fwd_data, // forwarding
+        input [NB_DATA-1:0]     i_EX_wb_fwd_data,  // forwarding
+        input [NB_SEL-1:0]      i_EX_fwd_a,        // FORWARDING UNIT
+        input [NB_SEL-1:0]      i_EX_fwd_b,        // FORWARDING UNIT
         
         output                  o_EX_reg_write,
         output                  o_EX_mem_to_reg,
@@ -51,8 +56,10 @@ module EX_stage#(
     
     wire [NB_IMM-1:0]       shifted_imm;
     wire [NB_PC-1:0]        branch_addr;
-    wire [NB_DATA-1:0]      alu_data_b;
+    wire [NB_DATA-1:0]      out_mux_6;
+    wire [NB_DATA-1:0]      out_mux_7;
     wire [NB_DATA-1:0]      alu_data_a;
+    wire [NB_DATA-1:0]      alu_data_b;
     wire                    zero;
     wire [NB_DATA-1:0]      alu_result;
     wire [NB_ALU_CTRL-1:0]  alu_ctrl;
@@ -90,7 +97,7 @@ module EX_stage#(
     mux2 mux2_7(.i_select(i_EX_alu_src),
                 .i_a(i_EX_data_b),
                 .i_b(i_EX_immediate),
-                .o_data(alu_data_b));
+                .o_data(out_mux_7));
 
     mux2 #(.NB(5)) mux2_4(.i_select(i_EX_reg_dest),
                 .i_a(i_EX_rt),
@@ -105,7 +112,21 @@ module EX_stage#(
     mux2 mux2_6(.i_select(select_shamt),
                 .i_a(i_EX_shamt),
                 .i_b(i_EX_data_a),
+                .o_data(out_mux_6));
+        
+    mux4 mux4_8(.i_select(i_EX_fwd_a),
+                .i_a(out_mux_6),          // 00
+                .i_b(i_EX_mem_fwd_data),  // 01
+                .i_c(i_EX_wb_fwd_data),   // 10
+                .i_d(),
                 .o_data(alu_data_a));
+
+    mux4 mux4_9(.i_select(i_EX_fwd_b),
+                .i_a(out_mux_7),          // 00
+                .i_b(i_EX_mem_fwd_data),  // 01
+                .i_c(i_EX_wb_fwd_data),   // 10
+                .i_d(),
+                .o_data(alu_data_b));
 
     assign o_EX_reg_write       = i_EX_reg_write;
     assign o_EX_mem_to_reg      = i_EX_mem_to_reg;
@@ -115,7 +136,7 @@ module EX_stage#(
     assign o_EX_branch_addr     = branch_addr;
     assign o_EX_zero            = zero;
     assign o_EX_alu_result      = alu_result;
-    assign o_EX_data_b          = i_EX_data_b; // TODO: duda, esto esta bien? Pues no, no esta bien
+    assign o_EX_data_b          = i_EX_data_b; 
     assign o_EX_selected_reg    = selected_reg;
     assign o_EX_byte_en         = i_EX_byte_en;
     assign o_EX_halfword_en     = i_EX_halfword_en;
