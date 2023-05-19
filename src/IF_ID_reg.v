@@ -6,7 +6,8 @@ module IF_ID_reg#(
     )
     (
         input                       i_clock,
-        input                       i_enable_IF_ID_reg, //STALL UNIT
+        input                       i_enable_IF_ID_reg, // STALL UNIT: 1 -> data hazard (stall) 0 -> !data_hazard
+        input                       i_flush,            // STALL UNIT: 1 -> control hazards     0 -> !control_hazard
         input [NB_PC-1:0]           IF_adder_result,
         input [NB_INSTRUCTION-1:0]  IF_new_instruction,
         
@@ -19,11 +20,17 @@ module IF_ID_reg#(
 
     always @(negedge i_clock) begin
         if(i_enable_IF_ID_reg) begin
-        adder_result    <= IF_adder_result;
-        new_instruction <= IF_new_instruction;
+            if(i_flush) begin
+                adder_result    <= IF_adder_result;
+                new_instruction <= {32{1'b0}};
+            end
+            else begin
+                adder_result    <= IF_adder_result;
+                new_instruction <= IF_new_instruction;
+            end
         end
         else begin
-            adder_result <= adder_result;
+            adder_result    <= adder_result;
             new_instruction <= new_instruction;
         end
     end

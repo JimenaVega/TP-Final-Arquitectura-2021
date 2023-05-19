@@ -196,7 +196,7 @@ mnemonic_type = {
     J: jType, JAL: jType, JALR: rType, JR: rType, HLT: jType,
 }
 
-INPUT_FILE_NAME = 'raw_load_hazard.txt'
+INPUT_FILE_NAME = 'control_hazard.txt'
 OUTPUT_FILE_NAME = 'inst.mem'
 
 

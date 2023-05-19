@@ -41,9 +41,6 @@ module TOP#(
         output [NB_MEM_WIDTH-1:0]   o_dm_data,            // DEBUG UNIT
         output                      o_oe                  // overflow exception
     );
-
-    assign o_pc_value = IF_adder_result;
-    assign o_rb_data  = ID_data_a;
     
     wire clk_wiz;
     
@@ -53,7 +50,7 @@ module TOP#(
       .clk_out1(clk_wiz),
       // Status and control signals               
       .reset(i_clock_reset), 
-      .locked(locked),
+      .locked(),
      // Clock in ports
       .clk_in1(i_clock)
       );
@@ -90,6 +87,8 @@ module TOP#(
     wire                        ID_ctrl_sel;
     wire                        enable_IF_ID_reg;
     wire                        enable_pc;
+    wire                        flush_IF;
+    wire                        flush_EX;
     
     // ID_stage to IF_stage
     wire                        ID_jump;
@@ -183,6 +182,7 @@ module TOP#(
     wire                        o_WB_reg_write;
     wire [NB_DATA-1:0]          WB_selected_data;
     wire [NB_REG-1:0]           o_WB_selected_reg;
+    wire                        WB_hlt;
 
     // FORWADING UNIT
     wire [NB_SEL-1:0]           forwarding_a;
@@ -207,7 +207,8 @@ module TOP#(
                         .o_IF_new_instruction(IF_new_instruction));
                         
     IF_ID_reg IF_ID_reg_1(.i_clock(i_clock),
-                          .i_enable_IF_ID_reg(enable_IF_ID_reg), // STALL UNIT
+                          .i_enable_IF_ID_reg(enable_IF_ID_reg), // STALL UNIT: 1 -> data hazard (stall) 0 -> !data_hazard
+                          .i_flush(flush_IF),                    // STALL UNIT: 1 -> control hazards     0 -> !control_hazard
                           .IF_adder_result(IF_adder_result),
                           .IF_new_instruction(IF_new_instruction),
                           .ID_adder_result(ID_adder_result),
@@ -215,10 +216,10 @@ module TOP#(
     
     ID_stage ID_stage_1(.i_clock(i_clock),
                         .i_ID_reset(i_ID_stage_reset),
-                        .i_ID_rb_enable(i_rb_enable), // Debug Unit
+                        .i_ID_rb_enable(i_rb_enable),           // Debug Unit
                         .i_ID_rb_read_enable(i_rb_read_enable), // Debug Unit
-                        .i_ID_rb_read_address(i_rb_address), // Debug Unit
-                        .i_ID_cu_enable(i_cu_enable),  // Debug Unit
+                        .i_ID_rb_read_address(i_rb_address),    // Debug Unit
+                        .i_ID_cu_enable(i_cu_enable),           // Debug Unit
                         .i_ID_inst(ID_new_instruction),
                         .i_ID_pc(ID_adder_result),
                         .i_ID_write_data(WB_selected_data),
@@ -334,6 +335,7 @@ module TOP#(
                         .o_EX_oe(o_oe));
                         
     EX_MEM_reg EX_MEM_reg_1(.i_clock(i_clock),
+                            .i_flush(flush_EX),
                             .EX_reg_write(o_EX_reg_write),
                             .EX_mem_to_reg(o_EX_mem_to_reg),
                             .EX_mem_read(o_EX_mem_read),
@@ -378,6 +380,7 @@ module TOP#(
                           .i_MEM_word_en(MEM_word_en),
                           .i_MEM_halfword_en(MEM_halfword_en),
                           .i_MEM_byte_en(MEM_byte_en),
+                          .i_MEM_branch(MEM_branch),
                           .i_MEM_zero(MEM_zero),
                           .i_MEM_branch_addr(MEM_branch_addr),
                           .i_MEM_alu_result(MEM_alu_result),
@@ -441,11 +444,18 @@ module TOP#(
                                       .o_forwarding_b(forwarding_b)); // to EX    
 
     stall_unit stall_unit_1(.i_reset(i_ctrl_reset),
+                            .i_branch_taken(MEM_branch_zero), // from MEM
                             .i_ID_EX_mem_read(EX_mem_read),
                             .i_ID_EX_rt(EX_rt),
                             .i_IF_ID_rt(ID_new_instruction[20:16]),
                             .i_IF_ID_rs(ID_new_instruction[25:21]),
                             .o_select_control_nop(ID_ctrl_sel), //  0 -> señales normales 1 -> flush
                             .o_enable_IF_ID_reg(enable_IF_ID_reg),
-                            .o_enable_pc(enable_pc));
+                            .o_enable_pc(enable_pc),
+                            .o_flush_IF(flush_IF),
+                            .o_flush_EX(flush_EX));
+
+  assign o_pc_value = IF_adder_result;
+  assign o_rb_data  = ID_data_a;         
+
 endmodule

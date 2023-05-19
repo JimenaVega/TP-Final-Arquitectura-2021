@@ -6,6 +6,7 @@ module EX_MEM_reg#(
     )
     (
         input                   i_clock,
+        input                   i_flush, // STALL UNIT :  1 -> Flush control signals 0 -> !flush
         input                   EX_reg_write,
         input                   EX_mem_to_reg,
         input                   EX_mem_read,
@@ -59,22 +60,43 @@ module EX_MEM_reg#(
     reg                 hlt;
 
     always @(negedge i_clock) begin
-        reg_write       <= EX_reg_write;
-        mem_to_reg      <= EX_mem_to_reg;
-        mem_read        <= EX_mem_read;
-        mem_write       <= EX_mem_write;
-        branch          <= EX_branch;
-        branch_addr     <= EX_branch_addr;
-        zero            <= EX_zero;
-        alu_result      <= EX_alu_result;
-        data_b          <= EX_data_b;
-        selected_reg    <= EX_selected_reg;
-        byte_en         <= EX_byte_en;
-        halfword_en     <= EX_halfword_en;
-        word_en         <= EX_word_en;
-        r31_ctrl        <= EX_r31_ctrl;
-        pc              <= EX_pc;
-        hlt             <= EX_hlt;
+        if(i_flush)begin
+            reg_write    <= 1'b0;
+            mem_to_reg   <= 1'b0;
+            mem_read     <= 1'b0;
+            mem_write    <= 1'b0;
+            branch       <= 1'b0;
+            branch_addr  <= EX_branch_addr;
+            zero         <= 1'b0;
+            alu_result   <= EX_alu_result;
+            data_b       <= EX_data_b;
+            selected_reg <= EX_selected_reg;
+            byte_en      <= 1'b0;
+            halfword_en  <= 1'b0;
+            word_en      <= 1'b0;
+            r31_ctrl     <= 1'b0;
+            pc           <= EX_pc;
+            hlt          <= 1'b0;
+
+        end
+        else begin
+            reg_write       <= EX_reg_write;
+            mem_to_reg      <= EX_mem_to_reg;
+            mem_read        <= EX_mem_read;
+            mem_write       <= EX_mem_write;
+            branch          <= EX_branch;
+            branch_addr     <= EX_branch_addr;
+            zero            <= EX_zero;
+            alu_result      <= EX_alu_result;
+            data_b          <= EX_data_b;
+            selected_reg    <= EX_selected_reg;
+            byte_en         <= EX_byte_en;
+            halfword_en     <= EX_halfword_en;
+            word_en         <= EX_word_en;
+            r31_ctrl        <= EX_r31_ctrl;
+            pc              <= EX_pc;
+            hlt             <= EX_hlt;
+        end
     end
 
     assign MEM_reg_write    = reg_write;

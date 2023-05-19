@@ -1,9 +1,14 @@
+addi $t0,$s0,10;
+addi $t1,$s0,11;
+addi $t2,$s0,12;
+addi $t3,$s0,13;
+addi $t4,$s0,14;
 addi $s1,$s0,15;
 addi $s2,$s0,15;
 addi $s3,$s0,3;
 addi $s4,$s0,3;
 addi $s5,$s0,3;
-addi $t0,$s0,3;
+addi $t5,$s0,3;
 beq $s1,$s2,9;
 add $t4,$s1,$s2;
 add $t3,$s1,$s2;
