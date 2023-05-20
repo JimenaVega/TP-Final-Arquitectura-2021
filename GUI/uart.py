@@ -1,9 +1,10 @@
 import time
 import serial
+import struct
 
 class Uart():
-    def __init__(self):
-        self.ser = serial.serial_for_url('loop://', timeout=1)
+    def __init__(self, port, baudrate=9600):
+        self.ser = serial.serial_for_url(port, timeout=1)
 
         # self.ser = serial.Serial(
         #     port     = '/dev/ttyUSB1',	#Configurar con el puerto
@@ -27,7 +28,10 @@ class Uart():
         self.ser.flushInput()
         self.ser.flushOutput()
 
-        byte_msg = int(command, 2).to_bytes(1, 'big')
+        # byte_data = command & 0xFF
+        # self.ser.write(struct.pack('B', byte_data))
+
+        byte_msg = command.to_bytes(1, 'big')
         self.ser.write(byte_msg)
 
 
