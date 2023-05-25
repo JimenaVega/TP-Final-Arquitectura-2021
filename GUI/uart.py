@@ -71,6 +71,7 @@ class Uart():
          
         print("DONE sending file")
         self.ser.reset_output_buffer()
+        return count
         
 
     def receive_file(self, to_save, max_bytes):
