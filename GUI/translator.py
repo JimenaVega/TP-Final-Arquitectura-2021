@@ -217,11 +217,13 @@ def translate_file(file_name):
 
         line = inp_file.readline()
 
-    print('Conversion ready.')
-    print('Saved in', file_name + ".mem")
-
+    file_mem = file_name + ".mem"
+    print('Conversion ready. Saved in: ' + file_mem)
+ 
     inp_file.close()
     out_file.close()
+
+    return file_mem
 
 
 # if __name__ == "__main__":

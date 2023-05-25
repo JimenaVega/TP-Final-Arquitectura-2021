@@ -9,3 +9,10 @@ sudo apt update
 python -m pip install pyserial
 sudo apt-get install python3-tk
 ```
+
+Para usar uart chequear que el usuario pertenezca a el grupo dialout, sino agregar:
+
+```
+groups ${USER}
+sudo gpasswd --add ${USER} dialout
+```

@@ -1,15 +1,15 @@
 import time
 import serial
 
-# ser = serial.serial_for_url('loop://', timeout=1)
+ser = serial.serial_for_url('loop://', timeout=1)
 
-ser = serial.Serial(
-            port     = '/dev/ttyS0',	#Configurar con el puerto
-            baudrate = 19200,
-            parity   = serial.PARITY_NONE,
-            stopbits = serial.STOPBITS_ONE,
-            bytesize = serial.EIGHTBITS
-        )
+# ser = serial.Serial(
+#             port     = '/dev/ttyS0',	#Configurar con el puerto
+#             baudrate = 19200,
+#             parity   = serial.PARITY_NONE,
+#             stopbits = serial.STOPBITS_ONE,
+#             bytesize = serial.EIGHTBITS
+#         )
 
 def main():
 
@@ -19,7 +19,7 @@ def main():
     # fp = open(INPUT_FILE_NAME, 'r')
     # line_byte = int(fp.readline(), 2).to_bytes(1, 'big')
     # count = 0
-
+    print("WAITING FOR UART:")
     while True:
         # Envío por Tx
         # ser.write(line_byte)    
@@ -27,6 +27,7 @@ def main():
 
         # Recepción por Rx
         #time.sleep(2)
+       
         out = ''
         #print "Info: ",ser.inWaiting()
         while ser.inWaiting() > 0:
