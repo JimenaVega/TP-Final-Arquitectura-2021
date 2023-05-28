@@ -34,10 +34,10 @@ commands_files = {4: [REGISTER_BANK_FILE, REGISTER_BANK_SIZE],
 class GUI():
     def __init__(self, instruction_file, uart_port='loop://'):
 
-        self.next_action = {1: self.send_program(),
-                            4: self.receive_file(REGISTER_BANK_FILE, REGISTER_BANK_SIZE),
-                            5: self.receive_file(DATA_MEMORY_FILE, DATA_MEMORY_SIZE),
-                            6: self.receive_file(PC_FILE, PC_SIZE),}
+        self.next_action = {1: self.send_program,
+                            4: self.receive_file,
+                            5: self.receive_file,
+                            6: self.receive_file,}
 
         self.uart = Uart(uart_port)
 
@@ -84,16 +84,16 @@ class GUI():
         # self.monitor.config(text=commands.get(self.option.get()))
 
     def send_program(self):
-
+        pass
         # Se convierte el archivo con instrucciones a 'binario'
-        file_name = translate_file(self.instruction_file)
-        print('file name: ',file_name)
+        # file_name = translate_file(self.instruction_file)
+        # print('file name: ',file_name)
 
         # Se envia por uart el .mem y se ejecuta la siguiente ventana
-        self.instruction_size = self.uart.send_file(file_name)
-        self.maximum_steps = self.instruction_size * 5
+        # self.instruction_size = self.uart.send_file(file_name)
+        # self.maximum_steps = self.instruction_size * 5
 
-        self.set_execution_window()
+        # self.set_execution_window()
         
     def receive_file(self, file_name, file_size):
         """
@@ -102,9 +102,9 @@ class GUI():
         max_bytes : cantidad de bytes maxima a recibir. Debe ser multiplo de 4.
             Por ejemplo: DATA_MEMORY_SIZE * 4
         """
-       
+        
         print("receive_file")
-        self.uart.receive_file(file_name, file_size)
+        # self.uart.receive_file(file_name, file_size)
         
     def set_execution_window(self):
        
@@ -150,7 +150,7 @@ class GUI():
         else:     
             command = 7  
             print("STEP")
-            # self.uart.send_command(command)
+            self.uart.send_command(command)
             # self.receive_file(REGISTER_BANK_FILE, REGISTER_BANK_SIZE * 4)   # TODO: Ver si realmente se pueden mandar por separado los archivos
             # self.receive_file(DATA_MEMORY_FILE, DATA_MEMORY_SIZE * 4)
             # self.receive_file(PC_FILE, PC_SIZE * 4)
@@ -159,5 +159,5 @@ class GUI():
 
 
 instruction_file = "two_inst"
-uart_port = '/dev/ttyS0'
-gui = GUI(instruction_file)
+uart_port = '/dev/ttyUSB0'
+gui = GUI(instruction_file, uart_port)

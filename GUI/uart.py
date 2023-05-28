@@ -4,15 +4,15 @@ import struct
 
 class Uart():
     def __init__(self, port, baudrate=9600):
-        self.ser = serial.serial_for_url(port, timeout=1)
-
-        # self.ser = serial.Serial(
-        #     port     = port,	#Configurar con el puerto
-        #     baudrate = 19200,
-        #     parity   = serial.PARITY_NONE,
-        #     stopbits = serial.STOPBITS_ONE,
-        #     bytesize = serial.EIGHTBITS
-        # )
+        # self.ser = serial.serial_for_url(port, timeout=1)
+        print("UART PORT = ", port)
+        self.ser = serial.Serial(
+            port     = port,	#Configurar con el puerto
+            baudrate = 19200,
+            parity   = serial.PARITY_NONE,
+            stopbits = serial.STOPBITS_ONE,
+            bytesize = serial.EIGHTBITS
+        )
 
         self.ser.isOpen()
         self.ser.timeout=None
@@ -23,17 +23,22 @@ class Uart():
         print("Interfaz utilizada:", self.ser.name) 
 
     def send_command(self, command):
-        print('UUART: Comenzando con el envío...')
+        # self.ser.reset_output_buffer()
+        print('UART: Envio de comando...')
 
-        self.ser.flushInput()
-        self.ser.flushOutput()
+        # self.ser.flushInput()
+        # self.ser.flushOutput()
 
         # byte_data = command & 0xFF
         # self.ser.write(struct.pack('B', byte_data))
 
         byte_msg = command.to_bytes(1, 'big')
+        print("command: ", byte_msg)
         self.ser.write(byte_msg)
 
+        
+
+        
 
     def send_file(self, file_name):    
         print('UART: Comenzando con el envío...')
@@ -88,7 +93,7 @@ class Uart():
             with open(to_save, "w") as file:
                 bytes_received = 0
                 while bytes_received < max_bytes:
-                    data = self.uart.read(4)
+                    data = self.ser.read(4)
                     file.write(data.decode() + "\n") # TODO: Ver como se formatea data para que quede en binario string
                     bytes_received += len(data)
         except serial.SerialException as e:
