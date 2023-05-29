@@ -10,9 +10,9 @@ module debug_unit#(
     parameter NB_BYTE_CTR = 2,
     parameter NB_ADDR_DM  = 7, 
     parameter BR_SIZE     = 32,
-    parameter MEM_SIZE    = 256,
     parameter DM_DEPTH    = 128,
     parameter RB_DEPTH    = 32,
+    parameter IM_DEPTH    = 256,
     parameter NB_PC_CTR   = 2
 )    
 (
@@ -46,7 +46,7 @@ module debug_unit#(
 
 // States
 localparam [NB_STATE-1:0] IDLE         = 5'd1;
-localparam [NB_STATE-1:0] SIZE         = 5'd2;
+localparam [NB_STATE-1:0] WRITE_IM     = 5'd2;
 localparam [NB_STATE-1:0] DATA         = 5'd3;
 localparam [NB_STATE-1:0] READY        = 5'd4;
 localparam [NB_STATE-1:0] START        = 5'd5;
@@ -54,6 +54,7 @@ localparam [NB_STATE-1:0] STEP_BY_STEP = 5'd6;
 localparam [NB_STATE-1:0] SEND_BR      = 5'd7;
 localparam [NB_STATE-1:0] SEND_MEM     = 5'd8;
 localparam [NB_STATE-1:0] SEND_PC      = 5'd9;
+localparam [NB_STATE-1:0] START_WRITE_IM = 5'd10;
 
 // External commands
 localparam [NB_DATA-1:0] COMMAND_A = 8'd1;
@@ -69,11 +70,9 @@ localparam [NB_DATA-1:0] COMMAND_H = 8'd8;
 reg [NB_STATE-1:0]      state,              next_state;
 
 // INSTRUCTION MEMORY
-reg [NB_SIZE-1:0]       im_size,            next_im_size;           // Cantidad de bytes a recibir para guardar en INSTRUCTION MEMORY
-reg [NB_SIZE-1:0]       im_count,           next_im_count;          // Indica la espera de 2 bytes para obtener el SIZE total
-// reg [NB_DATA-1:0] im_data, next_im_data;
-reg [N_SIZE-1:0]        im_data_count,      next_im_data_count;     // Address a escribir
-reg                     im_write,           next_im_write;          // Flag que habilita la escritura del IM
+reg [NB_ADDR-1:0]       im_count,           next_im_count;          // Address a escribir
+reg                     im_write_enable,    next_im_write_enable;          // Flag que habilita la escritura del IM
+reg                     im_enable,          next_im_enable;
 
 // DATA MEMORY
 reg [NB_ADDR_DM-1:0]    count_dm_tx_done,   count_dm_tx_done_next;  // Address
@@ -99,10 +98,12 @@ always @(posedge i_clock) begin
         state <= IDLE;
 
         // INSTRUCTION MEMORY 
-        im_size                 <= 1'b0;
-        im_count                <= 1'b0;
-        im_data_count           <= 1'b0;
-        im_write                <= 1'b0;
+        im_write_enable         <= 1'b0;
+        next_im_write_enable    <= 1'b0;
+        im_enable               <= 1'b0;
+        next_im_enable          <= 1'b0;
+        im_count                <= 32'hffffffff;
+        next_im_count           <= 32'hffffffff;
 
         // DATA MEMORY
         count_dm_tx_done        <= 7'b0;
@@ -130,10 +131,9 @@ always @(posedge i_clock) begin
     else begin
         state               <= next_state;
         // INSTRUCTION MEMORY
-        im_size             <= next_im_size;    
+        im_write_enable     <= next_im_write_enable;
+        im_enable           <= next_im_enable;
         im_count            <= next_im_count;
-        im_data_count       <= next_im_data_count;
-        im_write            <= next_im_write;
         // DATA MEMORY
         count_dm_tx_done    <= count_dm_tx_done_next;
         // REGISTERS BANK
@@ -148,21 +148,45 @@ end
 // Next sate logic
 always @(*) begin
     next_state              = state;
-    next_im_size            = im_size;
     count_dm_tx_done_next   = count_dm_tx_done;
     next_count_br_byte      = count_br_byte;
     next_count_br_tx_done   = count_br_tx_done;
     next_count_pc           = count_pc;
+    next_im_enable          = im_enable;
+    next_im_write_enable    = im_write_enable;
 
     case(state)
         IDLE: begin
             if(i_rx_done) begin
                 case (i_rx_data)
-                    COMMAND_A: next_state = SIZE;
+                    COMMAND_A: next_state = START_WRITE_IM;
                     COMMAND_F: next_state = SEND_BR;
                     COMMAND_G: next_state = SEND_PC;
                     COMMAND_H: next_state = SEND_MEM;
                 endcase
+            end
+        end
+        START_WRITE_IM: begin
+            next_state = WRITE_IM;
+        end
+        WRITE_IM: begin
+            if(im_count == 32'd256)begin
+                next_state              = IDLE;
+                next_im_enable          = 1'b0;
+                next_im_write_enable    = 1'b0;
+                next_im_count           = 32'hffffffff;
+            end
+            else begin
+                if(i_rx_done)begin
+                    next_im_enable          = 1'b1;
+                    next_im_write_enable    = 1'b1;
+                    next_im_count           = im_count + 1;
+                    next_state              = START_WRITE_IM;
+                end
+                else begin
+                    next_im_enable          = 1'b0;
+                    next_im_write_enable    = 1'b0;
+                end
             end
         end
         SEND_PC: begin
@@ -237,8 +261,9 @@ end
 
 // INSTRUCTION MEMORY
 assign o_im_data            = i_rx_data;
-assign o_im_write_enable    = im_write;
-assign o_im_addr            = im_data_count;
+assign o_im_write_enable    = im_write_enable;
+assign o_im_addr            = im_count;
+assign o_im_enable          = im_enable;
 
 // DATA MEMORY
 assign o_dm_addr            = count_dm_tx_done; // Cada vez que haya un tx_done, se avanza +1 address
