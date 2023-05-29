@@ -31,6 +31,12 @@ module TOP_debug_unit#(
     wire [DWORD-1:0]    rb_data;
     wire [RB_ADDR-1:0]  rb_addr;
 
+    wire                im_enable;
+    wire                im_write_enable;
+    wire [DWORD-1:0]    im_addr;
+    wire [BYTE-1:0]     im_data;
+
+
     reg                 zero = 0;
     reg [DWORD-1:0]     pc = 10;
     
@@ -43,14 +49,14 @@ module TOP_debug_unit#(
                             .i_pc_value(pc),
                             .i_dm_data(mem_data),
                             .i_br_data(rb_data),
-                            .o_im_data(),
-                            .o_im_addr(),
+                            .o_im_data(im_data),
+                            .o_im_addr(im_addr),
                             .o_rb_addr(rb_addr),
                             .o_dm_addr(mem_addr),
                             .o_tx_data(uart_du_to_send),
                             .o_tx_start(uart_du_tx_start),
-                            .o_im_write_enable(),
-                            .o_im_enable(),
+                            .o_im_write_enable(im_write_enable),
+                            .o_im_enable(im_enable),
                             .o_rb_read_enable(rb_read_enable),
                             .o_rb_enable(rb_enable),
                             .o_dm_enable(mem_enable),
@@ -103,6 +109,15 @@ module TOP_debug_unit#(
                                     .i_write_data(), // Data 32b
                                     .o_data_a(rb_data),
                                     .o_data_b());
+
+    instruction_memory instruction_memory_1(.i_clock(i_clock),
+                                            .i_enable(im_enable),
+                                            .i_write_enable(im_write_enable),
+                                            .i_read_enable(),
+                                            .i_write_data(im_data),
+                                            .i_write_addr(im_addr),
+                                            .i_addr(),
+                                            .o_read_data());
     
 endmodule
 
