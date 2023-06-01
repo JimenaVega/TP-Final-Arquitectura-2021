@@ -2,59 +2,37 @@ import time
 import serial
 import struct
 
-
 class Uart():
-    def __init__(self, port, baudrate):
+    def __init__(self, port, baudrate=19200):
         # self.ser = serial.serial_for_url(port, timeout=1)
-        
+        print("UART PORT = ", port)
         self.ser = serial.Serial(
-            port=port,  # Configurar con el puerto
-            baudrate=baudrate,
-            parity=serial.PARITY_NONE,
-            stopbits=serial.STOPBITS_ONE,
-            bytesize=serial.EIGHTBITS
+            port     = port,	#Configurar con el puerto
+            baudrate = baudrate,
+            parity   = serial.PARITY_NONE,
+            stopbits = serial.STOPBITS_ONE,
+            bytesize = serial.EIGHTBITS
         )
 
-        print("Port is open: ", self.ser.isOpen())
-        self.ser.timeout = None
-        self.ser.reset_input_buffer()
-        self.ser.reset_output_buffer()
+        self.ser.isOpen()
+        self.ser.timeout=None
+        self.ser.flushInput()
+        self.ser.flushOutput()
 
-        print("Timeout: ", self.ser.timeout)
-        print("Interfaz utilizada:", self.ser.name)
-        print("Baudrate: ", self.ser.baudrate)
+        print(self.ser.timeout)
+        print("Interfaz utilizada:", self.ser.name) 
 
     def send_command(self, command):
         print('UART: Envio de comando...')
-        self.ser.reset_input_buffer()
-        self.ser.reset_output_buffer() 
 
         byte_msg = command.to_bytes(1, 'big')
-        print("Command: ", byte_msg)
-        nb_written = self.ser.write(byte_msg)
+        print("command: ", byte_msg)
+        self.ser.write(byte_msg)
+        
 
-        print("Bytes written in uart: ", nb_written)
-
-    def send_file(self, file_name):
+    def send_file(self, file_name):    
         print('UART: Comenzando con el envío...')
 
-        # fp = open(file_name, 'r')
-        # line_byte = int(fp.readline(), 2).to_bytes(1, 'big')
-        # count = 0
-
-        # while True:
-        #     # Envío por Tx
-        #     self.ser.write(line_byte)    
-        #     print("[{0}] byte enviado: {1}".format(count, line_byte))
-
-        #     self.read_byte()
-        #     # Lectura de siguiente byte
-        #     line = fp.readline()
-        #     count += 1
-        #     if line:
-        #         line_byte = int(line, 2).to_bytes(1, 'big')
-        #     else:
-        #         break 
         count = 0
         try:
             with open(file_name, "r") as file:
@@ -64,13 +42,13 @@ class Uart():
 
                     print("[{0}] byte enviado: {1}".format(count, line))
                     count += 1
-        except (File
-        NotFoundError, serial.SerialException) as e:
-            print("Error during data transmission:", e)
-
+        except (FileNotFoundError, serial.SerialException) as e:
+            print("Error during data transmission:", e)    
+         
         print("DONE sending file")
         self.ser.reset_output_buffer()
         return count
+        
 
     def receive_file(self, to_save, max_bytes):
         """
@@ -79,52 +57,67 @@ class Uart():
         max_bytes : cantidad de bytes maxima a recibir. Debe ser multiplo de 4.
         """
         print("UART: Comenzando a recibir bytes...")
-        if ((max_bytes % 4) != 0):
+        if((max_bytes % 4) != 0):
+            print("UART ERROR: bytes are not multiple of 4.")
             return
+        
+        shift = 3
 
         try:
             with open(to_save, "w") as file:
                 bytes_received = 0
                 while bytes_received < max_bytes:
-                    data = self.ser.read(4)
-                    file.write(data.decode() + "\n")  # TODO: Ver como se formatea data para que quede en binario string
+                    byte_received = self.ser.read(1)
+                    print("raw binary = ", bin(byte_received))
+                    data = bytes_received << shift
+                    print("binary afer shift = ", bin(data))
+
+                    if shift == 0:
+                        self.write_line(file, data)
+                        shift = 3
+                    else:     
+                        shift = shift - 1
+
                     bytes_received += len(data)
         except serial.SerialException as e:
             print("Error during data reception:", e)
 
         self.ser.reset_input_buffer()
 
-    def read_byte(self):
-        out = ''
-        while self.ser.inWaiting() > 0:
-            out += '{0}'.format(self.ser.read(1))
-        if out != '':
-            print("Read >> ", out)
 
-    def byte_to_bistring(self, intnum):
+    def write_line(self, file, bytes_data):
+        decimal_data = bytes_data
+        bistring_data = self.byte_to_bistring(bytes_data, 32)
+
+        file.write(bistring_data + " | " + decimal_data + "\n")
+
+    def byte_to_bistring(self, intnum, size=8):
         # intnum = 15
         bistring = bin(intnum)[2:]  # Obtiene la representación binaria y omite el prefijo "0b"
-        bistring = bistring.zfill(8)  # Rellena con ceros a la izquierda hasta tener 8 bits
+        bistring = bistring.zfill(size)  # Rellena con ceros a la izquierda hasta tener "size" bits
 
         print(bistring)  # Imprime el string binario resultante
         return bistring
-
+    
     def ascii_to_int(self, ascii_array):
         """
         Convierte un ascii array de 4 bytes de largo (un string) en un string de representacion binaria de 32 bits de largo.
         """
         byte_string = ""
-        for ascii in ascii_array:  # TODO: ver si el orden en que se apendean los strings es correcto (LSB al MSB)
+        for ascii in ascii_array: # TODO: ver si el orden en que se apendean los strings es correcto (LSB al MSB)
             byte_string = byte_string + self.byte_to_bistring(int(ascii))
+
 
         pass
 
     def bistring_to_byte(self, bistring):
-        byte = int(bistring.strip(), 2).to_bytes(1, 'big')
+        byte = int(bistring.strip(), 2).to_bytes(1, 'big')   
         print("Byte = ", byte)
-        return byte
+        return byte 
 
-    # def main():
+# def main():
+
+    
 
 #     fp = open(INPUT_FILE_NAME, 'r')
 #     line_byte = int(fp.readline(), 2).to_bytes(1, 'big')
@@ -143,7 +136,7 @@ class Uart():
 #             out += '{0}'.format(ser.read(1))
 #         if out != '':
 #             print(">> ", out)
-
+        
 #         # Lectura de siguiente byte
 #         line = fp.readline()
 #         count += 1

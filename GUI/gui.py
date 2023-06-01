@@ -100,8 +100,8 @@ class GUI():
             Por ejemplo: DATA_MEMORY_SIZE * 4
         """
 
-        print("receive_file")
-        # self.uart.receive_file(file_name, file_size)
+        print("GUI: receive_file")
+        self.uart.receive_file(file_name, file_size)
 
     def set_execution_window(self):
 
