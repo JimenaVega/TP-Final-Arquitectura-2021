@@ -48,7 +48,9 @@ def main():
         out = ''
         #print "Info: ",ser.inWaiting()
         while ser.inWaiting() > 0:
-            out += '{0}'.format(ser.read(1))
+            received = ser.read(1)
+            out += '{0}'.format(received)
+            byte_to_bistring(received)
         if out != '':
             print(">> ", out)
         
