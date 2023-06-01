@@ -19,8 +19,8 @@ commands = {1: COMMAND_A,
             7: COMMAND_G,
             }
 
-DATA_MEMORY_SIZE = 64     # In lines of 32bits
-REGISTER_BANK_SIZE = 32   # In lines of 32bits
+DATA_MEMORY_SIZE = 64  # In lines of 32bits
+REGISTER_BANK_SIZE = 32  # In lines of 32bits
 PC_SIZE = 1
 DATA_MEMORY_FILE = 'data_memory.txt'
 REGISTER_BANK_FILE = 'register_bank.txt'
@@ -32,23 +32,23 @@ commands_files = {4: [REGISTER_BANK_FILE, REGISTER_BANK_SIZE],
 
 
 class GUI():
-    def __init__(self, instruction_file, uart_port='loop://'):
+    def __init__(self, instruction_file, uart_port='loop://', baudrate=19200):
 
         self.next_action = {1: self.send_program,
                             4: self.receive_file,
                             5: self.receive_file,
-                            6: self.receive_file,}
+                            6: self.receive_file, }
 
-        self.uart = Uart(uart_port)
+        self.uart = Uart(uart_port, baudrate)
 
         self.instruction_file = instruction_file
-        self.instruction_size = 0                # Necesario para saber cuantos steps mandar 
- 
-        self.window = tk.Tk()   # Main menu
+        self.instruction_size = 0  # Necesario para saber cuantos steps mandar
+
+        self.window = tk.Tk()  # Main menu
         self.window.config(bd=80)
         self.window.title("GUI: Main menu")
 
-        self.ex_window = None     # Execution window
+        self.ex_window = None  # Execution window
         self.debug_window = None  # Debug window
         self.maximum_steps = 0
 
@@ -65,9 +65,8 @@ class GUI():
         tk.Radiobutton(self.window, text=commands.get(6), variable=self.option, value=6).pack()
 
         tk.Button(self.window, text="Send", command=self.send_command).pack()
-       
-        self.window.mainloop()
 
+        self.window.mainloop()
 
     def send_command(self):
         print(commands.get(self.option.get()))
@@ -77,24 +76,22 @@ class GUI():
         self.uart.send_command(command)
 
         # Siguiente funcion a ejecutar
-        if( command == 1):
+        if command == 1:
             self.next_action.get(command)()
-        else: 
+        else:
             self.next_action.get(command)(commands_files.get(command)[0], commands_files.get(command)[1])
-        # self.monitor.config(text=commands.get(self.option.get()))
 
     def send_program(self):
-        pass
         # Se convierte el archivo con instrucciones a 'binario'
-        # file_name = translate_file(self.instruction_file)
-        # print('file name: ',file_name)
+        file_name = translate_file(self.instruction_file)
+        print('file name: ',file_name)
 
         # Se envia por uart el .mem y se ejecuta la siguiente ventana
-        # self.instruction_size = self.uart.send_file(file_name)
-        # self.maximum_steps = self.instruction_size * 5
+        self.instruction_size = int(self.uart.send_file(file_name) / 4)
+        self.maximum_steps = self.instruction_size * 5
 
-        # self.set_execution_window()
-        
+        self.set_execution_window()
+
     def receive_file(self, file_name, file_size):
         """
         Llama al UART RX para guardar un nuevo archivo.
@@ -102,25 +99,25 @@ class GUI():
         max_bytes : cantidad de bytes maxima a recibir. Debe ser multiplo de 4.
             Por ejemplo: DATA_MEMORY_SIZE * 4
         """
-        
+
         print("receive_file")
         # self.uart.receive_file(file_name, file_size)
-        
+
     def set_execution_window(self):
-       
-        self.ex_window = tk.Toplevel()     # Execution window
-        
+
+        self.ex_window = tk.Toplevel()  # Execution window
+
         self.ex_window.config(bd=30)
         self.ex_window.title("GUI: Ejecucion")
         # self.ex_window.grab_set()
         self.exe_mode = tk.IntVar()
-        
+
         tk.Label(self.ex_window, text="Elegir modo de ejecución: ").pack()
-        
+
         tk.Radiobutton(self.ex_window, text=commands.get(2), variable=self.exe_mode, value=2).pack()
         tk.Radiobutton(self.ex_window, text=commands.get(3), variable=self.exe_mode, value=3).pack()
         tk.Button(self.ex_window, text="Send", command=self.send_execution_mode).pack()
-        
+
     def send_execution_mode(self):
 
         mode = self.exe_mode.get()
@@ -129,33 +126,33 @@ class GUI():
         print("send execution mode: ", commands.get(mode))
 
         if mode == 2:
-            self.ex_window.destroy() # Ejecucion continua
+            self.ex_window.destroy()  # Ejecucion continua
         elif mode == 3:
             self.set_debug_window()  # Ejecucion step by step
 
     def set_debug_window(self):
 
-        self.debug_window = tk.Toplevel()   # Debug window
+        self.debug_window = tk.Toplevel()  # Debug window
         self.debug_window.geometry('300x100')
         self.debug_window.title("GUI: step by step")
 
         tk.Button(self.debug_window, text=commands.get(7), command=self.send_step).pack()
 
     def send_step(self):
-        
+
         print("maximum_steps = ", self.maximum_steps)
         # Send step command 
-        if (self.maximum_steps <= 0):
+        if self.maximum_steps <= 0:
             self.debug_window.destroy()
-        else:     
-            command = 7  
+            self.ex_window.destroy()
+        else:
+            command = 7
             print("STEP")
             self.uart.send_command(command)
             # self.receive_file(REGISTER_BANK_FILE, REGISTER_BANK_SIZE * 4)   # TODO: Ver si realmente se pueden mandar por separado los archivos
             # self.receive_file(DATA_MEMORY_FILE, DATA_MEMORY_SIZE * 4)
             # self.receive_file(PC_FILE, PC_SIZE * 4)
             self.maximum_steps = self.maximum_steps - 1
-
 
 
 instruction_file = "two_inst"
