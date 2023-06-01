@@ -76,23 +76,21 @@ class GUI():
         self.uart.send_command(command)
 
         # Siguiente funcion a ejecutar
-        # if command == 1:
-        #     self.next_action.get(command)()
-        # else:
-        #     self.next_action.get(command)(commands_files.get(command)[0], commands_files.get(command)[1])
-        # self.monitor.config(text=commands.get(self.option.get()))
+        if command == 1:
+            self.next_action.get(command)()
+        else:
+            self.next_action.get(command)(commands_files.get(command)[0], commands_files.get(command)[1])
 
     def send_program(self):
-        pass
         # Se convierte el archivo con instrucciones a 'binario'
-        # file_name = translate_file(self.instruction_file)
-        # print('file name: ',file_name)
+        file_name = translate_file(self.instruction_file)
+        print('file name: ',file_name)
 
         # Se envia por uart el .mem y se ejecuta la siguiente ventana
-        # self.instruction_size = self.uart.send_file(file_name)
-        # self.maximum_steps = self.instruction_size * 5
+        self.instruction_size = int(self.uart.send_file(file_name) / 4)
+        self.maximum_steps = self.instruction_size * 5
 
-        # self.set_execution_window()
+        self.set_execution_window()
 
     def receive_file(self, file_name, file_size):
         """
@@ -146,6 +144,7 @@ class GUI():
         # Send step command 
         if self.maximum_steps <= 0:
             self.debug_window.destroy()
+            self.ex_window.destroy()
         else:
             command = 7
             print("STEP")

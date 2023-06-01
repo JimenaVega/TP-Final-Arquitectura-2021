@@ -25,29 +25,18 @@ class Uart():
         print("Baudrate: ", self.ser.baudrate)
 
     def send_command(self, command):
-        # self.ser.reset_output_buffer()
         print('UART: Envio de comando...')
         self.ser.reset_input_buffer()
         self.ser.reset_output_buffer() 
 
-        # self.ser.flushInput()
-        # self.ser.flushOutput()
-
-        # byte_data = command & 0xFF
-        # byte_data = struct.pack('B', byte_data)
-        # print("command: ", byte_data)
-        # nb_written = self.ser.write(byte_data)
-        # print("Bytes written in uart: ", nb_written)
-
         byte_msg = command.to_bytes(1, 'big')
-        print("command: ", byte_msg)
-        nb_written = self.ser.write(b'L')
+        print("Command: ", byte_msg)
+        nb_written = self.ser.write(byte_msg)
+
         print("Bytes written in uart: ", nb_written)
 
     def send_file(self, file_name):
         print('UART: Comenzando con el envío...')
-
-        # INPUT_FILE_NAME = '../translator/r_inst_bin.txt'
 
         # fp = open(file_name, 'r')
         # line_byte = int(fp.readline(), 2).to_bytes(1, 'big')
@@ -75,7 +64,8 @@ class Uart():
 
                     print("[{0}] byte enviado: {1}".format(count, line))
                     count += 1
-        except (FileNotFoundError, serial.SerialException) as e:
+        except (File
+        NotFoundError, serial.SerialException) as e:
             print("Error during data transmission:", e)
 
         print("DONE sending file")
