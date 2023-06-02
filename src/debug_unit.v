@@ -102,7 +102,8 @@ reg                     step;
 // Memory
 always @(posedge i_clock) begin
     if(i_reset) begin
-        state <= IDLE;
+        state                   <= IDLE;
+        next_state              <= IDLE;
 
         // INSTRUCTION MEMORY 
         im_write_enable         <= 1'b0;
@@ -153,6 +154,8 @@ always @(posedge i_clock) begin
         tx_start            <= tx_start_next;
         // PC
         count_pc            <= next_count_pc;
+        step_flag           <= step_flag;
+        step                <= step;
     end
 end
 
