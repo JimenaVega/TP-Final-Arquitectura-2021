@@ -11,13 +11,13 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="511421666fs"></ZoomStartTime>
-      <ZoomEndTime time="511568067fs"></ZoomEndTime>
-      <Cursor1Time time="511685000fs"></Cursor1Time>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="148001fs"></ZoomEndTime>
+      <Cursor1Time time="0fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="205"></NameColumnWidth>
-      <ValueColumnWidth column_width="91"></ValueColumnWidth>
+      <ValueColumnWidth column_width="83"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="12" />
    <wvobject fp_name="/tb_TOP_debug_unit/i_clock" type="logic">
@@ -74,6 +74,13 @@
          <obj_property name="CustomSignalColor">#0000FF</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
+      <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/debug_unit_1/prev_state" type="array">
+         <obj_property name="ElementShortName">prev_state[4:0]</obj_property>
+         <obj_property name="ObjectShortName">prev_state[4:0]</obj_property>
+         <obj_property name="CustomSignalColor">#0000FF</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
       <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/debug_unit_1/send_data" type="array">
          <obj_property name="ElementShortName">send_data[7:0]</obj_property>
          <obj_property name="ObjectShortName">send_data[7:0]</obj_property>
@@ -84,6 +91,14 @@
       <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/debug_unit_1/o_tx_start" type="logic">
          <obj_property name="ElementShortName">o_tx_start</obj_property>
          <obj_property name="ObjectShortName">o_tx_start</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/debug_unit_1/o_step_flag" type="logic">
+         <obj_property name="ElementShortName">o_step_flag</obj_property>
+         <obj_property name="ObjectShortName">o_step_flag</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/debug_unit_1/o_step" type="logic">
+         <obj_property name="ElementShortName">o_step</obj_property>
+         <obj_property name="ObjectShortName">o_step</obj_property>
       </wvobject>
       <wvobject fp_name="group76" type="group">
          <obj_property name="label">DM_VARS</obj_property>
@@ -171,6 +186,7 @@
       <wvobject fp_name="group249" type="group">
          <obj_property name="label">PC_VARS</obj_property>
          <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
          <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/debug_unit_1/i_pc_value" type="array">
             <obj_property name="ElementShortName">i_pc_value[31:0]</obj_property>
             <obj_property name="ObjectShortName">i_pc_value[31:0]</obj_property>
@@ -188,7 +204,6 @@
       <wvobject fp_name="group165" type="group">
          <obj_property name="label">IM_VARS</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="isExpanded"></obj_property>
          <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/debug_unit_1/im_count" type="array">
             <obj_property name="ElementShortName">im_count[31:0]</obj_property>
             <obj_property name="ObjectShortName">im_count[31:0]</obj_property>
@@ -273,6 +288,7 @@
       <wvobject fp_name="group27" type="group">
          <obj_property name="label">RX</obj_property>
          <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
          <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_debug_unit/rx_uart_instance/state" type="array">
             <obj_property name="ElementShortName">state[1:0]</obj_property>
             <obj_property name="ObjectShortName">state[1:0]</obj_property>
@@ -320,10 +336,10 @@
    <wvobject fp_name="group36" type="group">
       <obj_property name="label">EXT_UART</obj_property>
       <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="group37" type="group">
          <obj_property name="label">TX</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="isExpanded"></obj_property>
          <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_external/tx_uart_instance_2/state" type="array">
             <obj_property name="ElementShortName">state[1:0]</obj_property>
             <obj_property name="ObjectShortName">state[1:0]</obj_property>
@@ -372,6 +388,7 @@
       <wvobject fp_name="group38" type="group">
          <obj_property name="label">RX</obj_property>
          <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
          <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/UART_external/rx_uart_instance/state" type="array">
             <obj_property name="ElementShortName">state[1:0]</obj_property>
             <obj_property name="ObjectShortName">state[1:0]</obj_property>
@@ -507,6 +524,7 @@
       <wvobject fp_name="/tb_TOP_debug_unit/TOP_debug_unit_dut/instruction_memory_1/BRAM" type="array">
          <obj_property name="ElementShortName">BRAM[255:0][7:0]</obj_property>
          <obj_property name="ObjectShortName">BRAM[255:0][7:0]</obj_property>
+         <obj_property name="isExpanded"></obj_property>
       </wvobject>
    </wvobject>
 </wave_config>

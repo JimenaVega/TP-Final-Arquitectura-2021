@@ -25,28 +25,28 @@ module tb_TOP_debug_unit;
 
     #100
     i_reset = 1'b0;
-    command = 8'd1;
+    command = 8'd2;
     send    = 1'b1;
 
     #20
     send    = 1'b0;
 
-    #265000
-    command = 8'd10;
+    #1200000
+    command = 8'd6;
     send    = 1'b1;
 
     #20
     send    = 1'b0;
 
-    #265000
-    command = 8'd11;
+    #1200000
+    command = 8'd6;
     send    = 1'b1;
 
     #20
     send    = 1'b0;
 
-    #265000
-    command = 8'd12;
+    #1200000
+    command = 8'd7;
     send    = 1'b1;
     
     #500000000
