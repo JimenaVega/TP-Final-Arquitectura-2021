@@ -42,6 +42,7 @@ module debug_unit#(
     output                  o_dm_enable,
     output                  o_dm_read_enable,
     output                  o_cu_enable,
+    output                  o_pc_enable,
 
     output                  o_step_flag,
     output                  o_step
