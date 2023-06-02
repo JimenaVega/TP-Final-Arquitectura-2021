@@ -48,48 +48,82 @@ class Uart():
         print("DONE sending file")
         self.ser.reset_output_buffer()
         return count
-        
+    
+    def write_32bits(self, file, max_bytes):
 
-    def receive_file(self, to_save, max_bytes):
+        shift = 24
+        data = 0
+        address = 0
+        bytes_received = 0
+
+        while bytes_received < max_bytes:
+            byte_received = self.ser.read(1)
+            print("raw binary = ", byte_received)
+            data = data | (int.from_bytes(byte_received, "big") << shift)
+        
+            if shift == 0:
+                self.write_line(file, data, address, 32)
+                shift = 24
+                data = 0
+                address = address + 1
+            else:     
+                shift = shift - 8
+
+            bytes_received = bytes_received + 1
+    
+    def write_8bits(self, file, max_bytes):
+
+        address = 0 
+        bytes_received = 0
+
+        while bytes_received < max_bytes:
+
+            byte_received = self.ser.read(1)        # UART RX
+            print("raw binary = ", byte_received)
+
+            data = int.from_bytes(byte_received, "big")
+            self.write_line(file, data, address)
+
+            bytes_received = bytes_received + 1
+            address = address + 1
+
+    def receive_file(self, to_save, max_bytes, mode=32): 
         """
         Guarda en un archivo con nombre definido por "to_save" los elementos que llegan de la UART
         to_save : nombre del archivo donde se van a guardar
         max_bytes : cantidad de bytes maxima a recibir. Debe ser multiplo de 4.
+        mode: Cada renglon del archivo tendrá 32 bits o 8 bits.
         """
         print("UART: Comenzando a recibir bytes...")
         if((max_bytes % 4) != 0):
             print("UART ERROR: bytes are not multiple of 4.")
             return
         
-        shift = 3
-
+        print("max_bytes: ", max_bytes)
         try:
             with open(to_save, "w") as file:
-                bytes_received = 0
-                while bytes_received < max_bytes:
-                    byte_received = self.ser.read(1)
-                    print("raw binary = ", bin(byte_received))
-                    data = bytes_received << shift
-                    print("binary afer shift = ", bin(data))
-
-                    if shift == 0:
-                        self.write_line(file, data)
-                        shift = 3
-                    else:     
-                        shift = shift - 1
-
-                    bytes_received += len(data)
+                if mode==32:
+                    self.write_32bits(file, max_bytes)
+                elif mode==8:
+                    self.write_8bits(file, max_bytes)
+                else: 
+                    print("Non existent mode.")
+                    exit()
+                
         except serial.SerialException as e:
             print("Error during data reception:", e)
 
-        self.ser.reset_input_buffer()
+        self.ser.reset_input_buffer()       
 
 
-    def write_line(self, file, bytes_data):
+    def write_line(self, file, bytes_data, address, bin_size=8):
         decimal_data = bytes_data
-        bistring_data = self.byte_to_bistring(bytes_data, 32)
+        bistring_data = self.byte_to_bistring(bytes_data, bin_size)
+        hex_data = hex(decimal_data)
 
-        file.write(bistring_data + " | " + decimal_data + "\n")
+        line = "[{0}] B: {1} | D: {2} | H: {3}".format(address, bistring_data, decimal_data, hex_data) + "\n"
+        print("LINE: ", line)
+        file.write(line)
 
     def byte_to_bistring(self, intnum, size=8):
         # intnum = 15
@@ -114,40 +148,3 @@ class Uart():
         byte = int(bistring.strip(), 2).to_bytes(1, 'big')   
         print("Byte = ", byte)
         return byte 
-
-# def main():
-
-    
-
-#     fp = open(INPUT_FILE_NAME, 'r')
-#     line_byte = int(fp.readline(), 2).to_bytes(1, 'big')
-#     count = 0
-
-#     while True:
-#         # Envío por Tx
-#         ser.write(line_byte)    
-#         print("[{0}] byte enviado: {1}".format(count, line_byte))
-
-#         # Recepción por Rx
-#         #time.sleep(2)
-#         out = ''
-#         #print "Info: ",ser.inWaiting()
-#         while ser.inWaiting() > 0:
-#             out += '{0}'.format(ser.read(1))
-#         if out != '':
-#             print(">> ", out)
-        
-#         # Lectura de siguiente byte
-#         line = fp.readline()
-#         count += 1
-#         if line:
-#             line_byte = int(line, 2).to_bytes(1, 'big')
-#         else:
-#             break 
-
-#     ser.close()    
-#     fp.close()   
-#     exit()     
-
-# if __name__ == "__main__":
-#     main()
