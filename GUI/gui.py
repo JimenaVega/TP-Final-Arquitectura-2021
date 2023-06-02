@@ -19,9 +19,9 @@ commands = {1: COMMAND_A,
             7: COMMAND_G,
             }
 
-DATA_MEMORY_SIZE = 64  # In lines of 32bits
-REGISTER_BANK_SIZE = 32  # In lines of 32bits
-PC_SIZE = 1
+DATA_MEMORY_SIZE = 128   # 128 bytes of depth
+REGISTER_BANK_SIZE = 128  # 32 * 4 bytes
+PC_SIZE = 4 # 4 bytes
 DATA_MEMORY_FILE = 'data_memory.txt'
 REGISTER_BANK_FILE = 'register_bank.txt'
 PC_FILE = 'program_counter.txt'
@@ -101,7 +101,15 @@ class GUI():
         """
 
         print("GUI: receive_file")
-        self.uart.receive_file(file_name, file_size)
+        # Se envía comando por UART
+        command = self.option.get()
+        self.uart.send_command(command)
+
+        if command == 4 or command==6:
+            self.uart.receive_file(file_name, file_size)
+        else:
+            self.uart.receive_file(file_name, file_size, 8)
+
 
     def set_execution_window(self):
 
