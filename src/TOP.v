@@ -9,7 +9,8 @@ module TOP#(
     (
         input               i_clock,
         input               i_reset,
-        input               uart_du_rx
+        input               i_clock_reset,
+        input               i_uart_du_rx
     );
 
     wire clk_wiz;
@@ -25,7 +26,7 @@ module TOP#(
       .clk_in1(i_clock)
       );
 
-    wire                data_path_clk;
+    reg                 data_path_clk;
     wire                step_flag;
     wire                step;
 
@@ -56,7 +57,7 @@ module TOP#(
     wire                cu_enable;
     wire                pc_enable;
 
-    reg [DWORD-1:0]     pc = 10;
+    wire [DWORD-1:0]    pc = 10;
 
     always@(*)begin
         if(step_flag)begin
@@ -95,7 +96,7 @@ module TOP#(
     
     UART UART_debug_unit(.i_clock(clk_wiz), // 50 MHz
                          .i_reset(i_reset),
-                         .i_rx(uart_du_rx),
+                         .i_rx(i_uart_du_rx),
                          .i_tx(uart_du_to_send),
                          .i_tx_start(uart_du_tx_start),
                          .o_rx(uart_du_received),
@@ -124,7 +125,7 @@ module TOP#(
                           .o_pc_value(pc),
                           .o_rb_data(rb_data),
                           .o_dm_data(mem_data),
-                          .o_oe())
+                          .o_oe());
     
     // UART UART_external(.i_clock(i_clock),
     //                      .i_reset(i_reset),
