@@ -1,6 +1,10 @@
 import time
 import serial
-import struct
+import numpy as np
+
+NB_DATA_MEM = 128
+NB_BANK_REG = 128
+NB_PC       = 4
 
 class Uart():
     def __init__(self, port, baudrate=19200):
@@ -14,6 +18,8 @@ class Uart():
             bytesize = serial.EIGHTBITS
         )
 
+        # self.allData = np.zeros(NB_DATA_MEM+NB_BANK_REG + NB_PC, dtype=np.int8)
+        self.allData = []
         self.ser.isOpen()
         self.ser.timeout=None
         self.ser.flushInput()
@@ -58,7 +64,7 @@ class Uart():
 
         while bytes_received < max_bytes:
             byte_received = self.ser.read(1)
-            print("raw binary = ", byte_received)
+            #print("raw binary = ", byte_received)
             data = data | (int.from_bytes(byte_received, "big") << shift)
         
             if shift == 0:
@@ -79,7 +85,7 @@ class Uart():
         while bytes_received < max_bytes:
 
             byte_received = self.ser.read(1)        # UART RX
-            print("raw binary = ", byte_received)
+            #print("raw binary = ", byte_received)
 
             data = int.from_bytes(byte_received, "big")
             self.write_line(file, data, address)
@@ -99,7 +105,7 @@ class Uart():
             print("UART ERROR: bytes are not multiple of 4.")
             return
         
-        print("max_bytes: ", max_bytes)
+        # print("max_bytes: ", max_bytes)
         try:
             with open(to_save, "w") as file:
                 if mode==32:
@@ -114,6 +120,44 @@ class Uart():
             print("Error during data reception:", e)
 
         self.ser.reset_input_buffer()       
+
+    def receive_all(self):
+        """ 
+        TODO: En caso que no funcione recibir toda la recepcion de las 3 memorias de una
+        terminar de desarrollar esto.
+        """
+        
+        max_bytes = NB_DATA_MEM + NB_BANK_REG + NB_PC
+        address = 0 
+        bytes_received = 0
+
+        while bytes_received < max_bytes:
+
+            byte_received = self.ser.read(1)        # UART RX
+            # print("raw binary = ", byte_received)
+
+            data = int.from_bytes(byte_received, "big")
+            self.allData.append(self.byte_to_bistring(data, 8))
+
+            bytes_received = bytes_received + 1
+            address = address + 1
+
+        with open("pc_debug.txt", "w") as file:
+            line = "{0}{1}{2}{3}\n".format(self.allData[0], self.allData[1], self.allData[2], self.allData[3])
+            file.write(line)
+
+        with open("br_rebug.txt", "w") as file:
+            for i in range(NB_PC, NB_PC+NB_BANK_REG, 4):
+                print("BR i = ", i)
+                line = "{0}{1}{2}{3}\n".format(self.allData[0+i], self.allData[1+i], self.allData[2+i], self.allData[3+i])
+                file.write(line)
+
+        with open("dm_debug.txt", "w") as file:
+            for i in range(NB_PC+NB_BANK_REG, NB_PC+NB_BANK_REG+NB_DATA_MEM):
+
+                file.write(self.allData[i] + "\n")
+
+
 
 
     def write_line(self, file, bytes_data, address, bin_size=8):
@@ -130,7 +174,7 @@ class Uart():
         bistring = bin(intnum)[2:]  # Obtiene la representación binaria y omite el prefijo "0b"
         bistring = bistring.zfill(size)  # Rellena con ceros a la izquierda hasta tener "size" bits
 
-        print(bistring)  # Imprime el string binario resultante
+        # print(bistring)  # Imprime el string binario resultante
         return bistring
     
     def ascii_to_int(self, ascii_array):
@@ -141,8 +185,6 @@ class Uart():
         for ascii in ascii_array: # TODO: ver si el orden en que se apendean los strings es correcto (LSB al MSB)
             byte_string = byte_string + self.byte_to_bistring(int(ascii))
 
-
-        pass
 
     def bistring_to_byte(self, bistring):
         byte = int(bistring.strip(), 2).to_bytes(1, 'big')   

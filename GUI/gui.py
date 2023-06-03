@@ -9,6 +9,7 @@ COMMAND_D = "Leer bank register"
 COMMAND_E = "Leer data memory"
 COMMAND_F = "Leer PC"
 COMMAND_G = "Send step"
+COMMAND_H = "Abort step by step"
 
 commands = {1: COMMAND_A,
             2: COMMAND_B,
@@ -17,11 +18,13 @@ commands = {1: COMMAND_A,
             5: COMMAND_E,
             6: COMMAND_F,
             7: COMMAND_G,
+            8: COMMAND_H,
             }
 
 DATA_MEMORY_SIZE = 128   # 128 bytes of depth
 REGISTER_BANK_SIZE = 128  # 32 * 4 bytes
 PC_SIZE = 4 # 4 bytes
+INS_MEM_SIZE = 256 # lineas
 DATA_MEMORY_FILE = 'data_memory.txt'
 REGISTER_BANK_FILE = 'register_bank.txt'
 PC_FILE = 'program_counter.txt'
@@ -50,7 +53,7 @@ class GUI():
 
         self.ex_window = None  # Execution window
         self.debug_window = None  # Debug window
-        self.maximum_steps = 0
+        self.maximum_steps = INS_MEM_SIZE * 5
 
         self.start_msg = tk.Label(text="Elegir una opción: ")
         self.start_msg.grid(column=0, row=0)
@@ -88,22 +91,24 @@ class GUI():
 
         # Se envia por uart el .mem y se ejecuta la siguiente ventana
         self.instruction_size = int(self.uart.send_file(file_name) / 4)
-        self.maximum_steps = self.instruction_size * 5
+        # self.maximum_steps = self.instruction_size * 5
 
         self.set_execution_window()
+
 
     def receive_file(self, file_name, file_size):
         """
         Llama al UART RX para guardar un nuevo archivo.
         to_save : nombre del archivo donde se van a guardar
         max_bytes : cantidad de bytes maxima a recibir. Debe ser multiplo de 4.
-            Por ejemplo: DATA_MEMORY_SIZE * 4
+            Por ejemplo: DATA_MEMORY_SIZE 
         """
 
         print("GUI: receive_file")
         # Se envía comando por UART
         command = self.option.get()
         self.uart.send_command(command)
+
 
         if command == 4 or command==6:
             self.uart.receive_file(file_name, file_size)
@@ -129,7 +134,6 @@ class GUI():
     def send_execution_mode(self):
 
         mode = self.exe_mode.get()
-        print("mode: ", mode)
         self.uart.send_command(mode)
         print("send execution mode: ", commands.get(mode))
 
@@ -145,6 +149,7 @@ class GUI():
         self.debug_window.title("GUI: step by step")
 
         tk.Button(self.debug_window, text=commands.get(7), command=self.send_step).pack()
+        tk.Button(self.debug_window, text=commands.get(8), command=self.abort_step).pack()
 
     def send_step(self):
 
@@ -157,10 +162,22 @@ class GUI():
             command = 7
             print("STEP")
             self.uart.send_command(command)
-            # self.receive_file(REGISTER_BANK_FILE, REGISTER_BANK_SIZE * 4)   # TODO: Ver si realmente se pueden mandar por separado los archivos
-            # self.receive_file(DATA_MEMORY_FILE, DATA_MEMORY_SIZE * 4)
-            # self.receive_file(PC_FILE, PC_SIZE * 4)
+            self.uart.receive_all()
+            # self.uart.receive_file(PC_FILE, PC_SIZE)
+            # self.uart.r  # self.uart.receive_file(PC_FILE, PC_SIZE)
+            # self.uart.receive_file(REGISTER_BANK_FILE, REGISTER_BANK_SIZE)
+            # self.uart.receive_file(DATA_MEMORY_FILE, DATA_MEMORY_SIZE, 8)eceive_file(REGISTER_BANK_FILE, REGISTER_BANK_SIZE)
+            # self.uart.receive_file(DATA_MEMORY_FILE, DATA_MEMORY_SIZE, 8)
+            
+
             self.maximum_steps = self.maximum_steps - 1
+
+    def abort_step(self):
+        # Se envía comando de aborto por UART
+        command = 8
+        self.uart.send_command(command)
+        self.debug_window.destroy()
+        self.ex_window.destroy()
 
 
 instruction_file = "two_inst"
