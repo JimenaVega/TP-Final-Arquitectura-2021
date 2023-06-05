@@ -64,11 +64,11 @@ module TOP#(
           data_path_clk = step;
         end
         else begin
-          data_path_clk = clk_wiz;
+          data_path_clk = i_clock;
         end
     end
     
-    debug_unit debug_unit_1(.i_clock(clk_wiz), // 50 MHz
+    debug_unit debug_unit_1(.i_clock(i_clock), // 50 MHz
                             .i_reset(i_reset),
                             .i_hlt(halt),
                             .i_rx_done(uart_du_rx_done),
@@ -94,7 +94,7 @@ module TOP#(
                             .o_step_flag(step_flag),
                             .o_step(step));
     
-    UART UART_debug_unit(.i_clock(clk_wiz), // 50 MHz
+    UART UART_debug_unit(.i_clock(i_clock), // 50 MHz
                          .i_reset(i_reset),
                          .i_rx(i_uart_du_rx),
                          .i_tx(uart_du_to_send),

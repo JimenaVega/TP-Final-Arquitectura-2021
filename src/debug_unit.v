@@ -258,7 +258,12 @@ always @(*) begin
 
                 if(count_pc == 2'd3)begin
                     tx_start_next   = 1'b0;
-                    next_state      = prev_state;
+                    if(prev_state == STEP_BY_STEP)begin
+                        next_state = SEND_MEM;
+                    end
+                    else begin
+                        next_state = IDLE;
+                    end
                 end
             end
         end
@@ -285,7 +290,8 @@ always @(*) begin
                         rb_read_enable  = 1'b0;
                         rb_enable       = 1'b0;
                         tx_start_next   = 1'b0;
-                        next_state      = IDLE;
+
+                        next_state      = prev_state;
                     end
                 end
             end
@@ -304,7 +310,12 @@ always @(*) begin
                     dm_read_enable  = 1'b0;
                     dm_enable       = 1'b0;
                     tx_start_next   = 1'b0;
-                    next_state      = IDLE;
+                    if(prev_state == STEP_BY_STEP) begin
+                        next_state = SEND_BR;
+                    end
+                    else begin
+                        next_state      = IDLE;
+                    end
                 end
             end
         end
