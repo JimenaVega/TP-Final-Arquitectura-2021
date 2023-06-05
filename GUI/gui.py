@@ -2,23 +2,23 @@ import tkinter as tk
 from uart import Uart
 from translator import translate_file
 
-COMMAND_A = "Escribir programa"
-COMMAND_B = "Ejecucion continua"
-COMMAND_C = "Step by step"
-COMMAND_D = "Leer bank register"
-COMMAND_E = "Leer data memory"
-COMMAND_F = "Leer PC"
-COMMAND_G = "Send step"
-COMMAND_H = "Abort step by step"
+COMMAND_1 = "Escribir programa"
+COMMAND_2 = "Ejecucion continua"
+COMMAND_3 = "Step by step"
+COMMAND_4 = "Leer bank register"
+COMMAND_5 = "Leer data memory"
+COMMAND_6 = "Leer PC"
+COMMAND_7 = "Send step"
+COMMAND_8 = "Abort step by step"
 
-commands = {1: COMMAND_A,
-            2: COMMAND_B,
-            3: COMMAND_C,
-            4: COMMAND_D,
-            5: COMMAND_E,
-            6: COMMAND_F,
-            7: COMMAND_G,
-            8: COMMAND_H,
+commands = {1: COMMAND_1,
+            2: COMMAND_2,
+            3: COMMAND_3,
+            4: COMMAND_4,
+            5: COMMAND_5,
+            6: COMMAND_6,
+            7: COMMAND_7,
+            8: COMMAND_8,
             }
 
 DATA_MEMORY_SIZE = 128   # 128 bytes of depth
