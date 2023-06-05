@@ -91,6 +91,10 @@ reg                     rb_enable;
 
 // PC
 reg [NB_PC_CTR-1:0]     count_pc,           next_count_pc;
+reg                     pc_enable;
+
+// CONTROL UNIT
+reg                     cu_enable;
 
 // TX
 reg [NB_DATA-1:0]       send_data;         // DM & BR -> TX
@@ -174,6 +178,16 @@ always @(*) begin
         IDLE: begin
             step_flag   = 1'b0;
             step        = 1'b0;
+
+            im_enable       = 1'b0;
+            im_write_enable = 1'b0;
+            rb_enable       = 1'b0;
+            rb_read_enable   = 1'b0;
+            dm_enable       = 1'b0;
+            dm_read_enable  = 1'b0;
+            cu_enable       = 1'b0;
+            pc_enable       = 1'b0;
+
             if(i_rx_done) begin
                 case (i_rx_data)
                     CMD_WRITE_IM:       next_state = START_WRITE_IM;
@@ -203,20 +217,48 @@ always @(*) begin
             end
         end
         START: begin
-            step = 1'b0;
+            step_flag       = 1'b0;
+            step            = 1'b0;
+
+            im_enable       = 1'b1;
+            im_write_enable = 1'b0;
+            rb_enable       = 1'b1;
+            rb_read_enable   = 1'b1;
+            dm_enable       = 1'b1;
+            dm_read_enable  = 1'b1;
+            cu_enable       = 1'b1;
+            pc_enable       = 1'b1;
+
+            if(i_hlt)begin
+                next_state = IDLE;
+            end
         end
         STEP_BY_STEP: begin
             step_flag   = 1'b1;
             step        = 1'b0;
-            if(i_rx_done) begin
+
+            im_enable       = 1'b1;
+            im_write_enable = 1'b0;
+            rb_enable       = 1'b1;
+            rb_read_enable   = 1'b1;
+            dm_enable       = 1'b1;
+            dm_read_enable  = 1'b1;
+            cu_enable       = 1'b1;
+            pc_enable       = 1'b1;
+
+            if(i_rx_done)begin
                 case (i_rx_data)
                     CMD_STEP: begin
                         next_state  = SEND_PC;
                         prev_state  = STEP_BY_STEP;
                         step        = 1'b1;
                     end       
-                    CMD_CONTINUE:   next_state = START;
+                    CMD_CONTINUE: next_state = START;
                 endcase
+            end
+
+            if(i_hlt)begin
+                next_state = IDLE;
             end
         end
         START_WRITE_IM: begin
@@ -338,6 +380,12 @@ assign o_dm_read_enable     = dm_read_enable;
 assign o_rb_addr            = count_br_tx_done;
 assign o_rb_enable          = rb_enable;
 assign o_rb_read_enable     = rb_read_enable;
+
+// PC
+assign o_pc_enable          = pc_enable;
+
+// CONTROL UNIT
+assign o_cu_enable          = cu_enable;
 
 // TX
 assign o_tx_data            = send_data;
