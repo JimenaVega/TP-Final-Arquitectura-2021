@@ -61,20 +61,22 @@ localparam [NB_STATE-1:0] START_WRITE_IM = 5'd10;
 
 // External commands
 localparam [NB_DATA-1:0] CMD_WRITE_IM       = 8'd1;
-localparam [NB_DATA-1:0] CMD_STEP_BY_STEP   = 8'd2;
-localparam [NB_DATA-1:0] CMD_SEND_BR        = 8'd3;
-localparam [NB_DATA-1:0] CMD_SEND_PC        = 8'd4;
+localparam [NB_DATA-1:0] CMD_START          = 8'd2; // Ejecucion continua
+localparam [NB_DATA-1:0] CMD_STEP_BY_STEP   = 8'd3;
+localparam [NB_DATA-1:0] CMD_SEND_BR        = 8'd4;
 localparam [NB_DATA-1:0] CMD_SEND_MEM       = 8'd5;
-localparam [NB_DATA-1:0] CMD_STEP           = 8'd6;
-localparam [NB_DATA-1:0] CMD_CONTINUE       = 8'd7;
-localparam [NB_DATA-1:0] CMD_START          = 8'd8;
+localparam [NB_DATA-1:0] CMD_SEND_PC        = 8'd6;
+localparam [NB_DATA-1:0] CMD_STEP           = 8'd7;
+
+localparam [NB_DATA-1:0] CMD_CONTINUE       = 8'd8;
+
 
 // FSM logic
 reg [NB_STATE-1:0]      state,              next_state,     prev_state;
 
 // INSTRUCTION MEMORY
 reg [NB_ADDR-1:0]       im_count,           next_im_count;          // Address a escribir
-reg                     im_write_enable,    next_im_write_enable;          // Flag que habilita la escritura del IM
+reg                     im_write_enable,    next_im_write_enable;   // Flag que habilita la escritura del IM
 reg                     im_enable,          next_im_enable;
 
 // DATA MEMORY
