@@ -9,7 +9,7 @@ COMMAND_4 = "Leer bank register"
 COMMAND_5 = "Leer data memory"
 COMMAND_6 = "Leer PC"
 COMMAND_7 = "Send step"
-COMMAND_8 = "Abort step by step"
+COMMAND_8 = "Continue >>"
 
 commands = {1: COMMAND_1,
             2: COMMAND_2,

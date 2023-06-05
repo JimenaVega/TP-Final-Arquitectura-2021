@@ -67,7 +67,6 @@ localparam [NB_DATA-1:0] CMD_SEND_BR        = 8'd4;
 localparam [NB_DATA-1:0] CMD_SEND_MEM       = 8'd5;
 localparam [NB_DATA-1:0] CMD_SEND_PC        = 8'd6;
 localparam [NB_DATA-1:0] CMD_STEP           = 8'd7;
-
 localparam [NB_DATA-1:0] CMD_CONTINUE       = 8'd8;
 
 
