@@ -64,6 +64,10 @@ module tb_TOP;
 
     #20
     send    = 1'b0;
+    
+    #75000000
+    command = 8'd7;
+    send    = 1'b1;
 
     $finish;
   end
