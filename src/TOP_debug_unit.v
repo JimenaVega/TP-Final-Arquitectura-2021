@@ -61,7 +61,8 @@ module TOP_debug_unit#(
                             .o_rb_enable(rb_enable),
                             .o_dm_enable(mem_enable),
                             .o_dm_read_enable(mem_read_enable),
-                            .o_cu_enable());
+                            .o_cu_enable(),
+                            .o_pc_enable());
     
     UART UART_debug_unit(.i_clock(i_clock),
                          .i_reset(i_reset),
