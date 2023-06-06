@@ -22,7 +22,7 @@ def handler(signum, frame):
     ser.close() 
     exit()
 
-def bistring_to_byte(self, bistring):
+def bistring_to_byte(bistring):
         byte = int(bistring.strip(), 2).to_bytes(1, 'big')   
         print("Byte = ", byte)
         return byte 
