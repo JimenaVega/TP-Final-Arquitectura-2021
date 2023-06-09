@@ -87,8 +87,8 @@ reg                     dm_enable;
 // BANK REGISTER
 reg [NB_ADDR_RB-1:0]    count_br_tx_done,   next_count_br_tx_done; 
 reg [NB_BYTE_CTR-1:0]   count_br_byte,      next_count_br_byte;     // cuenta hasta 4 bytes
-reg                     rb_read_enable;
-reg                     rb_enable;
+reg                     rb_read_enable,     next_rb_read_enable;
+reg                     rb_enable,          next_rb_enable;
 
 // PC
 reg [NB_PC_CTR-1:0]     count_pc,           next_count_pc;
@@ -98,7 +98,7 @@ reg                     pc_enable;
 reg                     cu_enable;
 
 // TX
-reg [NB_DATA-1:0]       send_data;         // DM & BR -> TX
+reg [NB_DATA-1:0]       send_data,          next_send_data;         // DM & BR -> TX
 reg                     tx_start,           tx_start_next;
 
 // STEPPER
@@ -130,15 +130,18 @@ always @(posedge i_clock) begin
         next_count_br_tx_done   <= 5'b0;
         count_br_byte           <= 2'b0;
         next_count_br_byte      <= 2'b0;
-        // rb_enable               <= 1'b0;
-        // rb_read_enable          <= 1'b0;
+        rb_enable               <= 1'b0;
+        next_rb_enable          <= 1'b0;
+        rb_read_enable          <= 1'b0;
+        next_rb_read_enable     <= 1'b0;
 
         // PC
         count_pc                <= 2'b0;
         next_count_pc           <= 2'b0;
         
         // TX
-        // send_data               <= 1'b0;
+        send_data               <= 8'b0;
+        next_send_data          <= 8'b0;
         tx_start                <= 1'b0;
         tx_start_next           <= 1'b0;
 
@@ -155,6 +158,8 @@ always @(posedge i_clock) begin
         // DATA MEMORY
         count_dm_tx_done    <= count_dm_tx_done_next;
         // REGISTERS BANK
+        rb_enable           <= next_rb_enable;
+        rb_read_enable      <= next_rb_read_enable;
         count_br_byte       <= next_count_br_byte;
         count_br_tx_done    <= next_count_br_tx_done;
         tx_start            <= tx_start_next;
@@ -162,6 +167,8 @@ always @(posedge i_clock) begin
         count_pc            <= next_count_pc;
         step_flag           <= step_flag;
         step                <= step;
+        // TX
+        send_data           <= next_send_data;
     end
 end
 
@@ -174,9 +181,11 @@ always @(*) begin
     next_count_pc           = count_pc;
     next_im_enable          = im_enable;
     next_im_write_enable    = im_write_enable;
+    next_rb_enable          = rb_enable;
+    next_rb_read_enable     = rb_read_enable;
+    next_send_data          = send_data;
 
     prev_state              = IDLE;
-    send_data               = 8'd0;
 
     case(state)
         IDLE: begin
@@ -185,8 +194,8 @@ always @(*) begin
 
             next_im_enable       = 1'b0;
             next_im_write_enable = 1'b0;
-            rb_enable       = 1'b0;
-            rb_read_enable  = 1'b0;
+            next_rb_enable       = 1'b0;
+            next_rb_read_enable  = 1'b0;
             dm_enable       = 1'b0;
             dm_read_enable  = 1'b0;
             cu_enable       = 1'b0;
@@ -224,12 +233,9 @@ always @(*) begin
             step_flag       = 1'b0;
             step            = 1'b0;
 
-            next_im_enable       = 1'b1;
-            next_im_write_enable = 1'b0;
-            rb_enable       = 1'b1;
-            rb_read_enable   = 1'b1;
+            next_im_enable  = 1'b1;
+            next_rb_enable  = 1'b1;
             dm_enable       = 1'b1;
-            dm_read_enable  = 1'b1;
             cu_enable       = 1'b1;
             pc_enable       = 1'b1;
 
@@ -241,12 +247,9 @@ always @(*) begin
             step_flag   = 1'b1;
             step        = 1'b0;
 
-            next_im_enable       = 1'b1;
-            next_im_write_enable = 1'b0;
-            rb_enable       = 1'b1;
-            rb_read_enable   = 1'b1;
+            next_im_enable  = 1'b1;
+            next_rb_enable  = 1'b1;
             dm_enable       = 1'b1;
-            dm_read_enable  = 1'b1;
             cu_enable       = 1'b1;
             pc_enable       = 1'b1;
 
@@ -315,15 +318,15 @@ always @(*) begin
             end
         end
         SEND_BR: begin
-            rb_read_enable  = 1'b1;
-            rb_enable       = 1'b0;
+            next_rb_read_enable  = 1'b1;
+            next_rb_enable       = 1'b0;
             tx_start_next   = 1'b1;
             step            = 1'b0;
             case(next_count_br_byte)
-                2'd0:   send_data = i_br_data[31:24];
-                2'd1:   send_data = i_br_data[23:16];
-                2'd2:   send_data = i_br_data[15:8];
-                2'd3:   send_data = i_br_data[7:0];
+                2'd0:   next_send_data = i_br_data[31:24];
+                2'd1:   next_send_data = i_br_data[23:16];
+                2'd2:   next_send_data = i_br_data[15:8];
+                2'd3:   next_send_data = i_br_data[7:0];
             endcase
 
             if(i_tx_done)begin
@@ -334,8 +337,7 @@ always @(*) begin
                     next_count_br_byte      = 2'd0;
 
                     if(count_br_tx_done == RB_DEPTH-1)begin
-                        rb_read_enable  = 1'b0;
-                        rb_enable       = 1'b0;
+                        next_rb_read_enable  = 1'b0;
                         tx_start_next   = 1'b0;
 
                         next_state      = prev_state;
