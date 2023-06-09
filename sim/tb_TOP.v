@@ -52,7 +52,7 @@ module tb_TOP;
     i_reset = 1'b0;
     
     #400
-    command = 8'd4;
+    command = 8'd5;
     send    = 1'b1;
 
     #20

@@ -25,7 +25,7 @@ module registers_bank#(
     reg [NB_DATA-1:0] o_data_a_next;
     reg [NB_DATA-1:0] o_data_b_next;
     
-    reg [NB_DATA-1:0]  registers [BANK_DEPTH-1:0];
+    reg [NB_DATA-1:0] registers [BANK_DEPTH-1:0];
 
     generate
         integer reg_index;
@@ -38,9 +38,6 @@ module registers_bank#(
         if(i_reset)begin:reset
             o_data_a_next  =  {NB_DATA{1'b0}};
             o_data_b_next  =  {NB_DATA{1'b0}};
-
-            registers[0]   = {NB_DATA{1'b1}};
-            registers[2]   = {NB_DATA{1'b1}};
         end 
         else begin
             if(i_enable) begin // Funcionamiento normal
