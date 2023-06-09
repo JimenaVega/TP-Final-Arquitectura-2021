@@ -26,14 +26,16 @@ module registers_bank#(
     reg [NB_DATA-1:0] o_data_b_next;
     
     reg [NB_DATA-1:0]  registers [BANK_DEPTH-1:0];
+
+    generate
+        integer reg_index;
+        initial
+            for (reg_index = 0; reg_index < BANK_DEPTH; reg_index = reg_index + 1)
+                registers[reg_index] = {NB_DATA{1'b0}};
+        endgenerate
     
     always@(posedge i_clock)begin
         if(i_reset)begin:reset
-            integer reg_index;
-            
-            for (reg_index = 0; reg_index < BANK_DEPTH; reg_index = reg_index + 1)
-              registers[reg_index] = {NB_DATA{1'b0}};
-              
             o_data_a_next  =  {NB_DATA{1'b0}};
             o_data_b_next  =  {NB_DATA{1'b0}};
         end 

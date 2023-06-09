@@ -46,7 +46,7 @@ module debug_unit#(
 
     output                  o_step_flag,
     output                  o_step,
-    output                  o_state
+    output [NB_STATE-1:0]   o_state
 );
 
 // States
@@ -122,29 +122,29 @@ always @(posedge i_clock) begin
         // DATA MEMORY
         count_dm_tx_done        <= 7'b0;
         count_dm_tx_done_next   <= 7'b0;
-        dm_enable               <= 1'b0;
-        dm_read_enable          <= 1'b0;
+        // dm_enable               <= 1'b0;
+        // dm_read_enable          <= 1'b0;
 
         // REGISTERS BANK
         count_br_tx_done        <= 5'b0;
         next_count_br_tx_done   <= 5'b0;
         count_br_byte           <= 2'b0;
         next_count_br_byte      <= 2'b0;
-        rb_enable               <= 1'b0;
-        rb_read_enable          <= 1'b0;
+        // rb_enable               <= 1'b0;
+        // rb_read_enable          <= 1'b0;
 
         // PC
         count_pc                <= 2'b0;
         next_count_pc           <= 2'b0;
         
         // TX
-        send_data               <= 1'b0;
+        // send_data               <= 1'b0;
         tx_start                <= 1'b0;
         tx_start_next           <= 1'b0;
 
         // STEPPER
-        step_flag               <= 1'b0;
-        step                    <= 1'b0;
+        // step_flag               <= 1'b0;
+        // step                    <= 1'b0;
     end
     else begin
         state               <= next_state;
@@ -175,15 +175,18 @@ always @(*) begin
     next_im_enable          = im_enable;
     next_im_write_enable    = im_write_enable;
 
+    prev_state              = IDLE;
+    send_data               = 8'd0;
+
     case(state)
         IDLE: begin
             step_flag   = 1'b0;
             step        = 1'b0;
 
-            im_enable       = 1'b0;
-            im_write_enable = 1'b0;
+            next_im_enable       = 1'b0;
+            next_im_write_enable = 1'b0;
             rb_enable       = 1'b0;
-            rb_read_enable   = 1'b0;
+            rb_read_enable  = 1'b0;
             dm_enable       = 1'b0;
             dm_read_enable  = 1'b0;
             cu_enable       = 1'b0;
@@ -221,8 +224,8 @@ always @(*) begin
             step_flag       = 1'b0;
             step            = 1'b0;
 
-            im_enable       = 1'b1;
-            im_write_enable = 1'b0;
+            next_im_enable       = 1'b1;
+            next_im_write_enable = 1'b0;
             rb_enable       = 1'b1;
             rb_read_enable   = 1'b1;
             dm_enable       = 1'b1;
@@ -238,8 +241,8 @@ always @(*) begin
             step_flag   = 1'b1;
             step        = 1'b0;
 
-            im_enable       = 1'b1;
-            im_write_enable = 1'b0;
+            next_im_enable       = 1'b1;
+            next_im_write_enable = 1'b0;
             rb_enable       = 1'b1;
             rb_read_enable   = 1'b1;
             dm_enable       = 1'b1;

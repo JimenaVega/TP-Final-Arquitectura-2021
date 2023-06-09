@@ -14,6 +14,7 @@ module TOP#(
         input                 i_uart_du_rx,
 
         output                o_uart_du_tx,
+        output                o_hlt,
         output [NB_STATE-1:0] o_state
     );
 
@@ -62,9 +63,9 @@ module TOP#(
     wire                cu_enable;
     wire                pc_enable;
 
-    wire [NB_STATE-1:0] state;
+    wire [DWORD-1:0]    pc;
 
-    wire [DWORD-1:0]    pc = 10;
+    wire [NB_STATE-1:0] state;
 
     always@(*)begin
         if(step_flag)begin
@@ -132,11 +133,11 @@ module TOP#(
                           .o_hlt(halt),
                           .o_pc_value(pc),
                           .o_rb_data(rb_data),
-                          .o_dm_data(mem_data),
-                          .o_oe());
+                          .o_dm_data(mem_data));
     
     assign o_state      = state;
     assign o_uart_du_tx = uart_du_tx;
+    assign o_hlt        = halt;
     
 endmodule
 
