@@ -50,8 +50,7 @@ module EX_stage#(
         output                  o_EX_word_en,
         output                  o_EX_r31_ctrl,
         output [NB_PC-1:0]      o_EX_pc,
-        output                  o_EX_hlt,
-        output                  o_EX_oe
+        output                  o_EX_hlt
     );
     
     wire [NB_IMM-1:0]       shifted_imm;
@@ -82,7 +81,6 @@ module EX_stage#(
               .i_b(alu_data_b),
               .i_alu_ctrl(alu_ctrl),
               .o_zero(zero),
-              .o_oe(o_EX_oe),
               .o_result(alu_result));
 
     alu_control alu_control_1(.i_funct_code(funct_code), //chequear esto

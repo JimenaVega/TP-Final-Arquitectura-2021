@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 module debug_unit#(
-    parameter NB_STATE    = 5,
+    parameter NB_STATE    = 4,
     parameter NB_DATA     = 8,
     parameter NB_SIZE     = 16, // 2B x 8 b, el tamaño de los datos a recibir en bits
     parameter N_SIZE      = 2,  // 2B de frame para obtener el total de los datos (size)
@@ -45,19 +45,20 @@ module debug_unit#(
     output                  o_pc_enable,
 
     output                  o_step_flag,
-    output                  o_step
+    output                  o_step,
+    output                  o_state
 );
 
 // States
-localparam [NB_STATE-1:0] IDLE         = 5'd1;
-localparam [NB_STATE-1:0] WRITE_IM     = 5'd2;
-localparam [NB_STATE-1:0] READY        = 5'd4;
-localparam [NB_STATE-1:0] START        = 5'd5;
-localparam [NB_STATE-1:0] STEP_BY_STEP = 5'd6;
-localparam [NB_STATE-1:0] SEND_BR      = 5'd7;
-localparam [NB_STATE-1:0] SEND_MEM     = 5'd8;
-localparam [NB_STATE-1:0] SEND_PC      = 5'd9;
-localparam [NB_STATE-1:0] START_WRITE_IM = 5'd10;
+localparam [NB_STATE-1:0] IDLE         = 4'd1;
+localparam [NB_STATE-1:0] WRITE_IM     = 4'd2;
+localparam [NB_STATE-1:0] READY        = 4'd4;
+localparam [NB_STATE-1:0] START        = 4'd5;
+localparam [NB_STATE-1:0] STEP_BY_STEP = 4'd6;
+localparam [NB_STATE-1:0] SEND_BR      = 4'd7;
+localparam [NB_STATE-1:0] SEND_MEM     = 4'd8;
+localparam [NB_STATE-1:0] SEND_PC      = 4'd9;
+localparam [NB_STATE-1:0] START_WRITE_IM = 4'd10;
 
 // External commands
 localparam [NB_DATA-1:0] CMD_WRITE_IM       = 8'd1;
@@ -394,5 +395,8 @@ assign o_tx_start           = tx_start;
 // STEPPER
 assign o_step_flag          = step_flag;
 assign o_step               = step;
+
+// STATE
+assign o_state              = state;
 
 endmodule

@@ -52,21 +52,21 @@ module tb_TOP;
     i_reset = 1'b0;
     
     #400
-    command = 8'd2;
+    command = 8'd3;
     send    = 1'b1;
 
     #20
     send    = 1'b0;
 
     #1200000
-    command = 8'd6;
+    command = 8'd7;
     send    = 1'b1;
 
     #20
     send    = 1'b0;
     
     #75000000
-    command = 8'd7;
+    command = 8'd8;
     send    = 1'b1;
 
     $finish;

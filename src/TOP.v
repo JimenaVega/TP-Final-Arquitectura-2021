@@ -4,13 +4,17 @@ module TOP#(
         parameter BYTE      = 8,
         parameter DWORD     = 32,
         parameter ADDR      = 7,
-        parameter RB_ADDR   = 5
+        parameter RB_ADDR   = 5,
+        parameter NB_STATE  = 4
     )
     (
-        input               i_clock,
-        input               i_reset,
-        input               i_clock_reset,
-        input               i_uart_du_rx
+        input                 i_clock,
+        input                 i_reset,
+        input                 i_clock_reset,
+        input                 i_uart_du_rx,
+
+        output                o_uart_du_tx,
+        output [NB_STATE-1:0] o_state
     );
 
     wire clk_wiz;
@@ -27,6 +31,7 @@ module TOP#(
       );
 
     reg                 data_path_clk;
+
     wire                step_flag;
     wire                step;
 
@@ -56,6 +61,8 @@ module TOP#(
 
     wire                cu_enable;
     wire                pc_enable;
+
+    wire [NB_STATE-1:0] state;
 
     wire [DWORD-1:0]    pc = 10;
 
@@ -92,7 +99,8 @@ module TOP#(
                             .o_cu_enable(cu_enable),
                             .o_pc_enable(pc_enable),
                             .o_step_flag(step_flag),
-                            .o_step(step));
+                            .o_step(step),
+                            .o_state(state));
     
     UART UART_debug_unit(.i_clock(i_clock), // 50 MHz
                          .i_reset(i_reset),
@@ -127,51 +135,8 @@ module TOP#(
                           .o_dm_data(mem_data),
                           .o_oe());
     
-    // UART UART_external(.i_clock(i_clock),
-    //                      .i_reset(i_reset),
-    //                      .i_rx(uart_du_tx),
-    //                      .i_tx(command),
-    //                      .i_tx_start(send),
-    //                      .o_rx(),
-    //                      .o_rx_done_tick(),
-    //                      .o_tx(uart_du_rx),
-    //                      .o_tx_done_tick());
-
-    // data_memory data_memory_1(.i_clock(i_clock),
-    //                           .i_enable(mem_enable),
-    //                           .i_read_enable(mem_read_enable),
-    //                           .i_read_address(mem_addr),
-    //                           .i_mem_write_flag(),
-    //                           .i_mem_read_flag(),
-    //                           .i_word_en(),
-    //                           .i_halfword_en(),
-    //                           .i_byte_en(),
-    //                           .i_address(),
-    //                           .i_write_data(),
-    //                           .o_byte_data(mem_data),
-    //                           .o_read_data());
-
-    // registers_bank registers_bank_1(.i_clock(i_clock),
-    //                                 .i_enable(rb_enable), // Debug Unit
-    //                                 .i_read_enable(rb_read_enable), // Debug Unit
-    //                                 .i_read_address(rb_addr), // Debug Unit
-    //                                 .i_reset(i_reset),
-    //                                 .i_reg_write(),   // Señal de control RegWrite proveniente de WB
-    //                                 .i_read_reg_a(),
-    //                                 .i_read_reg_b(), 
-    //                                 .i_write_reg(),   // Address 5b
-    //                                 .i_write_data(), // Data 32b
-    //                                 .o_data_a(rb_data),
-    //                                 .o_data_b());
-
-    // instruction_memory instruction_memory_1(.i_clock(i_clock),
-    //                                         .i_enable(im_enable),
-    //                                         .i_write_enable(im_write_enable),
-    //                                         .i_read_enable(),
-    //                                         .i_write_data(im_data),
-    //                                         .i_write_addr(im_addr),
-    //                                         .i_addr(),
-    //                                         .o_read_data());
+    assign o_state      = state;
+    assign o_uart_du_tx = uart_du_tx;
     
 endmodule
 
