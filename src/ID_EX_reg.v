@@ -45,7 +45,7 @@ module ID_EX_reg#(
         output [NB_DATA-1:0]     EX_shamt,
         output [NB_REG-1:0]      EX_rt,
         output [NB_REG-1:0]      EX_rd,
-        input  [NB_REG-1:0]      EX_rs,
+        output  [NB_REG-1:0]      EX_rs,
         output                   EX_byte_en,
         output                   EX_halfword_en,
         output                   EX_word_en,
