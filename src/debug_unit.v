@@ -275,8 +275,8 @@ always @(*) begin
             next_im_enable  = 1'b1;
             next_rb_enable  = 1'b1;
             next_dm_enable  = 1'b1;
-            next_cu_enable       = 1'b1;
-            next_pc_enable       = 1'b1;
+            next_cu_enable  = 1'b1;
+            next_pc_enable  = 1'b1;
 
             if(i_rx_done)begin
                 case (i_rx_data)
@@ -321,6 +321,7 @@ always @(*) begin
         SEND_PC: begin
             tx_start_next   = 1'b1;
             next_step       = 1'b0;
+
             case(count_pc)
                 2'd0:   next_send_data = i_pc_value[31:24];
                 2'd1:   next_send_data = i_pc_value[23:16];
@@ -343,10 +344,15 @@ always @(*) begin
             end
         end
         SEND_BR: begin
-            next_rb_read_enable = 1'b1;
-            next_rb_enable      = 1'b0;
+            next_pc_enable      = 1'b0;
+            next_cu_enable      = 1'b0;
+            next_dm_enable      = 1'b0;
+            next_rb_read_enable = 1'b1; // Read enable = register bank con lectura para debug unit
+            next_rb_enable      = 1'b0; // Enable = register bank con lectura en funcionamiento normal
             tx_start_next       = 1'b1;
             next_step           = 1'b0;
+            next_step_flag      = 1'b0; // Se alimenta el datapath con clk de 50MHz
+
             case(next_count_br_byte)
                 2'd0:   next_send_data = i_br_data[31:24];
                 2'd1:   next_send_data = i_br_data[23:16];

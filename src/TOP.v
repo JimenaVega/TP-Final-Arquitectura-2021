@@ -15,7 +15,8 @@ module TOP#(
 
         output                o_uart_du_tx,
         output                o_hlt,
-        output [NB_STATE-1:0] o_state
+        output [NB_STATE-1:0] o_state,
+        output                o_clk // borrar
     );
 
     wire clk_wiz;
@@ -72,11 +73,11 @@ module TOP#(
           data_path_clk = step;
         end
         else begin
-          data_path_clk = i_clock;
+          data_path_clk = clk_wiz;
         end
     end
     
-    debug_unit debug_unit_1(.i_clock(i_clock), // 50 MHz
+    debug_unit debug_unit_1(.i_clock(clk_wiz), // 50 MHz
                             .i_reset(i_reset),
                             .i_hlt(halt),
                             .i_rx_done(uart_du_rx_done),
@@ -103,7 +104,7 @@ module TOP#(
                             .o_step(step),
                             .o_state(state));
     
-    UART UART_debug_unit(.i_clock(i_clock), // 50 MHz
+    UART UART_debug_unit(.i_clock(clk_wiz), // 50 MHz
                          .i_reset(i_reset),
                          .i_rx(i_uart_du_rx),
                          .i_tx(uart_du_to_send),
@@ -138,6 +139,7 @@ module TOP#(
     assign o_state      = state;
     assign o_uart_du_tx = uart_du_tx;
     assign o_hlt        = halt;
+    assign o_clk        = clk_wiz; // borrar
     
 endmodule
 

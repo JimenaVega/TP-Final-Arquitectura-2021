@@ -16,6 +16,7 @@ module tb_TOP;
   reg             send          = 1'b0;
 
   wire uart_du_rx;
+  wire clk_wzrd;  // Borrar
 
   TOP #(.BYTE(BYTE),
         .DWORD(DWORD),
@@ -24,11 +25,12 @@ module tb_TOP;
   TOP_dut(.i_clock(i_clock),
           .i_reset(i_reset),
           .i_clock_reset(i_clock_reset),
-          .i_uart_du_rx(uart_du_rx));
+          .i_uart_du_rx(uart_du_rx),
+          .o_clk(clk_wzrd)); // Borrar
 
   UART #(.NB_DATA(NB_DATA),
          .NB_OP(NB_OP))
-  UART_dut(.i_clock(i_clock),
+  UART_dut(.i_clock(clk_wzrd), // Cambiar
            .i_reset(i_reset),
            .i_rx(),
            .i_tx(command),
@@ -52,7 +54,7 @@ module tb_TOP;
     i_reset = 1'b0;
     
     #400
-    command = 8'd5;
+    command = 8'd3;
     send    = 1'b1;
 
     #20
