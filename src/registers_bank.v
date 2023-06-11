@@ -36,8 +36,8 @@ module registers_bank#(
     
     always@(posedge i_clock)begin
         if(i_reset)begin:reset
-            o_data_a_next  =  {NB_DATA{1'b0}};
-            o_data_b_next  =  {NB_DATA{1'b0}};
+            o_data_a_next  <=  {NB_DATA{1'b0}};
+            o_data_b_next  <=  {NB_DATA{1'b0}};
         end 
         else begin
             if(i_enable) begin // Funcionamiento normal
@@ -51,11 +51,10 @@ module registers_bank#(
         if(i_read_enable) begin     // Lectura del RB desde la Debug Unit
             o_data_a_next = registers[i_read_address];
         end
-    	if(i_enable)begin
+
+    	if(i_enable & i_reg_write)begin
             // Escritura de registros
-            if(i_reg_write) begin
-                registers[i_write_reg] <= i_write_data;
-            end
+            registers[i_write_reg] = i_write_data;
         end
     end
     
