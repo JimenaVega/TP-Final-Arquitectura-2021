@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 module debug_unit#(
-    parameter NB_STATE    = 5,
+    parameter NB_STATE    = 4,
     parameter NB_DATA     = 8,
     parameter NB_SIZE     = 16, // 2B x 8 b, el tamaño de los datos a recibir en bits
     parameter N_SIZE      = 2,  // 2B de frame para obtener el total de los datos (size)
@@ -45,19 +45,20 @@ module debug_unit#(
     output                  o_pc_enable,
 
     output                  o_step_flag,
-    output                  o_step
+    output                  o_step,
+    output [NB_STATE-1:0]   o_state
 );
 
 // States
-localparam [NB_STATE-1:0] IDLE         = 5'd1;
-localparam [NB_STATE-1:0] WRITE_IM     = 5'd2;
-localparam [NB_STATE-1:0] READY        = 5'd4;
-localparam [NB_STATE-1:0] START        = 5'd5;
-localparam [NB_STATE-1:0] STEP_BY_STEP = 5'd6;
-localparam [NB_STATE-1:0] SEND_BR      = 5'd7;
-localparam [NB_STATE-1:0] SEND_MEM     = 5'd8;
-localparam [NB_STATE-1:0] SEND_PC      = 5'd9;
-localparam [NB_STATE-1:0] START_WRITE_IM = 5'd10;
+localparam [NB_STATE-1:0] IDLE         = 4'd1;
+localparam [NB_STATE-1:0] WRITE_IM     = 4'd2;
+localparam [NB_STATE-1:0] READY        = 4'd4;
+localparam [NB_STATE-1:0] START        = 4'd5;
+localparam [NB_STATE-1:0] STEP_BY_STEP = 4'd6;
+localparam [NB_STATE-1:0] SEND_BR      = 4'd7;
+localparam [NB_STATE-1:0] SEND_MEM     = 4'd8;
+localparam [NB_STATE-1:0] SEND_PC      = 4'd9;
+localparam [NB_STATE-1:0] START_WRITE_IM = 4'd10;
 
 // External commands
 localparam [NB_DATA-1:0] CMD_WRITE_IM       = 8'd1;
@@ -80,29 +81,29 @@ reg                     im_enable,          next_im_enable;
 
 // DATA MEMORY
 reg [NB_ADDR_DM-1:0]    count_dm_tx_done,   count_dm_tx_done_next;  // Address
-reg                     dm_read_enable;
-reg                     dm_enable;
+reg                     dm_read_enable,     next_dm_read_enable;
+reg                     dm_enable,          next_dm_enable;
 
 // BANK REGISTER
 reg [NB_ADDR_RB-1:0]    count_br_tx_done,   next_count_br_tx_done; 
 reg [NB_BYTE_CTR-1:0]   count_br_byte,      next_count_br_byte;     // cuenta hasta 4 bytes
-reg                     rb_read_enable;
-reg                     rb_enable;
+reg                     rb_read_enable,     next_rb_read_enable;
+reg                     rb_enable,          next_rb_enable;
 
 // PC
 reg [NB_PC_CTR-1:0]     count_pc,           next_count_pc;
-reg                     pc_enable;
+reg                     pc_enable,          next_pc_enable;
 
 // CONTROL UNIT
-reg                     cu_enable;
+reg                     cu_enable,          next_cu_enable;
 
 // TX
-reg [NB_DATA-1:0]       send_data;         // DM & BR -> TX
+reg [NB_DATA-1:0]       send_data,          next_send_data;         // DM & BR -> TX
 reg                     tx_start,           tx_start_next;
 
 // STEPPER
-reg                     step_flag;
-reg                     step;
+reg                     step_flag,          next_step_flag;
+reg                     step,               next_step;
 
 // Memory
 always @(posedge i_clock) begin
@@ -122,7 +123,9 @@ always @(posedge i_clock) begin
         count_dm_tx_done        <= 7'b0;
         count_dm_tx_done_next   <= 7'b0;
         dm_enable               <= 1'b0;
+        next_dm_enable          <= 1'b0;
         dm_read_enable          <= 1'b0;
+        next_dm_read_enable     <= 1'b0;
 
         // REGISTERS BANK
         count_br_tx_done        <= 5'b0;
@@ -130,20 +133,31 @@ always @(posedge i_clock) begin
         count_br_byte           <= 2'b0;
         next_count_br_byte      <= 2'b0;
         rb_enable               <= 1'b0;
+        next_rb_enable          <= 1'b0;
         rb_read_enable          <= 1'b0;
+        next_rb_read_enable     <= 1'b0;
 
         // PC
+        pc_enable               <= 1'b0;
+        next_pc_enable          <= 1'b0;
         count_pc                <= 2'b0;
         next_count_pc           <= 2'b0;
+
+        // CONTROL UNIT
+        cu_enable               <= 1'b0;
+        next_cu_enable          <= 1'b0;
         
         // TX
-        send_data               <= 1'b0;
+        send_data               <= 8'b0;
+        next_send_data          <= 8'b0;
         tx_start                <= 1'b0;
         tx_start_next           <= 1'b0;
 
         // STEPPER
         step_flag               <= 1'b0;
+        next_step_flag          <= 1'b0;
         step                    <= 1'b0;
+        next_step               <= 1'b0;
     end
     else begin
         state               <= next_state;
@@ -152,41 +166,65 @@ always @(posedge i_clock) begin
         im_enable           <= next_im_enable;
         im_count            <= next_im_count;
         // DATA MEMORY
+        dm_enable           <= next_dm_enable;
+        dm_read_enable      <= next_dm_read_enable;
         count_dm_tx_done    <= count_dm_tx_done_next;
         // REGISTERS BANK
+        rb_enable           <= next_rb_enable;
+        rb_read_enable      <= next_rb_read_enable;
         count_br_byte       <= next_count_br_byte;
         count_br_tx_done    <= next_count_br_tx_done;
         tx_start            <= tx_start_next;
         // PC
+        pc_enable           <= next_pc_enable;
         count_pc            <= next_count_pc;
-        step_flag           <= step_flag;
-        step                <= step;
+        step_flag           <= next_step_flag;
+        step                <= next_step;
+        // CONTROL UNIT
+        cu_enable           <= next_cu_enable;
+        // TX
+        send_data           <= next_send_data;
     end
 end
 
 // Next sate logic
 always @(*) begin
     next_state              = state;
+    next_dm_enable          = dm_enable;
+    next_dm_read_enable     = dm_read_enable;
     count_dm_tx_done_next   = count_dm_tx_done;
     next_count_br_byte      = count_br_byte;
     next_count_br_tx_done   = count_br_tx_done;
     next_count_pc           = count_pc;
     next_im_enable          = im_enable;
     next_im_write_enable    = im_write_enable;
+    next_im_count           = im_count;
+    next_rb_enable          = rb_enable;
+    next_rb_read_enable     = rb_read_enable;
+    next_send_data          = send_data;
+    next_cu_enable          = cu_enable;
+    next_pc_enable          = pc_enable;
+    tx_start_next           = tx_start;
+    next_step_flag          = step_flag;
+    next_step               = step;
+
+    prev_state              = IDLE;
 
     case(state)
         IDLE: begin
-            step_flag   = 1'b0;
-            step        = 1'b0;
+            next_step_flag      = 1'b0;
+            next_step           = 1'b0;
 
-            im_enable       = 1'b0;
-            im_write_enable = 1'b0;
-            rb_enable       = 1'b0;
-            rb_read_enable   = 1'b0;
-            dm_enable       = 1'b0;
-            dm_read_enable  = 1'b0;
-            cu_enable       = 1'b0;
-            pc_enable       = 1'b0;
+            next_im_enable       = 1'b0;
+            next_im_write_enable = 1'b0;
+            next_rb_enable       = 1'b0;
+            next_rb_read_enable  = 1'b0;
+            next_dm_enable       = 1'b0;
+            next_dm_read_enable  = 1'b0;
+            next_cu_enable       = 1'b0;
+            next_pc_enable       = 1'b0;
+
+            next_send_data      = 8'b0;
 
             if(i_rx_done) begin
                 case (i_rx_data)
@@ -208,7 +246,7 @@ always @(*) begin
             end
         end
         READY: begin
-            step = 1'b0;
+            next_step = 1'b0;
             if(i_rx_done)begin
                 case(i_rx_data)
                     CMD_STEP_BY_STEP:   next_state = STEP_BY_STEP;
@@ -217,41 +255,35 @@ always @(*) begin
             end
         end
         START: begin
-            step_flag       = 1'b0;
-            step            = 1'b0;
+            next_step_flag  = 1'b0;
+            next_step       = 1'b0;
 
-            im_enable       = 1'b1;
-            im_write_enable = 1'b0;
-            rb_enable       = 1'b1;
-            rb_read_enable   = 1'b1;
-            dm_enable       = 1'b1;
-            dm_read_enable  = 1'b1;
-            cu_enable       = 1'b1;
-            pc_enable       = 1'b1;
+            next_im_enable  = 1'b1;
+            next_rb_enable  = 1'b1;
+            next_dm_enable       = 1'b1;
+            next_cu_enable       = 1'b1;
+            next_pc_enable       = 1'b1;
 
             if(i_hlt)begin
                 next_state = IDLE;
             end
         end
         STEP_BY_STEP: begin
-            step_flag   = 1'b1;
-            step        = 1'b0;
+            next_step_flag  = 1'b1;
+            next_step       = 1'b0;
 
-            im_enable       = 1'b1;
-            im_write_enable = 1'b0;
-            rb_enable       = 1'b1;
-            rb_read_enable   = 1'b1;
-            dm_enable       = 1'b1;
-            dm_read_enable  = 1'b1;
-            cu_enable       = 1'b1;
-            pc_enable       = 1'b1;
+            next_im_enable  = 1'b1;
+            next_rb_enable  = 1'b1;
+            next_dm_enable  = 1'b1;
+            next_cu_enable       = 1'b1;
+            next_pc_enable       = 1'b1;
 
             if(i_rx_done)begin
                 case (i_rx_data)
                     CMD_STEP: begin
                         next_state  = SEND_PC;
                         prev_state  = STEP_BY_STEP;
-                        step        = 1'b1;
+                        next_step   = 1'b1;
                     end       
                     CMD_CONTINUE: next_state = START;
                 endcase
@@ -262,11 +294,11 @@ always @(*) begin
             end
         end
         START_WRITE_IM: begin
-            step        = 1'b0;
+            next_step   = 1'b0;
             next_state  = WRITE_IM;
         end
         WRITE_IM: begin
-            step = 1'b0;
+            next_step = 1'b0;
             if(im_count == 32'd256)begin
                 next_state              = READY;
                 next_im_enable          = 1'b0;
@@ -288,12 +320,12 @@ always @(*) begin
         end
         SEND_PC: begin
             tx_start_next   = 1'b1;
-            step            = 1'b0;
+            next_step       = 1'b0;
             case(count_pc)
-                2'd0:   send_data = i_pc_value[31:24];
-                2'd1:   send_data = i_pc_value[23:16];
-                2'd2:   send_data = i_pc_value[15:8];
-                2'd3:   send_data = i_pc_value[7:0];
+                2'd0:   next_send_data = i_pc_value[31:24];
+                2'd1:   next_send_data = i_pc_value[23:16];
+                2'd2:   next_send_data = i_pc_value[15:8];
+                2'd3:   next_send_data = i_pc_value[7:0];
             endcase
 
             if(i_tx_done)begin
@@ -311,15 +343,15 @@ always @(*) begin
             end
         end
         SEND_BR: begin
-            rb_read_enable  = 1'b1;
-            rb_enable       = 1'b0;
-            tx_start_next   = 1'b1;
-            step            = 1'b0;
+            next_rb_read_enable = 1'b1;
+            next_rb_enable      = 1'b0;
+            tx_start_next       = 1'b1;
+            next_step           = 1'b0;
             case(next_count_br_byte)
-                2'd0:   send_data = i_br_data[31:24];
-                2'd1:   send_data = i_br_data[23:16];
-                2'd2:   send_data = i_br_data[15:8];
-                2'd3:   send_data = i_br_data[7:0];
+                2'd0:   next_send_data = i_br_data[31:24];
+                2'd1:   next_send_data = i_br_data[23:16];
+                2'd2:   next_send_data = i_br_data[15:8];
+                2'd3:   next_send_data = i_br_data[7:0];
             endcase
 
             if(i_tx_done)begin
@@ -330,8 +362,7 @@ always @(*) begin
                     next_count_br_byte      = 2'd0;
 
                     if(count_br_tx_done == RB_DEPTH-1)begin
-                        rb_read_enable  = 1'b0;
-                        rb_enable       = 1'b0;
+                        next_rb_read_enable  = 1'b0;
                         tx_start_next   = 1'b0;
 
                         next_state      = prev_state;
@@ -340,18 +371,18 @@ always @(*) begin
             end
         end
         SEND_MEM: begin
-            dm_read_enable  = 1'b1;
-            dm_enable       = 1'b1;
-            tx_start_next   = 1'b1;
-            send_data       = i_dm_data;
-            step            = 1'b0;
+            next_dm_read_enable     = 1'b1;
+            next_dm_enable          = 1'b1;
+            tx_start_next           = 1'b1;
+            next_send_data          = i_dm_data;
+            next_step               = 1'b0;
 
             if(i_tx_done)begin
                 count_dm_tx_done_next = count_dm_tx_done + 1;
 
                 if(count_dm_tx_done == DM_DEPTH-1)begin
-                    dm_read_enable  = 1'b0;
-                    dm_enable       = 1'b0;
+                    next_dm_read_enable  = 1'b0;
+                    next_dm_enable       = 1'b0;
                     tx_start_next   = 1'b0;
                     if(prev_state == STEP_BY_STEP) begin
                         next_state = SEND_BR;
@@ -394,5 +425,8 @@ assign o_tx_start           = tx_start;
 // STEPPER
 assign o_step_flag          = step_flag;
 assign o_step               = step;
+
+// STATE
+assign o_state              = state;
 
 endmodule

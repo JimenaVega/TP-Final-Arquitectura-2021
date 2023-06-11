@@ -9,8 +9,9 @@ module instruction_memory#(
   parameter NB_ADDR = 32,
   parameter NB_INSTRUCTION = 32,
   parameter RAM_PERFORMANCE = "LOW_LATENCY",// Select "HIGH_PERFORMANCE" or "LOW_LATENCY" 
-  parameter INIT_FILE = "/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/translator/inst.mem"
-  // parameter INIT_FILE = "C:/Users/alejo/OneDrive/Documents/GitHub/TP-Final-Arquitectura-2021/translator/instructions.mem"
+//  parameter INIT_FILE = "/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/translator/inst.mem"
+//  parameter INIT_FILE = "C:/Users/alejo/OneDrive/Documents/GitHub/TP-Final-Arquitectura-2021/translator/instructions.mem"
+  parameter INIT_FILE = ""
 ) 
 (
   input                       i_clock,
