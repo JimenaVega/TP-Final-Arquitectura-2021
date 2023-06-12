@@ -188,7 +188,7 @@ module data_path#(
                         .i_IF_branch_addr(o_MEM_branch_addr),
                         .i_IF_jump_address(ID_jump_address),
                         .i_IF_r31_data(ID_r31_data),
-                        .i_IF_enable_pc(enable_pc),
+                        .i_IF_enable_pc(enable_pc), // STALL UNIT
                         .o_IF_adder_result(IF_adder_result),
                         .o_IF_new_instruction(IF_new_instruction));
                         

@@ -41,7 +41,7 @@ module IF_stage#(
                                       .i_clock(i_clock),
                                       .i_reset(i_IF_pc_reset),
                                       .i_mux_pc(mux2_3_output),
-                                      .i_enable_pc(i_enable_pc),
+                                      .i_enable_pc(i_IF_enable_pc),
                                       .o_pc_mem(new_pc_value));
     
     adder adder_1(.i_a(new_pc_value),
