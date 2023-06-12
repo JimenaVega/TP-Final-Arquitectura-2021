@@ -54,13 +54,13 @@ module tb_TOP;
     i_reset = 1'b0;
     
     #400
-    command = 8'd3;
+    command = 8'd1;
     send    = 1'b1;
 
     #20
     send    = 1'b0;
 
-    #1200000
+    #4000000
     command = 8'd7;
     send    = 1'b1;
 

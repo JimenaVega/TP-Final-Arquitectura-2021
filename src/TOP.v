@@ -4,6 +4,7 @@ module TOP#(
         parameter BYTE      = 8,
         parameter DWORD     = 32,
         parameter ADDR      = 7,
+        parameter NB_MEM_DEPTH = 8,
         parameter RB_ADDR   = 5,
         parameter NB_STATE  = 4
     )
@@ -123,7 +124,7 @@ module TOP#(
                           .i_im_enable(im_enable),
                           .i_im_write_enable(im_write_enable),
                           .i_im_data(im_data),
-                          .i_im_address(im_addr),
+                          .i_im_address(im_addr[7:0]),
                           .i_rb_enable(rb_enable),
                           .i_rb_read_enable(rb_read_enable),
                           .i_rb_address(rb_addr),

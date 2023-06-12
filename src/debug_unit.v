@@ -28,7 +28,7 @@ module debug_unit#(
     input  [NB_ADDR-1:0]    i_br_data,      // data read from BANK REGISTER
     output [NB_DATA-1:0]    o_im_data,      // data to write in INSTRUCTION MEMORY
 
-    output [NB_ADDR-1:0]    o_im_addr,      // address to write INSTRUCTION MEMORY
+    output [NB_ADDR-1:0] o_im_addr,      // address to write INSTRUCTION MEMORY
     output [NB_ADDR_RB-1:0] o_rb_addr,      // address to read BANK REGISTER
     output [NB_ADDR_DM-1:0] o_dm_addr,      // address to read DATA MEMORY
 
@@ -75,7 +75,7 @@ localparam [NB_DATA-1:0] CMD_CONTINUE       = 8'd8;
 reg [NB_STATE-1:0]      state,              next_state,     prev_state;
 
 // INSTRUCTION MEMORY
-reg [NB_ADDR-1:0]       im_count,           next_im_count;          // Address a escribir
+reg [NB_ADDR-1:0]  im_count,           next_im_count;          // Address a escribir
 reg                     im_write_enable,    next_im_write_enable;   // Flag que habilita la escritura del IM
 reg                     im_enable,          next_im_enable;
 
@@ -116,8 +116,8 @@ always @(posedge i_clock) begin
         next_im_write_enable    <= 1'b0;
         im_enable               <= 1'b0;
         next_im_enable          <= 1'b0;
-        im_count                <= 32'hffffffff;
-        next_im_count           <= 32'hffffffff;
+        im_count                <= 32'hfffffff;
+        next_im_count           <= 32'hfffffff;
 
         // DATA MEMORY
         count_dm_tx_done        <= 7'b0;
@@ -303,7 +303,7 @@ always @(*) begin
                 next_state              = READY;
                 next_im_enable          = 1'b0;
                 next_im_write_enable    = 1'b0;
-                next_im_count           = 32'hffffffff;
+                next_im_count           = 32'hfffffff;
             end
             else begin
                 if(i_rx_done)begin
