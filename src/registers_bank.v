@@ -35,6 +35,10 @@ module registers_bank#(
         endgenerate
     
     always@(posedge i_clock)begin
+        registers[0] <= 32'd255;
+        registers[1] <= 32'd10;
+        registers[2] <= 32'd200;
+        registers[3] <= 32'd420;
         if(i_reset)begin:reset
             o_data_a_next  <=  {NB_DATA{1'b0}};
             o_data_b_next  <=  {NB_DATA{1'b0}};
@@ -44,14 +48,13 @@ module registers_bank#(
                 o_data_a_next <= registers[i_read_reg_a];
                 o_data_b_next <= registers[i_read_reg_b];
             end
+            else if(i_read_enable) begin     // Lectura del RB desde la Debug Unit
+                o_data_a_next = registers[i_read_address];
+            end
         end
     end
 
     always@(*)begin
-        if(i_read_enable) begin     // Lectura del RB desde la Debug Unit
-            o_data_a_next = registers[i_read_address];
-        end
-
     	if(i_enable & i_reg_write)begin
             // Escritura de registros
             registers[i_write_reg] = i_write_data;

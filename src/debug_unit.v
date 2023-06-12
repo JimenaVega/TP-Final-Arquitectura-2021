@@ -6,7 +6,6 @@ module debug_unit#(
     parameter NB_SIZE     = 16, // 2B x 8 b, el tamaño de los datos a recibir en bits
     parameter N_SIZE      = 2,  // 2B de frame para obtener el total de los datos (size)
     parameter NB_ADDR     = 32,
-    parameter NB_MEM_DEPTH = 8,
     parameter NB_ADDR_RB  = 5,
     parameter NB_BYTE_CTR = 2,
     parameter NB_ADDR_DM  = 7, 
@@ -29,7 +28,7 @@ module debug_unit#(
     input  [NB_ADDR-1:0]    i_br_data,      // data read from BANK REGISTER
     output [NB_DATA-1:0]    o_im_data,      // data to write in INSTRUCTION MEMORY
 
-    output [NB_MEM_DEPTH-1:0] o_im_addr,      // address to write INSTRUCTION MEMORY
+    output [NB_ADDR-1:0] o_im_addr,      // address to write INSTRUCTION MEMORY
     output [NB_ADDR_RB-1:0] o_rb_addr,      // address to read BANK REGISTER
     output [NB_ADDR_DM-1:0] o_dm_addr,      // address to read DATA MEMORY
 
@@ -76,7 +75,7 @@ localparam [NB_DATA-1:0] CMD_CONTINUE       = 8'd8;
 reg [NB_STATE-1:0]      state,              next_state,     prev_state;
 
 // INSTRUCTION MEMORY
-reg [NB_MEM_DEPTH-1:0]  im_count,           next_im_count;          // Address a escribir
+reg [NB_ADDR-1:0]  im_count,           next_im_count;          // Address a escribir
 reg                     im_write_enable,    next_im_write_enable;   // Flag que habilita la escritura del IM
 reg                     im_enable,          next_im_enable;
 
@@ -117,8 +116,8 @@ always @(posedge i_clock) begin
         next_im_write_enable    <= 1'b0;
         im_enable               <= 1'b0;
         next_im_enable          <= 1'b0;
-        im_count                <= 8'hff;
-        next_im_count           <= 8'hff;
+        im_count                <= 32'hfffffff;
+        next_im_count           <= 32'hfffffff;
 
         // DATA MEMORY
         count_dm_tx_done        <= 7'b0;
@@ -276,8 +275,8 @@ always @(*) begin
             next_im_enable  = 1'b1;
             next_rb_enable  = 1'b1;
             next_dm_enable  = 1'b1;
-            next_cu_enable       = 1'b1;
-            next_pc_enable       = 1'b1;
+            next_cu_enable  = 1'b1;
+            next_pc_enable  = 1'b1;
 
             if(i_rx_done)begin
                 case (i_rx_data)
@@ -300,11 +299,11 @@ always @(*) begin
         end
         WRITE_IM: begin
             next_step = 1'b0;
-            if(im_count == 8'd255)begin
+            if(im_count == 32'd256)begin
                 next_state              = READY;
                 next_im_enable          = 1'b0;
                 next_im_write_enable    = 1'b0;
-                next_im_count           = 8'hff;
+                next_im_count           = 32'hfffffff;
             end
             else begin
                 if(i_rx_done)begin
@@ -322,6 +321,7 @@ always @(*) begin
         SEND_PC: begin
             tx_start_next   = 1'b1;
             next_step       = 1'b0;
+
             case(count_pc)
                 2'd0:   next_send_data = i_pc_value[31:24];
                 2'd1:   next_send_data = i_pc_value[23:16];
@@ -344,10 +344,15 @@ always @(*) begin
             end
         end
         SEND_BR: begin
-            next_rb_read_enable = 1'b1;
-            next_rb_enable      = 1'b0;
+            next_pc_enable      = 1'b0;
+            next_cu_enable      = 1'b0;
+            next_dm_enable      = 1'b0;
+            next_rb_read_enable = 1'b1; // Read enable = register bank con lectura para debug unit
+            next_rb_enable      = 1'b0; // Enable = register bank con lectura en funcionamiento normal
             tx_start_next       = 1'b1;
             next_step           = 1'b0;
+            next_step_flag      = 1'b0; // Se alimenta el datapath con clk de 50MHz
+
             case(next_count_br_byte)
                 2'd0:   next_send_data = i_br_data[31:24];
                 2'd1:   next_send_data = i_br_data[23:16];
