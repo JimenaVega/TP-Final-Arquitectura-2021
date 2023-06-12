@@ -6,6 +6,7 @@ module debug_unit#(
     parameter NB_SIZE     = 16, // 2B x 8 b, el tamaño de los datos a recibir en bits
     parameter N_SIZE      = 2,  // 2B de frame para obtener el total de los datos (size)
     parameter NB_ADDR     = 32,
+    parameter NB_MEM_DEPTH = 8,
     parameter NB_ADDR_RB  = 5,
     parameter NB_BYTE_CTR = 2,
     parameter NB_ADDR_DM  = 7, 
@@ -28,7 +29,7 @@ module debug_unit#(
     input  [NB_ADDR-1:0]    i_br_data,      // data read from BANK REGISTER
     output [NB_DATA-1:0]    o_im_data,      // data to write in INSTRUCTION MEMORY
 
-    output [NB_ADDR-1:0]    o_im_addr,      // address to write INSTRUCTION MEMORY
+    output [NB_MEM_DEPTH-1:0] o_im_addr,      // address to write INSTRUCTION MEMORY
     output [NB_ADDR_RB-1:0] o_rb_addr,      // address to read BANK REGISTER
     output [NB_ADDR_DM-1:0] o_dm_addr,      // address to read DATA MEMORY
 
@@ -75,7 +76,7 @@ localparam [NB_DATA-1:0] CMD_CONTINUE       = 8'd8;
 reg [NB_STATE-1:0]      state,              next_state,     prev_state;
 
 // INSTRUCTION MEMORY
-reg [NB_ADDR-1:0]       im_count,           next_im_count;          // Address a escribir
+reg [NB_MEM_DEPTH-1:0]  im_count,           next_im_count;          // Address a escribir
 reg                     im_write_enable,    next_im_write_enable;   // Flag que habilita la escritura del IM
 reg                     im_enable,          next_im_enable;
 
@@ -116,8 +117,8 @@ always @(posedge i_clock) begin
         next_im_write_enable    <= 1'b0;
         im_enable               <= 1'b0;
         next_im_enable          <= 1'b0;
-        im_count                <= 32'hffffffff;
-        next_im_count           <= 32'hffffffff;
+        im_count                <= 8'hff;
+        next_im_count           <= 8'hff;
 
         // DATA MEMORY
         count_dm_tx_done        <= 7'b0;
@@ -299,11 +300,11 @@ always @(*) begin
         end
         WRITE_IM: begin
             next_step = 1'b0;
-            if(im_count == 32'd256)begin
+            if(im_count == 8'd255)begin
                 next_state              = READY;
                 next_im_enable          = 1'b0;
                 next_im_write_enable    = 1'b0;
-                next_im_count           = 32'hffffffff;
+                next_im_count           = 8'hff;
             end
             else begin
                 if(i_rx_done)begin

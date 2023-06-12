@@ -6,6 +6,7 @@ module data_path#(
         parameter NB_DATA           = 32,
         parameter NB_REG            = 5, 
         parameter NB_ADDR           = 32,
+        parameter NB_MEM_DEPTH      = 8, // Dado que MEM DEPTH = 256
         parameter NB_DM_ADDR        = 7,
         parameter NB_OPCODE         = 6,
         parameter NB_MEM_WIDTH      = 8,  // Todas las memorias, excepto bank register tienen WIDTH = 8
@@ -22,7 +23,7 @@ module data_path#(
         input                       i_im_enable,          // DEBUG UNIT
         input                       i_im_write_enable,    // DEBUG UNIT
         input [NB_MEM_WIDTH-1:0]    i_im_data,            // DEBUG UNIT
-        input [NB_ADDR-1:0]         i_im_address,         // DEBUG UNIT
+        input [NB_MEM_DEPTH-1:0]    i_im_address,         // DEBUG UNIT
 
         input                       i_rb_enable,          // DEBUG UNIT
         input                       i_rb_read_enable,     // DEBUG UNIT

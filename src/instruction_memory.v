@@ -6,6 +6,7 @@
 module instruction_memory#(
   parameter MEMORY_WIDTH = 8,              // Specify RAM data width
   parameter MEMORY_DEPTH = 256,              // Specify RAM depth (number of entries)
+  parameter NB_ADDR_DEPTH = 8,
   parameter NB_ADDR = 32,
   parameter NB_INSTRUCTION = 32,
   parameter RAM_PERFORMANCE = "LOW_LATENCY",// Select "HIGH_PERFORMANCE" or "LOW_LATENCY" 
@@ -19,7 +20,7 @@ module instruction_memory#(
   input                       i_read_enable,  
   input                       i_write_enable, // Debug Unit Control   
   input  [MEMORY_WIDTH-1:0]   i_write_data,   // Debug Unit Control
-  input  [NB_ADDR-1:0]        i_write_addr,   // Debug Unit Control
+  input  [NB_ADDR_DEPTH-1:0]  i_write_addr,   // Debug Unit Control
   input  [NB_ADDR-1:0]        i_addr,         // Read address bus, width determined from RAM_DEPTH
   output [NB_INSTRUCTION-1:0] o_read_data     // RAM output data
 );

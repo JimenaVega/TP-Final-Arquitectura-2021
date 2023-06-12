@@ -4,6 +4,7 @@ module TOP#(
         parameter BYTE      = 8,
         parameter DWORD     = 32,
         parameter ADDR      = 7,
+        parameter NB_MEM_DEPTH = 8,
         parameter RB_ADDR   = 5,
         parameter NB_STATE  = 4
     )
@@ -57,7 +58,7 @@ module TOP#(
 
     wire                im_enable;
     wire                im_write_enable;
-    wire [DWORD-1:0]    im_addr;
+    wire [NB_MEM_DEPTH-1:0] im_addr;
     wire [BYTE-1:0]     im_data;
 
     wire                cu_enable;

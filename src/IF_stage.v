@@ -3,6 +3,7 @@
 module IF_stage#(
         parameter NB_PC             = 32,
         parameter NB_INSTRUCTION    = 32,
+        parameter NB_IM_DEPTH       = 8, // Dado que MEM DEPTH = 256
         parameter NB_MEM_WIDTH      = 8
     )
     (
@@ -16,7 +17,7 @@ module IF_stage#(
         input                       i_IF_im_enable,     // DEBUG_UNIT control
         input                       i_IF_write_enable,  // DEBUG_UNIT control
         input  [NB_MEM_WIDTH-1:0]   i_IF_write_data,    // DEBUG_UNIT control
-        input  [NB_PC-1:0]          i_IF_write_addr,    // DEBUG_UNIT control
+        input  [NB_IM_DEPTH-1:0]    i_IF_write_addr,    // DEBUG_UNIT control
         input  [NB_PC-1:0]          i_IF_branch_addr,
         input  [NB_PC-1:0]          i_IF_jump_address,  // J y JAL
         input  [NB_PC-1:0]          i_IF_r31_data,      // JR y JALR
