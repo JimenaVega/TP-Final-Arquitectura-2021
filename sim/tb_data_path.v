@@ -14,7 +14,6 @@ module tb_data_path;
 
   // Ports
   reg i_clock;
-  reg i_clock_reset;
   reg i_pc_enable;
   reg i_pc_reset;
   reg i_read_enable;
@@ -49,7 +48,6 @@ module tb_data_path;
     .NB_MEM_WIDTH(NB_MEM_WIDTH) // Todas las memorias, excepto bank register tienen WIDTH = 8
 )
   data_path_1 (.i_clock(i_clock),
-         .i_clock_reset(i_clock_reset),
          .i_pc_enable(i_pc_enable),
          .i_pc_reset(i_pc_reset),
          .i_ctrl_reset(i_ctrl_reset),
@@ -73,7 +71,6 @@ module tb_data_path;
 
   initial begin
     i_clock 			= 1'b0;
-    i_clock_reset 		= 1'b0;
     i_pc_enable 		= 1'b0;
     i_pc_reset 			= 1'b1;
     i_ctrl_reset        = 1'b1;
@@ -95,20 +92,20 @@ module tb_data_path;
 
     i_cu_enable = 0;
 
-	#20
-	i_pc_enable         = 1'b1;
-	i_ctrl_reset        = 1'b0;
-	i_pc_reset          = 1'b0;
-	i_ID_stage_reset    = 1'b0;
-	i_read_enable       = 1'b1;
+    #20
+    i_pc_enable         = 1'b1;
+    i_ctrl_reset        = 1'b0;
+    i_pc_reset          = 1'b0;
+    i_ID_stage_reset    = 1'b0;
+    i_read_enable       = 1'b1;
 
-	i_im_enable 		= 1'b1;
-	i_rb_enable 		= 1'b1;
-	i_dm_enable 		= 1'b1;
-	i_cu_enable 		= 1'b1;
-      
-	#700
-	$finish;
+    i_im_enable 		= 1'b1;
+    i_rb_enable 		= 1'b1;
+    i_dm_enable 		= 1'b1;
+    i_cu_enable 		= 1'b1;
+        
+    #700
+    $finish;
   end
 
   always

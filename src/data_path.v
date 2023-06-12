@@ -376,7 +376,7 @@ module data_path#(
                           .i_MEM_hlt(MEM_hlt),
                           .o_MEM_mem_data(MEM_mem_data),
                           .o_MEM_selected_reg(o_MEM_selected_reg),
-                          .o_MEM_alu_result(o_MEM_alu_result),
+                          .o_MEM_alu_result(o_MEM_alu_result), //********
                           .o_MEM_branch_addr(o_MEM_branch_addr),
                           .o_MEM_branch_zero(MEM_branch_zero),
                           .o_MEM_reg_write(o_MEM_reg_write),
@@ -390,7 +390,7 @@ module data_path#(
                             .i_MEM_reg_write(o_MEM_reg_write),
                             .i_MEM_mem_to_reg(o_MEM_mem_to_reg),
                             .i_MEM_mem_data(MEM_mem_data),
-                            .i_MEM_alu_result(MEM_alu_result),
+                            .i_MEM_alu_result(o_MEM_alu_result),
                             .i_MEM_selected_reg(o_MEM_selected_reg),
                             .i_MEM_r31_ctrl(o_MEM_r31_ctrl),
                             .i_MEM_pc(o_MEM_pc),

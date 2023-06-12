@@ -35,18 +35,36 @@ module registers_bank#(
     endgenerate
     
     always@(posedge i_clock)begin
-        registers[0] <= 32'd255;
-        registers[1] <= 32'd10;
-        registers[2] <= 32'd200;
-        registers[3] <= 32'd420;
+        // registers[0] <= 32'd255;
+        // registers[1] <= 32'd10;
+        // registers[2] <= 32'd200;
+        // registers[3] <= 32'd420;
         if(i_reset)begin:reset
             o_data_a_next  <=  {NB_DATA{1'b0}};
             o_data_b_next  <=  {NB_DATA{1'b0}};
         end 
         else begin
             if(i_enable) begin // Funcionamiento normal
-                o_data_a_next <= registers[i_read_reg_a];
-                o_data_b_next <= registers[i_read_reg_b];
+                
+                // Escritura de regs
+                if (i_reg_write) begin
+                    registers[i_write_reg] = i_write_data;
+                end
+
+                // Lectura para evitar raw hazards en el 3er ciclo de clock
+                if(i_read_reg_a == i_write_reg) begin
+                    o_data_a_next <= i_write_data;
+                    o_data_b_next <= registers[i_read_reg_b];
+                end
+                else if (i_read_reg_b == i_write_reg) begin
+                    o_data_a_next <= registers[i_read_reg_a];
+                    o_data_b_next <= i_write_data;
+                end
+                else begin
+                    // Lectura normal
+                    o_data_a_next <= registers[i_read_reg_a];
+                    o_data_b_next <= registers[i_read_reg_b];
+                end
             end
             else if(i_read_enable) begin     // Lectura del RB desde la Debug Unit
                 o_data_a_next = registers[i_read_address];
@@ -54,12 +72,18 @@ module registers_bank#(
         end
     end
 
-    always@(*)begin
-    	if(i_enable & i_reg_write)begin
-            // Escritura de registros
-            registers[i_write_reg] = i_write_data;
-        end
-    end
+    // always@(negedge i_clock)begin
+    //     if(i_enable & i_reg_write)begin
+    //         // Escritura de registros
+    //         registers[i_write_reg] = i_write_data;
+    //     end
+    // end
+    // always@(*)begin
+    // 	if(i_enable & i_reg_write)begin
+    //         // Escritura de registros
+    //         registers[i_write_reg] = i_write_data;
+    //     end
+    // end
     
     assign o_data_a = o_data_a_next;
     assign o_data_b = o_data_b_next;

@@ -200,13 +200,43 @@ mnemonic_type = {
 # OUTPUT_FILE_NAME = 'inst.mem'
 
 
-def translate_file(file_name):
-    inp_file = open(file_name + ".txt", 'r')
-    out_file = open(file_name + ".mem", 'w')
+# def translate_file(file_name):
+#     inp_file = open(file_name + ".txt", 'r')
+#     out_file = open(file_name + ".mem", 'w')
+
+#     line = inp_file.readline()
+#     # choice = int(input("Choose conversion to binary [1] or hex [0]: "))
+#     choice = 1 # always binary
+#     print('Converting file assembler to .mem binary...')
+
+#     while line:
+#         bin_hex = convert_instruction(line[:-2], choice)
+
+#         for byte in bin_hex:
+#             out_file.write(byte + '\n')
+
+#         line = inp_file.readline()
+
+#     file_mem = file_name + ".mem"
+#     print('Conversion ready. Saved in: ' + file_mem)
+ 
+#     inp_file.close()
+#     out_file.close()
+
+#     return file_mem
+
+
+
+INPUT_FILE_NAME = 'raw_hazard.txt'
+OUTPUT_FILE_NAME = 'raw_hazard.mem'
+
+
+def main():
+    inp_file = open(INPUT_FILE_NAME, 'r')
+    out_file = open(OUTPUT_FILE_NAME, 'w')
 
     line = inp_file.readline()
-    # choice = int(input("Choose conversion to binary [1] or hex [0]: "))
-    choice = 1 # always binary
+    choice = int(input("Choose conversion to binary [1] or hex [0]: "))
     print('Converting file assembler to .mem binary...')
 
     while line:
@@ -217,14 +247,12 @@ def translate_file(file_name):
 
         line = inp_file.readline()
 
-    file_mem = file_name + ".mem"
-    print('Conversion ready. Saved in: ' + file_mem)
- 
+    print('Conversion ready.')
+    print('Saved in', OUTPUT_FILE_NAME)
+
     inp_file.close()
     out_file.close()
 
-    return file_mem
 
-
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()

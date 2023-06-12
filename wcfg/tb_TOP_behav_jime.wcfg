@@ -3,670 +3,319 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="tb_TOP_behav.wdb" id="1">
+      <db_ref path="tb_data_path_behav.wdb" id="1">
          <top_modules>
             <top_module name="glbl" />
-            <top_module name="tb_TOP" />
+            <top_module name="tb_data_path" />
          </top_modules>
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="720.001 ns"></ZoomEndTime>
+      <ZoomStartTime time="4.137 ns"></ZoomStartTime>
+      <ZoomEndTime time="242.069 ns"></ZoomEndTime>
       <Cursor1Time time="720.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="204"></NameColumnWidth>
-      <ValueColumnWidth column_width="76"></ValueColumnWidth>
+      <ValueColumnWidth column_width="68"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="18" />
+   <WVObjectSize size="10" />
    <wave_markers>
-      <marker label="" time="180006" />
-      <marker label="" time="169878" />
+      <marker label="" time="129661" />
+      <marker label="" time="135222" />
    </wave_markers>
-   <wvobject type="logic" fp_name="/tb_TOP/i_pc_enable">
-      <obj_property name="ElementShortName">i_pc_enable</obj_property>
-      <obj_property name="ObjectShortName">i_pc_enable</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_TOP/i_pc_reset">
-      <obj_property name="ElementShortName">i_pc_reset</obj_property>
-      <obj_property name="ObjectShortName">i_pc_reset</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_TOP/i_read_enable">
-      <obj_property name="ElementShortName">i_read_enable</obj_property>
-      <obj_property name="ObjectShortName">i_read_enable</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_TOP/TOP_1/IF_stage_1/i_IF_branch">
-      <obj_property name="ElementShortName">i_IF_branch</obj_property>
-      <obj_property name="ObjectShortName">i_IF_branch</obj_property>
-   </wvobject>
    <wvobject type="group" fp_name="group332">
       <obj_property name="label">STALL UNIT</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="isExpanded"></obj_property>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/stall_unit_1/i_reset">
-         <obj_property name="ElementShortName">i_reset</obj_property>
-         <obj_property name="ObjectShortName">i_reset</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/stall_unit_1/i_ID_EX_mem_read">
-         <obj_property name="ElementShortName">i_ID_EX_mem_read</obj_property>
-         <obj_property name="ObjectShortName">i_ID_EX_mem_read</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/stall_unit_1/i_IF_ID_rs">
-         <obj_property name="ElementShortName">i_IF_ID_rs[4:0]</obj_property>
-         <obj_property name="ObjectShortName">i_IF_ID_rs[4:0]</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/stall_unit_1/i_ID_EX_rt">
-         <obj_property name="ElementShortName">i_ID_EX_rt[4:0]</obj_property>
-         <obj_property name="ObjectShortName">i_ID_EX_rt[4:0]</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/stall_unit_1/i_IF_ID_rt">
-         <obj_property name="ElementShortName">i_IF_ID_rt[4:0]</obj_property>
-         <obj_property name="ObjectShortName">i_IF_ID_rt[4:0]</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/stall_unit_1/o_enable_pc">
-         <obj_property name="ElementShortName">o_enable_pc</obj_property>
-         <obj_property name="ObjectShortName">o_enable_pc</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/stall_unit_1/o_enable_IF_ID_reg">
-         <obj_property name="ElementShortName">o_enable_IF_ID_reg</obj_property>
-         <obj_property name="ObjectShortName">o_enable_IF_ID_reg</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/stall_unit_1/o_select_control_nop">
-         <obj_property name="ElementShortName">o_select_control_nop</obj_property>
-         <obj_property name="ObjectShortName">o_select_control_nop</obj_property>
-         <obj_property name="CustomSignalColor">#A0A0A4</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/stall_unit_1/o_flush_IF">
-         <obj_property name="ElementShortName">o_flush_IF</obj_property>
-         <obj_property name="ObjectShortName">o_flush_IF</obj_property>
-         <obj_property name="CustomSignalColor">#A0A0A4</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/stall_unit_1/o_flush_EX">
-         <obj_property name="ElementShortName">o_flush_EX</obj_property>
-         <obj_property name="ObjectShortName">o_flush_EX</obj_property>
-         <obj_property name="CustomSignalColor">#A0A0A4</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-      </wvobject>
    </wvobject>
    <wvobject type="group" fp_name="group418">
       <obj_property name="label">IF_STAGE</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/IF_stage_1/i_IF_write_data">
-         <obj_property name="ElementShortName">i_IF_write_data[7:0]</obj_property>
-         <obj_property name="ObjectShortName">i_IF_write_data[7:0]</obj_property>
-      </wvobject>
       <wvobject type="group" fp_name="group140">
          <obj_property name="label">INST_MEM</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/o_read_data">
-            <obj_property name="ElementShortName">o_read_data[31:0]</obj_property>
-            <obj_property name="ObjectShortName">o_read_data[31:0]</obj_property>
-            <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
-            <obj_property name="Radix">HEXRADIX</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/i_read_enable">
-            <obj_property name="ElementShortName">i_read_enable</obj_property>
-            <obj_property name="ObjectShortName">i_read_enable</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/i_write_enable">
-            <obj_property name="ElementShortName">i_write_enable</obj_property>
-            <obj_property name="ObjectShortName">i_write_enable</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/i_addr">
-            <obj_property name="ElementShortName">i_addr[31:0]</obj_property>
-            <obj_property name="ObjectShortName">i_addr[31:0]</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/i_write_data">
-            <obj_property name="ElementShortName">i_write_data[7:0]</obj_property>
-            <obj_property name="ObjectShortName">i_write_data[7:0]</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/IF_stage_1/instruction_memory_1/BRAM">
-            <obj_property name="ElementShortName">BRAM[255:0][7:0]</obj_property>
-            <obj_property name="ObjectShortName">BRAM[255:0][7:0]</obj_property>
-         </wvobject>
       </wvobject>
       <wvobject type="group" fp_name="group403">
          <obj_property name="label">PC</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/IF_stage_1/program_counter_1/i_clock">
-            <obj_property name="ElementShortName">i_clock</obj_property>
-            <obj_property name="ObjectShortName">i_clock</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/IF_stage_1/program_counter_1/i_reset">
-            <obj_property name="ElementShortName">i_reset</obj_property>
-            <obj_property name="ObjectShortName">i_reset</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/IF_stage_1/program_counter_1/i_enable">
-            <obj_property name="ElementShortName">i_enable</obj_property>
-            <obj_property name="ObjectShortName">i_enable</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/IF_stage_1/program_counter_1/i_mux_pc">
-            <obj_property name="ElementShortName">i_mux_pc[31:0]</obj_property>
-            <obj_property name="ObjectShortName">i_mux_pc[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-            <obj_property name="CustomSignalColor">#D2691E</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/IF_stage_1/program_counter_1/o_pc_mem">
-            <obj_property name="ElementShortName">o_pc_mem[31:0]</obj_property>
-            <obj_property name="ObjectShortName">o_pc_mem[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-            <obj_property name="CustomSignalColor">#D2691E</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
-         </wvobject>
+         <obj_property name="isExpanded"></obj_property>
       </wvobject>
       <wvobject type="group" fp_name="group407">
          <obj_property name="label">ADDER</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/IF_stage_1/adder_1/i_a">
-            <obj_property name="ElementShortName">i_a[31:0]</obj_property>
-            <obj_property name="ObjectShortName">i_a[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/IF_stage_1/adder_1/i_b">
-            <obj_property name="ElementShortName">i_b[31:0]</obj_property>
-            <obj_property name="ObjectShortName">i_b[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/IF_stage_1/adder_1/o_result">
-            <obj_property name="ElementShortName">o_result[31:0]</obj_property>
-            <obj_property name="ObjectShortName">o_result[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/IF_stage_1/i_IF_branch_addr">
-         <obj_property name="ElementShortName">i_IF_branch_addr[31:0]</obj_property>
-         <obj_property name="ObjectShortName">i_IF_branch_addr[31:0]</obj_property>
-         <obj_property name="CustomSignalColor">#800080</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/IF_stage_1/i_IF_branch">
-         <obj_property name="ElementShortName">i_IF_branch</obj_property>
-         <obj_property name="ObjectShortName">i_IF_branch</obj_property>
-         <obj_property name="CustomSignalColor">#00FFFF</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
       <wvobject type="group" fp_name="group412">
          <obj_property name="label">MUX1</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/IF_stage_1/mux2_1/i_select">
-            <obj_property name="ElementShortName">i_select</obj_property>
-            <obj_property name="ObjectShortName">i_select</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/IF_stage_1/mux2_1/i_a">
-            <obj_property name="ElementShortName">i_a[31:0]</obj_property>
-            <obj_property name="ObjectShortName">i_a[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/IF_stage_1/mux2_1/i_b">
-            <obj_property name="ElementShortName">i_b[31:0]</obj_property>
-            <obj_property name="ObjectShortName">i_b[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/IF_stage_1/mux2_1/o_data">
-            <obj_property name="ElementShortName">o_data[31:0]</obj_property>
-            <obj_property name="ObjectShortName">o_data[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
       </wvobject>
       <wvobject type="group" fp_name="group417">
          <obj_property name="label">MUX2</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/IF_stage_1/mux2_2/i_select">
-            <obj_property name="ElementShortName">i_select</obj_property>
-            <obj_property name="ObjectShortName">i_select</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/IF_stage_1/mux2_2/i_a">
-            <obj_property name="ElementShortName">i_a[31:0]</obj_property>
-            <obj_property name="ObjectShortName">i_a[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/IF_stage_1/mux2_2/i_b">
-            <obj_property name="ElementShortName">i_b[31:0]</obj_property>
-            <obj_property name="ObjectShortName">i_b[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/IF_stage_1/mux2_2/o_data">
-            <obj_property name="ElementShortName">o_data[31:0]</obj_property>
-            <obj_property name="ObjectShortName">o_data[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
       </wvobject>
       <wvobject type="group" fp_name="group1250">
          <obj_property name="label">MUX3</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/IF_stage_1/mux2_3/i_select">
-            <obj_property name="ElementShortName">i_select</obj_property>
-            <obj_property name="ObjectShortName">i_select</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/IF_stage_1/mux2_3/i_a">
-            <obj_property name="ElementShortName">i_a[31:0]</obj_property>
-            <obj_property name="ObjectShortName">i_a[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/IF_stage_1/mux2_3/i_b">
-            <obj_property name="ElementShortName">i_b[31:0]</obj_property>
-            <obj_property name="ObjectShortName">i_b[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/IF_stage_1/mux2_3/o_data">
-            <obj_property name="ElementShortName">o_data[31:0]</obj_property>
-            <obj_property name="ObjectShortName">o_data[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
       </wvobject>
    </wvobject>
    <wvobject type="group" fp_name="group419">
       <obj_property name="label">ID_STAGE</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/i_ID_pc">
-         <obj_property name="ElementShortName">i_ID_pc[31:0]</obj_property>
-         <obj_property name="ObjectShortName">i_ID_pc[31:0]</obj_property>
-         <obj_property name="CustomSignalColor">#800080</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
+      <obj_property name="isExpanded"></obj_property>
       <wvobject type="group" fp_name="group130">
          <obj_property name="label">EXTEND shamt</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/extend/i_data">
-            <obj_property name="ElementShortName">i_data[3:0]</obj_property>
-            <obj_property name="ObjectShortName">i_data[3:0]</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/extend/o_data">
-            <obj_property name="ElementShortName">o_data[31:0]</obj_property>
-            <obj_property name="ObjectShortName">o_data[31:0]</obj_property>
-            <obj_property name="Radix">BINARYRADIX</obj_property>
-         </wvobject>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/o_ID_alu_op">
-         <obj_property name="ElementShortName">o_ID_alu_op[5:0]</obj_property>
-         <obj_property name="ObjectShortName">o_ID_alu_op[5:0]</obj_property>
-         <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/o_ID_immediate">
-         <obj_property name="ElementShortName">o_ID_immediate[31:0]</obj_property>
-         <obj_property name="ObjectShortName">o_ID_immediate[31:0]</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/o_ID_shamt">
-         <obj_property name="ElementShortName">o_ID_shamt[31:0]</obj_property>
-         <obj_property name="ObjectShortName">o_ID_shamt[31:0]</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/o_ID_rt">
-         <obj_property name="ElementShortName">o_ID_rt[4:0]</obj_property>
-         <obj_property name="ObjectShortName">o_ID_rt[4:0]</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/o_ID_rd">
-         <obj_property name="ElementShortName">o_ID_rd[4:0]</obj_property>
-         <obj_property name="ObjectShortName">o_ID_rd[4:0]</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/i_ID_inst">
-         <obj_property name="ElementShortName">i_ID_inst[31:0]</obj_property>
-         <obj_property name="ObjectShortName">i_ID_inst[31:0]</obj_property>
-         <obj_property name="CustomSignalColor">#FFFF00</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-         <obj_property name="Radix">BINARYRADIX</obj_property>
       </wvobject>
       <wvobject type="group" fp_name="group1251">
          <obj_property name="label">REGISTER_BANK</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/i_read_reg_a">
+         <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/i_read_reg_a">
             <obj_property name="ElementShortName">i_read_reg_a[4:0]</obj_property>
             <obj_property name="ObjectShortName">i_read_reg_a[4:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/i_read_reg_b">
-            <obj_property name="ElementShortName">i_read_reg_b[4:0]</obj_property>
-            <obj_property name="ObjectShortName">i_read_reg_b[4:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers">
+            <obj_property name="ElementShortName">registers[31:0][31:0]</obj_property>
+            <obj_property name="ObjectShortName">registers[31:0][31:0]</obj_property>
+            <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+            <obj_property name="isExpanded"></obj_property>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[31]">
+               <obj_property name="ElementShortName">[31][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[31][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[30]">
+               <obj_property name="ElementShortName">[30][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[30][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[29]">
+               <obj_property name="ElementShortName">[29][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[29][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[28]">
+               <obj_property name="ElementShortName">[28][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[28][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[27]">
+               <obj_property name="ElementShortName">[27][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[27][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[26]">
+               <obj_property name="ElementShortName">[26][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[26][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[25]">
+               <obj_property name="ElementShortName">[25][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[25][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[24]">
+               <obj_property name="ElementShortName">[24][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[24][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[23]">
+               <obj_property name="ElementShortName">[23][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[23][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[22]">
+               <obj_property name="ElementShortName">[22][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[22][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[21]">
+               <obj_property name="ElementShortName">[21][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[21][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[20]">
+               <obj_property name="ElementShortName">[20][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[20][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[19]">
+               <obj_property name="ElementShortName">[19][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[19][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[18]">
+               <obj_property name="ElementShortName">[18][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[18][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[17]">
+               <obj_property name="ElementShortName">[17][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[17][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[16]">
+               <obj_property name="ElementShortName">[16][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[16][31:0]</obj_property>
+               <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+               <obj_property name="UseCustomSignalColor">true</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[15]">
+               <obj_property name="ElementShortName">[15][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[15][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[14]">
+               <obj_property name="ElementShortName">[14][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[14][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[13]">
+               <obj_property name="ElementShortName">[13][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[13][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[12]">
+               <obj_property name="ElementShortName">[12][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[12][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[11]">
+               <obj_property name="ElementShortName">[11][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[11][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[10]">
+               <obj_property name="ElementShortName">[10][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[10][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[9]">
+               <obj_property name="ElementShortName">[9][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[9][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[8]">
+               <obj_property name="ElementShortName">[8][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[8][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[7]">
+               <obj_property name="ElementShortName">[7][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[7][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[6]">
+               <obj_property name="ElementShortName">[6][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[6][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[5]">
+               <obj_property name="ElementShortName">[5][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[5][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[4]">
+               <obj_property name="ElementShortName">[4][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[4][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[3]">
+               <obj_property name="ElementShortName">[3][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[3][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[2]">
+               <obj_property name="ElementShortName">[2][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[2][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[1]">
+               <obj_property name="ElementShortName">[1][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[1][31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/registers[0]">
+               <obj_property name="ElementShortName">[0][31:0]</obj_property>
+               <obj_property name="ObjectShortName">[0][31:0]</obj_property>
+            </wvobject>
          </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/o_data_a">
-            <obj_property name="ElementShortName">o_data_a[31:0]</obj_property>
-            <obj_property name="ObjectShortName">o_data_a[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <wvobject type="logic" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/i_reg_write">
+            <obj_property name="ElementShortName">i_reg_write</obj_property>
+            <obj_property name="ObjectShortName">i_reg_write</obj_property>
+            <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/o_data_b">
-            <obj_property name="ElementShortName">o_data_b[31:0]</obj_property>
-            <obj_property name="ObjectShortName">o_data_b[31:0]</obj_property>
+         <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/i_write_reg">
+            <obj_property name="ElementShortName">i_write_reg[4:0]</obj_property>
+            <obj_property name="ObjectShortName">i_write_reg[4:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
             <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
             <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/i_reg_write">
-            <obj_property name="ElementShortName">i_reg_write</obj_property>
-            <obj_property name="ObjectShortName">i_reg_write</obj_property>
-            <obj_property name="CustomSignalColor">#F0E68C</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/i_write_data">
+         <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/i_write_data">
             <obj_property name="ElementShortName">i_write_data[31:0]</obj_property>
             <obj_property name="ObjectShortName">i_write_data[31:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-            <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+            <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
             <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/i_write_reg">
-            <obj_property name="ElementShortName">i_write_reg[4:0]</obj_property>
-            <obj_property name="ObjectShortName">i_write_reg[4:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <wvobject type="logic" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/i_enable">
+            <obj_property name="ElementShortName">i_enable</obj_property>
+            <obj_property name="ObjectShortName">i_enable</obj_property>
          </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/ID_stage_1/i_clock">
-            <obj_property name="ElementShortName">i_clock</obj_property>
-            <obj_property name="ObjectShortName">i_clock</obj_property>
-            <obj_property name="CustomSignalColor">#00FF00</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
+         <wvobject type="logic" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/i_read_enable">
+            <obj_property name="ElementShortName">i_read_enable</obj_property>
+            <obj_property name="ObjectShortName">i_read_enable</obj_property>
          </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers">
-            <obj_property name="ElementShortName">registers[31:0][31:0]</obj_property>
-            <obj_property name="ObjectShortName">registers[31:0][31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-            <obj_property name="isExpanded"></obj_property>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[31]">
-               <obj_property name="ElementShortName">[31][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[31][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[30]">
-               <obj_property name="ElementShortName">[30][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[30][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[29]">
-               <obj_property name="ElementShortName">[29][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[29][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[28]">
-               <obj_property name="ElementShortName">[28][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[28][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[27]">
-               <obj_property name="ElementShortName">[27][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[27][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[26]">
-               <obj_property name="ElementShortName">[26][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[26][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[25]">
-               <obj_property name="ElementShortName">[25][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[25][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[24]">
-               <obj_property name="ElementShortName">[24][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[24][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[23]">
-               <obj_property name="ElementShortName">[23][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[23][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[22]">
-               <obj_property name="ElementShortName">[22][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[22][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[21]">
-               <obj_property name="ElementShortName">[21][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[21][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[20]">
-               <obj_property name="ElementShortName">[20][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[20][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[19]">
-               <obj_property name="ElementShortName">[19][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[19][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[18]">
-               <obj_property name="ElementShortName">[18][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[18][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[17]">
-               <obj_property name="ElementShortName">[17][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[17][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[16]">
-               <obj_property name="ElementShortName">[16][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[16][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[15]">
-               <obj_property name="ElementShortName">[15][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[15][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[14]">
-               <obj_property name="ElementShortName">[14][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[14][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[13]">
-               <obj_property name="ElementShortName">[13][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[13][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[12]">
-               <obj_property name="ElementShortName">[12][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[12][31:0]</obj_property>
-               <obj_property name="CustomSignalColor">#00FFFF</obj_property>
-               <obj_property name="UseCustomSignalColor">true</obj_property>
-               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[11]">
-               <obj_property name="ElementShortName">[11][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[11][31:0]</obj_property>
-               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-               <obj_property name="CustomSignalColor">#00FFFF</obj_property>
-               <obj_property name="UseCustomSignalColor">true</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[10]">
-               <obj_property name="ElementShortName">[10][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[10][31:0]</obj_property>
-               <obj_property name="CustomSignalColor">#00FF00</obj_property>
-               <obj_property name="UseCustomSignalColor">true</obj_property>
-               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[9]">
-               <obj_property name="ElementShortName">[9][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[9][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[8]">
-               <obj_property name="ElementShortName">[8][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[8][31:0]</obj_property>
-               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-               <obj_property name="CustomSignalColor">#00FFFF</obj_property>
-               <obj_property name="UseCustomSignalColor">true</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[7]">
-               <obj_property name="ElementShortName">[7][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[7][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[6]">
-               <obj_property name="ElementShortName">[6][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[6][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[5]">
-               <obj_property name="ElementShortName">[5][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[5][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[4]">
-               <obj_property name="ElementShortName">[4][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[4][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[3]">
-               <obj_property name="ElementShortName">[3][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[3][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[2]">
-               <obj_property name="ElementShortName">[2][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[2][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[1]">
-               <obj_property name="ElementShortName">[1][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[1][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/registers_bank_1/registers[0]">
-               <obj_property name="ElementShortName">[0][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[0][31:0]</obj_property>
-            </wvobject>
+         <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/i_read_address">
+            <obj_property name="ElementShortName">i_read_address[4:0]</obj_property>
+            <obj_property name="ObjectShortName">i_read_address[4:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/i_read_reg_b">
+            <obj_property name="ElementShortName">i_read_reg_b[4:0]</obj_property>
+            <obj_property name="ObjectShortName">i_read_reg_b[4:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/o_data_a">
+            <obj_property name="ElementShortName">o_data_a[31:0]</obj_property>
+            <obj_property name="ObjectShortName">o_data_a[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/o_data_b">
+            <obj_property name="ElementShortName">o_data_b[31:0]</obj_property>
+            <obj_property name="ObjectShortName">o_data_b[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_data_path/data_path_1/ID_stage_1/registers_bank_1/i_enable">
+            <obj_property name="ElementShortName">i_enable</obj_property>
+            <obj_property name="ObjectShortName">i_enable</obj_property>
          </wvobject>
       </wvobject>
       <wvobject type="group" fp_name="group421">
          <obj_property name="label">CONTROL_UNIT</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/i_opcode">
-            <obj_property name="ElementShortName">i_opcode[5:0]</obj_property>
-            <obj_property name="ObjectShortName">i_opcode[5:0]</obj_property>
-            <obj_property name="CustomSignalColor">#FFD700</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
-            <obj_property name="Radix">HEXRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/i_funct">
+         <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/control_unit_1/i_funct">
             <obj_property name="ElementShortName">i_funct[5:0]</obj_property>
             <obj_property name="ObjectShortName">i_funct[5:0]</obj_property>
-            <obj_property name="Radix">HEXRADIX</obj_property>
-            <obj_property name="CustomSignalColor">#FFD700</obj_property>
+            <obj_property name="CustomSignalColor">#FFFF00</obj_property>
             <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/o_reg_dest">
+         <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/control_unit_1/i_opcode">
+            <obj_property name="ElementShortName">i_opcode[5:0]</obj_property>
+            <obj_property name="ObjectShortName">i_opcode[5:0]</obj_property>
+            <obj_property name="CustomSignalColor">#FFFF00</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_data_path/data_path_1/ID_stage_1/control_unit_1/o_reg_dest">
             <obj_property name="ElementShortName">o_reg_dest</obj_property>
             <obj_property name="ObjectShortName">o_reg_dest</obj_property>
          </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/ID_stage_1/o_ID_reg_dest">
-            <obj_property name="ElementShortName">o_ID_reg_dest</obj_property>
-            <obj_property name="ObjectShortName">o_ID_reg_dest</obj_property>
-            <obj_property name="CustomSignalColor">#00FF7F</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/o_alu_op">
-            <obj_property name="ElementShortName">o_alu_op[5:0]</obj_property>
-            <obj_property name="ObjectShortName">o_alu_op[5:0]</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/o_alu_src">
-            <obj_property name="ElementShortName">o_alu_src</obj_property>
-            <obj_property name="ObjectShortName">o_alu_src</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/o_mem_read">
-            <obj_property name="ElementShortName">o_mem_read</obj_property>
-            <obj_property name="ObjectShortName">o_mem_read</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/o_mem_write">
-            <obj_property name="ElementShortName">o_mem_write</obj_property>
-            <obj_property name="ObjectShortName">o_mem_write</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/o_branch">
-            <obj_property name="ElementShortName">o_branch</obj_property>
-            <obj_property name="ObjectShortName">o_branch</obj_property>
+         <wvobject type="logic" fp_name="/tb_data_path/data_path_1/ID_stage_1/control_unit_1/o_reg_write">
+            <obj_property name="ElementShortName">o_reg_write</obj_property>
+            <obj_property name="ObjectShortName">o_reg_write</obj_property>
             <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
             <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/o_reg_write">
-            <obj_property name="ElementShortName">o_reg_write</obj_property>
-            <obj_property name="ObjectShortName">o_reg_write</obj_property>
+         <wvobject type="array" fp_name="/tb_data_path/data_path_1/ID_stage_1/control_unit_1/o_alu_op">
+            <obj_property name="ElementShortName">o_alu_op[5:0]</obj_property>
+            <obj_property name="ObjectShortName">o_alu_op[5:0]</obj_property>
          </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/o_mem_to_reg">
+         <wvobject type="logic" fp_name="/tb_data_path/data_path_1/ID_stage_1/control_unit_1/o_mem_read">
+            <obj_property name="ElementShortName">o_mem_read</obj_property>
+            <obj_property name="ObjectShortName">o_mem_read</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_data_path/data_path_1/ID_stage_1/control_unit_1/o_mem_to_reg">
             <obj_property name="ElementShortName">o_mem_to_reg</obj_property>
             <obj_property name="ObjectShortName">o_mem_to_reg</obj_property>
          </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/i_reset">
-            <obj_property name="ElementShortName">i_reset</obj_property>
-            <obj_property name="ObjectShortName">i_reset</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/o_jump">
-            <obj_property name="ElementShortName">o_jump</obj_property>
-            <obj_property name="ObjectShortName">o_jump</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/o_word_en">
-            <obj_property name="ElementShortName">o_word_en</obj_property>
-            <obj_property name="ObjectShortName">o_word_en</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/ID_stage_1/control_unit_1/o_jr_jalr">
-            <obj_property name="ElementShortName">o_jr_jalr</obj_property>
-            <obj_property name="ObjectShortName">o_jr_jalr</obj_property>
+         <wvobject type="logic" fp_name="/tb_data_path/data_path_1/ID_stage_1/control_unit_1/o_hlt">
+            <obj_property name="ElementShortName">o_hlt</obj_property>
+            <obj_property name="ObjectShortName">o_hlt</obj_property>
          </wvobject>
       </wvobject>
       <wvobject type="group" fp_name="group262">
          <obj_property name="label">CONCAT MODULE</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/concat_module_1/i_inst">
-            <obj_property name="ElementShortName">i_inst[25:0]</obj_property>
-            <obj_property name="ObjectShortName">i_inst[25:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/concat_module_1/i_next_pc">
-            <obj_property name="ElementShortName">i_next_pc[3:0]</obj_property>
-            <obj_property name="ObjectShortName">i_next_pc[3:0]</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/ID_stage_1/concat_module_1/o_jump_addr">
-            <obj_property name="ElementShortName">o_jump_addr[31:0]</obj_property>
-            <obj_property name="ObjectShortName">o_jump_addr[31:0]</obj_property>
-            <obj_property name="CustomSignalColor">#00FFFF</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
       </wvobject>
    </wvobject>
-   <wvobject type="logic" fp_name="/tb_TOP/i_clock">
+   <wvobject type="logic" fp_name="/tb_data_path/data_path_1/i_clock">
       <obj_property name="ElementShortName">i_clock</obj_property>
       <obj_property name="ObjectShortName">i_clock</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_TOP/TOP_1/ID_stage_1/o_ID_hlt">
-      <obj_property name="ElementShortName">o_ID_hlt</obj_property>
-      <obj_property name="ObjectShortName">o_ID_hlt</obj_property>
-      <obj_property name="CustomSignalColor">#E0FFFF</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject type="group" fp_name="group226">
       <obj_property name="label">FORWARDING_UNIT</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/forwarding_unit_1/i_EX_MEM_rd">
-         <obj_property name="ElementShortName">i_EX_MEM_rd[4:0]</obj_property>
-         <obj_property name="ObjectShortName">i_EX_MEM_rd[4:0]</obj_property>
-         <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/forwarding_unit_1/i_MEM_WB_rd">
-         <obj_property name="ElementShortName">i_MEM_WB_rd[4:0]</obj_property>
-         <obj_property name="ObjectShortName">i_MEM_WB_rd[4:0]</obj_property>
-         <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/forwarding_unit_1/i_rt">
-         <obj_property name="ElementShortName">i_rt[4:0]</obj_property>
-         <obj_property name="ObjectShortName">i_rt[4:0]</obj_property>
-         <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/forwarding_unit_1/i_rs">
-         <obj_property name="ElementShortName">i_rs[4:0]</obj_property>
-         <obj_property name="ObjectShortName">i_rs[4:0]</obj_property>
-         <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/forwarding_unit_1/i_MEM_write_reg">
-         <obj_property name="ElementShortName">i_MEM_write_reg</obj_property>
-         <obj_property name="ObjectShortName">i_MEM_write_reg</obj_property>
-         <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/forwarding_unit_1/i_WB_write_reg">
-         <obj_property name="ElementShortName">i_WB_write_reg</obj_property>
-         <obj_property name="ObjectShortName">i_WB_write_reg</obj_property>
-         <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/forwarding_unit_1/o_forwarding_a">
-         <obj_property name="ElementShortName">o_forwarding_a[1:0]</obj_property>
-         <obj_property name="ObjectShortName">o_forwarding_a[1:0]</obj_property>
-         <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/forwarding_unit_1/o_forwarding_b">
-         <obj_property name="ElementShortName">o_forwarding_b[1:0]</obj_property>
-         <obj_property name="ObjectShortName">o_forwarding_b[1:0]</obj_property>
-         <obj_property name="CustomSignalColor">#800080</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-      </wvobject>
    </wvobject>
    <wvobject type="group" fp_name="group250">
       <obj_property name="label">EX_STAGE</obj_property>
@@ -675,159 +324,70 @@
       <wvobject type="group" fp_name="group520">
          <obj_property name="label">ADDER2</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/adder_2/i_a">
-            <obj_property name="ElementShortName">i_a[31:0]</obj_property>
-            <obj_property name="ObjectShortName">i_a[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-            <obj_property name="CustomSignalColor">#00FF7F</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/adder_2/i_b">
-            <obj_property name="ElementShortName">i_b[31:0]</obj_property>
-            <obj_property name="ObjectShortName">i_b[31:0]</obj_property>
-            <obj_property name="CustomSignalColor">#00FF7F</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/adder_2/o_result">
-            <obj_property name="ElementShortName">o_result[31:0]</obj_property>
-            <obj_property name="ObjectShortName">o_result[31:0]</obj_property>
-            <obj_property name="CustomSignalColor">#E0FFFF</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
+         <obj_property name="isExpanded"></obj_property>
       </wvobject>
       <wvobject type="group" fp_name="group255">
          <obj_property name="label">mux4_9 -&gt; DATO B</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux4_9/i_select">
-            <obj_property name="ElementShortName">i_select[1:0]</obj_property>
-            <obj_property name="ObjectShortName">i_select[1:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux4_9/i_a">
-            <obj_property name="ElementShortName">i_a[31:0]</obj_property>
-            <obj_property name="ObjectShortName">i_a[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux4_9/i_b">
-            <obj_property name="ElementShortName">i_b[31:0]</obj_property>
-            <obj_property name="ObjectShortName">i_b[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux4_9/i_c">
-            <obj_property name="ElementShortName">i_c[31:0]</obj_property>
-            <obj_property name="ObjectShortName">i_c[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux4_9/o_data">
-            <obj_property name="ElementShortName">o_data[31:0]</obj_property>
-            <obj_property name="ObjectShortName">o_data[31:0]</obj_property>
-            <obj_property name="CustomSignalColor">#800080</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
+         <obj_property name="isExpanded"></obj_property>
       </wvobject>
       <wvobject type="group" fp_name="group247">
          <obj_property name="label">mux4_8 -&gt; DATO A</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux4_8/i_select">
+         <wvobject type="array" fp_name="/tb_data_path/data_path_1/EX_stage_1/mux4_8/i_select">
             <obj_property name="ElementShortName">i_select[1:0]</obj_property>
             <obj_property name="ObjectShortName">i_select[1:0]</obj_property>
-            <obj_property name="CustomSignalColor">#00FF00</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux4_8/i_a">
+         <wvobject type="array" fp_name="/tb_data_path/data_path_1/EX_stage_1/mux4_8/i_a">
             <obj_property name="ElementShortName">i_a[31:0]</obj_property>
             <obj_property name="ObjectShortName">i_a[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux4_8/i_b">
+         <wvobject type="array" fp_name="/tb_data_path/data_path_1/EX_stage_1/mux4_8/i_b">
             <obj_property name="ElementShortName">i_b[31:0]</obj_property>
             <obj_property name="ObjectShortName">i_b[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux4_8/i_c">
+         <wvobject type="array" fp_name="/tb_data_path/data_path_1/EX_stage_1/mux4_8/i_c">
             <obj_property name="ElementShortName">i_c[31:0]</obj_property>
             <obj_property name="ObjectShortName">i_c[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux4_8/i_d">
+         <wvobject type="array" fp_name="/tb_data_path/data_path_1/EX_stage_1/mux4_8/i_d">
             <obj_property name="ElementShortName">i_d[31:0]</obj_property>
             <obj_property name="ObjectShortName">i_d[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux4_8/o_data">
+         <wvobject type="array" fp_name="/tb_data_path/data_path_1/EX_stage_1/mux4_8/o_data">
             <obj_property name="ElementShortName">o_data[31:0]</obj_property>
             <obj_property name="ObjectShortName">o_data[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-            <obj_property name="CustomSignalColor">#800080</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/i_clock">
-         <obj_property name="ElementShortName">i_clock</obj_property>
-         <obj_property name="ObjectShortName">i_clock</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/EX_stage_1/o_EX_zero">
-         <obj_property name="ElementShortName">o_EX_zero</obj_property>
-         <obj_property name="ObjectShortName">o_EX_zero</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/EX_stage_1/o_EX_branch">
-         <obj_property name="ElementShortName">o_EX_branch</obj_property>
-         <obj_property name="ObjectShortName">o_EX_branch</obj_property>
       </wvobject>
       <wvobject type="group" fp_name="group142">
          <obj_property name="label">ALU</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/alu_1/i_a">
+         <wvobject type="array" fp_name="/tb_data_path/data_path_1/EX_stage_1/alu_1/i_a">
             <obj_property name="ElementShortName">i_a[31:0]</obj_property>
             <obj_property name="ObjectShortName">i_a[31:0]</obj_property>
             <obj_property name="CustomSignalColor">#800080</obj_property>
             <obj_property name="UseCustomSignalColor">true</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/alu_1/i_b">
+         <wvobject type="array" fp_name="/tb_data_path/data_path_1/EX_stage_1/alu_1/i_b">
             <obj_property name="ElementShortName">i_b[31:0]</obj_property>
             <obj_property name="ObjectShortName">i_b[31:0]</obj_property>
             <obj_property name="CustomSignalColor">#800080</obj_property>
             <obj_property name="UseCustomSignalColor">true</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/alu_1/o_result">
+         <wvobject type="array" fp_name="/tb_data_path/data_path_1/EX_stage_1/alu_1/o_result">
             <obj_property name="ElementShortName">o_result[31:0]</obj_property>
             <obj_property name="ObjectShortName">o_result[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-            <obj_property name="CustomSignalColor">#00FF00</obj_property>
+            <obj_property name="CustomSignalColor">#800080</obj_property>
             <obj_property name="UseCustomSignalColor">true</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
       </wvobject>
       <wvobject type="group" fp_name="group403">
          <obj_property name="label">MUX 6 data a/shamt</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux2_6/i_a">
-            <obj_property name="ElementShortName">i_a[31:0]</obj_property>
-            <obj_property name="ObjectShortName">i_a[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux2_6/i_b">
-            <obj_property name="ElementShortName">i_b[31:0]</obj_property>
-            <obj_property name="ObjectShortName">i_b[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux2_6/i_select">
-            <obj_property name="ElementShortName">i_select</obj_property>
-            <obj_property name="ObjectShortName">i_select</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux2_6/o_data">
-            <obj_property name="ElementShortName">o_data[31:0]</obj_property>
-            <obj_property name="ObjectShortName">o_data[31:0]</obj_property>
-            <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
       </wvobject>
       <wvobject type="group" fp_name="group127">
          <obj_property name="label">MUX 3 data b/immediate</obj_property>
@@ -836,408 +396,84 @@
       <wvobject type="group" fp_name="group147">
          <obj_property name="label">MUX 5 rtrd/r31</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux2_5/i_select">
-            <obj_property name="ElementShortName">i_select</obj_property>
-            <obj_property name="ObjectShortName">i_select</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux2_5/i_a">
-            <obj_property name="ElementShortName">i_a[4:0]</obj_property>
-            <obj_property name="ObjectShortName">i_a[4:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux2_5/i_b">
-            <obj_property name="ElementShortName">i_b[4:0]</obj_property>
-            <obj_property name="ObjectShortName">i_b[4:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux2_5/o_data">
-            <obj_property name="ElementShortName">o_data[4:0]</obj_property>
-            <obj_property name="ObjectShortName">o_data[4:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
+         <obj_property name="isExpanded"></obj_property>
       </wvobject>
       <wvobject type="group" fp_name="group157">
          <obj_property name="label">MUX 4 rt/rd</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux2_4/i_select">
-            <obj_property name="ElementShortName">i_select</obj_property>
-            <obj_property name="ObjectShortName">i_select</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux2_4/i_a">
-            <obj_property name="ElementShortName">i_a[4:0]</obj_property>
-            <obj_property name="ObjectShortName">i_a[4:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux2_4/i_b">
-            <obj_property name="ElementShortName">i_b[4:0]</obj_property>
-            <obj_property name="ObjectShortName">i_b[4:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux2_4/o_data">
-            <obj_property name="ElementShortName">o_data[4:0]</obj_property>
-            <obj_property name="ObjectShortName">o_data[4:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
+         <obj_property name="isExpanded"></obj_property>
       </wvobject>
       <wvobject type="group" fp_name="group239">
          <obj_property name="label">ALU CTRL</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/alu_control_1/i_funct_code">
-            <obj_property name="ElementShortName">i_funct_code[5:0]</obj_property>
-            <obj_property name="ObjectShortName">i_funct_code[5:0]</obj_property>
-            <obj_property name="CustomSignalColor">#FFD700</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/alu_control_1/i_alu_op">
-            <obj_property name="ElementShortName">i_alu_op[5:0]</obj_property>
-            <obj_property name="ObjectShortName">i_alu_op[5:0]</obj_property>
-            <obj_property name="CustomSignalColor">#FFD700</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/alu_control_1/o_alu_ctrl">
-            <obj_property name="ElementShortName">o_alu_ctrl[3:0]</obj_property>
-            <obj_property name="ObjectShortName">o_alu_ctrl[3:0]</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/EX_stage_1/alu_control_1/o_shamt_ctrl">
-            <obj_property name="ElementShortName">o_shamt_ctrl</obj_property>
-            <obj_property name="ObjectShortName">o_shamt_ctrl</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/EX_stage_1/alu_control_1/o_r31_ctrl">
-            <obj_property name="ElementShortName">o_r31_ctrl</obj_property>
-            <obj_property name="ObjectShortName">o_r31_ctrl</obj_property>
-         </wvobject>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_data_a">
-         <obj_property name="ElementShortName">i_EX_data_a[31:0]</obj_property>
-         <obj_property name="ObjectShortName">i_EX_data_a[31:0]</obj_property>
-         <obj_property name="CustomSignalColor">#800080</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_data_b">
-         <obj_property name="ElementShortName">i_EX_data_b[31:0]</obj_property>
-         <obj_property name="ObjectShortName">i_EX_data_b[31:0]</obj_property>
-         <obj_property name="CustomSignalColor">#800080</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_reg_dest">
-         <obj_property name="ElementShortName">i_EX_reg_dest</obj_property>
-         <obj_property name="ObjectShortName">i_EX_reg_dest</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_alu_src">
-         <obj_property name="ElementShortName">i_EX_alu_src</obj_property>
-         <obj_property name="ObjectShortName">i_EX_alu_src</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_mem_read">
-         <obj_property name="ElementShortName">i_EX_mem_read</obj_property>
-         <obj_property name="ObjectShortName">i_EX_mem_read</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_mem_write">
-         <obj_property name="ElementShortName">i_EX_mem_write</obj_property>
-         <obj_property name="ObjectShortName">i_EX_mem_write</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_branch">
-         <obj_property name="ElementShortName">i_EX_branch</obj_property>
-         <obj_property name="ObjectShortName">i_EX_branch</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_reg_write">
-         <obj_property name="ElementShortName">i_EX_reg_write</obj_property>
-         <obj_property name="ObjectShortName">i_EX_reg_write</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_mem_to_reg">
-         <obj_property name="ElementShortName">i_EX_mem_to_reg</obj_property>
-         <obj_property name="ObjectShortName">i_EX_mem_to_reg</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_byte_en">
-         <obj_property name="ElementShortName">i_EX_byte_en</obj_property>
-         <obj_property name="ObjectShortName">i_EX_byte_en</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_halfword_en">
-         <obj_property name="ElementShortName">i_EX_halfword_en</obj_property>
-         <obj_property name="ObjectShortName">i_EX_halfword_en</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/EX_stage_1/i_EX_word_en">
-         <obj_property name="ElementShortName">i_EX_word_en</obj_property>
-         <obj_property name="ObjectShortName">i_EX_word_en</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/o_EX_selected_reg">
-         <obj_property name="ElementShortName">o_EX_selected_reg[4:0]</obj_property>
-         <obj_property name="ObjectShortName">o_EX_selected_reg[4:0]</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/o_EX_branch_addr">
-         <obj_property name="ElementShortName">o_EX_branch_addr[31:0]</obj_property>
-         <obj_property name="ObjectShortName">o_EX_branch_addr[31:0]</obj_property>
+         <obj_property name="isExpanded"></obj_property>
       </wvobject>
    </wvobject>
-   <wvobject type="array" fp_name="/tb_TOP/TOP_1/EX_stage_1/mux4_8/i_select">
-      <obj_property name="ElementShortName">i_select[1:0]</obj_property>
-      <obj_property name="ObjectShortName">i_select[1:0]</obj_property>
+   <wvobject type="array" fp_name="/tb_data_path/data_path_1/EX_stage_1/mux4_8/o_data">
+      <obj_property name="ElementShortName">o_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">o_data[31:0]</obj_property>
    </wvobject>
    <wvobject type="group" fp_name="group169">
       <obj_property name="label">MEM STAGE</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_clock">
-         <obj_property name="ElementShortName">i_clock</obj_property>
-         <obj_property name="ObjectShortName">i_clock</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_MEM_hlt">
-         <obj_property name="ElementShortName">i_MEM_hlt</obj_property>
-         <obj_property name="ObjectShortName">i_MEM_hlt</obj_property>
-         <obj_property name="CustomSignalColor">#E0FFFF</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/o_MEM_hlt">
-         <obj_property name="ElementShortName">o_MEM_hlt</obj_property>
-         <obj_property name="ObjectShortName">o_MEM_hlt</obj_property>
-         <obj_property name="CustomSignalColor">#E0FFFF</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_MEM_mem_read">
-         <obj_property name="ElementShortName">i_MEM_mem_read</obj_property>
-         <obj_property name="ObjectShortName">i_MEM_mem_read</obj_property>
-         <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_MEM_mem_write">
-         <obj_property name="ElementShortName">i_MEM_mem_write</obj_property>
-         <obj_property name="ObjectShortName">i_MEM_mem_write</obj_property>
-         <obj_property name="CustomSignalColor">#A52A2A</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_MEM_branch">
-         <obj_property name="ElementShortName">i_MEM_branch</obj_property>
-         <obj_property name="ObjectShortName">i_MEM_branch</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_MEM_reg_write">
-         <obj_property name="ElementShortName">i_MEM_reg_write</obj_property>
-         <obj_property name="ObjectShortName">i_MEM_reg_write</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_MEM_mem_to_reg">
-         <obj_property name="ElementShortName">i_MEM_mem_to_reg</obj_property>
-         <obj_property name="ObjectShortName">i_MEM_mem_to_reg</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_MEM_byte_en">
-         <obj_property name="ElementShortName">i_MEM_byte_en</obj_property>
-         <obj_property name="ObjectShortName">i_MEM_byte_en</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_MEM_halfword_en">
-         <obj_property name="ElementShortName">i_MEM_halfword_en</obj_property>
-         <obj_property name="ObjectShortName">i_MEM_halfword_en</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_MEM_word_en">
-         <obj_property name="ElementShortName">i_MEM_word_en</obj_property>
-         <obj_property name="ObjectShortName">i_MEM_word_en</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/WB_stage_1/i_WB_r31_ctrl">
-         <obj_property name="ElementShortName">i_WB_r31_ctrl</obj_property>
-         <obj_property name="ObjectShortName">i_WB_r31_ctrl</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_MEM_zero">
-         <obj_property name="ElementShortName">i_MEM_zero</obj_property>
-         <obj_property name="ObjectShortName">i_MEM_zero</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_MEM_alu_result">
-         <obj_property name="ElementShortName">i_MEM_alu_result[31:0]</obj_property>
-         <obj_property name="ObjectShortName">i_MEM_alu_result[31:0]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         <obj_property name="CustomSignalColor">#00FFFF</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_MEM_branch_addr">
-         <obj_property name="ElementShortName">i_MEM_branch_addr[31:0]</obj_property>
-         <obj_property name="ObjectShortName">i_MEM_branch_addr[31:0]</obj_property>
-      </wvobject>
+      <obj_property name="isExpanded"></obj_property>
       <wvobject type="group" fp_name="group209">
          <obj_property name="label">DATA MEMORY</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/data_memory_1/i_clock">
-            <obj_property name="ElementShortName">i_clock</obj_property>
-            <obj_property name="ObjectShortName">i_clock</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/MEM_stage_1/data_memory_1/i_address">
-            <obj_property name="ElementShortName">i_address[6:0]</obj_property>
-            <obj_property name="ObjectShortName">i_address[6:0]</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/MEM_stage_1/data_memory_1/i_write_data">
-            <obj_property name="ElementShortName">i_write_data[31:0]</obj_property>
-            <obj_property name="ObjectShortName">i_write_data[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/MEM_stage_1/data_memory_1/o_read_data">
-            <obj_property name="ElementShortName">o_read_data[31:0]</obj_property>
-            <obj_property name="ObjectShortName">o_read_data[31:0]</obj_property>
-            <obj_property name="CustomSignalColor">#00FF7F</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/data_memory_1/i_byte_en">
-            <obj_property name="ElementShortName">i_byte_en</obj_property>
-            <obj_property name="ObjectShortName">i_byte_en</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/data_memory_1/i_word_en">
-            <obj_property name="ElementShortName">i_word_en</obj_property>
-            <obj_property name="ObjectShortName">i_word_en</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/data_memory_1/i_halfword_en">
-            <obj_property name="ElementShortName">i_halfword_en</obj_property>
-            <obj_property name="ObjectShortName">i_halfword_en</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/data_memory_1/i_mem_write_flag">
-            <obj_property name="ElementShortName">i_mem_write_flag</obj_property>
-            <obj_property name="ObjectShortName">i_mem_write_flag</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/data_memory_1/i_mem_read_flag">
-            <obj_property name="ElementShortName">i_mem_read_flag</obj_property>
-            <obj_property name="ObjectShortName">i_mem_read_flag</obj_property>
-         </wvobject>
       </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/o_MEM_branch_zero">
-         <obj_property name="ElementShortName">o_MEM_branch_zero</obj_property>
-         <obj_property name="ObjectShortName">o_MEM_branch_zero</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/o_MEM_r31_ctrl">
-         <obj_property name="ElementShortName">o_MEM_r31_ctrl</obj_property>
-         <obj_property name="ObjectShortName">o_MEM_r31_ctrl</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/MEM_stage_1/o_MEM_pc">
-         <obj_property name="ElementShortName">o_MEM_pc[31:0]</obj_property>
-         <obj_property name="ObjectShortName">o_MEM_pc[31:0]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/MEM_stage_1/o_MEM_selected_reg">
-         <obj_property name="ElementShortName">o_MEM_selected_reg[4:0]</obj_property>
-         <obj_property name="ObjectShortName">o_MEM_selected_reg[4:0]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_MEM_hlt">
-      <obj_property name="ElementShortName">i_MEM_hlt</obj_property>
-      <obj_property name="ObjectShortName">i_MEM_hlt</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_MEM_zero">
-      <obj_property name="ElementShortName">i_MEM_zero</obj_property>
-      <obj_property name="ObjectShortName">i_MEM_zero</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/i_MEM_branch">
-      <obj_property name="ElementShortName">i_MEM_branch</obj_property>
-      <obj_property name="ObjectShortName">i_MEM_branch</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_TOP/TOP_1/MEM_stage_1/o_MEM_branch_zero">
-      <obj_property name="ElementShortName">o_MEM_branch_zero</obj_property>
-      <obj_property name="ObjectShortName">o_MEM_branch_zero</obj_property>
    </wvobject>
    <wvobject type="group" fp_name="group186">
       <obj_property name="label">WB STAGE</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/WB_stage_1/i_WB_hlt">
-         <obj_property name="ElementShortName">i_WB_hlt</obj_property>
-         <obj_property name="ObjectShortName">i_WB_hlt</obj_property>
-         <obj_property name="CustomSignalColor">#E0FFFF</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/WB_stage_1/o_WB_hlt">
-         <obj_property name="ElementShortName">o_WB_hlt</obj_property>
-         <obj_property name="ObjectShortName">o_WB_hlt</obj_property>
-         <obj_property name="CustomSignalColor">#E0FFFF</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/WB_stage_1/i_WB_mem_to_reg">
-         <obj_property name="ElementShortName">i_WB_mem_to_reg</obj_property>
-         <obj_property name="ObjectShortName">i_WB_mem_to_reg</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/WB_stage_1/i_WB_reg_write">
-         <obj_property name="ElementShortName">i_WB_reg_write</obj_property>
-         <obj_property name="ObjectShortName">i_WB_reg_write</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/WB_stage_1/i_WB_mem_data">
-         <obj_property name="ElementShortName">i_WB_mem_data[31:0]</obj_property>
-         <obj_property name="ObjectShortName">i_WB_mem_data[31:0]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         <obj_property name="CustomSignalColor">#00FF7F</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/WB_stage_1/i_WB_alu_result">
-         <obj_property name="ElementShortName">i_WB_alu_result[31:0]</obj_property>
-         <obj_property name="ObjectShortName">i_WB_alu_result[31:0]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         <obj_property name="CustomSignalColor">#00FFFF</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/WB_stage_1/i_WB_pc">
-         <obj_property name="ElementShortName">i_WB_pc[31:0]</obj_property>
-         <obj_property name="ObjectShortName">i_WB_pc[31:0]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
       <wvobject type="group" fp_name="group215">
          <obj_property name="label">MUX 10 mem vs alu_result</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/WB_stage_1/mux2_10/i_select">
-            <obj_property name="ElementShortName">i_select</obj_property>
-            <obj_property name="ObjectShortName">i_select</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/WB_stage_1/mux2_10/i_a">
-            <obj_property name="ElementShortName">i_a[31:0]</obj_property>
-            <obj_property name="ObjectShortName">i_a[31:0]</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/WB_stage_1/mux2_10/i_b">
-            <obj_property name="ElementShortName">i_b[31:0]</obj_property>
-            <obj_property name="ObjectShortName">i_b[31:0]</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/WB_stage_1/mux2_10/o_data">
-            <obj_property name="ElementShortName">o_data[31:0]</obj_property>
-            <obj_property name="ObjectShortName">o_data[31:0]</obj_property>
-         </wvobject>
       </wvobject>
       <wvobject type="group" fp_name="group220">
          <obj_property name="label">MUX 11 mem/alu vs PC</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/WB_stage_1/mux2_11/o_data">
-            <obj_property name="ElementShortName">o_data[31:0]</obj_property>
-            <obj_property name="ObjectShortName">o_data[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/WB_stage_1/mux2_11/i_b">
-            <obj_property name="ElementShortName">i_b[31:0]</obj_property>
-            <obj_property name="ObjectShortName">i_b[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_1/WB_stage_1/mux2_11/i_a">
-            <obj_property name="ElementShortName">i_a[31:0]</obj_property>
-            <obj_property name="ObjectShortName">i_a[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-            <obj_property name="CustomSignalColor">#FF00FF</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP/TOP_1/WB_stage_1/mux2_11/i_select">
-            <obj_property name="ElementShortName">i_select</obj_property>
-            <obj_property name="ObjectShortName">i_select</obj_property>
-         </wvobject>
       </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/WB_stage_1/i_WB_selected_reg">
-         <obj_property name="ElementShortName">i_WB_selected_reg[4:0]</obj_property>
-         <obj_property name="ObjectShortName">i_WB_selected_reg[4:0]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group719">
+      <obj_property name="label">FORWARDING_UNIT</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/tb_data_path/data_path_1/forwarding_unit_1/i_reset">
+         <obj_property name="ElementShortName">i_reset</obj_property>
+         <obj_property name="ObjectShortName">i_reset</obj_property>
       </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_1/WB_stage_1/o_WB_reg_write">
-         <obj_property name="ElementShortName">o_WB_reg_write</obj_property>
-         <obj_property name="ObjectShortName">o_WB_reg_write</obj_property>
-         <obj_property name="CustomSignalColor">#F0E68C</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
+      <wvobject type="array" fp_name="/tb_data_path/data_path_1/forwarding_unit_1/i_EX_MEM_rd">
+         <obj_property name="ElementShortName">i_EX_MEM_rd[4:0]</obj_property>
+         <obj_property name="ObjectShortName">i_EX_MEM_rd[4:0]</obj_property>
       </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/WB_stage_1/o_WB_selected_data">
-         <obj_property name="ElementShortName">o_WB_selected_data[31:0]</obj_property>
-         <obj_property name="ObjectShortName">o_WB_selected_data[31:0]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         <obj_property name="CustomSignalColor">#00FFFF</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
+      <wvobject type="array" fp_name="/tb_data_path/data_path_1/forwarding_unit_1/i_MEM_WB_rd">
+         <obj_property name="ElementShortName">i_MEM_WB_rd[4:0]</obj_property>
+         <obj_property name="ObjectShortName">i_MEM_WB_rd[4:0]</obj_property>
       </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_1/WB_stage_1/o_WB_selected_reg">
-         <obj_property name="ElementShortName">o_WB_selected_reg[4:0]</obj_property>
-         <obj_property name="ObjectShortName">o_WB_selected_reg[4:0]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <wvobject type="array" fp_name="/tb_data_path/data_path_1/forwarding_unit_1/i_rt">
+         <obj_property name="ElementShortName">i_rt[4:0]</obj_property>
+         <obj_property name="ObjectShortName">i_rt[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_data_path/data_path_1/forwarding_unit_1/i_rs">
+         <obj_property name="ElementShortName">i_rs[4:0]</obj_property>
+         <obj_property name="ObjectShortName">i_rs[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_data_path/data_path_1/forwarding_unit_1/i_MEM_write_reg">
+         <obj_property name="ElementShortName">i_MEM_write_reg</obj_property>
+         <obj_property name="ObjectShortName">i_MEM_write_reg</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_data_path/data_path_1/forwarding_unit_1/i_WB_write_reg">
+         <obj_property name="ElementShortName">i_WB_write_reg</obj_property>
+         <obj_property name="ObjectShortName">i_WB_write_reg</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_data_path/data_path_1/forwarding_unit_1/o_forwarding_a">
+         <obj_property name="ElementShortName">o_forwarding_a[1:0]</obj_property>
+         <obj_property name="ObjectShortName">o_forwarding_a[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_data_path/data_path_1/forwarding_unit_1/o_forwarding_b">
+         <obj_property name="ElementShortName">o_forwarding_b[1:0]</obj_property>
+         <obj_property name="ObjectShortName">o_forwarding_b[1:0]</obj_property>
       </wvobject>
    </wvobject>
 </wave_config>
