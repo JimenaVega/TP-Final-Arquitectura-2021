@@ -32,7 +32,7 @@ module registers_bank#(
         initial
             for (reg_index = 0; reg_index < BANK_DEPTH; reg_index = reg_index + 1)
                 registers[reg_index] = {NB_DATA{1'b0}};
-        endgenerate
+    endgenerate
     
     always@(posedge i_clock)begin
         registers[0] <= 32'd255;
