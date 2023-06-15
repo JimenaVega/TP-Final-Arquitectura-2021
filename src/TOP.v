@@ -17,7 +17,9 @@ module TOP#(
         output                o_uart_du_tx,
         output                o_hlt,
         output [NB_STATE-1:0] o_state,
-        output                o_clk // borrar
+        // output                o_clk, // borrar
+        output                o_led_rx_done, //borrar
+        output                o_pc_value
     );
 
     wire clk_wiz;
@@ -34,6 +36,7 @@ module TOP#(
       );
 
     reg                 data_path_clk;
+    reg                 im_read_enable = 1'b1;
 
     wire                step_flag;
     wire                step;
@@ -68,6 +71,7 @@ module TOP#(
     wire [DWORD-1:0]    pc;
 
     wire [NB_STATE-1:0] state;
+
 
     always@(*)begin
         if(step_flag)begin
@@ -118,7 +122,7 @@ module TOP#(
     data_path data_path_1(.i_clock(data_path_clk), // 50 MHz o Steps
                           .i_pc_enable(pc_enable),
                           .i_pc_reset(i_reset),
-                          .i_read_enable(),
+                          .i_read_enable(im_read_enable),
                           .i_ID_stage_reset(i_reset),
                           .i_ctrl_reset(i_reset),
                           .i_im_enable(im_enable),
@@ -140,7 +144,9 @@ module TOP#(
     assign o_state      = state;
     assign o_uart_du_tx = uart_du_tx;
     assign o_hlt        = halt;
-    assign o_clk        = clk_wiz; // borrar
+    // assign o_clk        = clk_wiz; // borrar
+    assign o_led_rx_done = uart_du_rx_done;
+    assign o_pc_value = pc[0];
     
 endmodule
 
