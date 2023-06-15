@@ -12,10 +12,12 @@ always @(posedge i_clock) begin
     if(i_reset)begin
         counter <= {NB_COUNT{1'b0}};
     end
-    if(counter < N_TICKS)
-        counter <= counter + 1;
-    else
-        counter <= {NB_COUNT{1'b0}};
+    else begin
+        if(counter < N_TICKS)
+            counter <= counter + 1;
+        else
+            counter <= {NB_COUNT{1'b0}};
+    end    
 end
 
 
