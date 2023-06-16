@@ -10,7 +10,8 @@ module debug_unit#(
     parameter NB_BYTE_CTR = 2,
     parameter NB_ADDR_DM  = 7, 
     parameter BR_SIZE     = 32,
-    parameter DM_DEPTH    = 128,
+    parameter DM_DEPTH    = 32,
+    parameter DM_WIDTH    = 32,
     parameter RB_DEPTH    = 32,
     parameter IM_DEPTH    = 256,
     parameter NB_PC_CTR   = 2
@@ -24,7 +25,7 @@ module debug_unit#(
     input  [NB_DATA-1:0]    i_rx_data,      // from RX - UART
 
     input  [NB_ADDR-1:0]    i_pc_value,     // data read from PC 
-    input  [NB_DATA-1:0]    i_dm_data,      // data read from DATA MEMORY
+    input  [DM_WIDTH-1:0]   i_dm_data,      // data read from DATA MEMORY
     input  [NB_ADDR-1:0]    i_br_data,      // data read from BANK REGISTER
     output [NB_DATA-1:0]    o_im_data,      // data to write in INSTRUCTION MEMORY
 
@@ -385,7 +386,7 @@ always @(*) begin
             next_dm_read_enable     = 1'b1;
             next_dm_enable          = 1'b1;
             tx_start_next           = 1'b1;
-            next_send_data          = i_dm_data;
+            next_send_data          = i_dm_data[7:0];
             next_step               = 1'b0;
             next_step_flag          = 1'b0;
 

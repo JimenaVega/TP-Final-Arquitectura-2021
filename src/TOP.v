@@ -52,7 +52,7 @@ module TOP#(
 
     wire                mem_enable;
     wire                mem_read_enable;
-    wire [BYTE-1:0]     mem_data;
+    wire [DWORD-1:0]    mem_data;
     wire [ADDR-1:0]     mem_addr;
 
     wire                rb_enable;

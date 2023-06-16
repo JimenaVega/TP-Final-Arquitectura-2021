@@ -5,7 +5,7 @@ module MEM_stage#(
         parameter NB_DATA       = 32,
         parameter NB_PC         = 32,
         parameter NB_DM_ADDR    = 7,
-        parameter MEMORY_WIDTH  = 8,
+        parameter MEMORY_WIDTH  = 32,
         parameter NB_REG        = 5
     )
     (

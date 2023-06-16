@@ -38,7 +38,7 @@ module data_path#(
         output                      o_hlt,                // DEBUG UNIT
         output [NB_PC-1:0]          o_pc_value,           // DEBUG UNIT
         output [NB_DATA-1:0]        o_rb_data,            // DEBUG UNIT
-        output [NB_MEM_WIDTH-1:0]   o_dm_data             // DEBUG UNIT
+        output [NB_DATA-1:0]        o_dm_data             // DEBUG UNIT
     );
     
     // IF_stage to IF_ID_reg
