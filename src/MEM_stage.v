@@ -10,6 +10,8 @@ module MEM_stage#(
     )
     (
         input                   i_clock,
+        input                   i_MEM_du_flag,          // Debug Unit
+        input                   i_MEM_signed,
         input                   i_MEM_dm_enable,        // Debug Unit
         input                   i_MEM_dm_read_enable,   // Debug Unit
         input [NB_DM_ADDR-1:0]  i_MEM_dm_read_address,  // Debug Unit
@@ -40,22 +42,43 @@ module MEM_stage#(
         output                      o_MEM_r31_ctrl,
         output [NB_PC-1:0]          o_MEM_pc,
         output [MEMORY_WIDTH-1:0]   o_MEM_byte_data,
-        output                      o_MEM_hlt );
+        output                      o_MEM_hlt);
+
+    wire [NB_DATA-1:0]      write_data;
+    wire [NB_DATA-1:0]      read_data;
+
+    reg [NB_DM_ADDR-1:0]   address;
+    reg                    mem_read;
+
+    always@(*)begin
+        if(i_MEM_du_flag)begin  // Flag de read y address provenientes de DU
+            mem_read <= i_MEM_dm_read_enable;
+            address  <= i_MEM_dm_read_address;
+        end
+        else begin              // Flag de read y address provenientes del datapath
+            mem_read <= i_MEM_mem_read;
+            address  <= i_MEM_alu_result[NB_DM_ADDR-1:0];
+        end
+    end
+
+    data_mem_controller data_mem_controller_1(.i_signed(i_MEM_signed),
+                                              .i_mem_write(mem_write),
+                                              .i_mem_read(mem_read),
+                                              .i_word_en(i_MEM_word_en),
+                                              .i_halfword_en(i_MEM_halfword_en),
+                                              .i_byte_en(i_MEM_byte_en),
+                                              .i_write_data(i_MEM_write_data),
+                                              .i_read_data(read_data),
+                                              .o_write_data(write_data),
+                                              .o_read_data(o_MEM_mem_data));
 
     data_memory data_memory_1(.i_clock(i_clock),
                               .i_enable(i_MEM_dm_enable),
-                              .i_read_enable(i_MEM_dm_read_enable),
-                              .i_read_address(i_MEM_dm_read_address),
-                              .i_mem_write_flag(i_MEM_mem_write),
-                              .i_mem_read_flag(i_MEM_mem_read),
-                              .i_word_en(i_MEM_word_en),
-                              .i_halfword_en(i_MEM_halfword_en),
-                              .i_byte_en(i_MEM_byte_en),
-                              .i_address(i_MEM_alu_result[4:0]),
-                              .i_write_data(i_MEM_write_data),
-                              .o_byte_data(o_MEM_byte_data),
-                              .o_read_data(o_MEM_mem_data)
-    );
+                              .i_mem_write(mem_write),
+                              .i_mem_read(mem_read),
+                              .i_address(address),
+                              .i_write_data(write_data),
+                              .o_read_data(read_data));
     
     // IF
     assign o_MEM_branch_zero = i_MEM_zero & i_MEM_branch;

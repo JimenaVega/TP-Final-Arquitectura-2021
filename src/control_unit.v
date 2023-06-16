@@ -35,6 +35,7 @@ module control_unit#(
         input [NB_FUNCT-1:0]        i_funct,
         input                       i_ctrl_sel,     // from STALL UNIT
         
+        output reg                  o_signed,
         output reg                  o_reg_dest,     // EX
         output reg [NB_OPCODE-1:0]  o_alu_op,       // EX REG?
         output reg                  o_alu_src,      // EX
@@ -54,6 +55,7 @@ module control_unit#(
     always@(posedge i_clock) begin
         if(i_reset) begin
             o_alu_op        <= {NB_OPCODE{1'b0}};
+            o_signed        <= 1'b0;
             o_reg_dest      <= 1'b0;
             o_alu_src       <= 1'b0;
             o_mem_read      <= 1'b0;
@@ -70,7 +72,7 @@ module control_unit#(
                 o_alu_op <= i_opcode;
                 case(i_opcode)
                     RTYPE_OPCODE:begin
-
+                        o_signed        <= 1'b0;
                         o_reg_dest      <= 1'b1; // rd
                         o_alu_src       <= 1'b0; // rt
                         o_mem_read      <= 1'b0; // no accede a mem
@@ -93,6 +95,7 @@ module control_unit#(
 
                     end
                     BEQ_OPCODE:begin
+                        o_signed        <= 1'b0;
                         o_reg_dest      <= 1'b0; // X
                         o_alu_src       <= 1'b0; // rt
                         o_mem_read      <= 1'b0; // no accede a mem
@@ -108,6 +111,7 @@ module control_unit#(
                         o_hlt           <= 1'b0;
                     end
                     BNE_OPCODE:begin
+                        o_signed        <= 1'b0;
                         o_reg_dest      <= 1'b0; // X
                         o_alu_src       <= 1'b0; // rt
                         o_mem_read      <= 1'b0; // no accede a mem
@@ -123,6 +127,7 @@ module control_unit#(
                         o_hlt           <= 1'b0;
                     end
                     ADDI_OPCODE:begin
+                        o_signed        <= 1'b0;
                         o_reg_dest      <= 1'b0; // rt
                         o_alu_src       <= 1'b1; // immediate
                         o_mem_read      <= 1'b0; // no accede a mem
@@ -138,6 +143,7 @@ module control_unit#(
                         o_hlt           <= 1'b0;
                     end
                     SLTI_OPCODE:begin
+                        o_signed        <= 1'b0;
                         o_reg_dest      <= 1'b0; // rt
                         o_alu_src       <= 1'b1; // immediate
                         o_mem_read      <= 1'b0; // no accede a mem
@@ -153,6 +159,7 @@ module control_unit#(
                         o_hlt           <= 1'b0;
                     end
                     ANDI_OPCODE:begin
+                        o_signed        <= 1'b0;
                         o_reg_dest      <= 1'b0; // rt
                         o_alu_src       <= 1'b1; // immediate
                         o_mem_read      <= 1'b0; // no accede a mem
@@ -168,6 +175,7 @@ module control_unit#(
                         o_hlt           <= 1'b0;
                     end
                     ORI_OPCODE:begin
+                        o_signed        <= 1'b0;
                         o_reg_dest      <= 1'b0; // rt
                         o_alu_src       <= 1'b1; // immediate
                         o_mem_read      <= 1'b0; // no accede a mem
@@ -183,6 +191,7 @@ module control_unit#(
                         o_hlt           <= 1'b0;
                     end
                     XORI_OPCODE:begin
+                        o_signed        <= 1'b0;
                         o_reg_dest      <= 1'b0; // rt
                         o_alu_src       <= 1'b1; // immediate
                         o_mem_read      <= 1'b0; // no accede a mem
@@ -198,6 +207,7 @@ module control_unit#(
                         o_hlt           <= 1'b0;
                     end
                     LUI_OPCODE:begin
+                        o_signed        <= 1'b0;
                         o_reg_dest      <= 1'b0; // rt
                         o_alu_src       <= 1'b1; // immediate
                         o_mem_read      <= 1'b0; // no accede a mem
@@ -213,6 +223,7 @@ module control_unit#(
                         o_hlt           <= 1'b0;
                     end
                     LB_OPCODE:begin
+                        o_signed        <= 1'b1;
                         o_reg_dest      <= 1'b0; // rt
                         o_alu_src       <= 1'b1; // immediate
                         o_mem_read      <= 1'b1; // read mem
@@ -228,6 +239,7 @@ module control_unit#(
                         o_hlt           <= 1'b0;
                     end
                     LH_OPCODE:begin
+                        o_signed        <= 1'b1;
                         o_reg_dest      <= 1'b0; // rt
                         o_alu_src       <= 1'b1; // immediate
                         o_mem_read      <= 1'b1; // read mem
@@ -243,6 +255,7 @@ module control_unit#(
                         o_hlt           <= 1'b0;
                     end
                     LHU_OPCODE:begin
+                        o_signed        <= 1'b0;
                         o_reg_dest      <= 1'b0; // rt
                         o_alu_src       <= 1'b1; // immediate
                         o_mem_read      <= 1'b1; // read mem
@@ -258,6 +271,7 @@ module control_unit#(
                         o_hlt           <= 1'b0;
                     end
                     LW_OPCODE:begin
+                        o_signed        <= 1'b1;
                         o_reg_dest      <= 1'b0; // rt
                         o_alu_src       <= 1'b1; // immediate
                         o_mem_read      <= 1'b1; // read mem
@@ -273,6 +287,7 @@ module control_unit#(
                         o_hlt           <= 1'b0;
                     end
                     LWU_OPCODE:begin
+                        o_signed        <= 1'b0;
                         o_reg_dest      <= 1'b0; // rt
                         o_alu_src       <= 1'b1; // immediate
                         o_mem_read      <= 1'b1; // read mem
@@ -288,6 +303,7 @@ module control_unit#(
                         o_hlt           <= 1'b0;
                     end
                     LBU_OPCODE:begin
+                        o_signed        <= 1'b0;
                         o_reg_dest      <= 1'b0; // rt
                         o_alu_src       <= 1'b1; // immediate
                         o_mem_read      <= 1'b1; // read mem
@@ -303,6 +319,7 @@ module control_unit#(
                         o_hlt           <= 1'b0;
                     end
                     SB_OPCODE:begin
+                        o_signed        <= 1'b0;
                         o_reg_dest      <= 1'b0; // rt
                         o_alu_src       <= 1'b1; // immediate
                         o_mem_read      <= 1'b0; // no read mem
@@ -318,6 +335,7 @@ module control_unit#(
                         o_hlt           <= 1'b0;
                     end
                     SH_OPCODE:begin
+                        o_signed        <= 1'b0;
                         o_reg_dest      <= 1'b0; // rt
                         o_alu_src       <= 1'b1; // immediate
                         o_mem_read      <= 1'b0; // no read mem
@@ -333,6 +351,7 @@ module control_unit#(
                         o_hlt           <= 1'b0;
                     end
                     SW_OPCODE:begin
+                        o_signed        <= 1'b0;
                         o_reg_dest      <= 1'b0; // rt
                         o_alu_src       <= 1'b1; // immediate
                         o_mem_read      <= 1'b0; // no read mem
@@ -348,6 +367,7 @@ module control_unit#(
                         o_hlt           <= 1'b0;
                     end
                     J_OPCODE:begin
+                        o_signed        <= 1'b0;
                         o_reg_dest      <= 1'b0; // rt
                         o_alu_src       <= 1'b0; // immediate
                         o_mem_read      <= 1'b0; // no read mem
@@ -363,6 +383,7 @@ module control_unit#(
                         o_hlt           <= 1'b0;
                     end
                     JAL_OPCODE:begin
+                        o_signed        <= 1'b0;
                         o_reg_dest      <= 1'b0; // rt
                         o_alu_src       <= 1'b0; // immediate
                         o_mem_read      <= 1'b0; // no read mem
@@ -378,6 +399,7 @@ module control_unit#(
                         o_hlt           <= 1'b0;
                     end
                     HLT_OPCODE:begin
+                        o_signed        <= 1'b0;
                         o_reg_dest      <= 1'b0; // rt
                         o_alu_src       <= 1'b0; // immediate
                         o_mem_read      <= 1'b0; // no read mem
@@ -393,6 +415,7 @@ module control_unit#(
                         o_hlt           <= 1'b1; // END OF PROGRAM
                     end
                     default: begin
+                        o_signed        <= 1'b0;
                         o_reg_dest      <= 1'b0; // rt
                         o_alu_src       <= 1'b0; // immediate
                         o_mem_read      <= 1'b0; // no read mem
@@ -411,6 +434,7 @@ module control_unit#(
             end
             else begin
                     // flush from STALL UNIT 
+                    o_signed        <= 1'b0;
                     o_reg_dest      <= 1'b0; // rt
                     o_alu_src       <= 1'b0; // immediate
                     o_mem_read      <= 1'b0; // no read mem

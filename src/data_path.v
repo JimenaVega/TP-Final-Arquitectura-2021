@@ -20,6 +20,7 @@ module data_path#(
         input                       i_ID_stage_reset,
         input                       i_ctrl_reset,         // FORWARDING UNIT
 
+        input                       i_du_flag,
         input                       i_im_enable,          // DEBUG UNIT
         input                       i_im_write_enable,    // DEBUG UNIT
         input [NB_MEM_WIDTH-1:0]    i_im_data,            // DEBUG UNIT
@@ -77,6 +78,7 @@ module data_path#(
     wire                        flush_EX;
     
     // ID_stage to IF_stage
+    wire                        ID_signed;
     wire                        ID_jump;
     wire                        ID_hlt;
     wire                        ID_jr_jalr;
@@ -84,6 +86,7 @@ module data_path#(
     wire [NB_PC-1:0]            ID_r31_data;
     
     // ID_EX_reg to EX_stage
+    wire                        EX_signed;
     wire                        EX_reg_dest;
     wire [NB_OPCODE-1:0]        EX_alu_op;
     wire                        EX_alu_src;
@@ -106,6 +109,7 @@ module data_path#(
     wire                        EX_hlt;
     
     // EX_stage to EX_MEM_reg
+    wire                        o_EX_signed;
     wire                        o_EX_reg_write;     // Se les agrega el "o_" para diferenciar de
     wire                        o_EX_mem_to_reg;    // las se�ales de entrada, que son las mismas
     wire                        o_EX_mem_read;      // (declaradas en el bloque anterior)
@@ -124,6 +128,7 @@ module data_path#(
     wire                        o_EX_hlt;
     
     // EX_MEM_reg to MEM_stage
+    wire                        MEM_signed;
     wire                        MEM_reg_write;
     wire                        MEM_mem_to_reg;
     wire                        MEM_mem_read;
@@ -212,6 +217,7 @@ module data_path#(
                         .i_ID_write_reg(o_WB_selected_reg),
                         .i_ID_reg_write(o_WB_reg_write),
                         .i_ID_ctrl_sel(ID_ctrl_sel),
+                        .o_ID_signed(ID_signed),
                         .o_ID_reg_dest(ID_reg_dest),
                         .o_ID_alu_op(ID_alu_op),
                         .o_ID_alu_src(ID_alu_src),
@@ -238,6 +244,7 @@ module data_path#(
                         .o_ID_r31_data(ID_r31_data));
                         
     ID_EX_reg ID_EX_reg_1(.i_clock(i_clock),
+                          .ID_signed(ID_signed),
                           .ID_reg_write(ID_reg_write),
                           .ID_mem_to_reg(ID_mem_to_reg),
                           .ID_mem_read(ID_mem_read),
@@ -258,6 +265,7 @@ module data_path#(
                           .ID_halfword_en(ID_halfword_en),
                           .ID_word_en(ID_word_en),
                           .ID_hlt(ID_hlt),
+                          .EX_signed(EX_signed),
                           .EX_reg_write(EX_reg_write),
                           .EX_mem_to_reg(EX_mem_to_reg),
                           .EX_mem_read(EX_mem_read),
@@ -279,7 +287,8 @@ module data_path#(
                           .EX_word_en(EX_word_en),
                           .EX_hlt(EX_hlt));
     
-    EX_stage EX_stage_1(.i_EX_reg_write(EX_reg_write),
+    EX_stage EX_stage_1(.i_EX_signed(EX_signed),
+                        .i_EX_reg_write(EX_reg_write),
                         .i_EX_mem_to_reg(EX_mem_to_reg),
                         .i_EX_mem_read(EX_mem_read),
                         .i_EX_mem_write(EX_mem_write),
@@ -302,6 +311,7 @@ module data_path#(
                         .i_EX_wb_fwd_data(WB_selected_data), // forwarded from WB
                         .i_EX_fwd_a(forwarding_a),           // FORWARDING UNIT
                         .i_EX_fwd_b(forwarding_b),           // FORWARDING UNIT
+                        .o_EX_signed(o_EX_signed),
                         .o_EX_reg_write(o_EX_reg_write),
                         .o_EX_mem_to_reg(o_EX_mem_to_reg),
                         .o_EX_mem_read(o_EX_mem_read),
@@ -321,6 +331,7 @@ module data_path#(
                         
     EX_MEM_reg EX_MEM_reg_1(.i_clock(i_clock),
                             .i_flush(flush_EX),
+                            .EX_signed(o_EX_signed),
                             .EX_reg_write(o_EX_reg_write),
                             .EX_mem_to_reg(o_EX_mem_to_reg),
                             .EX_mem_read(o_EX_mem_read),
@@ -337,6 +348,7 @@ module data_path#(
                             .EX_r31_ctrl(EX_r31_ctrl),
                             .EX_pc(o_EX_pc),
                             .EX_hlt(o_EX_hlt),
+                            .MEM_signed(MEM_signed),
                             .MEM_reg_write(MEM_reg_write),
                             .MEM_mem_to_reg(MEM_mem_to_reg),
                             .MEM_mem_read(MEM_mem_read),
@@ -355,6 +367,8 @@ module data_path#(
                             .MEM_hlt(MEM_hlt));
                 
     MEM_stage MEM_stage_1(.i_clock(i_clock),
+                          .i_MEM_du_flag(i_du_flag),
+                          .i_MEM_signed(MEM_signed),
                           .i_MEM_dm_enable(i_dm_enable),  // Debug Unit
                           .i_MEM_dm_read_enable(i_dm_read_enable),  // Debug Unit
                           .i_MEM_dm_read_address(i_dm_read_address),  // Debug Unit

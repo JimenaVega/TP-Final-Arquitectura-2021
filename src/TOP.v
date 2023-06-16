@@ -125,6 +125,7 @@ module TOP#(
                           .i_read_enable(im_read_enable),
                           .i_ID_stage_reset(i_reset),
                           .i_ctrl_reset(i_reset),
+                          .i_du_flag(),
                           .i_im_enable(im_enable),
                           .i_im_write_enable(im_write_enable),
                           .i_im_data(im_data),

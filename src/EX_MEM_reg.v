@@ -7,6 +7,7 @@ module EX_MEM_reg#(
     (
         input                   i_clock,
         input                   i_flush, // STALL UNIT :  1 -> Flush control signals 0 -> !flush
+        input                   EX_signed,
         input                   EX_reg_write,
         input                   EX_mem_to_reg,
         input                   EX_mem_read,
@@ -24,6 +25,7 @@ module EX_MEM_reg#(
         input [NB_PC-1:0]       EX_pc,
         input                   EX_hlt,
         
+        output                  MEM_signed,
         output                  MEM_reg_write,
         output                  MEM_mem_to_reg,
         output                  MEM_mem_read,
@@ -42,6 +44,7 @@ module EX_MEM_reg#(
         output                  MEM_hlt
     );
     
+    reg                 signed_flag;
     reg                 reg_write;
     reg                 mem_to_reg;
     reg                 mem_read;
@@ -61,6 +64,7 @@ module EX_MEM_reg#(
 
     always @(negedge i_clock) begin
         if(i_flush)begin
+            signed_flag  <= 1'b0;
             reg_write    <= 1'b0;
             mem_to_reg   <= 1'b0;
             mem_read     <= 1'b0;
@@ -80,6 +84,7 @@ module EX_MEM_reg#(
 
         end
         else begin
+            signed_flag     <= EX_signed;
             reg_write       <= EX_reg_write;
             mem_to_reg      <= EX_mem_to_reg;
             mem_read        <= EX_mem_read;
@@ -99,6 +104,7 @@ module EX_MEM_reg#(
         end
     end
 
+    assign MEM_signed       = signed_flag;
     assign MEM_reg_write    = reg_write;
     assign MEM_mem_to_reg   = mem_to_reg;
     assign MEM_mem_read     = mem_read;

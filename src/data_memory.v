@@ -28,7 +28,7 @@ module data_memory#(
 	endgenerate
 
 
-	always @(posedge i_clock) begin
+	always@(posedge i_clock) begin
 		if(i_enable) begin
 			if(i_mem_write)
 				BRAM[i_address] <= i_write_data;

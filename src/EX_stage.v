@@ -11,6 +11,7 @@ module EX_stage#(
         parameter NB_SEL      = 2
     )
     (
+        input                   i_EX_signed,
         input                   i_EX_reg_write,  // WB stage flag
         input                   i_EX_mem_to_reg, // WB stage flag
         input                   i_EX_mem_read,   // MEM stage flag
@@ -35,6 +36,7 @@ module EX_stage#(
         input [NB_SEL-1:0]      i_EX_fwd_a,        // FORWARDING UNIT
         input [NB_SEL-1:0]      i_EX_fwd_b,        // FORWARDING UNIT
         
+        output                  o_EX_signed,
         output                  o_EX_reg_write,
         output                  o_EX_mem_to_reg,
         output                  o_EX_mem_read,
@@ -126,6 +128,7 @@ module EX_stage#(
                 .i_d(),
                 .o_data(alu_data_b));
 
+    assign o_EX_signed          = i_EX_signed;
     assign o_EX_reg_write       = i_EX_reg_write;
     assign o_EX_mem_to_reg      = i_EX_mem_to_reg;
     assign o_EX_mem_read        = i_EX_mem_read;

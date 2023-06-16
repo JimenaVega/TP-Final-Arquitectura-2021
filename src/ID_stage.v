@@ -21,6 +21,7 @@ module ID_stage#(
         input [NB_REG-1:0]          i_ID_write_reg,    // from WB, address to write
         input                       i_ID_reg_write,    // from control_unit, enable write reg
         input                       i_ID_ctrl_sel,
+        output                      o_ID_signed,
         output                      o_ID_reg_dest,     // EX, signal
         output [NB_OPCODE-1:0]      o_ID_alu_op,       // EX, signal
         output                      o_ID_alu_src,      // EX, signal
@@ -70,6 +71,7 @@ module ID_stage#(
                                 .i_funct(i_ID_inst[5:0]),
                                 .i_ctrl_sel(i_ID_ctrl_sel),     // STALL UNIT: 0 -> señales normales 1 -> flush
                                 .o_reg_dest(o_ID_reg_dest),     // EX
+                                .o_signed(o_ID_signed),
                                 .o_alu_op(o_ID_alu_op),         // EX REG?
                                 .o_alu_src(o_ID_alu_src),       // EX
                                 .o_mem_read(o_ID_mem_read),     // MEM

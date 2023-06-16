@@ -9,6 +9,7 @@ module ID_EX_reg#(
     )
     (
         input                    i_clock,
+        input                    ID_signed,
         input                    ID_reg_write,
         input                    ID_mem_to_reg,
         input                    ID_mem_read,
@@ -30,6 +31,7 @@ module ID_EX_reg#(
         input                    ID_word_en,
         input                    ID_hlt,
         
+        output                   EX_signed,
         output                   EX_reg_write,
         output                   EX_mem_to_reg,
         output                   EX_mem_read,
@@ -52,6 +54,7 @@ module ID_EX_reg#(
         output                   EX_hlt
     );
     
+    reg                 signed_flag;
     reg                 reg_write;
     reg                 mem_to_reg;
     reg                 mem_read;
@@ -74,6 +77,7 @@ module ID_EX_reg#(
     reg                 hlt;
 
     always @(negedge i_clock) begin
+        signed_flag <= ID_signed;
         reg_write   <= ID_reg_write;
         mem_to_reg  <= ID_mem_to_reg;
         mem_read    <= ID_mem_read;
@@ -96,6 +100,7 @@ module ID_EX_reg#(
         hlt         <= ID_hlt;
     end
 
+    assign EX_signed        = signed_flag;
     assign EX_reg_write     = reg_write;
     assign EX_mem_to_reg    = mem_to_reg;
     assign EX_mem_read      = mem_read;
