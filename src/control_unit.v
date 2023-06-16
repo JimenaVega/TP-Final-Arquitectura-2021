@@ -392,6 +392,21 @@ module control_unit#(
                         o_jr_jalr       <= 1'b0;
                         o_hlt           <= 1'b1; // END OF PROGRAM
                     end
+                    default: begin
+                        o_reg_dest      <= 1'b0; // rt
+                        o_alu_src       <= 1'b0; // immediate
+                        o_mem_read      <= 1'b0; // no read mem
+                        o_mem_write     <= 1'b0; // no write mem
+                        o_branch        <= 1'b0; // no es branch
+                        o_reg_write     <= 1'b0; // escribe en rt
+                        o_mem_to_reg    <= 1'b0; // X
+                        o_jump          <= 1'b0; // dont jump
+                        o_byte_en       <= 1'b0;
+                        o_halfword_en   <= 1'b0;
+                        o_word_en       <= 1'b0;
+                        o_jr_jalr       <= 1'b0;
+                        o_hlt           <= 1'b0; // END OF PROGRAM
+                    end
                 endcase
             end
             else begin

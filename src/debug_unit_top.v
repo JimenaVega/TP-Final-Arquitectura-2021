@@ -19,7 +19,10 @@ module TOP#(
         output [NB_STATE-1:0] o_state,
         output                o_clk, // borrar
         output                o_led_rx_done, //borrar
-        output                o_pc_value
+        output                o_pc_value,
+
+        // suponiendo que despues de debug unit no hay nada
+        output                 
     );
 
     wire clk_wiz;
@@ -95,8 +98,8 @@ module TOP#(
                             .o_im_addr(im_addr),
                             .o_rb_addr(rb_addr),
                             .o_dm_addr(mem_addr),
-                            .o_tx_data(uart_du_to_send),
-                            .o_tx_start(uart_du_tx_start),
+                            .o_tx_data(uart_du_to_send), // n
+                            .o_tx_start(uart_du_tx_start), // n
                             .o_im_write_enable(im_write_enable),
                             .o_im_enable(im_enable),
                             .o_rb_read_enable(rb_read_enable),
@@ -119,31 +122,31 @@ module TOP#(
                          .o_tx(uart_du_tx),
                          .o_tx_done_tick(uart_du_tx_done));
 
-    data_path data_path_1(.i_clock(clk_wiz), // 50 MHz o Steps
-                          .i_pc_enable(pc_enable),
-                          .i_pc_reset(i_reset),
-                          .i_read_enable(im_read_enable),
-                          .i_ID_stage_reset(i_reset),
-                          .i_ctrl_reset(i_reset),
-                          .i_im_enable(im_enable),
-                          .i_im_write_enable(im_write_enable),
-                          .i_im_data(im_data),
-                          .i_im_address(im_addr[7:0]),
-                          .i_rb_enable(rb_enable),
-                          .i_rb_read_enable(rb_read_enable),
-                          .i_rb_address(rb_addr),
-                          .i_dm_enable(mem_enable),
-                          .i_dm_read_enable(mem_read_enable),
-                          .i_dm_read_address(mem_addr),
-                          .i_cu_enable(cu_enable),
-                          .o_hlt(halt),
-                          .o_pc_value(pc),
-                          .o_rb_data(rb_data),
-                          .o_dm_data(mem_data));
+    // data_path data_path_1(.i_clock(clk_wiz), // 50 MHz o Steps
+    //                       .i_pc_enable(pc_enable),
+    //                       .i_pc_reset(i_reset),
+    //                       .i_read_enable(im_read_enable),
+    //                       .i_ID_stage_reset(i_reset),
+    //                       .i_ctrl_reset(i_reset),
+    //                       .i_im_enable(im_enable),
+    //                       .i_im_write_enable(im_write_enable),
+    //                       .i_im_data(im_data),
+    //                       .i_im_address(im_addr[7:0]),
+    //                       .i_rb_enable(rb_enable),
+    //                       .i_rb_read_enable(rb_read_enable),
+    //                       .i_rb_address(rb_addr),
+    //                       .i_dm_enable(mem_enable),
+    //                       .i_dm_read_enable(mem_read_enable),
+    //                       .i_dm_read_address(mem_addr),
+    //                       .i_cu_enable(cu_enable),
+    //                       .o_hlt(halt),
+    //                       .o_pc_value(pc),
+    //                       .o_rb_data(rb_data),
+    //                       .o_dm_data(mem_data));
     
     assign o_state      = state;
     assign o_uart_du_tx = uart_du_tx;
-    assign o_hlt        = halt;
+    // assign o_hlt        = halt;
     assign o_clk        = clk_wiz; // borrar
     assign o_led_rx_done = uart_du_rx_done;
     assign o_pc_value = pc[0];

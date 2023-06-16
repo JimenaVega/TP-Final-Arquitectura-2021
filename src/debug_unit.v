@@ -242,6 +242,9 @@ always @(*) begin
                         next_state = SEND_MEM;
                         prev_state = IDLE;
                     end
+                    default: begin
+                        next_state = IDLE;
+                    end
                 endcase
             end
         end
@@ -251,6 +254,7 @@ always @(*) begin
                 case(i_rx_data)
                     CMD_STEP_BY_STEP:   next_state = STEP_BY_STEP;
                     CMD_START:          next_state = START;
+                    default:            next_state = READY;
                 endcase
             end
         end
@@ -286,6 +290,7 @@ always @(*) begin
                         next_step   = 1'b1;
                     end       
                     CMD_CONTINUE: next_state = START;
+                    default: next_state = STEP_BY_STEP;
                 endcase
             end
 
@@ -398,6 +403,9 @@ always @(*) begin
                     end
                 end
             end
+        end
+        default: begin
+            next_state = next_state;
         end
     endcase
 end
