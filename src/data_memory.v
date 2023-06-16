@@ -92,20 +92,23 @@ module data_memory#(
         endcase
       end
 	  
-      // if(i_read_enable) begin			// Debug Unit
-      //   byte_data <= BRAM[i_read_address];
-      // end
+      if(i_read_enable) begin			// Debug Unit
+        byte_data <= BRAM[i_read_address];
+      end
+      else begin
+        byte_data = 8'd0;
+      end
     end
   end
 
-  always@(*)begin
-    if(i_read_enable) begin			// Debug Unit
-      byte_data = BRAM[i_read_address];
-    end
-    else begin
-      byte_data = 8'd0;
-    end
-  end
+  // always@(*)begin
+  //   if(i_read_enable) begin			// Debug Unit
+  //     byte_data = BRAM[i_read_address];
+  //   end
+  //   else begin
+  //     byte_data = 8'd0;
+  //   end
+  // end
   
 
   //  The following code generates HIGH_PERFORMANCE (use output register) or LOW_LATENCY (no output register)
