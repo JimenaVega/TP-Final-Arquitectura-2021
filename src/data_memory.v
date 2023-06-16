@@ -6,8 +6,8 @@
 //  If a reset or enable is not necessary, it may be tied off or removed from the code.
 
 module data_memory#(
-  parameter MEMORY_WIDTH = 8,              // Specify RAM data width
-  parameter MEMORY_DEPTH = 128,              // Specify RAM depth (number of entries)
+  parameter MEMORY_WIDTH = 32,              // Specify RAM data width
+  parameter MEMORY_DEPTH = 32,              // Specify RAM depth (number of entries)
   parameter NB_ADDR = 7,
   parameter NB_DATA = 32,
   parameter RAM_PERFORMANCE = "LOW_LATENCY",// Select "HIGH_PERFORMANCE" or "LOW_LATENCY" 
@@ -42,28 +42,28 @@ module data_memory#(
 
 
   always @(posedge i_clock) begin
-    BRAM[0] <= 8'b01011010; // borrar
-    BRAM[1] <= 8'b11111111; // borrar
-    BRAM[2] <= 8'b11111100; // borrar
-    BRAM[3] <= 8'b11111101; // borrar
-    BRAM[4] <= 8'b11111110; // borrar
-    BRAM[5] <= 8'b11111111; // borrar
-    BRAM[126] <= 8'b11111110; // borrar
-    BRAM[127] <= 8'b11111111; // borrar
+    // BRAM[0] <= 8'b01011010; // borrar
+    // BRAM[1] <= 8'b11111111; // borrar
+    // BRAM[2] <= 8'b11111100; // borrar
+    // BRAM[3] <= 8'b11111101; // borrar
+    // BRAM[4] <= 8'b11111110; // borrar
+    // BRAM[5] <= 8'b11111111; // borrar
+    // BRAM[126] <= 8'b11111110; // borrar
+    // BRAM[127] <= 8'b11111111; // borrar
     if(i_enable) begin
       if (i_mem_write_flag) begin
         case ({i_word_en, i_halfword_en, i_byte_en})
           3'b001:
-              BRAM[i_address]   <= i_write_data[7:0];
+              BRAM[i_address][7:0]    <= i_write_data[7:0];
           3'b010:begin
-              BRAM[i_address]   <= i_write_data[15:8];
-              BRAM[i_address+1] <= i_write_data[7:0];
+              BRAM[i_address][15:8]   <= i_write_data[15:8];
+              BRAM[i_address][7:0]    <= i_write_data[7:0];
           end
           3'b100:begin
-              BRAM[i_address]   <= i_write_data[31:24];
-              BRAM[i_address+1] <= i_write_data[23:16];
-              BRAM[i_address+2] <= i_write_data[15:8];
-              BRAM[i_address+3] <= i_write_data[7:0];
+              BRAM[i_address][31:24]  <= i_write_data[31:24];
+              BRAM[i_address][23:16]  <= i_write_data[23:16];
+              BRAM[i_address][15:8]   <= i_write_data[15:8];
+              BRAM[i_address][7:0]    <= i_write_data[7:0];
           end
           default: BRAM[i_address] <= i_write_data;
         endcase
@@ -74,19 +74,19 @@ module data_memory#(
               ram_data[31:24] <= 8'b0;
               ram_data[23:16] <= 8'b0;
               ram_data[15:8]  <= 8'b0;
-              ram_data[7:0]   <= BRAM[i_address];
+              ram_data[7:0]   <= BRAM[i_address][7:0];
           end      
           3'b010:begin
               ram_data[31:24] <= 8'b0;
               ram_data[23:16] <= 8'b0;
-              ram_data[15:8]  <= BRAM[i_address];
-              ram_data[7:0]   <= BRAM[i_address+1];
+              ram_data[15:8]  <= BRAM[i_address][15:8];
+              ram_data[7:0]   <= BRAM[i_address][7:0];
           end
           3'b100:begin
-              ram_data[31:24] <= BRAM[i_address];
-              ram_data[23:16] <= BRAM[i_address+1];
-              ram_data[15:8]  <= BRAM[i_address+2];
-              ram_data[7:0]   <= BRAM[i_address+3];
+              ram_data[31:24] <= BRAM[i_address][31:24];
+              ram_data[23:16] <= BRAM[i_address][23:16];
+              ram_data[15:8]  <= BRAM[i_address][15:8];
+              ram_data[7:0]   <= BRAM[i_address][7:0];
           end
           default: ram_data <= BRAM[i_address];
         endcase
@@ -96,7 +96,7 @@ module data_memory#(
         byte_data <= BRAM[i_read_address];
       end
       else begin
-        byte_data = 8'd0;
+        byte_data = 32'd0;
       end
     end
   end
