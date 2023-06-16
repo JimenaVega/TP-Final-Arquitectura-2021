@@ -387,6 +387,13 @@ always @(*) begin
             tx_start_next           = 1'b1;
             next_send_data          = i_dm_data;
             next_step               = 1'b0;
+            next_step_flag          = 1'b0;
+
+            // disable memories 
+            next_im_enable  = 1'b0;
+            next_rb_enable  = 1'b0;
+            next_cu_enable  = 1'b0;
+            next_pc_enable  = 1'b0;
 
             if(i_tx_done)begin
                 count_dm_tx_done_next = count_dm_tx_done + 1;
@@ -394,7 +401,7 @@ always @(*) begin
                 if(count_dm_tx_done == DM_DEPTH-1)begin
                     next_dm_read_enable  = 1'b0;
                     next_dm_enable       = 1'b0;
-                    tx_start_next   = 1'b0;
+                    tx_start_next        = 1'b0;
                     if(prev_state == STEP_BY_STEP) begin
                         next_state = SEND_BR;
                     end
