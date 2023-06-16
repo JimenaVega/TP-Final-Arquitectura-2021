@@ -3,7 +3,7 @@
 module TOP#(
         parameter BYTE      = 8,
         parameter DWORD     = 32,
-        parameter ADDR      = 7,
+        parameter ADDR      = 5,
         parameter NB_MEM_DEPTH = 8,
         parameter RB_ADDR   = 5,
         parameter NB_STATE  = 4

@@ -8,7 +8,7 @@ module debug_unit#(
     parameter NB_ADDR     = 32,
     parameter NB_ADDR_RB  = 5,
     parameter NB_BYTE_CTR = 2,
-    parameter NB_ADDR_DM  = 7, 
+    parameter NB_ADDR_DM  = 5, 
     parameter BR_SIZE     = 32,
     parameter DM_DEPTH    = 32,
     parameter DM_WIDTH    = 32,
