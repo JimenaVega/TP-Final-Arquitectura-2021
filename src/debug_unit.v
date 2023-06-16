@@ -82,6 +82,7 @@ reg                     im_enable,          next_im_enable;
 
 // DATA MEMORY
 reg [NB_ADDR_DM-1:0]    count_dm_tx_done,   count_dm_tx_done_next;  // Address
+reg [NB_BYTE_CTR-1:0]   count_dm_byte,      next_count_dm_byte;
 reg                     dm_read_enable,     next_dm_read_enable;
 reg                     dm_enable,          next_dm_enable;
 
@@ -123,6 +124,8 @@ always @(posedge i_clock) begin
         // DATA MEMORY
         count_dm_tx_done        <= 7'b0;
         count_dm_tx_done_next   <= 7'b0;
+        count_dm_byte           <= 2'b0;
+        next_count_dm_byte      <= 2'b0;
         dm_enable               <= 1'b0;
         next_dm_enable          <= 1'b0;
         dm_read_enable          <= 1'b0;
@@ -169,6 +172,7 @@ always @(posedge i_clock) begin
         // DATA MEMORY
         dm_enable           <= next_dm_enable;
         dm_read_enable      <= next_dm_read_enable;
+        count_dm_byte       <= next_count_dm_byte;
         count_dm_tx_done    <= count_dm_tx_done_next;
         // REGISTERS BANK
         rb_enable           <= next_rb_enable;
@@ -193,6 +197,7 @@ always @(*) begin
     next_state              = state;
     next_dm_enable          = dm_enable;
     next_dm_read_enable     = dm_read_enable;
+    next_count_dm_byte      = count_dm_byte;
     count_dm_tx_done_next   = count_dm_tx_done;
     next_count_br_byte      = count_br_byte;
     next_count_br_tx_done   = count_br_tx_done;
@@ -386,28 +391,39 @@ always @(*) begin
             next_dm_read_enable     = 1'b1;
             next_dm_enable          = 1'b1;
             tx_start_next           = 1'b1;
-            next_send_data          = i_dm_data[7:0];
             next_step               = 1'b0;
             next_step_flag          = 1'b0;
 
-            // disable memories 
+            // disable all except dm 
             next_im_enable  = 1'b0;
             next_rb_enable  = 1'b0;
             next_cu_enable  = 1'b0;
             next_pc_enable  = 1'b0;
 
-            if(i_tx_done)begin
-                count_dm_tx_done_next = count_dm_tx_done + 1;
+            case(next_count_dm_byte)
+                2'd0:   next_send_data = i_dm_data[31:24];
+                2'd1:   next_send_data = i_dm_data[23:16];
+                2'd2:   next_send_data = i_dm_data[15:8];
+                2'd3:   next_send_data = i_dm_data[7:0];
+            endcase
 
-                if(count_dm_tx_done == DM_DEPTH-1)begin
-                    next_dm_read_enable  = 1'b0;
-                    next_dm_enable       = 1'b0;
-                    tx_start_next        = 1'b0;
-                    if(prev_state == STEP_BY_STEP) begin
-                        next_state = SEND_BR;
-                    end
-                    else begin
-                        next_state      = IDLE;
+            if(i_tx_done)begin
+                next_count_dm_byte = next_count_dm_byte + 1;
+
+                if(count_dm_byte == 2'd3)begin
+                    count_dm_tx_done_next = count_dm_tx_done + 1;
+                    next_count_dm_byte = 2'd0;
+
+                    if(count_dm_tx_done == DM_DEPTH-1)begin
+                        next_dm_read_enable  = 1'b0;
+                        next_dm_enable       = 1'b0;
+                        tx_start_next        = 1'b0;
+                        if(prev_state == STEP_BY_STEP) begin
+                            next_state = SEND_BR;
+                        end
+                        else begin
+                            next_state      = IDLE;
+                        end
                     end
                 end
             end
