@@ -18,7 +18,7 @@ module data_memory#(
 
 	reg [MEMORY_WIDTH-1:0] BRAM [MEMORY_DEPTH-1:0];
 	reg [NB_DATA-1:0] ram_data = {NB_DATA{1'b0}};
-	reg [MEMORY_WIDTH-1:0] byte_data = {MEMORY_WIDTH{1'b0}};
+	// reg [MEMORY_WIDTH-1:0] byte_data = {MEMORY_WIDTH{1'b0}};
 
 	generate
 		integer ram_index;
@@ -30,15 +30,21 @@ module data_memory#(
 
 	always@(posedge i_clock) begin
 		if(i_enable) begin
-			if(i_mem_write)
+			// EScritura
+			if(i_mem_write) begin
 				BRAM[i_address] <= i_write_data;
-			else
+			end	
+			else begin
 				BRAM[i_address] <= BRAM[i_address];
-
-			if(i_mem_read)
-				o_read_data		<= BRAM[i_address];
-			else
-				o_read_data		<= 32'b0;
+			end
+			
+			// Lectura
+			if(i_mem_read) begin
+				ram_data		<= BRAM[i_address];
+			end
+			else begin
+				ram_data		<= 32'b0;
+			end
 		end
 	end
 

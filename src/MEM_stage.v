@@ -32,7 +32,7 @@ module MEM_stage#(
         input [NB_PC-1:0]       i_MEM_pc,
         input                   i_MEM_hlt,
 
-        output [NB_DATA-1:0]        o_MEM_mem_data,
+        output [NB_DATA-1:0]        o_MEM_mem_data,         // to REG BANK or DEBUG UNIT
         output [NB_REG-1:0]         o_MEM_selected_reg,     // WB register (rd or rt)
         output [NB_ADDR-1:0]        o_MEM_alu_result,       // only for R type and stores (never loads)
         output [NB_PC-1:0]          o_MEM_branch_addr,      // PC = o_MEM_branch_addr
@@ -41,7 +41,6 @@ module MEM_stage#(
         output                      o_MEM_mem_to_reg,       // WB stage flag
         output                      o_MEM_r31_ctrl,
         output [NB_PC-1:0]          o_MEM_pc,
-        output [MEMORY_WIDTH-1:0]   o_MEM_byte_data,
         output                      o_MEM_hlt);
 
     wire [NB_DATA-1:0]      write_data;
@@ -51,30 +50,30 @@ module MEM_stage#(
     reg                    mem_read;
 
     always@(*)begin
-        if(i_MEM_du_flag)begin  // Flag de read y address provenientes de DU
-            mem_read <= i_MEM_dm_read_enable;
-            address  <= i_MEM_dm_read_address;
+        if(i_MEM_du_flag)begin  // Flag de read y address provenientes de DEBUG UNIT
+            mem_read = i_MEM_dm_read_enable;
+            address  = i_MEM_dm_read_address;
         end
         else begin              // Flag de read y address provenientes del datapath
-            mem_read <= i_MEM_mem_read;
-            address  <= i_MEM_alu_result[NB_DM_ADDR-1:0];
+            mem_read = i_MEM_mem_read;
+            address  = i_MEM_alu_result[NB_DM_ADDR-1:0];
         end
     end
 
     data_mem_controller data_mem_controller_1(.i_signed(i_MEM_signed),
-                                              .i_mem_write(mem_write),
+                                              .i_mem_write(i_MEM_mem_write),
                                               .i_mem_read(mem_read),
                                               .i_word_en(i_MEM_word_en),
                                               .i_halfword_en(i_MEM_halfword_en),
                                               .i_byte_en(i_MEM_byte_en),
                                               .i_write_data(i_MEM_write_data),
-                                              .i_read_data(read_data),
-                                              .o_write_data(write_data),
-                                              .o_read_data(o_MEM_mem_data));
+                                              .i_read_data(read_data),       // from MEM
+                                              .o_write_data(write_data),     // to MEM
+                                              .o_read_data(o_MEM_mem_data)); // to DEBUG UNIT or to REG BANK
 
     data_memory data_memory_1(.i_clock(i_clock),
                               .i_enable(i_MEM_dm_enable),
-                              .i_mem_write(mem_write),
+                              .i_mem_write(i_MEM_mem_write),
                               .i_mem_read(mem_read),
                               .i_address(address),
                               .i_write_data(write_data),

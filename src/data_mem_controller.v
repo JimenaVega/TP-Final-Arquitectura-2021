@@ -60,11 +60,11 @@ module data_mem_controller#(
         if(i_mem_write)begin
             case({i_word_en, i_halfword_en, i_byte_en})
                 3'b001:
-                    write_data = i_read_data[7:0];
+                    write_data = i_write_data[7:0];
                 3'b010:
-                    write_data = i_read_data[15:0];
+                    write_data = i_write_data[15:0];
                 3'b100:
-                    write_data = i_read_data;
+                    write_data = i_write_data;
 
                 default:
                     write_data = 32'b0;

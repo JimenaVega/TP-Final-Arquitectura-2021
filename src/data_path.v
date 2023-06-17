@@ -397,7 +397,6 @@ module data_path#(
                           .o_MEM_mem_to_reg(o_MEM_mem_to_reg),
                           .o_MEM_r31_ctrl(o_MEM_r31_ctrl),
                           .o_MEM_pc(o_MEM_pc),
-                          .o_MEM_byte_data(o_dm_data),  // Debug Unit
                           .o_MEM_hlt(o_MEM_hlt));
                          
     MEM_WB_reg MEM_WB_reg_1(.i_clock(i_clock),
@@ -454,7 +453,8 @@ module data_path#(
                             .o_flush_IF(flush_IF),
                             .o_flush_EX(flush_EX));
 
-  assign o_pc_value = IF_adder_result;
-  assign o_rb_data  = ID_data_a;         
+  assign o_pc_value = IF_adder_result;     // to DEBUG UNIT
+  assign o_rb_data  = ID_data_a;           // to DEBUG UNIT
+  assign o_dm_data =  MEM_mem_data;        // to DEBUG UNIT
 
 endmodule
