@@ -51,9 +51,11 @@ module TOP#(
     wire [BYTE-1:0]     uart_du_received;
 
     wire                mem_enable;
+    wire                read_dm_from_du;
     wire                mem_read_enable;
     wire [DWORD-1:0]    mem_data;
     wire [ADDR-1:0]     mem_addr;
+  
 
     wire                rb_enable;
     wire                rb_read_enable;
@@ -103,6 +105,7 @@ module TOP#(
                             .o_rb_enable(rb_enable),
                             .o_dm_enable(mem_enable),
                             .o_dm_read_enable(mem_read_enable),
+                            .o_dm_du_flag(read_dm_from_du),
                             .o_cu_enable(cu_enable),
                             .o_pc_enable(pc_enable),
                             .o_step_flag(step_flag),
@@ -125,7 +128,7 @@ module TOP#(
                           .i_read_enable(im_read_enable),
                           .i_ID_stage_reset(i_reset),
                           .i_ctrl_reset(i_reset),
-                          .i_du_flag(),
+                          .i_du_flag(read_dm_from_du),
                           .i_im_enable(im_enable),
                           .i_im_write_enable(im_write_enable),
                           .i_im_data(im_data),

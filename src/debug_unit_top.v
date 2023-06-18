@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
-
-module TOP#(
+// Este modulo es solo de prueba y debe borrarse
+module debug_unit_top#(
         parameter BYTE      = 8,
         parameter DWORD     = 32,
         parameter ADDR      = 7,
@@ -13,16 +13,27 @@ module TOP#(
         input                 i_reset,
         input                 i_clock_reset,
         input                 i_uart_du_rx,
+        // input                 i_halt,
 
-        output                o_uart_du_tx,
-        output                o_hlt,
+        // output                o_uart_du_tx,
         output [NB_STATE-1:0] o_state,
-        output                o_clk, // borrar
         output                o_led_rx_done, //borrar
-        output                o_pc_value,
 
         // suponiendo que despues de debug unit no hay nada
-        output                 
+        output               o_im_data,
+        output               o_im_addr,
+        // output               o_rb_address,
+        // output               o_dm_address,
+        output               o_im_write_enable, //T
+        output               o_im_enable, //T
+        // output               o_rb_read_enable, // T
+        // output               o_rb_enable, //T
+        // output               o_dm_enable, //  T
+        // output               o_dm_read_enable, // T*2?
+        output               o_cu_enable //T
+        // output               o_pc_enable, // T
+        // output               o_step_flag, // T
+        // output               o_step //T
     );
 
     wire clk_wiz;
@@ -38,30 +49,16 @@ module TOP#(
       .clk_in1(i_clock)
       );
 
-    reg                 data_path_clk;
-    reg                 im_read_enable = 1'b1;
+    // reg                 data_path_clk;
+    // reg                 im_read_enable = 1'b1;
 
-    wire                step_flag;
-    wire                step;
-
-    wire                halt;
+   
 
     wire                uart_du_rx_done;
+
     wire                uart_du_tx_done;
-    wire                uart_du_tx;
-    wire                uart_du_tx_start;
-    wire [BYTE-1:0]     uart_du_to_send;
     wire [BYTE-1:0]     uart_du_received;
 
-    wire                mem_enable;
-    wire                mem_read_enable;
-    wire [BYTE-1:0]     mem_data;
-    wire [ADDR-1:0]     mem_addr;
-
-    wire                rb_enable;
-    wire                rb_read_enable;
-    wire [DWORD-1:0]    rb_data;
-    wire [RB_ADDR-1:0]  rb_addr;
 
     wire                im_enable;
     wire                im_write_enable;
@@ -69,58 +66,45 @@ module TOP#(
     wire [BYTE-1:0]     im_data;
 
     wire                cu_enable;
-    wire                pc_enable;
 
-    wire [DWORD-1:0]    pc;
 
     wire [NB_STATE-1:0] state;
 
 
-    always@(*)begin
-        if(step_flag)begin
-          data_path_clk = step;
-        end
-        else begin
-          data_path_clk = clk_wiz;
-        end
-    end
+    // always@(*)begin
+    //     if(step_flag)begin
+    //       data_path_clk = step;
+    //     end
+    //     else begin
+    //       data_path_clk = clk_wiz;
+    //     end
+    // end
     
-    debug_unit debug_unit_1(.i_clock(clk_wiz), // 50 MHz
+    dummy_db_unit debug_unit_1(.i_clock(clk_wiz), // 50 MHz
                             .i_reset(i_reset),
-                            .i_hlt(halt),
                             .i_rx_done(uart_du_rx_done),
-                            .i_tx_done(uart_du_tx_done),
                             .i_rx_data(uart_du_received),
-                            .i_pc_value(pc),
-                            .i_dm_data(mem_data),
-                            .i_br_data(rb_data),
+                         
                             .o_im_data(im_data),
                             .o_im_addr(im_addr),
-                            .o_rb_addr(rb_addr),
-                            .o_dm_addr(mem_addr),
-                            .o_tx_data(uart_du_to_send), // n
-                            .o_tx_start(uart_du_tx_start), // n
+                          
                             .o_im_write_enable(im_write_enable),
                             .o_im_enable(im_enable),
-                            .o_rb_read_enable(rb_read_enable),
-                            .o_rb_enable(rb_enable),
-                            .o_dm_enable(mem_enable),
-                            .o_dm_read_enable(mem_read_enable),
+                           
                             .o_cu_enable(cu_enable),
-                            .o_pc_enable(pc_enable),
-                            .o_step_flag(step_flag),
-                            .o_step(step),
+
                             .o_state(state));
     
-    UART UART_debug_unit(.i_clock(clk_wiz), // 50 MHz
+    dummy_uart UART_debug_unit(.i_clock(clk_wiz), // 50 MHz
                          .i_reset(i_reset),
                          .i_rx(i_uart_du_rx),
-                         .i_tx(uart_du_to_send),
-                         .i_tx_start(uart_du_tx_start),
+                        //  .i_tx(uart_du_to_send),
+                        //  .i_tx_start(uart_du_tx_start),
                          .o_rx(uart_du_received),
-                         .o_rx_done_tick(uart_du_rx_done),
-                         .o_tx(uart_du_tx),
-                         .o_tx_done_tick(uart_du_tx_done));
+                         .o_rx_done_tick(uart_du_rx_done)
+                        //  .o_tx(uart_du_tx),
+                        //  .o_tx_done_tick(uart_du_tx_done)
+                         );
 
     // data_path data_path_1(.i_clock(clk_wiz), // 50 MHz o Steps
     //                       .i_pc_enable(pc_enable),
@@ -145,11 +129,28 @@ module TOP#(
     //                       .o_dm_data(mem_data));
     
     assign o_state      = state;
-    assign o_uart_du_tx = uart_du_tx;
+    // assign o_uart_du_tx = uart_du_tx;
     // assign o_hlt        = halt;
-    assign o_clk        = clk_wiz; // borrar
+    // assign o_clk        = clk_wiz; // borrar
     assign o_led_rx_done = uart_du_rx_done;
-    assign o_pc_value = pc[0];
+    // assign o_pc_value = pc[0];
+
+    assign               o_im_data = im_data[0];
+    assign               o_im_addr = im_addr[0];
+    // assign               o_rb_address = rb_addr[0];
+    // assign               o_dm_address = mem_addr[0];
+  
+    assign               o_im_write_enable = im_write_enable;
+    assign               o_im_enable = im_enable;
+    // assign               o_rb_read_enable = rb_read_enable;
+    // assign               o_rb_enable = rb_enable;
+    // assign               o_dm_enable = mem_enable;
+    // assign               o_dm_read_enable = mem_read_enable;
+    assign               o_cu_enable = cu_enable;
+    // assign               o_pc_enable = pc_enable;
+    // assign               o_step_flag = step_flag;
+    // assign               o_step = step;
+ 
     
 endmodule
 

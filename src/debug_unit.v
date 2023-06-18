@@ -24,26 +24,27 @@ module debug_unit#(
     input                   i_tx_done,      // meaning: TX ya envio el byte - UART
     input  [NB_DATA-1:0]    i_rx_data,      // from RX - UART
 
-    input  [NB_ADDR-1:0]    i_pc_value,     // data read from PC 
-    input  [DM_WIDTH-1:0]   i_dm_data,      // data read from DATA MEMORY
-    input  [NB_ADDR-1:0]    i_br_data,      // data read from BANK REGISTER
-    output [NB_DATA-1:0]    o_im_data,      // data to write in INSTRUCTION MEMORY
+    input  [NB_ADDR-1:0]    i_pc_value,     // *  data read from PC 
+    input  [DM_WIDTH-1:0]   i_dm_data,      // * data read from DATA MEMORY
+    input  [NB_ADDR-1:0]    i_br_data,      // *  data read from BANK REGISTER
+    output [NB_DATA-1:0]    o_im_data,      // *  data to write in INSTRUCTION MEMORY
 
-    output [NB_ADDR-1:0] o_im_addr,      // address to write INSTRUCTION MEMORY
-    output [NB_ADDR_RB-1:0] o_rb_addr,      // address to read BANK REGISTER
-    output [NB_ADDR_DM-1:0] o_dm_addr,      // address to read DATA MEMORY
+    output [NB_ADDR-1:0]    o_im_addr,      //  * address to write INSTRUCTION MEMORY
+    output [NB_ADDR_RB-1:0] o_rb_addr,      // * address to read BANK REGISTER
+    output [NB_ADDR_DM-1:0] o_dm_addr,      // * address to read DATA MEMORY
 
     output [NB_DATA-1:0]    o_tx_data,      // to TX - UART
     output                  o_tx_start,     // to TX - UART
 
-    output                  o_im_write_enable,
-    output                  o_im_enable,
-    output                  o_rb_read_enable,
-    output                  o_rb_enable,
-    output                  o_dm_enable,
-    output                  o_dm_read_enable,
+    output                  o_im_write_enable, //*
+    output                  o_im_enable, //*
+    output                  o_rb_read_enable, // * 
+    output                  o_rb_enable, // * Usar solo cuando se active funcionamiento normal de datapath
+    output                  o_dm_enable, // *
+    output                  o_dm_read_enable, // *
+    output                  o_dm_du_flag, // *
     output                  o_cu_enable,
-    output                  o_pc_enable,
+    output                  o_pc_enable, // *
 
     output                  o_step_flag,
     output                  o_step,
@@ -62,21 +63,21 @@ localparam [NB_STATE-1:0] SEND_PC      = 4'd9;
 localparam [NB_STATE-1:0] START_WRITE_IM = 4'd10;
 
 // External commands
-localparam [NB_DATA-1:0] CMD_WRITE_IM       = 8'd1;
+localparam [NB_DATA-1:0] CMD_WRITE_IM       = 8'd1; // Escribir programa
 localparam [NB_DATA-1:0] CMD_START          = 8'd2; // Ejecucion continua
-localparam [NB_DATA-1:0] CMD_STEP_BY_STEP   = 8'd3;
-localparam [NB_DATA-1:0] CMD_SEND_BR        = 8'd4;
-localparam [NB_DATA-1:0] CMD_SEND_MEM       = 8'd5;
-localparam [NB_DATA-1:0] CMD_SEND_PC        = 8'd6;
-localparam [NB_DATA-1:0] CMD_STEP           = 8'd7;
-localparam [NB_DATA-1:0] CMD_CONTINUE       = 8'd8;
+localparam [NB_DATA-1:0] CMD_STEP_BY_STEP   = 8'd3; // Step-by-step
+localparam [NB_DATA-1:0] CMD_SEND_BR        = 8'd4; // Leer bank register
+localparam [NB_DATA-1:0] CMD_SEND_MEM       = 8'd5; // Leer data memory
+localparam [NB_DATA-1:0] CMD_SEND_PC        = 8'd6; // Leer PC
+localparam [NB_DATA-1:0] CMD_STEP           = 8'd7; // Send step
+localparam [NB_DATA-1:0] CMD_CONTINUE       = 8'd8; // Continue execution >>
 
 
 // FSM logic
 reg [NB_STATE-1:0]      state,              next_state,     prev_state;
 
 // INSTRUCTION MEMORY
-reg [NB_ADDR-1:0]  im_count,           next_im_count;          // Address a escribir
+reg [NB_ADDR-1:0]       im_count,           next_im_count;          // Address a escribir
 reg                     im_write_enable,    next_im_write_enable;   // Flag que habilita la escritura del IM
 reg                     im_enable,          next_im_enable;
 
@@ -85,7 +86,7 @@ reg [NB_ADDR_DM-1:0]    count_dm_tx_done,   count_dm_tx_done_next;  // Address
 reg [NB_BYTE_CTR-1:0]   count_dm_byte,      next_count_dm_byte;
 reg                     dm_read_enable,     next_dm_read_enable;
 reg                     dm_enable,          next_dm_enable;
-
+reg                     dm_du_flag,         next_dm_du_flag;     // selector de address y flag de DU
 // BANK REGISTER
 reg [NB_ADDR_RB-1:0]    count_br_tx_done,   next_count_br_tx_done; 
 reg [NB_BYTE_CTR-1:0]   count_br_byte,      next_count_br_byte;     // cuenta hasta 4 bytes
@@ -122,14 +123,16 @@ always @(posedge i_clock) begin
         next_im_count           <= 32'hfffffff;
 
         // DATA MEMORY
-        count_dm_tx_done        <= 7'b0;
-        count_dm_tx_done_next   <= 7'b0;
+        count_dm_tx_done        <= 5'b0;
+        count_dm_tx_done_next   <= 5'b0;
         count_dm_byte           <= 2'b0;
         next_count_dm_byte      <= 2'b0;
         dm_enable               <= 1'b0;
         next_dm_enable          <= 1'b0;
         dm_read_enable          <= 1'b0;
         next_dm_read_enable     <= 1'b0;
+        dm_du_flag              <= 1'b0;
+        next_dm_du_flag         <= 1'b0;
 
         // REGISTERS BANK
         count_br_tx_done        <= 5'b0;
@@ -174,6 +177,7 @@ always @(posedge i_clock) begin
         dm_read_enable      <= next_dm_read_enable;
         count_dm_byte       <= next_count_dm_byte;
         count_dm_tx_done    <= count_dm_tx_done_next;
+        dm_du_flag          <= next_dm_du_flag;
         // REGISTERS BANK
         rb_enable           <= next_rb_enable;
         rb_read_enable      <= next_rb_read_enable;
@@ -195,22 +199,31 @@ end
 // Next sate logic
 always @(*) begin
     next_state              = state;
+
     next_dm_enable          = dm_enable;
     next_dm_read_enable     = dm_read_enable;
+    next_dm_du_flag         = dm_du_flag;
     next_count_dm_byte      = count_dm_byte;
     count_dm_tx_done_next   = count_dm_tx_done;
+
     next_count_br_byte      = count_br_byte;
     next_count_br_tx_done   = count_br_tx_done;
+
     next_count_pc           = count_pc;
+    next_pc_enable          = pc_enable;
+
     next_im_enable          = im_enable;
     next_im_write_enable    = im_write_enable;
     next_im_count           = im_count;
+
     next_rb_enable          = rb_enable;
     next_rb_read_enable     = rb_read_enable;
+
     next_send_data          = send_data;
     next_cu_enable          = cu_enable;
-    next_pc_enable          = pc_enable;
+   
     tx_start_next           = tx_start;
+
     next_step_flag          = step_flag;
     next_step               = step;
 
@@ -223,10 +236,14 @@ always @(*) begin
 
             next_im_enable       = 1'b0;
             next_im_write_enable = 1'b0;
+
             next_rb_enable       = 1'b0;
             next_rb_read_enable  = 1'b0;
+
             next_dm_enable       = 1'b0;
             next_dm_read_enable  = 1'b0;
+            next_dm_du_flag      = 1'b0;
+
             next_cu_enable       = 1'b0;
             next_pc_enable       = 1'b0;
 
@@ -235,23 +252,26 @@ always @(*) begin
             if(i_rx_done) begin
                 case (i_rx_data)
                     CMD_WRITE_IM:       next_state = START_WRITE_IM;
-                    CMD_STEP_BY_STEP:   next_state = STEP_BY_STEP; // borrar
-                    CMD_SEND_BR:begin
-                        next_state = SEND_BR;
-                        prev_state = IDLE;
-                    end
-                    CMD_SEND_PC:begin
-                        next_state = SEND_PC;
-                        prev_state = IDLE;
-                    end
-                    CMD_SEND_MEM:begin
-                        next_state = SEND_MEM;
-                        prev_state = IDLE;
-                    end
+                    // CMD_STEP_BY_STEP:   next_state = STEP_BY_STEP; // borrar
+                    // CMD_SEND_BR:begin
+                    //     next_state = SEND_BR;
+                    //     prev_state = IDLE;
+                    // end
+                    // CMD_SEND_PC:begin
+                    //     next_state = SEND_PC;
+                    //     prev_state = IDLE;
+                    // end
+                    // CMD_SEND_MEM:begin
+                    //     next_state = SEND_MEM;
+                    //     prev_state = IDLE;
+                    // end
                     default: begin
                         next_state = IDLE;
                     end
                 endcase
+            end
+            else begin
+                next_state = IDLE;
             end
         end
         READY: begin
@@ -263,47 +283,50 @@ always @(*) begin
                     default:            next_state = READY;
                 endcase
             end
-        end
-        START: begin
-            next_step_flag  = 1'b0;
-            next_step       = 1'b0;
-
-            next_im_enable  = 1'b1;
-            next_rb_enable  = 1'b1;
-            next_dm_enable       = 1'b1;
-            next_cu_enable       = 1'b1;
-            next_pc_enable       = 1'b1;
-
-            if(i_hlt)begin
-                next_state = IDLE;
+            else begin
+                next_state = READY;
             end
         end
-        STEP_BY_STEP: begin
-            next_step_flag  = 1'b1;
-            next_step       = 1'b0;
+        // START: begin
+        //     next_step_flag  = 1'b0;
+        //     next_step       = 1'b0;
 
-            next_im_enable  = 1'b1;
-            next_rb_enable  = 1'b1;
-            next_dm_enable  = 1'b1;
-            next_cu_enable  = 1'b1;
-            next_pc_enable  = 1'b1;
+        //     next_im_enable  = 1'b1;
+        //     next_rb_enable  = 1'b1;
+        //     next_dm_enable       = 1'b1;
+        //     next_cu_enable       = 1'b1;
+        //     next_pc_enable       = 1'b1;
 
-            if(i_rx_done)begin
-                case (i_rx_data)
-                    CMD_STEP: begin
-                        next_state  = SEND_PC;
-                        prev_state  = STEP_BY_STEP;
-                        next_step   = 1'b1;
-                    end       
-                    CMD_CONTINUE: next_state = START;
-                    default: next_state = STEP_BY_STEP;
-                endcase
-            end
+        //     if(i_hlt)begin
+        //         next_state = IDLE;
+        //     end
+        // end
+        // STEP_BY_STEP: begin
+        //     next_step_flag  = 1'b1;
+        //     next_step       = 1'b0;
 
-            if(i_hlt)begin
-                next_state = IDLE;
-            end
-        end
+        //     next_im_enable  = 1'b1;
+        //     next_rb_enable  = 1'b1;
+        //     next_dm_enable  = 1'b1;
+        //     next_cu_enable  = 1'b1;
+        //     next_pc_enable  = 1'b1;
+
+        //     if(i_rx_done)begin
+        //         case (i_rx_data)
+        //             CMD_STEP: begin
+        //                 next_state  = SEND_PC;
+        //                 prev_state  = STEP_BY_STEP;
+        //                 next_step   = 1'b1;
+        //             end       
+        //             CMD_CONTINUE: next_state = START;
+        //             default: next_state = STEP_BY_STEP;
+        //         endcase
+        //     end
+
+        //     if(i_hlt)begin
+        //         next_state = IDLE;
+        //     end
+        // end
         START_WRITE_IM: begin
             next_step   = 1'b0;
             next_state  = WRITE_IM;
@@ -329,107 +352,109 @@ always @(*) begin
                 end
             end
         end
-        SEND_PC: begin
-            tx_start_next   = 1'b1;
-            next_step       = 1'b0;
+        // SEND_PC: begin
+        //     tx_start_next   = 1'b1;
+        //     next_step       = 1'b0;
 
-            case(count_pc)
-                2'd0:   next_send_data = i_pc_value[31:24];
-                2'd1:   next_send_data = i_pc_value[23:16];
-                2'd2:   next_send_data = i_pc_value[15:8];
-                2'd3:   next_send_data = i_pc_value[7:0];
-            endcase
+        //     case(count_pc)
+        //         2'd0:   next_send_data = i_pc_value[31:24];
+        //         2'd1:   next_send_data = i_pc_value[23:16];
+        //         2'd2:   next_send_data = i_pc_value[15:8];
+        //         2'd3:   next_send_data = i_pc_value[7:0];
+        //     endcase
 
-            if(i_tx_done)begin
-                next_count_pc = count_pc + 1;
+        //     if(i_tx_done)begin
+        //         next_count_pc = count_pc + 1;
 
-                if(count_pc == 2'd3)begin
-                    tx_start_next   = 1'b0;
-                    if(prev_state == STEP_BY_STEP)begin
-                        next_state = SEND_MEM;
-                    end
-                    else begin
-                        next_state = IDLE;
-                    end
-                end
-            end
-        end
-        SEND_BR: begin
-            next_pc_enable      = 1'b0;
-            next_cu_enable      = 1'b0;
-            next_dm_enable      = 1'b0;
-            next_rb_read_enable = 1'b1; // Read enable = register bank con lectura para debug unit
-            next_rb_enable      = 1'b0; // Enable = register bank con lectura en funcionamiento normal
-            tx_start_next       = 1'b1;
-            next_step           = 1'b0;
-            next_step_flag      = 1'b0; // Se alimenta el datapath con clk de 50MHz
+        //         if(count_pc == 2'd3)begin
+        //             tx_start_next   = 1'b0;
+        //             if(prev_state == STEP_BY_STEP)begin
+        //                 next_state = SEND_MEM;
+        //             end
+        //             else begin
+        //                 next_state = IDLE;
+        //             end
+        //         end
+        //     end
+        // end
+        // SEND_BR: begin
+        //     next_pc_enable      = 1'b0;
+        //     next_cu_enable      = 1'b0;
+        //     next_dm_enable      = 1'b0;
+        //     next_rb_read_enable = 1'b1; // Read enable = register bank con lectura para debug unit
+        //     next_rb_enable      = 1'b0; // Enable = register bank con lectura en funcionamiento normal
+        //     tx_start_next       = 1'b1;
+        //     next_step           = 1'b0;
+        //     next_step_flag      = 1'b0; // Se alimenta el datapath con clk de 50MHz
 
-            case(next_count_br_byte)
-                2'd0:   next_send_data = i_br_data[31:24];
-                2'd1:   next_send_data = i_br_data[23:16];
-                2'd2:   next_send_data = i_br_data[15:8];
-                2'd3:   next_send_data = i_br_data[7:0];
-            endcase
+        //     case(next_count_br_byte)
+        //         2'd0:   next_send_data = i_br_data[31:24];
+        //         2'd1:   next_send_data = i_br_data[23:16];
+        //         2'd2:   next_send_data = i_br_data[15:8];
+        //         2'd3:   next_send_data = i_br_data[7:0];
+        //     endcase
 
-            if(i_tx_done)begin
-                next_count_br_byte = count_br_byte + 1;
+        //     if(i_tx_done)begin
+        //         next_count_br_byte = count_br_byte + 1;
 
-                if(count_br_byte == 2'd3)begin
-                    next_count_br_tx_done   = count_br_tx_done + 1;
-                    next_count_br_byte      = 2'd0;
+        //         if(count_br_byte == 2'd3)begin
+        //             next_count_br_tx_done   = count_br_tx_done + 1;
+        //             next_count_br_byte      = 2'd0;
 
-                    if(count_br_tx_done == RB_DEPTH-1)begin
-                        next_rb_read_enable  = 1'b0;
-                        tx_start_next   = 1'b0;
+        //             if(count_br_tx_done == RB_DEPTH-1)begin
+        //                 next_rb_read_enable  = 1'b0;
+        //                 tx_start_next   = 1'b0;
 
-                        next_state      = prev_state;
-                    end
-                end
-            end
-        end
-        SEND_MEM: begin
-            next_dm_read_enable     = 1'b1;
-            next_dm_enable          = 1'b1;
-            tx_start_next           = 1'b1;
-            next_step               = 1'b0;
-            next_step_flag          = 1'b0;
+        //                 next_state      = prev_state;
+        //             end
+        //         end
+        //     end
+        // end
+        // SEND_MEM: begin
+        //     next_dm_read_enable     = 1'b1;
+        //     next_dm_enable          = 1'b1;
+        //     next_dm_du_flag         = 1'b1; // select DU as address and read enable source
+        //     tx_start_next           = 1'b1;
+        //     next_step               = 1'b0;
+        //     next_step_flag          = 1'b0;
 
-            // disable all except dm 
-            next_im_enable  = 1'b0;
-            next_rb_enable  = 1'b0;
-            next_cu_enable  = 1'b0;
-            next_pc_enable  = 1'b0;
+        //     // disable all except dm 
+        //     next_im_enable  = 1'b0;
+        //     next_rb_enable  = 1'b0;
+        //     next_cu_enable  = 1'b0;
+        //     next_pc_enable  = 1'b0;
 
-            case(next_count_dm_byte)
-                2'd0:   next_send_data = i_dm_data[31:24];
-                2'd1:   next_send_data = i_dm_data[23:16];
-                2'd2:   next_send_data = i_dm_data[15:8];
-                2'd3:   next_send_data = i_dm_data[7:0];
-            endcase
+        //     case(next_count_dm_byte)
+        //         2'd0:   next_send_data = i_dm_data[31:24];
+        //         2'd1:   next_send_data = i_dm_data[23:16];
+        //         2'd2:   next_send_data = i_dm_data[15:8];
+        //         2'd3:   next_send_data = i_dm_data[7:0];
+        //     endcase
 
-            if(i_tx_done)begin
-                next_count_dm_byte = next_count_dm_byte + 1;
+        //     if(i_tx_done)begin
+        //         next_count_dm_byte = next_count_dm_byte + 1;
 
-                if(count_dm_byte == 2'd3)begin
-                    count_dm_tx_done_next = count_dm_tx_done + 1;
-                    next_count_dm_byte = 2'd0;
+        //         if(count_dm_byte == 2'd3)begin
+        //             count_dm_tx_done_next = count_dm_tx_done + 1;
+        //             next_count_dm_byte = 2'd0;
 
-                    if(count_dm_tx_done == DM_DEPTH-1)begin
-                        next_dm_read_enable  = 1'b0;
-                        next_dm_enable       = 1'b0;
-                        tx_start_next        = 1'b0;
-                        if(prev_state == STEP_BY_STEP) begin
-                            next_state = SEND_BR;
-                        end
-                        else begin
-                            next_state      = IDLE;
-                        end
-                    end
-                end
-            end
-        end
+        //             if(count_dm_tx_done == DM_DEPTH-1)begin
+        //                 next_dm_read_enable  = 1'b0;
+        //                 next_dm_enable       = 1'b0;
+        //                 next_dm_du_flag      = 1'b0;
+        //                 tx_start_next        = 1'b0;
+        //                 if(prev_state == STEP_BY_STEP) begin
+        //                     next_state = SEND_BR;
+        //                 end
+        //                 else begin
+        //                     next_state      = IDLE;
+        //                 end
+        //             end
+        //         end
+        //     end
+        // end
         default: begin
-            next_state = next_state;
+            next_state = IDLE;
         end
     endcase
 end
@@ -444,6 +469,7 @@ assign o_im_enable          = im_enable;
 assign o_dm_addr            = count_dm_tx_done; // Cada vez que haya un tx_done, se avanza +1 address
 assign o_dm_enable          = dm_enable;
 assign o_dm_read_enable     = dm_read_enable;
+assign o_dm_du_flag         = dm_du_flag;
 
 // REGISTER BANK
 assign o_rb_addr            = count_br_tx_done;
