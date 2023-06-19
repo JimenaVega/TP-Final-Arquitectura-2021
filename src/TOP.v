@@ -17,7 +17,7 @@ module TOP#(
         output                o_uart_du_tx,
         output                o_hlt,
         output [NB_STATE-1:0] o_state,
-//        output                o_clk, // borrar
+        output                o_clk, // borrar
         output                o_led_rx_done, //borrar
         output                o_pc_value
     );
