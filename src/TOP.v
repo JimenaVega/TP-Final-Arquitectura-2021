@@ -22,18 +22,17 @@ module TOP#(
         output                o_pc_value
     );
 
-    wire clk_wiz;
+   wire clk_wiz;
     
-    clk_wiz_0 inst
-      (
-      // Clock out ports  
-      .clk_out1(clk_wiz),
-      // Status and control signals               
-      .reset(i_clock_reset), 
-      .locked(),
-     // Clock in ports
-      .clk_in1(i_clock)
-      );
+   clk_wiz_0 inst(
+                // Clock out ports  
+                .clk_out1(clk_wiz),
+                // Status and control signals               
+                .reset(i_clock_reset), 
+                .locked(),
+                // Clock in ports
+                .clk_in1(i_clock)
+                );
 
     reg                 data_path_clk;
     reg                 im_read_enable = 1'b1;
@@ -148,7 +147,7 @@ module TOP#(
     assign o_state      = state;
     assign o_uart_du_tx = uart_du_tx;
     assign o_hlt        = halt;
-    assign o_clk        = clk_wiz; // borrar
+    // assign o_clk        = i_clock; // borrar
     assign o_led_rx_done = uart_du_rx_done;
     assign o_pc_value = pc[0];
     
