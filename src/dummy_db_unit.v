@@ -60,6 +60,7 @@ reg [NB_STATE-1:0]      state,              next_state,     prev_state;
 reg [NB_ADDR-1:0]       im_count,           next_im_count;          // Address a escribir
 reg                     im_write_enable,    next_im_write_enable;   // Flag que habilita la escritura del IM
 reg                     im_enable,          next_im_enable;
+reg [NB_DATA-1:0]       im_data,          next_im_data;
 
 // CONTROL UNIT
 reg                     cu_enable,          next_cu_enable;
@@ -77,6 +78,8 @@ always @(posedge i_clock) begin
         next_im_enable          <= 1'b0;
         im_count                <= 32'hfffffff;
         next_im_count           <= 32'hfffffff;
+        im_data                 <= 8'b0;
+        next_im_data            <= 8'b0;
 
         // CONTROL UNIT
         cu_enable               <= 1'b0;
@@ -89,7 +92,7 @@ always @(posedge i_clock) begin
         im_write_enable     <= next_im_write_enable;
         im_enable           <= next_im_enable;
         im_count            <= next_im_count;
-     
+        im_data             <= next_im_data;
         // CONTROL UNIT
         cu_enable           <= next_cu_enable;
    
@@ -108,6 +111,7 @@ always @(*) begin
     next_im_enable          = im_enable;
     next_im_write_enable    = im_write_enable;
     next_im_count           = im_count;
+    next_im_data            = im_data;
 
     // next_send_data          = send_data;
     next_cu_enable          = cu_enable;
@@ -181,6 +185,7 @@ always @(*) begin
             end
             else begin
                 if(i_rx_done)begin
+                    next_im_data            = i_rx_data;
                     next_im_enable          = 1'b1;
                     next_im_write_enable    = 1'b1;
                     next_im_count           = im_count + 1;
@@ -200,7 +205,7 @@ always @(*) begin
 end
 
 // INSTRUCTION MEMORY
-assign o_im_data            = i_rx_data;
+assign o_im_data            = im_data;
 assign o_im_write_enable    = im_write_enable;
 assign o_im_addr            = im_count;
 assign o_im_enable          = im_enable;
