@@ -11,15 +11,18 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="263.258 ns"></ZoomEndTime>
-      <Cursor1Time time="4,497,515.000 ns"></Cursor1Time>
+      <ZoomStartTime time="998,161.800 ns"></ZoomStartTime>
+      <ZoomEndTime time="998,310.401 ns"></ZoomEndTime>
+      <Cursor1Time time="998,210.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="194"></NameColumnWidth>
-      <ValueColumnWidth column_width="66"></ValueColumnWidth>
+      <NameColumnWidth column_width="173"></NameColumnWidth>
+      <ValueColumnWidth column_width="83"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="13" />
+   <wave_markers>
+      <marker label="" time="998210000" />
+   </wave_markers>
    <wvobject type="logic" fp_name="/tb_TOP/i_clock">
       <obj_property name="ElementShortName">i_clock</obj_property>
       <obj_property name="ObjectShortName">i_clock</obj_property>
@@ -127,8 +130,8 @@
          <obj_property name="ObjectShortName">prev_state[3:0]</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/tb_TOP/TOP_dut/debug_unit_1/count_dm_tx_done">
-         <obj_property name="ElementShortName">count_dm_tx_done[6:0]</obj_property>
-         <obj_property name="ObjectShortName">count_dm_tx_done[6:0]</obj_property>
+         <obj_property name="ElementShortName">count_dm_tx_done[4:0]</obj_property>
+         <obj_property name="ObjectShortName">count_dm_tx_done[4:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/tb_TOP/TOP_dut/debug_unit_1/count_br_tx_done">
@@ -160,7 +163,7 @@
          <wvobject type="logic" fp_name="/tb_TOP/TOP_dut/UART_debug_unit/o_rx_done_tick">
             <obj_property name="ElementShortName">o_rx_done_tick</obj_property>
             <obj_property name="ObjectShortName">o_rx_done_tick</obj_property>
-            <obj_property name="CustomSignalColor">#800080</obj_property>
+            <obj_property name="CustomSignalColor">#00FFFF</obj_property>
             <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
          <wvobject type="array" fp_name="/tb_TOP/TOP_dut/UART_debug_unit/o_rx">

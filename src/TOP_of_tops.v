@@ -59,7 +59,7 @@ module TOP_of_tops#(
 
     wire                im_enable;
     wire                im_write_enable;
-    wire [DWORD-1:0]    im_addr;
+    wire [BYTE-1:0]     im_addr;
     wire [BYTE-1:0]     im_data;
 
     wire                cu_enable;
@@ -118,7 +118,7 @@ module TOP_of_tops#(
                           .i_im_enable(im_enable),
                           .i_im_write_enable(im_write_enable),
                           .i_im_data(im_data),
-                          .i_im_address(im_addr[7:0]),
+                          .i_im_address(im_addr),
                           .i_rb_enable(rb_enable),
                           .i_rb_read_enable(rb_read_enable),
                           .i_rb_address(rb_addr),

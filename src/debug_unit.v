@@ -29,7 +29,7 @@ module debug_unit#(
     input  [NB_ADDR-1:0]    i_br_data,      // *  data read from BANK REGISTER
     output [NB_DATA-1:0]    o_im_data,      // *  data to write in INSTRUCTION MEMORY
 
-    output [NB_ADDR-1:0]    o_im_addr,      //  * address to write INSTRUCTION MEMORY
+    output [NB_DATA-1:0]    o_im_addr,      //  * address to write INSTRUCTION MEMORY
     output [NB_ADDR_RB-1:0] o_rb_addr,      // * address to read BANK REGISTER
     output [NB_ADDR_DM-1:0] o_dm_addr,      // * address to read DATA MEMORY
 
@@ -60,7 +60,6 @@ localparam [NB_STATE-1:0] STEP_BY_STEP = 4'd6;
 localparam [NB_STATE-1:0] SEND_BR      = 4'd7;
 localparam [NB_STATE-1:0] SEND_MEM     = 4'd8;
 localparam [NB_STATE-1:0] SEND_PC      = 4'd9;
-localparam [NB_STATE-1:0] START_WRITE_IM = 4'd10;
 
 // External commands
 localparam [NB_DATA-1:0] CMD_WRITE_IM       = 8'd1; // Escribir programa
@@ -77,7 +76,7 @@ localparam [NB_DATA-1:0] CMD_CONTINUE       = 8'd8; // Continue execution >>
 reg [NB_STATE-1:0]      state,              next_state,     prev_state;
 
 // INSTRUCTION MEMORY
-reg [NB_ADDR-1:0]       im_count,           next_im_count;          // Address a escribir
+reg [NB_DATA-1:0]       im_count,           next_im_count;          // Address a escribir
 reg                     im_write_enable,    next_im_write_enable;   // Flag que habilita la escritura del IM
 reg                     im_enable,          next_im_enable;
 
@@ -119,7 +118,7 @@ always @(posedge i_clock) begin
         // next_im_write_enable    <= 1'b0;
         im_enable               <= 1'b0;
         // next_im_enable          <= 1'b0;
-        im_count                <= 32'h0;
+        im_count                <= 8'h0;
         // next_im_count           <= 32'hfffffff;
 
         // DATA MEMORY
@@ -251,7 +250,12 @@ always @(*) begin
 
             if(i_rx_done) begin
                 case (i_rx_data)
-                    CMD_WRITE_IM:       next_state = START_WRITE_IM;
+                    CMD_WRITE_IM:  begin
+                        
+                        next_state = WRITE_IM;
+                        next_im_enable          = 1'b1;
+                        next_im_write_enable    = 1'b1;
+                    end    
 //                     CMD_STEP_BY_STEP:   next_state = STEP_BY_STEP; // borrar
                      CMD_SEND_BR:begin
                          next_state = SEND_BR;
@@ -270,9 +274,6 @@ always @(*) begin
                     end
                 endcase
             end
-//            else begin
-//                next_state = next_state;
-//            end
         end
         READY: begin
             next_step = 1'b0;
@@ -327,24 +328,20 @@ always @(*) begin
                  next_state = IDLE;
              end
          end
-        START_WRITE_IM: begin
-            next_step   = 1'b0;
-            next_state  = WRITE_IM;
-        end
         WRITE_IM: begin
             next_step = 1'b0;
-            if(im_count == 32'd255)begin
+            if(im_count == 8'd255)begin
                 next_state              = READY;
                 next_im_enable          = 1'b0;
                 next_im_write_enable    = 1'b0;
-                next_im_count           = 32'h0;
+                next_im_count           = 8'h0;
             end
             else begin
                 if(i_rx_done)begin
                     next_im_enable          = 1'b1;
                     next_im_write_enable    = 1'b1;
                     next_im_count           = im_count + 1;
-                    next_state              = START_WRITE_IM;
+                    next_state              = WRITE_IM;
                 end
                 else begin
                     next_im_enable          = 1'b0;

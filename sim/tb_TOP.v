@@ -5,7 +5,7 @@ module tb_TOP;
   // Parameters
   localparam  BYTE    = 8;
   localparam  DWORD   = 32;
-  localparam  ADDR    = 7;
+  localparam  ADDR    = 5;
   localparam  RB_ADDR = 5;
   localparam  NB_DATA = 8;
   localparam  NB_OP   = 6;
@@ -66,13 +66,13 @@ module tb_TOP;
 
     #20
     i_rx_done       = 1'b0;
-    $readmemb("C:/Users/alejo/OneDrive/Documents/GitHub/TP-Final-Arquitectura-2021/translator/instructions.mem", memory, 0, 255);
-
+    // $readmemb("C:/Users/alejo/OneDrive/Documents/GitHub/TP-Final-Arquitectura-2021/GUI/instructions.mem", memory, 0, 255);
+    $readmemb("/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/GUI/instructions.mem", memory, 0, 255);
 	// Se envia instruccion por instruccion, byte por byte
     for (i=0; i<256; i=i+1) begin
         $display("instructions : ",inst_counter);
         inst_counter = inst_counter+1;
-    	$display("valor: ",memory[i]);
+    	$display("valor: ", memory[i]);
 		#20
 		i_rx_data	= memory[i];
 		i_rx_done	= 1'b1;
