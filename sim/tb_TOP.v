@@ -7,21 +7,22 @@ module tb_TOP;
   localparam  RB_ADDR = 5;
   localparam  NB_DATA = 8;
   localparam  NB_OP   = 6;
+  localparam  NB_ST   = 4;
+
+  reg [NB_DATA-1:0] memory [255:0]; 
 
   // Ports
-  reg             i_clock       = 1'b0;
-  reg             i_clock_reset = 1'b1;
-  reg             i_reset       = 1'b1;
-  reg [BYTE-1:0]  command       = 8'd0;
-  reg             send          = 1'b0;
-  reg i_rx_done;
-  reg i_tx_done;
-  reg [BYTE-1:0] i_rx_data;
+  reg               i_clock       = 1'b0;
+  reg               i_clock_reset = 1'b1;
+  reg               i_reset       = 1'b1;
+  reg               i_rx_done     = 1'b0;
+  reg               i_tx_done     = 1'b0;
+  reg [BYTE-1:0]    i_rx_data     = 8'b0;
 
 
-  wire [BYTE-1:0] o_state;
-  wire [BYTE-1:0] o_tx_data;
-  wire o_tx_start;
+  wire [NB_ST-1:0]  o_state;
+  wire [BYTE-1:0]   o_tx_data;
+  wire              o_tx_start;
 
   TOP_of_tops #(.BYTE(BYTE),
         .DWORD(DWORD),
@@ -39,35 +40,58 @@ module tb_TOP;
 
 
   initial begin
-    i_clock       = 1'b0;
-    i_reset       = 1'b1;
-    i_clock_reset = 1'b1;
-    command       = 8'd0;
-    send          = 1'b0;
+    i_clock         = 1'b0;
+    i_reset         = 1'b1;
+    i_clock_reset   = 1'b1;
+    i_rx_data       = 8'd0;
+    i_rx_done       = 1'b0;
 
     #100
-    i_clock_reset = 1'b0;
+    i_clock_reset   = 1'b0;
 
     #650
-    i_reset = 1'b0;
+    i_reset         = 1'b0;
     
+	// Se envia cmd para escribir Instruction Mem
     #400
-    command = 8'd1;
-    send    = 1'b1;
+    i_rx_data       = 8'd1;
+    i_rx_done       = 1'b1;
 
-    #20
-    send    = 1'b0;
+    #40
+    i_rx_done       = 1'b0;
 
-    #4000000
-    command = 8'd7;
-    send    = 1'b1;
+    #40
+    $readmemh("C:/Users/alejo/OneDrive/Documents/GitHub/TP-Final-Arquitectura-2021/translator/instructions.mem", memory);
 
-    #20
-    send    = 1'b0;
+	// Se envia instruccion por instruccion, byte por byte
+    for (i=0; i<256; i=i+1) begin
+    	$display("valor :%h",memory[i]);
+		#80
+		i_rx_data	= memory[i];
+		i_rx_done	= 1'b1;
+
+		#40
+		i_rx_done	= 1'b0;
+    end
+
+	// Se envia cmd start para ejecucion continua
+	#40
+	i_rx_data 	= 8'd2;
+	i_rx_done	= 1'b1;
+
+	#40
+	i_rx_done	= 1'b0;
+
+    // #4000000
+    // i_rx_data       = 8'd7;
+    // i_rx_done       = 1'b1;
+
+    // #20
+    // i_rx_done       = 1'b0;
     
-    #75000000
-    command = 8'd8;
-    send    = 1'b1;
+    // #75000000
+    // i_rx_data = 8'd8;
+    // i_rx_done    = 1'b1;
 
     $finish;
   end

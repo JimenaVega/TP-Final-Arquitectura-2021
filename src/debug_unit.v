@@ -270,9 +270,9 @@ always @(*) begin
                     end
                 endcase
             end
-            else begin
-                next_state = IDLE;
-            end
+//            else begin
+//                next_state = next_state;
+//            end
         end
         READY: begin
             next_step = 1'b0;
