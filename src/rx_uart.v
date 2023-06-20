@@ -1,3 +1,5 @@
+`timescale 1ns / 1ps
+
 module rx_uart
     #(
         parameter DBIT = 8,      // Number of bits of data

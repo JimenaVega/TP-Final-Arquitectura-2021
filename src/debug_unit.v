@@ -119,7 +119,7 @@ always @(posedge i_clock) begin
         // next_im_write_enable    <= 1'b0;
         im_enable               <= 1'b0;
         // next_im_enable          <= 1'b0;
-        im_count                <= 32'hfffffff;
+        im_count                <= 32'h0;
         // next_im_count           <= 32'hfffffff;
 
         // DATA MEMORY
@@ -333,11 +333,11 @@ always @(*) begin
         end
         WRITE_IM: begin
             next_step = 1'b0;
-            if(im_count == 32'd256)begin
+            if(im_count == 32'd255)begin
                 next_state              = READY;
                 next_im_enable          = 1'b0;
                 next_im_write_enable    = 1'b0;
-                next_im_count           = 32'hfffffff;
+                next_im_count           = 32'h0;
             end
             else begin
                 if(i_rx_done)begin

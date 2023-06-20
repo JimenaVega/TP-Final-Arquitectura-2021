@@ -1,3 +1,5 @@
+`timescale 1ns / 1ps
+
 module tb_TOP;
 
   // Parameters
@@ -23,6 +25,9 @@ module tb_TOP;
   wire [NB_ST-1:0]  o_state;
   wire [BYTE-1:0]   o_tx_data;
   wire              o_tx_start;
+  
+  integer i;
+  integer inst_counter;
 
   TOP_of_tops #(.BYTE(BYTE),
         .DWORD(DWORD),
@@ -40,6 +45,8 @@ module tb_TOP;
 
 
   initial begin
+    inst_counter    = 0;
+  
     i_clock         = 1'b0;
     i_reset         = 1'b1;
     i_clock_reset   = 1'b1;
@@ -53,34 +60,34 @@ module tb_TOP;
     i_reset         = 1'b0;
     
 	// Se envia cmd para escribir Instruction Mem
-    #400
+    #405
     i_rx_data       = 8'd1;
     i_rx_done       = 1'b1;
 
-    #40
+    #20
     i_rx_done       = 1'b0;
-
-    #40
-    $readmemh("C:/Users/alejo/OneDrive/Documents/GitHub/TP-Final-Arquitectura-2021/translator/instructions.mem", memory);
+    $readmemb("C:/Users/alejo/OneDrive/Documents/GitHub/TP-Final-Arquitectura-2021/translator/instructions.mem", memory, 0, 255);
 
 	// Se envia instruccion por instruccion, byte por byte
     for (i=0; i<256; i=i+1) begin
-    	$display("valor :%h",memory[i]);
-		#80
+        $display("instructions : ",inst_counter);
+        inst_counter = inst_counter+1;
+    	$display("valor: ",memory[i]);
+		#20
 		i_rx_data	= memory[i];
 		i_rx_done	= 1'b1;
 
-		#40
+		#20
 		i_rx_done	= 1'b0;
     end
 
 	// Se envia cmd start para ejecucion continua
-	#40
-	i_rx_data 	= 8'd2;
-	i_rx_done	= 1'b1;
+//	#200
+//	i_rx_data 	= 8'd2;
+//	i_rx_done	= 1'b1;
 
-	#40
-	i_rx_done	= 1'b0;
+//	#40
+//	i_rx_done	= 1'b0;
 
     // #4000000
     // i_rx_data       = 8'd7;
@@ -97,6 +104,6 @@ module tb_TOP;
   end
 
   always
-    #10  i_clock = ! i_clock ;
+    #5  i_clock = ! i_clock ;
 
 endmodule

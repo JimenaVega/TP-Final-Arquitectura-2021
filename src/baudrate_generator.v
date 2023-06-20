@@ -1,3 +1,5 @@
+`timescale 1ns / 1ps
+
 module baudrate_generator 
     #(parameter NB_COUNT = 8,
       parameter N_TICKS  = 163
