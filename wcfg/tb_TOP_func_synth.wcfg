@@ -11,13 +11,13 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="11361000fs"></ZoomStartTime>
-      <ZoomEndTime time="11685001fs"></ZoomEndTime>
+      <ZoomStartTime time="11360667fs"></ZoomStartTime>
+      <ZoomEndTime time="11686668fs"></ZoomEndTime>
       <Cursor1Time time="11415000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="276"></NameColumnWidth>
-      <ValueColumnWidth column_width="104"></ValueColumnWidth>
+      <ValueColumnWidth column_width="100"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="8" />
    <wvobject fp_name="/tb_TOP/i_clock" type="logic">
@@ -65,6 +65,7 @@
       <wvobject fp_name="/tb_TOP/TOP_dut/debug_unit_1/im_count" type="array">
          <obj_property name="ElementShortName">im_count[31:6]</obj_property>
          <obj_property name="ObjectShortName">im_count[31:6]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
    </wvobject>
    <wvobject fp_name="group111" type="group">
