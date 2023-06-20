@@ -14,48 +14,29 @@ module tb_TOP;
   reg             i_reset       = 1'b1;
   reg [BYTE-1:0]  command       = 8'd0;
   reg             send          = 1'b0;
+  reg i_rx_done;
+  reg i_tx_done;
+  reg [BYTE-1:0] i_rx_data;
 
-  wire uart_du_rx;
-  wire clk_wzrd;  // Borrar
- // TOP
-  wire o_uart_du_tx;
-  wire o_halt;
-  wire o_state;
-  wire o_led_rx_done;
-  wire o_pc_value;
 
-  // UART externa
-  wire o_rx;
-  wire o_rx_done_tick;
-  wire o_tx_done_tick;
-  reg i_rx;
+  wire [BYTE-1:0] o_state;
+  wire [BYTE-1:0] o_tx_data;
+  wire o_tx_start;
 
-  TOP #(.BYTE(BYTE),
+  TOP_of_tops #(.BYTE(BYTE),
         .DWORD(DWORD),
         .ADDR(ADDR),
         .RB_ADDR(RB_ADDR))
   TOP_dut(.i_clock(i_clock),
           .i_reset(i_reset),
+          .i_rx_done(i_rx_done),
+          .i_tx_done(i_tx_done),
+          .i_rx_data(i_rx_data),
           .i_clock_reset(i_clock_reset),
-          .i_uart_du_rx(uart_du_rx),
-          .o_uart_du_tx(o_uart_du_tx),
-          .o_hlt(o_halt),
           .o_state(o_state),
-          .o_clk(clk_wzrd), // Borrar
-          .o_led_rx_done(o_led_rx_done), //borrar
-          .o_pc_value(o_pc_value)); 
+          .o_tx_data(o_tx_data),
+          .o_tx_start(o_tx_start)); 
 
-  // UART #(.NB_DATA(NB_DATA),
-  //        .NB_OP(NB_OP))
-  // UART_dut(.i_clock(clk_wzrd), // Cambiar
-  //          .i_reset(i_reset),
-  //          .i_rx(i_rx),
-  //          .i_tx(command),
-  //          .i_tx_start(send),
-  //          .o_rx(o_rx),
-  //          .o_rx_done_tick(o_rx_done_tick),
-  //          .o_tx(uart_du_rx),
-  //          .o_tx_done_tick(o_tx_done_tick));
 
   initial begin
     i_clock       = 1'b0;
