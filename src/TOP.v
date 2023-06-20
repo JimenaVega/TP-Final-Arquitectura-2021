@@ -17,6 +17,7 @@ module TOP#(
         output                o_uart_du_tx,
         output                o_hlt,
         output [NB_STATE-1:0] o_state,
+        output                o_clk, // borrar
         output                o_pc_value
     );
 
@@ -146,6 +147,7 @@ module TOP#(
     assign o_state      = state;
     assign o_uart_du_tx = uart_du_tx;
     assign o_hlt        = halt;
+    assign o_clk        = i_clock; // borrar
     assign o_pc_value = pc[0];
     
 endmodule
