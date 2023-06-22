@@ -61,7 +61,7 @@ module tb_TOP;
     
 	// Se envia cmd para escribir Instruction Mem
     #405
-    i_rx_data       = 8'd1;
+    i_rx_data       = 8'd1; // Escribir IM
     i_rx_done       = 1'b1;
 
     #20
@@ -83,11 +83,36 @@ module tb_TOP;
     end
 
     #20
-    i_rx_data = 8'd2;
+    i_rx_data = 8'd2; // Ejecuion continua
     i_rx_done = 1'b1;
 
     #20
     i_rx_done = 1'b0;
+
+    #20
+    $display("Lectura de bank register.");
+    i_rx_data = 8'd5; // Leer bank register
+    i_rx_done = 1'b1;
+
+    #20
+    i_rx_done = 1'b0;
+
+    #4000
+    $display("Lectura de DM.");
+    i_rx_data = 8'd4; // Leer data memory
+    i_rx_done = 1'b1;
+
+    #20
+    i_rx_done = 1'b0;
+
+    #4000
+    $display("Lectura de PC.");
+    i_rx_data = 8'd6; // Leer PC
+    i_rx_done = 1'b1;
+
+    #20
+    i_rx_done = 1'b0;
+
 
 	  // Se envia cmd start para ejecucion continua
     #200
