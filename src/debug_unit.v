@@ -118,7 +118,7 @@ always @(posedge i_clock) begin
         // next_im_write_enable    <= 1'b0;
         im_enable               <= 1'b0;
         // next_im_enable          <= 1'b0;
-        im_count                <= 8'h0;
+        im_count                <= 8'hff;
         // next_im_count           <= 32'hfffffff;
 
         // DATA MEMORY
@@ -253,22 +253,19 @@ always @(*) begin
                     CMD_WRITE_IM:  begin
                         
                         next_state = WRITE_IM;
-                        next_im_enable          = 1'b1;
-                        next_im_write_enable    = 1'b1;
-                    end    
-//                     CMD_STEP_BY_STEP:   next_state = STEP_BY_STEP; // borrar
-                     CMD_SEND_BR:begin
-                         next_state = SEND_BR;
-                         prev_state = IDLE;
-                     end
-                     CMD_SEND_PC:begin
-                         next_state = SEND_PC;
-                         prev_state = IDLE;
-                     end
-                     CMD_SEND_MEM:begin
-                         next_state = SEND_MEM;
-                         prev_state = IDLE;
-                     end
+                    end
+                    CMD_SEND_BR:begin
+                        next_state = SEND_BR;
+                        prev_state = IDLE;
+                    end
+                    CMD_SEND_PC:begin
+                        next_state = SEND_PC;
+                        prev_state = IDLE;
+                    end
+                    CMD_SEND_MEM:begin
+                        next_state = SEND_MEM;
+                        prev_state = IDLE;
+                    end
                     default: begin
                         next_state = IDLE;
                     end
@@ -294,9 +291,9 @@ always @(*) begin
 
              next_im_enable  = 1'b1;
              next_rb_enable  = 1'b1;
-             next_dm_enable       = 1'b1;
-             next_cu_enable       = 1'b1;
-             next_pc_enable       = 1'b1;
+             next_dm_enable  = 1'b1;
+             next_cu_enable  = 1'b1;
+             next_pc_enable  = 1'b1;
 
              if(i_hlt)begin
                  next_state = IDLE;
@@ -330,11 +327,11 @@ always @(*) begin
          end
         WRITE_IM: begin
             next_step = 1'b0;
-            if(im_count == 8'd255)begin
+            if(im_count == 8'd254)begin
                 next_state              = READY;
                 next_im_enable          = 1'b0;
                 next_im_write_enable    = 1'b0;
-                next_im_count           = 8'h0;
+                next_im_count           = 8'hff;
             end
             else begin
                 if(i_rx_done)begin
