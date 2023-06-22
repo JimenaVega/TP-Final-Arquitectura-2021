@@ -47,6 +47,10 @@ module IF_stage#(
     adder adder_1(.i_a(new_pc_value),
                   .i_b(pc_constant),
                   .o_result(adder_result));
+
+    delay delay_1(.i_clock(i_clock),
+                  .i_next_pc(adder_result),
+                  .o_next_pc(o_IF_adder_result));
     
     mux2 mux2_1(.i_select(i_IF_branch),
                 .i_a(adder_result),     // PC+1
@@ -72,7 +76,7 @@ module IF_stage#(
                                             .i_addr(new_pc_value),
                                             .o_read_data(new_instruction));
     
-    assign o_IF_adder_result    = adder_result;                   
+    // assign o_IF_adder_result    = adder_result;                   
     assign o_IF_new_instruction = new_instruction;
     
 endmodule
