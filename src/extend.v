@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 module extend#(
-        parameter NB_IN = 4,
+        parameter NB_IN = 5,
         parameter NB_OUT = 32
     )
     (
@@ -10,6 +10,6 @@ module extend#(
     );
 
     always@(*) begin
-        o_data = {28'b0, i_data};
+        o_data = {27'b0, i_data};
     end    
 endmodule

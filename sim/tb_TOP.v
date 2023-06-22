@@ -66,8 +66,9 @@ module tb_TOP;
 
     #20
     i_rx_done       = 1'b0;
-    // $readmemb("C:/Users/alejo/OneDrive/Documents/GitHub/TP-Final-Arquitectura-2021/GUI/instructions.mem", memory, 0, 255);
-    $readmemb("/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/GUI/instructions.mem", memory, 0, 255);
+    $readmemb("C:/Users/alejo/OneDrive/Documents/GitHub/TP-Final-Arquitectura-2021/GUI/instructions.mem", memory, 0, 255);
+    // $readmemb("/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/GUI/instructions.mem", memory, 0, 255);
+
 	// Se envia instruccion por instruccion, byte por byte
     for (i=0; i<256; i=i+1) begin
         $display("instructions : ",inst_counter);
@@ -81,24 +82,15 @@ module tb_TOP;
 		i_rx_done	= 1'b0;
     end
 
-	// Se envia cmd start para ejecucion continua
-//	#200
-//	i_rx_data 	= 8'd2;
-//	i_rx_done	= 1'b1;
+    #20
+    i_rx_data = 8'd2;
+    i_rx_done = 1'b1;
 
-//	#40
-//	i_rx_done	= 1'b0;
+    #20
+    i_rx_done = 1'b0;
 
-    // #4000000
-    // i_rx_data       = 8'd7;
-    // i_rx_done       = 1'b1;
-
-    // #20
-    // i_rx_done       = 1'b0;
-    
-    // #75000000
-    // i_rx_data = 8'd8;
-    // i_rx_done    = 1'b1;
+	  // Se envia cmd start para ejecucion continua
+    #200
 
     $finish;
   end

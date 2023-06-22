@@ -89,7 +89,7 @@ module ID_stage#(
     sign_extend sign_extend_1(.i_data(i_ID_inst[15:0]),
                               .o_data(o_ID_immediate));
     
-    extend extend(.i_data(i_ID_inst[10:7]),
+    extend extend(.i_data(i_ID_inst[10:6]),
                   .o_data(o_ID_shamt));
 
     concat_module concat_module_1(.i_clock(i_clock),
