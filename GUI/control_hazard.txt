@@ -24,5 +24,4 @@ add $t2,$s1,$s2;
 add $t3,$t0,$s2;
 add $t4,$t0,$s2;
 add $t5,$s1,$s2;
-sll $s0,$s1,3;
 hlt;
