@@ -251,7 +251,7 @@ always @(*) begin
             if(i_rx_done) begin
                 case (i_rx_data)
                     CMD_WRITE_IM:  begin
-                        
+
                         next_state = WRITE_IM;
                     end
                     CMD_SEND_BR:begin
@@ -401,7 +401,16 @@ always @(*) begin
 
                          next_state      = prev_state;
                      end
+                     else begin
+                        next_state = SEND_BR;
+                     end
                  end
+                 else begin
+                    next_state = SEND_BR;
+                 end
+             end
+             else begin
+                next_state = SEND_BR;
              end
          end
          SEND_MEM: begin
