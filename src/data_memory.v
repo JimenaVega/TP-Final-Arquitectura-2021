@@ -30,7 +30,8 @@ module data_memory#(
 
 	always@(posedge i_clock) begin
 		if(i_enable) begin
-			// EScritura
+			// Escritura
+			// BRAM[0] = 32'hff010203f; //BORRAR
 			if(i_mem_write) begin
 				BRAM[i_address] <= i_write_data;
 			end	

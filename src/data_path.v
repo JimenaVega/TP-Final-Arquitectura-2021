@@ -20,7 +20,7 @@ module data_path#(
         input                       i_ID_stage_reset,
         input                       i_ctrl_reset,         // FORWARDING UNIT
 
-        input                       i_du_flag,
+        input                       i_du_flag,            // DEBUG UNIT
         input                       i_im_enable,          // DEBUG UNIT
         input                       i_im_write_enable,    // DEBUG UNIT
         input [NB_MEM_WIDTH-1:0]    i_im_data,            // DEBUG UNIT
@@ -150,6 +150,7 @@ module data_path#(
 
     // MEM_stage to MEM_WB_reg
     wire [NB_DATA-1:0]          MEM_mem_data;
+    wire [NB_DATA-1:0]          MEM_read_dm;
     wire [NB_REG-1:0]           o_MEM_selected_reg;
     wire [NB_ADDR-1:0]          o_MEM_alu_result;
     wire                        o_MEM_reg_write;
@@ -392,6 +393,7 @@ module data_path#(
                           .i_MEM_pc(MEM_pc),
                           .i_MEM_hlt(MEM_hlt),
                           .o_MEM_mem_data(MEM_mem_data),
+                          .o_MEM_read_dm(MEM_read_dm),
                           .o_MEM_selected_reg(o_MEM_selected_reg),
                           .o_MEM_alu_result(o_MEM_alu_result), //********
                           .o_MEM_branch_addr(o_MEM_branch_addr),
@@ -456,8 +458,7 @@ module data_path#(
                             .o_flush_IF(flush_IF),
                             .o_flush_EX(flush_EX));
 
-//   assign o_pc_value   = IF_adder_result;     // to DEBUG UNIT
   assign o_rb_data    = ID_data_a;           // to DEBUG UNIT
-  assign o_dm_data    =  MEM_mem_data;       // to DEBUG UNIT
-  assign o_last_pc = IF_last_pc;          // to DEBUG UNIT
+  assign o_dm_data    = MEM_read_dm;         // to DEBUG UNIT
+  assign o_last_pc    = IF_last_pc;          // to DEBUG UNIT
 endmodule

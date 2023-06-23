@@ -231,7 +231,6 @@ always @(*) begin
             if(i_rx_done) begin
                 case (i_rx_data)
                     CMD_WRITE_IM:  begin
-
                         next_state = WRITE_IM;
                     end
                     CMD_SEND_BR:begin
@@ -246,9 +245,9 @@ always @(*) begin
                         next_state = SEND_MEM;
                         prev_state = IDLE;
                     end
-                    default: begin
-                        next_state = IDLE;
-                    end
+                    // default: begin
+                    //     next_state = IDLE;
+                    // end
                 endcase
             end
         end
@@ -258,12 +257,12 @@ always @(*) begin
                 case(i_rx_data)
                     CMD_STEP_BY_STEP:   next_state = STEP_BY_STEP;
                     CMD_START:          next_state = START;
-                    default:            next_state = READY;
+                    // default:            next_state = READY;
                 endcase
             end
-            else begin
-                next_state = READY;
-            end
+            // else begin
+            //     next_state = READY;
+            // end
         end
          START: begin
              next_step_flag  = 1'b0;
@@ -297,7 +296,7 @@ always @(*) begin
                          next_step   = 1'b1;
                      end       
                      CMD_CONTINUE: next_state = START;
-                     default: next_state = STEP_BY_STEP;
+                    //  default: next_state = STEP_BY_STEP;
                  endcase
              end
 
@@ -383,17 +382,17 @@ always @(*) begin
                          tx_start_next   = 1'b0;
                          next_state      = prev_state;
                     end
-                    else begin
-                        next_state = SEND_BR;
-                    end
+                    // else begin
+                    //     next_state = SEND_BR;
+                    // end
                 end
-                else begin
-                    next_state = SEND_BR;
-                end
+                // else begin
+                //     next_state = SEND_BR;
+                // end
              end
-             else begin
-                next_state = SEND_BR;
-             end
+            //  else begin
+            //     next_state = SEND_BR;
+            //  end
          end
          SEND_MEM: begin
              next_dm_read_enable     = 1'b1;
@@ -418,7 +417,8 @@ always @(*) begin
 
              if(i_tx_done)begin
                  next_count_dm_byte = next_count_dm_byte + 1;
-
+                 tx_start_next = 1'b0;
+                 
                  if(count_dm_byte == 2'd3)begin
                      count_dm_tx_done_next = count_dm_tx_done + 1;
                      next_count_dm_byte = 2'd0;
@@ -433,15 +433,15 @@ always @(*) begin
                              next_state = SEND_BR;
                          end
                          else begin
-                             next_state      = IDLE;
+                             next_state = IDLE;
                          end
                      end
                  end
              end
          end
-        default: begin
-            next_state = IDLE;
-        end
+        // default: begin
+        //     next_state = IDLE;
+        // end
     endcase
 end
 
