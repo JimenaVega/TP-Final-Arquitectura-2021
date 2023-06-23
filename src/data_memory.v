@@ -33,7 +33,8 @@ module data_memory#(
 	    BRAM[1] <= 32'd20;
 	    BRAM[2] <= 32'd100;
 		if(i_enable) begin
-			// EScritura
+			// Escritura
+			// BRAM[0] = 32'hff010203f; //BORRAR
 			if(i_mem_write) begin
 				BRAM[i_address] <= i_write_data;
 			end	

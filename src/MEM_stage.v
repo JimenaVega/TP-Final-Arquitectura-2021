@@ -33,6 +33,7 @@ module MEM_stage#(
         input                   i_MEM_hlt,
 
         output [NB_DATA-1:0]        o_MEM_mem_data,         // to REG BANK or DEBUG UNIT
+        output [NB_DATA-1:0]        o_MEM_read_dm,
         output [NB_REG-1:0]         o_MEM_selected_reg,     // WB register (rd or rt)
         output [NB_ADDR-1:0]        o_MEM_alu_result,       // only for R type and stores (never loads)
         output [NB_PC-1:0]          o_MEM_branch_addr,      // PC = o_MEM_branch_addr
@@ -49,7 +50,7 @@ module MEM_stage#(
     reg [NB_DM_ADDR-1:0]   address;
     reg                    mem_read;
 
-    always@(*)begin
+    always@(*)begin // o_dm_du_flag
         if(i_MEM_du_flag)begin  // Flag de read y address provenientes de DEBUG UNIT
             mem_read = i_MEM_dm_read_enable;
             address  = i_MEM_dm_read_address;
@@ -69,7 +70,7 @@ module MEM_stage#(
                                               .i_write_data(i_MEM_write_data),
                                               .i_read_data(read_data),       // from MEM
                                               .o_write_data(write_data),     // to MEM
-                                              .o_read_data(o_MEM_mem_data)); // to DEBUG UNIT or to REG BANK
+                                              .o_read_data(o_MEM_mem_data)); // to to REG BANK
 
     data_memory data_memory_1(.i_clock(i_clock),
                               .i_enable(i_MEM_dm_enable),
@@ -77,7 +78,7 @@ module MEM_stage#(
                               .i_mem_read(mem_read),
                               .i_address(address),
                               .i_write_data(write_data),
-                              .o_read_data(read_data));
+                              .o_read_data(read_data)); // To DEBUG UNIT
     
     // IF
     assign o_MEM_branch_zero = i_MEM_zero & i_MEM_branch;
@@ -91,5 +92,8 @@ module MEM_stage#(
     assign o_MEM_r31_ctrl       = i_MEM_r31_ctrl;
     assign o_MEM_pc             = i_MEM_pc;
     assign o_MEM_hlt            = i_MEM_hlt;
+
+    // DEBUG UNIT
+    assign o_MEM_read_dm        = read_data;
 
 endmodule
