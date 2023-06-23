@@ -25,7 +25,7 @@ module tb_TOP_debug_unit;
 
     #100
     i_reset = 1'b0;
-    command = 8'd5;
+    command = 8'd4;
     send    = 1'b1;
 
     #20

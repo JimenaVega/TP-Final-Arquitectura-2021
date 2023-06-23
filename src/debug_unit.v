@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 module debug_unit#(
-    parameter NB_STATE    = 9,
+    parameter NB_STATE    = 10,
     parameter NB_DATA     = 8,
     parameter NB_SIZE     = 16, // 2B x 8 b, el tamaño de los datos a recibir en bits
     parameter N_SIZE      = 2,  // 2B de frame para obtener el total de los datos (size)
@@ -52,15 +52,16 @@ module debug_unit#(
 );
 
 // States
-localparam [NB_STATE-1:0] IDLE         = 9'b000000001;
-localparam [NB_STATE-1:0] WRITE_IM     = 9'b000000010;
-localparam [NB_STATE-1:0] READY        = 9'b000000100;
-localparam [NB_STATE-1:0] START        = 9'b000001000;
-localparam [NB_STATE-1:0] STEP_BY_STEP = 9'b000010000;
-localparam [NB_STATE-1:0] SEND_BR      = 9'b000100000;
-localparam [NB_STATE-1:0] SEND_MEM     = 9'b001000000;
-localparam [NB_STATE-1:0] SEND_PC      = 9'b010000000;
-localparam [NB_STATE-1:0] READ_MEM     = 9'b100000000;
+localparam [NB_STATE-1:0] IDLE         = 10'b0000000001;
+localparam [NB_STATE-1:0] WRITE_IM     = 10'b0000000010;
+localparam [NB_STATE-1:0] READY        = 10'b0000000100;
+localparam [NB_STATE-1:0] START        = 10'b0000001000;
+localparam [NB_STATE-1:0] STEP_BY_STEP = 10'b0000010000;
+localparam [NB_STATE-1:0] READ_BR      = 10'b0000100000;
+localparam [NB_STATE-1:0] SEND_BR      = 10'b0001000000;
+localparam [NB_STATE-1:0] READ_MEM     = 10'b0010000000;
+localparam [NB_STATE-1:0] SEND_MEM     = 10'b0100000000;
+localparam [NB_STATE-1:0] SEND_PC      = 10'b1000000000;
 
 // External commands
 localparam [NB_DATA-1:0] CMD_WRITE_IM       = 8'd1; // Escribir programa
@@ -235,7 +236,10 @@ always @(*) begin
                         next_state = WRITE_IM;
                     end
                     CMD_SEND_BR:begin
-                        next_state = SEND_BR;
+                        next_rb_read_enable = 1'b1; // Read enable = register bank con lectura para debug unit
+                        next_rb_enable      = 1'b0; // Enable = register bank con lectura en funcionamiento normal
+
+                        next_state = READ_BR;
                         prev_state = IDLE;
                     end
                     CMD_SEND_PC:begin
@@ -350,6 +354,9 @@ always @(*) begin
                 end
             end
         end
+        READ_BR: begin
+            next_state = SEND_BR;
+        end
         SEND_BR: begin
             next_pc_enable      = 1'b0;
             next_cu_enable      = 1'b0;
@@ -368,11 +375,12 @@ always @(*) begin
             endcase
 
             if(i_tx_done)begin
-                next_count_br_byte = count_br_byte + 1;
+                next_count_br_byte = next_count_br_byte + 1;
 
                 if(count_br_byte == 2'd3)begin
                     next_count_br_tx_done   = count_br_tx_done + 1; // BR address
                     next_count_br_byte      = 2'd0;
+                    next_state              = READ_BR;
 
                     if(count_br_tx_done == RB_DEPTH-1)begin
                         next_rb_read_enable  = 1'b0;
