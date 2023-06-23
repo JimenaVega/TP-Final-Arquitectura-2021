@@ -9,7 +9,7 @@ module tb_TOP;
   localparam  RB_ADDR = 5;
   localparam  NB_DATA = 8;
   localparam  NB_OP   = 6;
-  localparam  NB_ST   = 4;
+  localparam  NB_ST   = 8;
 
   reg [NB_DATA-1:0] memory [255:0]; 
 

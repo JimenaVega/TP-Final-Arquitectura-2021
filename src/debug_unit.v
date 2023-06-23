@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 module debug_unit#(
-    parameter NB_STATE    = 4,
+    parameter NB_STATE    = 8,
     parameter NB_DATA     = 8,
     parameter NB_SIZE     = 16, // 2B x 8 b, el tamaño de los datos a recibir en bits
     parameter N_SIZE      = 2,  // 2B de frame para obtener el total de los datos (size)
@@ -52,14 +52,14 @@ module debug_unit#(
 );
 
 // States
-localparam [NB_STATE-1:0] IDLE         = 4'd1;
-localparam [NB_STATE-1:0] WRITE_IM     = 4'd2;
-localparam [NB_STATE-1:0] READY        = 4'd4;
-localparam [NB_STATE-1:0] START        = 4'd5;
-localparam [NB_STATE-1:0] STEP_BY_STEP = 4'd6;
-localparam [NB_STATE-1:0] SEND_BR      = 4'd7;
-localparam [NB_STATE-1:0] SEND_MEM     = 4'd8;
-localparam [NB_STATE-1:0] SEND_PC      = 4'd9;
+localparam [NB_STATE-1:0] IDLE         = 8'b00000001;
+localparam [NB_STATE-1:0] WRITE_IM     = 8'b00000010;
+localparam [NB_STATE-1:0] READY        = 8'b00000100;
+localparam [NB_STATE-1:0] START        = 8'b00001000;
+localparam [NB_STATE-1:0] STEP_BY_STEP = 8'b00010000;
+localparam [NB_STATE-1:0] SEND_BR      = 8'b00100000;
+localparam [NB_STATE-1:0] SEND_MEM     = 8'b01000000;
+localparam [NB_STATE-1:0] SEND_PC      = 8'b10000000;
 
 // External commands
 localparam [NB_DATA-1:0] CMD_WRITE_IM       = 8'd1; // Escribir programa
@@ -111,59 +111,39 @@ reg                     step,               next_step;
 always @(posedge i_clock) begin
     if(i_reset) begin
         state                   <= IDLE;
-        // next_state              <= IDLE;
 
         // INSTRUCTION MEMORY 
         im_write_enable         <= 1'b0;
-        // next_im_write_enable    <= 1'b0;
         im_enable               <= 1'b0;
-        // next_im_enable          <= 1'b0;
         im_count                <= 8'hff;
-        // next_im_count           <= 32'hfffffff;
 
         // DATA MEMORY
         count_dm_tx_done        <= 5'b0;
-        // count_dm_tx_done_next   <= 5'b0;
         count_dm_byte           <= 2'b0;
-        // next_count_dm_byte      <= 2'b0;
         dm_enable               <= 1'b0;
-        // next_dm_enable          <= 1'b0;
         dm_read_enable          <= 1'b0;
-        // next_dm_read_enable     <= 1'b0;
         dm_du_flag              <= 1'b0;
-        // next_dm_du_flag         <= 1'b0;
 
         // REGISTERS BANK
         count_br_tx_done        <= 5'b0;
-        // next_count_br_tx_done   <= 5'b0;
         count_br_byte           <= 2'b0;
-        // next_count_br_byte      <= 2'b0;
         rb_enable               <= 1'b0;
-        // next_rb_enable          <= 1'b0;
         rb_read_enable          <= 1'b0;
-        // next_rb_read_enable     <= 1'b0;
 
         // PC
         pc_enable               <= 1'b0;
-        // next_pc_enable          <= 1'b0;
         count_pc                <= 2'b0;
-        // next_count_pc           <= 2'b0;
 
         // CONTROL UNIT
         cu_enable               <= 1'b0;
-        // next_cu_enable          <= 1'b0;
         
         // TX
         send_data               <= 8'b0;
-        // next_send_data          <= 8'b0;
         tx_start                <= 1'b0;
-        // tx_start_next           <= 1'b0;
 
         // STEPPER
         step_flag               <= 1'b0;
-        // next_step_flag          <= 1'b0;
         step                    <= 1'b0;
-        // next_step               <= 1'b0;
     end
     else begin
         state               <= next_state;
@@ -358,17 +338,20 @@ always @(*) begin
              endcase
 
              if(i_tx_done)begin
-                 next_count_pc = count_pc + 1;
 
-                 if(count_pc == 2'd3)begin
-                     tx_start_next   = 1'b0;
+                if(count_pc == 2'd3)begin
+                     tx_start_next = 1'b0;
                      if(prev_state == STEP_BY_STEP)begin
                          next_state = SEND_MEM;
                      end
                      else begin
                          next_state = IDLE;
                      end
-                 end
+                end
+                else begin
+                    next_count_pc = count_pc + 1;
+                    next_state = SEND_PC;
+                end
              end
          end
          SEND_BR: begin

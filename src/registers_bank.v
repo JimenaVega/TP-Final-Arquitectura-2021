@@ -35,8 +35,8 @@ module registers_bank#(
     endgenerate
     
     always@(posedge i_clock)begin
-        registers[0] <= 32'hffff00ff;
-        registers[1] <= 32'h01020304;
+        // registers[0] <= 32'hffff00ff;
+        // registers[1] <= 32'h01020304;
         // registers[2] <= 32'd200;
         // registers[3] <= 32'd420;
         if(i_reset)begin:reset

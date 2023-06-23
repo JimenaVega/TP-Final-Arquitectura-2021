@@ -11,9 +11,9 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="38,656.500 ns"></ZoomStartTime>
-      <ZoomEndTime time="38,730.501 ns"></ZoomEndTime>
-      <Cursor1Time time="38,895.000 ns"></Cursor1Time>
+      <ZoomStartTime time="705.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="1,059.001 ns"></ZoomEndTime>
+      <Cursor1Time time="1,000.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="202"></NameColumnWidth>
@@ -21,7 +21,8 @@
    </column_width_setting>
    <WVObjectSize size="10" />
    <wave_markers>
-      <marker label="" time="11615000" />
+      <marker label="" time="11734934" />
+      <marker label="" time="11665000" />
    </wave_markers>
    <wvobject type="logic" fp_name="/tb_TOP/i_clock">
       <obj_property name="ElementShortName">i_clock</obj_property>
@@ -52,20 +53,22 @@
          <obj_property name="ObjectShortName">i_rx_done</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/tb_TOP/TOP_dut/debug_unit_1/next_state">
-         <obj_property name="ElementShortName">next_state[3:0]</obj_property>
-         <obj_property name="ObjectShortName">next_state[3:0]</obj_property>
+         <obj_property name="ElementShortName">next_state[7:0]</obj_property>
+         <obj_property name="ObjectShortName">next_state[7:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="CustomSignalColor">#FFD700</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/tb_TOP/TOP_dut/debug_unit_1/state">
-         <obj_property name="ElementShortName">state[3:0]</obj_property>
-         <obj_property name="ObjectShortName">state[3:0]</obj_property>
+         <obj_property name="ElementShortName">state[7:0]</obj_property>
+         <obj_property name="ObjectShortName">state[7:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          <obj_property name="CustomSignalColor">#FFFF00</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/tb_TOP/TOP_dut/debug_unit_1/prev_state">
-         <obj_property name="ElementShortName">prev_state[3:0]</obj_property>
-         <obj_property name="ObjectShortName">prev_state[3:0]</obj_property>
+         <obj_property name="ElementShortName">prev_state[7:0]</obj_property>
+         <obj_property name="ObjectShortName">prev_state[7:0]</obj_property>
          <obj_property name="CustomSignalColor">#FFFF00</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
@@ -104,50 +107,63 @@
          <obj_property name="ElementShortName">i_hlt</obj_property>
          <obj_property name="ObjectShortName">i_hlt</obj_property>
       </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_dut/clk_wiz">
-         <obj_property name="ElementShortName">clk_wiz</obj_property>
-         <obj_property name="ObjectShortName">clk_wiz</obj_property>
-      </wvobject>
       <wvobject type="logic" fp_name="/tb_TOP/TOP_dut/debug_unit_1/o_step_flag">
          <obj_property name="ElementShortName">o_step_flag</obj_property>
          <obj_property name="ObjectShortName">o_step_flag</obj_property>
          <obj_property name="CustomSignalColor">#800080</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_dut/debug_unit_1/o_rb_enable">
-         <obj_property name="ElementShortName">o_rb_enable</obj_property>
-         <obj_property name="ObjectShortName">o_rb_enable</obj_property>
-         <obj_property name="CustomSignalColor">#800080</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP/TOP_dut/debug_unit_1/o_rb_read_enable">
-         <obj_property name="ElementShortName">o_rb_read_enable</obj_property>
-         <obj_property name="ObjectShortName">o_rb_read_enable</obj_property>
-         <obj_property name="CustomSignalColor">#800080</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_dut/debug_unit_1/o_rb_addr">
-         <obj_property name="ElementShortName">o_rb_addr[4:0]</obj_property>
-         <obj_property name="ObjectShortName">o_rb_addr[4:0]</obj_property>
-         <obj_property name="CustomSignalColor">#800080</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_dut/debug_unit_1/count_br_tx_done">
-         <obj_property name="ElementShortName">count_br_tx_done[4:0]</obj_property>
-         <obj_property name="ObjectShortName">count_br_tx_done[4:0]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_dut/debug_unit_1/count_br_byte">
-         <obj_property name="ElementShortName">count_br_byte[1:0]</obj_property>
-         <obj_property name="ObjectShortName">count_br_byte[1:0]</obj_property>
+      <wvobject type="group" fp_name="group161">
+         <obj_property name="label">READ BR</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject type="array" fp_name="/tb_TOP/TOP_dut/debug_unit_1/count_br_byte">
+            <obj_property name="ElementShortName">count_br_byte[1:0]</obj_property>
+            <obj_property name="ObjectShortName">count_br_byte[1:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_TOP/TOP_dut/debug_unit_1/count_br_tx_done">
+            <obj_property name="ElementShortName">count_br_tx_done[4:0]</obj_property>
+            <obj_property name="ObjectShortName">count_br_tx_done[4:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_TOP/TOP_dut/debug_unit_1/i_br_data">
+            <obj_property name="ElementShortName">i_br_data[31:0]</obj_property>
+            <obj_property name="ObjectShortName">i_br_data[31:0]</obj_property>
+            <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_TOP/TOP_dut/debug_unit_1/o_rb_addr">
+            <obj_property name="ElementShortName">o_rb_addr[4:0]</obj_property>
+            <obj_property name="ObjectShortName">o_rb_addr[4:0]</obj_property>
+            <obj_property name="CustomSignalColor">#800080</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_TOP/TOP_dut/debug_unit_1/o_rb_read_enable">
+            <obj_property name="ElementShortName">o_rb_read_enable</obj_property>
+            <obj_property name="ObjectShortName">o_rb_read_enable</obj_property>
+            <obj_property name="CustomSignalColor">#800080</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_TOP/TOP_dut/debug_unit_1/o_rb_enable">
+            <obj_property name="ElementShortName">o_rb_enable</obj_property>
+            <obj_property name="ObjectShortName">o_rb_enable</obj_property>
+            <obj_property name="CustomSignalColor">#800080</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
       </wvobject>
       <wvobject type="group" fp_name="group160">
          <obj_property name="label">READ PC</obj_property>
          <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
          <wvobject type="array" fp_name="/tb_TOP/TOP_dut/debug_unit_1/i_pc_value">
             <obj_property name="ElementShortName">i_pc_value[31:0]</obj_property>
             <obj_property name="ObjectShortName">i_pc_value[31:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_TOP/TOP_dut/clk_wiz">
+            <obj_property name="ElementShortName">clk_wiz</obj_property>
+            <obj_property name="ObjectShortName">clk_wiz</obj_property>
          </wvobject>
          <wvobject type="logic" fp_name="/tb_TOP/TOP_dut/debug_unit_1/o_pc_enable">
             <obj_property name="ElementShortName">o_pc_enable</obj_property>
@@ -161,13 +177,18 @@
             <obj_property name="ElementShortName">next_pc_enable</obj_property>
             <obj_property name="ObjectShortName">next_pc_enable</obj_property>
          </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_dut/debug_unit_1/count_pc">
-            <obj_property name="ElementShortName">count_pc[1:0]</obj_property>
-            <obj_property name="ObjectShortName">count_pc[1:0]</obj_property>
+         <wvobject type="array" fp_name="/tb_TOP/TOP_dut/debug_unit_1/i_pc_value">
+            <obj_property name="ElementShortName">i_pc_value[31:0]</obj_property>
+            <obj_property name="ObjectShortName">i_pc_value[31:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
          <wvobject type="array" fp_name="/tb_TOP/TOP_dut/debug_unit_1/next_count_pc">
             <obj_property name="ElementShortName">next_count_pc[1:0]</obj_property>
             <obj_property name="ObjectShortName">next_count_pc[1:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_TOP/TOP_dut/debug_unit_1/count_pc">
+            <obj_property name="ElementShortName">count_pc[1:0]</obj_property>
+            <obj_property name="ObjectShortName">count_pc[1:0]</obj_property>
          </wvobject>
       </wvobject>
       <wvobject type="array" fp_name="/tb_TOP/TOP_dut/debug_unit_1/next_send_data">
@@ -175,13 +196,7 @@
          <obj_property name="ObjectShortName">next_send_data[7:0]</obj_property>
          <obj_property name="CustomSignalColor">#00FFFF</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP/TOP_dut/debug_unit_1/i_br_data">
-         <obj_property name="ElementShortName">i_br_data[31:0]</obj_property>
-         <obj_property name="ObjectShortName">i_br_data[31:0]</obj_property>
-         <obj_property name="CustomSignalColor">#00FFFF</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
       </wvobject>
    </wvobject>
    <wvobject type="logic" fp_name="/tb_TOP/i_tx_done">
@@ -195,7 +210,6 @@
       <wvobject type="group" fp_name="group1747">
          <obj_property name="label">MUX_1</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="isExpanded"></obj_property>
          <wvobject type="logic" fp_name="/tb_TOP/TOP_dut/data_path_1/IF_stage_1/mux2_1/i_select">
             <obj_property name="ElementShortName">i_select</obj_property>
             <obj_property name="ObjectShortName">i_select</obj_property>
@@ -228,11 +242,6 @@
             <obj_property name="ElementShortName">i_enable_pc</obj_property>
             <obj_property name="ObjectShortName">i_enable_pc</obj_property>
          </wvobject>
-         <wvobject type="array" fp_name="/tb_TOP/TOP_dut/data_path_1/IF_stage_1/program_counter_1/i_mux_pc">
-            <obj_property name="ElementShortName">i_mux_pc[31:0]</obj_property>
-            <obj_property name="ObjectShortName">i_mux_pc[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
          <wvobject type="array" fp_name="/tb_TOP/TOP_dut/data_path_1/IF_stage_1/program_counter_1/pc">
             <obj_property name="ElementShortName">pc[31:0]</obj_property>
             <obj_property name="ObjectShortName">pc[31:0]</obj_property>
@@ -241,6 +250,11 @@
          <wvobject type="array" fp_name="/tb_TOP/TOP_dut/data_path_1/IF_stage_1/program_counter_1/o_pc_mem">
             <obj_property name="ElementShortName">o_pc_mem[31:0]</obj_property>
             <obj_property name="ObjectShortName">o_pc_mem[31:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_TOP/TOP_dut/data_path_1/IF_stage_1/program_counter_1/i_mux_pc">
+            <obj_property name="ElementShortName">i_mux_pc[31:0]</obj_property>
+            <obj_property name="ObjectShortName">i_mux_pc[31:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
       </wvobject>

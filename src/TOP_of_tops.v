@@ -6,7 +6,7 @@ module TOP_of_tops#(
         parameter ADDR      = 5,
         parameter NB_MEM_DEPTH = 8,
         parameter RB_ADDR   = 5,
-        parameter NB_STATE  = 4
+        parameter NB_STATE  = 8
     )
     (
         input                 i_clock,
