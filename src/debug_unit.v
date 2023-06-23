@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 module debug_unit#(
-    parameter NB_STATE    = 8,
+    parameter NB_STATE    = 9,
     parameter NB_DATA     = 8,
     parameter NB_SIZE     = 16, // 2B x 8 b, el tamaño de los datos a recibir en bits
     parameter N_SIZE      = 2,  // 2B de frame para obtener el total de los datos (size)
@@ -52,14 +52,15 @@ module debug_unit#(
 );
 
 // States
-localparam [NB_STATE-1:0] IDLE         = 8'b00000001;
-localparam [NB_STATE-1:0] WRITE_IM     = 8'b00000010;
-localparam [NB_STATE-1:0] READY        = 8'b00000100;
-localparam [NB_STATE-1:0] START        = 8'b00001000;
-localparam [NB_STATE-1:0] STEP_BY_STEP = 8'b00010000;
-localparam [NB_STATE-1:0] SEND_BR      = 8'b00100000;
-localparam [NB_STATE-1:0] SEND_MEM     = 8'b01000000;
-localparam [NB_STATE-1:0] SEND_PC      = 8'b10000000;
+localparam [NB_STATE-1:0] IDLE         = 9'b000000001;
+localparam [NB_STATE-1:0] WRITE_IM     = 9'b000000010;
+localparam [NB_STATE-1:0] READY        = 9'b000000100;
+localparam [NB_STATE-1:0] START        = 9'b000001000;
+localparam [NB_STATE-1:0] STEP_BY_STEP = 9'b000010000;
+localparam [NB_STATE-1:0] SEND_BR      = 9'b000100000;
+localparam [NB_STATE-1:0] SEND_MEM     = 9'b001000000;
+localparam [NB_STATE-1:0] SEND_PC      = 9'b010000000;
+localparam [NB_STATE-1:0] READ_MEM     = 9'b100000000;
 
 // External commands
 localparam [NB_DATA-1:0] CMD_WRITE_IM       = 8'd1; // Escribir programa
@@ -242,7 +243,11 @@ always @(*) begin
                         prev_state = IDLE;
                     end
                     CMD_SEND_MEM:begin
-                        next_state = SEND_MEM;
+                        next_dm_read_enable     = 1'b1;
+                        next_dm_enable          = 1'b1;
+                        next_dm_du_flag         = 1'b1; // select DU as address and read enable source
+
+                        next_state = READ_MEM;
                         prev_state = IDLE;
                     end
                 endcase
@@ -377,6 +382,9 @@ always @(*) begin
                 end
             end
         end
+        READ_MEM:begin
+            next_state = SEND_MEM;
+        end
         SEND_MEM: begin
             next_dm_read_enable     = 1'b1;
             next_dm_enable          = 1'b1;
@@ -405,6 +413,7 @@ always @(*) begin
                 if(count_dm_byte == 2'd3)begin
                     count_dm_tx_done_next = count_dm_tx_done + 1;
                     next_count_dm_byte = 2'd0;
+                    next_state = READ_MEM;
 
                     if(count_dm_tx_done == DM_DEPTH-1)begin
                         next_dm_read_enable  = 1'b0;
