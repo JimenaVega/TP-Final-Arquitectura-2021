@@ -231,7 +231,6 @@ always @(*) begin
             if(i_rx_done) begin
                 case (i_rx_data)
                     CMD_WRITE_IM:  begin
-
                         next_state = WRITE_IM;
                     end
                     CMD_SEND_BR:begin

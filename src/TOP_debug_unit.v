@@ -23,7 +23,7 @@ module TOP_debug_unit#(
 
     wire                mem_enable;
     wire                mem_read_enable;
-    wire [BYTE-1:0]     mem_data;
+    wire [DWORD-1:0]    mem_data;
     wire [ADDR-1:0]     mem_addr;
 
     wire                rb_enable;
@@ -86,17 +86,10 @@ module TOP_debug_unit#(
 
     data_memory data_memory_1(.i_clock(i_clock),
                               .i_enable(mem_enable),
-                              .i_read_enable(mem_read_enable),
-                              .i_read_address(mem_addr),
-                              .i_mem_write_flag(),
-                              .i_mem_read_flag(),
-                              .i_word_en(),
-                              .i_halfword_en(),
-                              .i_byte_en(),
-                              .i_address(),
+                              .i_address(mem_addr),
+                              .i_mem_read(mem_read_enable),
                               .i_write_data(),
-                              .o_byte_data(mem_data),
-                              .o_read_data());
+                              .o_read_data(mem_data));
 
     registers_bank registers_bank_1(.i_clock(i_clock),
                                     .i_enable(rb_enable), // Debug Unit
