@@ -55,6 +55,6 @@ module tb_TOP_debug_unit;
   end
 
   always
-    #5  i_clock = ! i_clock ;
+    #10  i_clock = ! i_clock ;
 
 endmodule

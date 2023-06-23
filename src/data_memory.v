@@ -29,7 +29,7 @@ module data_memory#(
 
 
 	always@(posedge i_clock) begin
-	    BRAM[0] <= 32'h0ff0ff01;
+	    BRAM[0] <= 32'h8ff0ff01;
 	    BRAM[1] <= 32'd20;
 	    BRAM[2] <= 32'd100;
 		if(i_enable) begin
