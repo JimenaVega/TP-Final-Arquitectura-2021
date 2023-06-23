@@ -37,12 +37,14 @@ module data_path#(
         input                       i_cu_enable,          // DEBUG UNIT
 
         output                      o_hlt,                // DEBUG UNIT
-        output [NB_PC-1:0]          o_pc_value,           // DEBUG UNIT
+        // output [NB_PC-1:0]          o_pc_value,           // DEBUG UNIT
         output [NB_DATA-1:0]        o_rb_data,            // DEBUG UNIT
-        output [NB_DATA-1:0]        o_dm_data             // DEBUG UNIT
+        output [NB_DATA-1:0]        o_dm_data,            // DEBUG UNIT
+        output [NB_PC-1:0]          o_last_pc             // DEBUG UNIT
     );
     
     // IF_stage to IF_ID_reg
+    wire [NB_PC-1:0]            IF_last_pc;
     wire [NB_PC-1:0]            IF_adder_result;
     wire [NB_INSTRUCTION-1:0]   IF_new_instruction;
     
@@ -194,6 +196,7 @@ module data_path#(
                         .i_IF_jump_address(ID_jump_address),
                         .i_IF_r31_data(ID_r31_data),
                         .i_IF_enable_pc(enable_pc), // STALL UNIT
+                        .o_IF_last_pc(IF_last_pc),  // DEBUG UNIT
                         .o_IF_adder_result(IF_adder_result),
                         .o_IF_new_instruction(IF_new_instruction));
                         
@@ -453,8 +456,8 @@ module data_path#(
                             .o_flush_IF(flush_IF),
                             .o_flush_EX(flush_EX));
 
-  assign o_pc_value = IF_adder_result;     // to DEBUG UNIT
-  assign o_rb_data  = ID_data_a;           // to DEBUG UNIT
-  assign o_dm_data =  MEM_mem_data;        // to DEBUG UNIT
-
+//   assign o_pc_value   = IF_adder_result;     // to DEBUG UNIT
+  assign o_rb_data    = ID_data_a;           // to DEBUG UNIT
+  assign o_dm_data    =  MEM_mem_data;       // to DEBUG UNIT
+  assign o_last_pc = IF_last_pc;          // to DEBUG UNIT
 endmodule

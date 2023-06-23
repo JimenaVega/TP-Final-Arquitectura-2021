@@ -23,7 +23,8 @@ module IF_stage#(
         input  [NB_PC-1:0]          i_IF_r31_data,      // JR y JALR
         input                       i_IF_enable_pc,      // STALL UNIT
         
-        output [NB_PC-1:0]          o_IF_adder_result,  // PC+1
+        output [NB_PC-1:0]          o_IF_last_pc,        // PC
+        output [NB_PC-1:0]          o_IF_adder_result,   // PC+1
         output [NB_INSTRUCTION-1:0] o_IF_new_instruction
     );
     
@@ -44,7 +45,7 @@ module IF_stage#(
                                       .i_enable_pc(i_IF_enable_pc),
                                       .o_pc_mem(new_pc_value));
     
-    adder adder_1(.i_a(new_pc_value),
+    adder adder_1(.i_a(new_pc_value), // FORWARDEAR ESTE A DEBUG UNIT!
                   .i_b(pc_constant),
                   .o_result(adder_result));
 
@@ -78,6 +79,7 @@ module IF_stage#(
     
     // assign o_IF_adder_result    = adder_result;                   
     assign o_IF_new_instruction = new_instruction;
+    assign o_IF_last_pc         = new_pc_value;
     
 endmodule
 

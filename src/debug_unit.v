@@ -94,7 +94,7 @@ reg                     rb_enable,          next_rb_enable;
 
 // PC
 reg [NB_PC_CTR-1:0]     count_pc,           next_count_pc;
-reg                     pc_enable,          next_pc_enable;
+reg                     pc_enable,          next_pc_enable; // 1 -> ejecucion de datapath 0 ->  modo lectura 
 
 // CONTROL UNIT
 reg                     cu_enable,          next_cu_enable;
@@ -381,33 +381,32 @@ always @(*) begin
              next_step           = 1'b0;
              next_step_flag      = 1'b0; // Se alimenta el datapath con clk de 50MHz
 
-             case(next_count_br_byte)
-                 2'd0:   next_send_data = i_br_data[31:24];
-                 2'd1:   next_send_data = i_br_data[23:16];
-                 2'd2:   next_send_data = i_br_data[15:8];
-                 2'd3:   next_send_data = i_br_data[7:0];
-             endcase
+            case(next_count_br_byte)
+                2'd0:   next_send_data = i_br_data[31:24];
+                2'd1:   next_send_data = i_br_data[23:16];
+                2'd2:   next_send_data = i_br_data[15:8];
+                2'd3:   next_send_data = i_br_data[7:0];
+            endcase
 
              if(i_tx_done)begin
                  next_count_br_byte = count_br_byte + 1;
 
-                 if(count_br_byte == 2'd3)begin
-                     next_count_br_tx_done   = count_br_tx_done + 1;
+                if(count_br_byte == 2'd3)begin
+                     next_count_br_tx_done   = count_br_tx_done + 1; // BR address
                      next_count_br_byte      = 2'd0;
 
-                     if(count_br_tx_done == RB_DEPTH-1)begin
+                    if(count_br_tx_done == RB_DEPTH-1)begin
                          next_rb_read_enable  = 1'b0;
                          tx_start_next   = 1'b0;
-
                          next_state      = prev_state;
-                     end
-                     else begin
+                    end
+                    else begin
                         next_state = SEND_BR;
-                     end
-                 end
-                 else begin
+                    end
+                end
+                else begin
                     next_state = SEND_BR;
-                 end
+                end
              end
              else begin
                 next_state = SEND_BR;
@@ -446,6 +445,7 @@ always @(*) begin
                          next_dm_enable       = 1'b0;
                          next_dm_du_flag      = 1'b0;
                          tx_start_next        = 1'b0;
+
                          if(prev_state == STEP_BY_STEP) begin
                              next_state = SEND_BR;
                          end

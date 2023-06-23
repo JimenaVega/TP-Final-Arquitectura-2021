@@ -127,9 +127,10 @@ module TOP_of_tops#(
                           .i_dm_read_address(mem_addr),
                           .i_cu_enable(cu_enable),
                           .o_hlt(halt),
-                          .o_pc_value(pc),
+                          // .o_pc_value(pc),
                           .o_rb_data(rb_data),
-                          .o_dm_data(mem_data));
+                          .o_dm_data(mem_data),
+                          .o_last_pc(pc));
     
     assign o_state      = state;
     // assign o_hlt        = halt;

@@ -66,8 +66,8 @@ module tb_TOP;
 
     #20
     i_rx_done       = 1'b0;
-    $readmemb("C:/Users/alejo/OneDrive/Documents/GitHub/TP-Final-Arquitectura-2021/GUI/instructions.mem", memory, 0, 255);
-    // $readmemb("/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/GUI/instructions.mem", memory, 0, 255);
+    // $readmemb("C:/Users/alejo/OneDrive/Documents/GitHub/TP-Final-Arquitectura-2021/GUI/instructions.mem", memory, 0, 255);
+    $readmemb("/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/GUI/instructions.mem", memory, 0, 255);
 
 	// Se envia instruccion por instruccion, byte por byte
     for (i=0; i<256; i=i+1) begin
@@ -89,21 +89,41 @@ module tb_TOP;
     #20
     i_rx_done = 1'b0;
 
-    #20
+    #4000
     $display("Lectura de bank register.");
-    i_rx_data = 8'd5; // Leer bank register
+    i_rx_data = 8'd4; // Leer bank register
     i_rx_done = 1'b1;
 
     #20
     i_rx_done = 1'b0;
+
+    for (i=0; i<128; i=i+1) begin
+    
+      #40
+      i_tx_done	= 1'b1;
+
+      #20
+      i_tx_done	= 1'b0;
+
+    end
 
     #4000
     $display("Lectura de DM.");
-    i_rx_data = 8'd4; // Leer data memory
+    i_rx_data = 8'd5; // Leer data memory
     i_rx_done = 1'b1;
 
     #20
     i_rx_done = 1'b0;
+    #40
+    for (i=0; i<128; i=i+1) begin
+    
+      #40
+      i_tx_done	= 1'b1;
+
+      #20
+      i_tx_done	= 1'b0;
+
+    end
 
     #4000
     $display("Lectura de PC.");
@@ -112,6 +132,16 @@ module tb_TOP;
 
     #20
     i_rx_done = 1'b0;
+
+    for (i=0; i<4; i=i+1) begin
+    
+      #20
+      i_tx_done	= 1'b1;
+
+      #20
+      i_tx_done	= 1'b0;
+
+    end
 
 
 	  // Se envia cmd start para ejecucion continua

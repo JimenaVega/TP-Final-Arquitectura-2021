@@ -227,8 +227,8 @@ mnemonic_type = {
 
 
 
-INPUT_FILE_NAME = 'control_hazard.txt'
-OUTPUT_FILE_NAME = 'control_hazard.mem'
+INPUT_FILE_NAME = 'instructions.txt'
+OUTPUT_FILE_NAME = 'instructions.mem'
 
 
 def main():
