@@ -6,7 +6,7 @@ module TOP#(
         parameter ADDR      = 5,
         parameter NB_MEM_DEPTH = 8,
         parameter RB_ADDR   = 5,
-        parameter NB_STATE  = 8
+        parameter NB_STATE  = 9
     )
     (
         input                 i_clock,
@@ -17,8 +17,7 @@ module TOP#(
         output                o_uart_du_tx,
         output                o_hlt,
         output [NB_STATE-1:0] o_state,
-        output                o_clk, // borrar
-        output                o_pc_value
+        output                o_clk // borrar
     );
 
    wire clk_wiz;
@@ -131,7 +130,7 @@ module TOP#(
                           .i_im_enable(im_enable),
                           .i_im_write_enable(im_write_enable),
                           .i_im_data(im_data),
-                          .i_im_address(im_addr[7:0]),
+                          .i_im_address(im_addr),
                           .i_rb_enable(rb_enable),
                           .i_rb_read_enable(rb_read_enable),
                           .i_rb_address(rb_addr),
@@ -140,15 +139,15 @@ module TOP#(
                           .i_dm_read_address(mem_addr),
                           .i_cu_enable(cu_enable),
                           .o_hlt(halt),
-                          .o_pc_value(pc),
+                          // .o_pc_value(pc),
                           .o_rb_data(rb_data),
                           .o_dm_data(mem_data));
     
     assign o_state      = state;
     assign o_uart_du_tx = uart_du_tx;
     assign o_hlt        = halt;
-    assign o_clk        = i_clock; // borrar
-    assign o_pc_value = pc[0];
+    assign o_clk        = clk_wiz; // borrar
+   // assign o_pc_value = pc[0];
     
 endmodule
 

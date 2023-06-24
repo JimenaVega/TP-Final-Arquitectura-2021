@@ -11,13 +11,13 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="743.500 ns"></ZoomStartTime>
-      <ZoomEndTime time="1,051.301 ns"></ZoomEndTime>
-      <Cursor1Time time="1,000.000 ns"></Cursor1Time>
+      <ZoomStartTime time="27,099.500 ns"></ZoomStartTime>
+      <ZoomEndTime time="27,432.501 ns"></ZoomEndTime>
+      <Cursor1Time time="27,435.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="239"></NameColumnWidth>
-      <ValueColumnWidth column_width="98"></ValueColumnWidth>
+      <ValueColumnWidth column_width="94"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="11" />
    <wave_markers>
@@ -121,7 +121,7 @@
          <wvobject type="array" fp_name="/tb_TOP/TOP_dut/debug_unit_1/i_dm_data">
             <obj_property name="ElementShortName">i_dm_data[31:0]</obj_property>
             <obj_property name="ObjectShortName">i_dm_data[31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
             <obj_property name="CustomSignalColor">#00FFFF</obj_property>
             <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
@@ -221,7 +221,6 @@
       <wvobject type="group" fp_name="group160">
          <obj_property name="label">READ PC</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="isExpanded"></obj_property>
          <wvobject type="array" fp_name="/tb_TOP/TOP_dut/debug_unit_1/i_pc_value">
             <obj_property name="ElementShortName">i_pc_value[31:0]</obj_property>
             <obj_property name="ObjectShortName">i_pc_value[31:0]</obj_property>
@@ -260,6 +259,10 @@
          <obj_property name="UseCustomSignalColor">true</obj_property>
          <obj_property name="Radix">HEXRADIX</obj_property>
       </wvobject>
+      <wvobject type="array" fp_name="/tb_TOP/TOP_dut/debug_unit_1/send_data">
+         <obj_property name="ElementShortName">send_data[7:0]</obj_property>
+         <obj_property name="ObjectShortName">send_data[7:0]</obj_property>
+      </wvobject>
    </wvobject>
    <wvobject type="logic" fp_name="/tb_TOP/i_tx_done">
       <obj_property name="ElementShortName">i_tx_done</obj_property>
@@ -268,7 +271,6 @@
    <wvobject type="group" fp_name="group1455">
       <obj_property name="label">IF</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject type="group" fp_name="group1747">
          <obj_property name="label">MUX_1</obj_property>
          <obj_property name="DisplayName">label</obj_property>
@@ -356,7 +358,6 @@
    <wvobject type="group" fp_name="group1456">
       <obj_property name="label">ID</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject type="array" fp_name="/tb_TOP/TOP_dut/data_path_1/ID_stage_1/i_ID_pc">
          <obj_property name="ElementShortName">i_ID_pc[31:0]</obj_property>
          <obj_property name="ObjectShortName">i_ID_pc[31:0]</obj_property>
@@ -497,7 +498,6 @@
    <wvobject type="group" fp_name="group1457">
       <obj_property name="label">EX</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject type="group" fp_name="group1752">
          <obj_property name="label">ADDER</obj_property>
          <obj_property name="DisplayName">label</obj_property>
@@ -577,7 +577,6 @@
    <wvobject type="group" fp_name="group1458">
       <obj_property name="label">MEM</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject type="logic" fp_name="/tb_TOP/TOP_dut/data_path_1/MEM_stage_1/i_MEM_du_flag">
          <obj_property name="ElementShortName">i_MEM_du_flag</obj_property>
          <obj_property name="ObjectShortName">i_MEM_du_flag</obj_property>

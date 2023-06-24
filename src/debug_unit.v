@@ -358,14 +358,17 @@ always @(*) begin
             next_state = SEND_BR;
         end
         SEND_BR: begin
-            next_pc_enable      = 1'b0;
-            next_cu_enable      = 1'b0;
-            next_dm_enable      = 1'b0;
             next_rb_read_enable = 1'b1; // Read enable = register bank con lectura para debug unit
             next_rb_enable      = 1'b0; // Enable = register bank con lectura en funcionamiento normal
+            
             tx_start_next       = 1'b1;
             next_step           = 1'b0;
             next_step_flag      = 1'b0; // Se alimenta el datapath con clk de 50MHz
+
+            //disable all except br
+            next_pc_enable      = 1'b0;
+            next_cu_enable      = 1'b0;
+            next_dm_enable      = 1'b0;
 
             case(next_count_br_byte)
                 2'd0:   next_send_data = i_br_data[31:24];
@@ -376,6 +379,7 @@ always @(*) begin
 
             if(i_tx_done)begin
                 next_count_br_byte = next_count_br_byte + 1;
+                tx_start_next = 1'b0;
 
                 if(count_br_byte == 2'd3)begin
                     next_count_br_tx_done   = count_br_tx_done + 1; // BR address
@@ -384,8 +388,9 @@ always @(*) begin
 
                     if(count_br_tx_done == RB_DEPTH-1)begin
                         next_rb_read_enable  = 1'b0;
-                        tx_start_next   = 1'b0;
-                        next_state      = prev_state;
+                        tx_start_next        = 1'b0;
+                        next_state           = prev_state;
+                        tx_start_next        = 1'b0;                    
                     end
                 end
             end
@@ -397,6 +402,7 @@ always @(*) begin
             next_dm_read_enable     = 1'b1;
             next_dm_enable          = 1'b1;
             next_dm_du_flag         = 1'b1; // select DU as address and read enable source
+            
             tx_start_next           = 1'b1;
             next_step               = 1'b0;
             next_step_flag          = 1'b0;

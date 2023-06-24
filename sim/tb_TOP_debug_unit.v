@@ -2,7 +2,7 @@ module tb_TOP_debug_unit;
 
   // Parameters
   localparam  BYTE = 8;
-  localparam  ADDR = 7;
+  localparam  ADDR = 5;
 
   // Ports
   reg               i_clock;

@@ -3,7 +3,7 @@
 module TOP_debug_unit#(
         parameter BYTE      = 8,
         parameter DWORD     = 32,
-        parameter ADDR      = 7,
+        parameter ADDR      = 5,
         parameter RB_ADDR   = 5
     )
     (
