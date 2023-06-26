@@ -120,7 +120,7 @@ module TOP#(
                          .o_tx(uart_du_tx),
                          .o_tx_done_tick(uart_du_tx_done));
 
-    data_path data_path_1(.i_clock(clk_wiz), // 50 MHz o Steps
+    data_path data_path_1(.i_clock(data_path_clk), // 50 MHz o Steps
                           .i_pc_enable(pc_enable),
                           .i_pc_reset(i_reset),
                           .i_read_enable(im_read_enable),

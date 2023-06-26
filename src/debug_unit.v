@@ -75,7 +75,7 @@ localparam [NB_DATA-1:0] CMD_CONTINUE       = 8'd8; // Continue execution >>
 
 
 // FSM logic
-reg [NB_STATE-1:0]      state,              next_state,     prev_state;
+reg [NB_STATE-1:0]      state,              next_state,     prev_state,   next_prev_state;
 
 // INSTRUCTION MEMORY
 reg [NB_DATA-1:0]       im_count,           next_im_count;          // Address a escribir
@@ -113,6 +113,7 @@ reg                     step,               next_step;
 always @(posedge i_clock) begin
     if(i_reset) begin
         state                   <= IDLE;
+        prev_state              <= IDLE;
 
         // INSTRUCTION MEMORY 
         im_write_enable         <= 1'b0;
@@ -149,6 +150,7 @@ always @(posedge i_clock) begin
     end
     else begin
         state               <= next_state;
+        prev_state          <= next_prev_state;
         // INSTRUCTION MEMORY
         im_write_enable     <= next_im_write_enable;
         im_enable           <= next_im_enable;
@@ -174,6 +176,7 @@ always @(posedge i_clock) begin
         cu_enable           <= next_cu_enable;
         // TX
         send_data           <= next_send_data;
+        
     end
 end
 
@@ -208,7 +211,7 @@ always @(*) begin
     next_step_flag          = step_flag;
     next_step               = step;
 
-    prev_state              = IDLE;
+    next_prev_state         = prev_state;
 
     case(state)
         IDLE: begin
@@ -234,17 +237,19 @@ always @(*) begin
                 case (i_rx_data)
                     CMD_WRITE_IM:  begin
                         next_state = WRITE_IM;
+                        next_prev_state = IDLE;
                     end
                     CMD_SEND_BR:begin
                         next_rb_read_enable = 1'b1; // Read enable = register bank con lectura para debug unit
                         next_rb_enable      = 1'b0; // Enable = register bank con lectura en funcionamiento normal
 
                         next_state = READ_BR;
-                        prev_state = IDLE;
+                        
+                        next_prev_state = IDLE;
                     end
                     CMD_SEND_PC:begin
                         next_state = SEND_PC;
-                        prev_state = IDLE;
+                        next_prev_state = IDLE;
                     end
                     CMD_SEND_MEM:begin
                         next_dm_read_enable     = 1'b1;
@@ -252,7 +257,7 @@ always @(*) begin
                         next_dm_du_flag         = 1'b1; // select DU as address and read enable source
 
                         next_state = READ_MEM;
-                        prev_state = IDLE;
+                        next_prev_state = IDLE;
                     end
                 endcase
             end
@@ -269,7 +274,7 @@ always @(*) begin
         end
         START: begin
             next_step_flag  = 1'b0;
-            next_step       = 1'b0;
+            next_step       = 1'b0; 
 
             next_im_enable  = 1'b1;
             next_rb_enable  = 1'b1;
@@ -282,7 +287,7 @@ always @(*) begin
             end
         end
         STEP_BY_STEP: begin
-            next_step_flag  = 1'b1;
+            next_step_flag  = 1'b1; // STOP 50MHz ckock
             next_step       = 1'b0;
 
             next_im_enable  = 1'b1;
@@ -295,20 +300,24 @@ always @(*) begin
                 case (i_rx_data)
                     CMD_STEP: begin
                         next_state  = SEND_PC;
-                        prev_state  = STEP_BY_STEP;
+                        next_prev_state  = STEP_BY_STEP;
                         next_step   = 1'b1;
                     end
-                    CMD_CONTINUE: next_state = START;
+                    CMD_CONTINUE: begin
+                        next_state = START;
+                        next_prev_state = IDLE;
+                    end    
                 endcase
             end
 
             if(i_hlt)begin
                 next_state = IDLE;
+                next_prev_state = IDLE;
             end
         end
         WRITE_IM: begin
             next_step = 1'b0;
-            if(im_count == 8'd254)begin
+            if(im_count == 8'd10)begin
                 next_state              = READY;
                 next_im_enable          = 1'b0;
                 next_im_write_enable    = 1'b0;

@@ -88,7 +88,7 @@ module tb_TOP;
 
     $readmemb("/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/GUI/instructions.mem", memory, 0, 255);
     // Se envia instruccion por instruccion, byte por byte
-    for (i=0; i<255; i=i+1) begin
+    for (i=0; i<11; i=i+1) begin
         #550000
         $display("instructions : ",inst_counter);
         inst_counter = inst_counter+1;
@@ -101,41 +101,67 @@ module tb_TOP;
 		send	= 1'b0;
     end
 
-    // Ejecucion continua
+//     // Ejecucion continua
+//     #550000
+//     // $display("Sate after write INSTRUCTION MEMORY, state = %b", o_state);
+//     $display("Ejecucón continua");
+//     command = 2;
+//     send = 1'b1;
+
+//     #20
+//     send = 1'b0;
+
+// //    read bank register
+//     #3000000
+//     $display("Display read BANK REGISTER. time=%0t", $time);
+//     command = 8'd4;
+//     send    = 1'b1;
+
+//     #20
+//     send    = 1'b0;
+    
+//     // read data memory
+//     #70000000
+//     #20
+//     $display("Display read DATA MEMORY.  time=%0t", $time);
+//     command = 8'd5;
+//     send    = 1'b1;
+
+//     #20
+//     send = 1'b0;
+
+//     // read PC
+//     #70000000
+//     #20
+//     $display("Display read PC.  time=%0t", $time);
+//     command = 8'd6;
+//     send    = 1'b1;
+
+//     #20
+//     send = 1'b0;
+        // Ejecucion STEP BY STEP
     #550000
-    // $display("Sate after write INSTRUCTION MEMORY, state = %b", o_state);
-    $display("Ejecucón continua");
-    command = 2;
+    $display("Ejecucón step by step. time = %0t", $time);
+    command = 3;
     send = 1'b1;
 
     #20
     send = 1'b0;
 
-//    read bank register
-    #3000000
-    $display("Display read BANK REGISTER. time=%0t", $time);
-    command = 8'd4;
-    send    = 1'b1;
-
-    #20
-    send    = 1'b0;
-    
-    // read data memory
-    #70000000
-    #20
-    $display("Display read DATA MEMORY.  time=%0t", $time);
-    command = 8'd5;
-    send    = 1'b1;
-
+    #550000
+    $display("Send step. time = %0t", $time);
+    command = 7;
+    send = 1'b1;
     #20
     send = 1'b0;
+    #550000
+    #2200000 // lectura de PC
+    #80000000 // lectura de BR 
+    #80000000 // lectura de MEM
 
-    // read PC
-    #70000000
-    #20
-    $display("Display read PC.  time=%0t", $time);
-    command = 8'd6;
-    send    = 1'b1;
+    $display("Continuar con ejecucion. time = %0t", $time);
+    command = 8;
+    send = 1'b1;
 
     #20
     send = 1'b0;
