@@ -6,7 +6,7 @@ module TOP#(
         parameter ADDR      = 5,
         parameter NB_MEM_DEPTH = 8,
         parameter RB_ADDR   = 5,
-        parameter NB_STATE  = 9
+        parameter NB_STATE  = 10
     )
     (
         input                 i_clock,
@@ -62,7 +62,7 @@ module TOP#(
 
     wire                im_enable;
     wire                im_write_enable;
-    wire [DWORD-1:0]    im_addr;
+    wire [BYTE-1:0]     im_addr;
     wire [BYTE-1:0]     im_data;
 
     wire                cu_enable;
@@ -139,9 +139,9 @@ module TOP#(
                           .i_dm_read_address(mem_addr),
                           .i_cu_enable(cu_enable),
                           .o_hlt(halt),
-                          // .o_pc_value(pc),
                           .o_rb_data(rb_data),
-                          .o_dm_data(mem_data));
+                          .o_dm_data(mem_data),
+                          .o_last_pc(pc));
     
     assign o_state      = state;
     assign o_uart_du_tx = uart_du_tx;

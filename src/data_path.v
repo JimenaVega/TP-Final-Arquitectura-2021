@@ -37,7 +37,7 @@ module data_path#(
         input                       i_cu_enable,          // DEBUG UNIT
 
         output                      o_hlt,                // DEBUG UNIT
-        // output [NB_PC-1:0]          o_pc_value,           // DEBUG UNIT
+        //output [NB_PC-1:0]          o_pc_value,           // DEBUG UNIT
         output [NB_DATA-1:0]        o_rb_data,            // DEBUG UNIT
         output [NB_DATA-1:0]        o_dm_data,            // DEBUG UNIT
         output [NB_PC-1:0]          o_last_pc             // DEBUG UNIT

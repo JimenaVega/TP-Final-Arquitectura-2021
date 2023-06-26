@@ -263,6 +263,7 @@ always @(*) begin
                 case(i_rx_data)
                     CMD_STEP_BY_STEP:   next_state = STEP_BY_STEP;
                     CMD_START:          next_state = START;
+                    // default:            next_state = READY;
                 endcase
             end
         end
@@ -338,6 +339,7 @@ always @(*) begin
             endcase
 
             if(i_tx_done)begin
+                tx_start_next = 1'b0;
                 if(count_pc == 2'd3)begin
                     tx_start_next = 1'b0;
                     

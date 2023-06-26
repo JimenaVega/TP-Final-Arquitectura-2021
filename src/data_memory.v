@@ -29,9 +29,10 @@ module data_memory#(
 
 
 	always@(posedge i_clock) begin
-	    BRAM[0] <= 32'h8ff0ff01;
-	    BRAM[1] <= 32'd20;
-	    BRAM[2] <= 32'd100;
+	    // BRAM[0] <= 32'h8ff0ff01;
+	    // BRAM[1] <= 32'h20;
+	    // BRAM[2] <= 32'h100;
+		BRAM[31] <= 32'haabbcc01;
 		if(i_enable) begin
 			// Escritura
 			// BRAM[0] = 32'hff010203f; //BORRAR

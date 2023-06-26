@@ -35,10 +35,10 @@ module registers_bank#(
     endgenerate
     
     always@(posedge i_clock)begin
-        registers[0] <= 32'hffff00ff;
-        registers[1] <= 32'h01020304;
-        registers[2] <= 32'd200;
-        registers[3] <= 32'd420;
+        registers[0] <= 32'hffaa00aa;
+        // registers[1] <= 32'h01020304;
+        // registers[2] <= 32'h200;
+        registers[31] <= 32'h01020304;
         if(i_reset)begin:reset
             o_data_a_next  <=  {NB_DATA{1'b0}};
             o_data_b_next  <=  {NB_DATA{1'b0}};
