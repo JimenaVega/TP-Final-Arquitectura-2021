@@ -6,7 +6,7 @@ module TOP_of_tops#(
         parameter ADDR      = 5,
         parameter NB_MEM_DEPTH = 8,
         parameter RB_ADDR   = 5,
-        parameter NB_STATE  = 9
+        parameter NB_STATE  = 10
     )
     (
         input                 i_clock,
@@ -16,7 +16,7 @@ module TOP_of_tops#(
         input                 i_tx_done,
         input   [BYTE-1:0]    i_rx_data,
 
-        // output                o_hlt,
+        output                o_hlt,
         output [NB_STATE-1:0] o_state,
         // output                o_led_rx_done, //borrar
         // output                o_pc_value,
@@ -108,7 +108,7 @@ module TOP_of_tops#(
                             .o_state(state));
     
 
-    data_path data_path_1(.i_clock(clk_wiz), // 50 MHz o Steps
+    data_path data_path_1(.i_clock(data_path_clk), // 50 MHz o Steps
                           .i_pc_enable(pc_enable),
                           .i_pc_reset(i_reset),
                           .i_read_enable(im_read_enable),
@@ -127,13 +127,12 @@ module TOP_of_tops#(
                           .i_dm_read_address(mem_addr),
                           .i_cu_enable(cu_enable),
                           .o_hlt(halt),
-                          // .o_pc_value(pc),
                           .o_rb_data(rb_data),
                           .o_dm_data(mem_data),
                           .o_last_pc(pc));
     
     assign o_state      = state;
-    // assign o_hlt        = halt;
+    assign o_hlt        = halt;
     // assign o_led_rx_done = uart_du_rx_done;
     // assign o_pc_value = pc[0];
     

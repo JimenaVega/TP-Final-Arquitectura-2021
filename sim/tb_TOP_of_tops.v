@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module tb_TOP;
+module tb_TOP_of_tops;
 
   // Parameters
   localparam  BYTE    = 8;
@@ -9,7 +9,7 @@ module tb_TOP;
   localparam  RB_ADDR = 5;
   localparam  NB_DATA = 8;
   localparam  NB_OP   = 6;
-  localparam  NB_ST   = 9;
+  localparam  NB_ST   = 10;
 
   reg [NB_DATA-1:0] memory [255:0]; 
 
@@ -21,7 +21,7 @@ module tb_TOP;
   reg               i_tx_done     = 1'b0;
   reg [BYTE-1:0]    i_rx_data     = 8'b0;
 
-
+  wire o_hlt;
   wire [NB_ST-1:0]  o_state;
   wire [BYTE-1:0]   o_tx_data;
   wire              o_tx_start;
@@ -39,6 +39,7 @@ module tb_TOP;
           .i_tx_done(i_tx_done),
           .i_rx_data(i_rx_data),
           .i_clock_reset(i_clock_reset),
+          .o_hlt(o_hlt),
           .o_state(o_state),
           .o_tx_data(o_tx_data),
           .o_tx_start(o_tx_start)); 
@@ -66,15 +67,16 @@ module tb_TOP;
 
     #20
     i_rx_done       = 1'b0;
+    $monitor("[$monitor] time=%0t o_state=%b ", $time, o_state);
     // $readmemb("C:/Users/alejo/OneDrive/Documents/GitHub/TP-Final-Arquitectura-2021/GUI/instructions.mem", memory, 0, 255);
     $readmemb("/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/GUI/instructions.mem", memory, 0, 255);
 
 	// Se envia instruccion por instruccion, byte por byte
-    for (i=0; i<256; i=i+1) begin
+    for (i=0; i<11; i=i+1) begin
         $display("instructions : ",inst_counter);
         inst_counter = inst_counter+1;
     	$display("valor: ", memory[i]);
-		#20
+		#10000
 		i_rx_data	= memory[i];
 		i_rx_done	= 1'b1;
 
@@ -82,7 +84,8 @@ module tb_TOP;
 		i_rx_done	= 1'b0;
     end
 
-    #20
+    #1000
+    $display("[time=%0t] Ejecucion continua", $time);
     i_rx_data = 8'd2; // Ejecuion continua
     i_rx_done = 1'b1;
 
@@ -90,7 +93,7 @@ module tb_TOP;
     i_rx_done = 1'b0;
 
     #4000
-    $display("Lectura de bank register.");
+    $display("[time=%0t]  Lectura de bank register.", $time);
     i_rx_data = 8'd4; // Leer bank register
     i_rx_done = 1'b1;
 
@@ -108,7 +111,7 @@ module tb_TOP;
     end
 
     #4000
-    $display("Lectura de DM.");
+    $display("[time=%0t]  Lectura de DM.", $time);
     i_rx_data = 8'd5; // Leer data memory
     i_rx_done = 1'b1;
 
@@ -126,7 +129,7 @@ module tb_TOP;
     end
 
     #4000
-    $display("Lectura de PC.");
+    $display("[time=%0t]  Lectura de PC.", $time);
     i_rx_data = 8'd6; // Leer PC
     i_rx_done = 1'b1;
 
@@ -145,7 +148,7 @@ module tb_TOP;
 
 
 	  // Se envia cmd start para ejecucion continua
-    #200
+    #100
 
     $finish;
   end
