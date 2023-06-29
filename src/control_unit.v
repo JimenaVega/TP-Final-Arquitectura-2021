@@ -450,6 +450,20 @@ module control_unit#(
                     o_hlt           <= 1'b0; // END OF PROGRAM
             end
         end
+        else begin
+            o_alu_op        <= {NB_OPCODE{1'b0}};
+            o_signed        <= 1'b0;
+            o_reg_dest      <= 1'b0;
+            o_alu_src       <= 1'b0;
+            o_mem_read      <= 1'b0;
+            o_mem_write     <= 1'b0;
+            o_branch        <= 1'b0;
+            o_reg_write     <= 1'b0;
+            o_mem_to_reg    <= 1'b0;
+            o_jump          <= 1'b0;
+            o_jr_jalr       <= 1'b0;
+            o_hlt           <= 1'b0;
+        end
     end
 endmodule
     

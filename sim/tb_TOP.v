@@ -169,6 +169,17 @@ module tb_TOP;
     #80000000 // lectura de BR 
     #80000000 // lectura de MEM
 
+    $display("Send step 3. time = %0t", $time);
+    command = 7;
+    send = 1'b1;
+    #20
+    send = 1'b0;
+    #550000
+    #2200000 // lectura de PC
+    #80000000 // lectura de BR 
+    #80000000 // lectura de MEM
+
+
     $display("Continuar con ejecucion. time = %0t", $time);
     command = 8;
     send = 1'b1;
