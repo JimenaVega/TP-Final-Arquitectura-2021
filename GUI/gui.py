@@ -180,6 +180,6 @@ class GUI():
         self.ex_window.destroy()
 
 
-instruction_file = "two_inst"
-uart_port = '/dev/ttyUSB0'
+instruction_file = "instructions"
+uart_port = '/dev/ttyUSB1'
 gui = GUI(instruction_file, uart_port)

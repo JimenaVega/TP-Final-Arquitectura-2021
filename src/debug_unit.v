@@ -317,7 +317,7 @@ always @(*) begin
         end
         WRITE_IM: begin
             next_step = 1'b0;
-            if(im_count == 8'd10)begin
+            if(im_count == 8'd39)begin
                 next_state              = READY;
                 next_im_enable          = 1'b0;
                 next_im_write_enable    = 1'b0;
@@ -340,6 +340,12 @@ always @(*) begin
             tx_start_next   = 1'b1;
             next_step       = 1'b0;
 
+            next_im_enable  = 1'b0;
+            next_rb_enable  = 1'b0;
+            next_dm_enable  = 1'b0;
+            next_cu_enable  = 1'b0;
+            next_pc_enable  = 1'b0;
+
             case(count_pc)
                 2'd0:   next_send_data = i_pc_value[31:24];
                 2'd1:   next_send_data = i_pc_value[23:16];
@@ -351,7 +357,7 @@ always @(*) begin
                 tx_start_next = 1'b0;
                 if(count_pc == 2'd3)begin
                     tx_start_next = 1'b0;
-                    
+                    next_count_pc = 2'b0;
                     if(prev_state == STEP_BY_STEP)begin
                         next_state = SEND_MEM;
                     end
