@@ -7,6 +7,8 @@ module MEM_WB_reg#(
     )
     (   
         input                   i_clock,
+        input                   i_reset,
+        input                   i_pipeline_enable,  //DEBUG UNIT
         input                   i_MEM_reg_write,
         input                   i_MEM_mem_to_reg,                 // MUX selector
         input [NB_DATA-1:0]     i_MEM_mem_data,     // i_WB_mem_to_reg = 1
@@ -36,14 +38,38 @@ module MEM_WB_reg#(
     reg                 hlt;
 
     always@(negedge i_clock) begin
-        reg_write       <= i_MEM_reg_write;
-        mem_to_reg      <= i_MEM_mem_to_reg;
-        mem_data        <= i_MEM_mem_data;
-        alu_result      <= i_MEM_alu_result;
-        selected_reg    <= i_MEM_selected_reg;
-        r31_ctrl        <= i_MEM_r31_ctrl;
-        pc              <= i_MEM_pc;
-        hlt             <= i_MEM_hlt;
+        if(i_reset) begin
+            reg_write       <= 1'b0;
+            mem_to_reg      <= 1'b0;
+            mem_data        <= 32'b0;
+            alu_result      <= 32'b0;
+            selected_reg    <= 5'b0;
+            r31_ctrl        <= 1'b0;
+            pc              <= 32'b0;
+            hlt             <= 1'b0;
+        end
+        else begin
+            if(i_pipeline_enable) begin
+                reg_write       <= i_MEM_reg_write;
+                mem_to_reg      <= i_MEM_mem_to_reg;
+                mem_data        <= i_MEM_mem_data;
+                alu_result      <= i_MEM_alu_result;
+                selected_reg    <= i_MEM_selected_reg;
+                r31_ctrl        <= i_MEM_r31_ctrl;
+                pc              <= i_MEM_pc;
+                hlt             <= i_MEM_hlt;
+            end
+            else begin
+            reg_write       <= reg_write;
+            mem_to_reg      <= mem_to_reg;
+            mem_data        <= mem_data;
+            alu_result      <= alu_result;
+            selected_reg    <= selected_reg;
+            r31_ctrl        <= r31_ctrl;
+            pc              <= pc;
+            hlt             <= hlt;
+        end
+        end
     end
 
     assign o_WB_reg_write       = reg_write;

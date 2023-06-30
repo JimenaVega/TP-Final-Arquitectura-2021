@@ -9,6 +9,8 @@ module ID_EX_reg#(
     )
     (
         input                    i_clock,
+        input                    i_reset,
+        input                    i_pipeline_enable,
         input                    ID_signed,
         input                    ID_reg_write,
         input                    ID_mem_to_reg,
@@ -77,27 +79,77 @@ module ID_EX_reg#(
     reg                 hlt;
 
     always @(negedge i_clock) begin
-        signed_flag <= ID_signed;
-        reg_write   <= ID_reg_write;
-        mem_to_reg  <= ID_mem_to_reg;
-        mem_read    <= ID_mem_read;
-        mem_write   <= ID_mem_write;
-        branch      <= ID_branch;
-        alu_src     <= ID_alu_src;
-        reg_dest    <= ID_reg_dest;
-        alu_op      <= ID_alu_op;
-        pc          <= ID_pc;
-        data_a      <= ID_data_a;
-        data_b      <= ID_data_b;
-        immediate   <= ID_immediate;
-        shamt       <= ID_shamt;
-        rt          <= ID_rt;
-        rd          <= ID_rd;
-        rs          <= ID_rs;
-        byte_en     <= ID_byte_en;
-        halfword_en <= ID_halfword_en;
-        word_en     <= ID_word_en;
-        hlt         <= ID_hlt;
+        if(i_reset) begin
+            signed_flag <= 1'b0;
+            reg_write   <= 1'b0;
+            mem_to_reg  <= 1'b0;
+            mem_read    <= 1'b0;
+            mem_write   <= 1'b0;
+            branch      <= 1'b0;
+            alu_src     <= 1'b0;
+            reg_dest    <= 1'b0;
+            alu_op      <= 6'b0;
+            pc          <= 32'b0;
+            data_a      <= 32'b0;
+            data_b      <= 32'b0;
+            immediate   <= 32'b0;
+            shamt       <= 32'b0;
+            rt          <= 5'b0;
+            rd          <= 5'b0;
+            rs          <= 5'b0;
+            byte_en     <= 1'b0;
+            halfword_en <= 1'b0;
+            word_en     <= 1'b0;
+            hlt         <= 1'b0;
+        end
+        else begin
+            if(i_pipeline_enable) begin
+                signed_flag <= ID_signed;
+                reg_write   <= ID_reg_write;
+                mem_to_reg  <= ID_mem_to_reg;
+                mem_read    <= ID_mem_read;
+                mem_write   <= ID_mem_write;
+                branch      <= ID_branch;
+                alu_src     <= ID_alu_src;
+                reg_dest    <= ID_reg_dest;
+                alu_op      <= ID_alu_op;
+                pc          <= ID_pc;
+                data_a      <= ID_data_a;
+                data_b      <= ID_data_b;
+                immediate   <= ID_immediate;
+                shamt       <= ID_shamt;
+                rt          <= ID_rt;
+                rd          <= ID_rd;
+                rs          <= ID_rs;
+                byte_en     <= ID_byte_en;
+                halfword_en <= ID_halfword_en;
+                word_en     <= ID_word_en;
+                hlt         <= ID_hlt;
+            end
+            else begin
+                signed_flag <= signed_flag;
+                reg_write   <= reg_write;
+                mem_to_reg  <= mem_to_reg;
+                mem_read    <= mem_read;
+                mem_write   <= mem_write;
+                branch      <= branch;
+                alu_src     <= alu_src;
+                reg_dest    <= reg_dest;
+                alu_op      <= alu_op;
+                pc          <= pc;
+                data_a      <= data_a;
+                data_b      <= data_b;
+                immediate   <= immediate;
+                shamt       <= shamt;
+                rt          <= rt;
+                rd          <= rd;
+                rs          <= rs;
+                byte_en     <= byte_en;
+                halfword_en <= halfword_en;
+                word_en     <= word_en;
+                hlt         <= hlt;
+            end
+        end
     end
 
     assign EX_signed        = signed_flag;

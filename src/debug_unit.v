@@ -48,7 +48,8 @@ module debug_unit#(
 
     output                  o_step_flag,
     output                  o_step,
-    output [NB_STATE-1:0]   o_state
+    output [NB_STATE-1:0]   o_state,
+    output                  o_pipeline_enable
 );
 
 // States
@@ -109,6 +110,9 @@ reg                     tx_start,           tx_start_next;
 reg                     step_flag,          next_step_flag;
 reg                     step,               next_step;
 
+// PIPELINE REGISTERS
+reg                    pipeline_enable,     next_pipeline_enable;
+
 // Memory
 always @(posedge i_clock) begin
     if(i_reset) begin
@@ -147,6 +151,8 @@ always @(posedge i_clock) begin
         // STEPPER
         step_flag               <= 1'b0;
         step                    <= 1'b0;
+
+        pipeline_enable         <= 1'b0;
     end
     else begin
         state               <= next_state;
@@ -176,6 +182,8 @@ always @(posedge i_clock) begin
         cu_enable           <= next_cu_enable;
         // TX
         send_data           <= next_send_data;
+
+        pipeline_enable     <= next_pipeline_enable;
         
     end
 end
@@ -205,6 +213,7 @@ always @(*) begin
 
     next_send_data          = send_data;
     next_cu_enable          = cu_enable;
+    next_pipeline_enable    = pipeline_enable;
    
     tx_start_next           = tx_start;
 
@@ -230,8 +239,10 @@ always @(*) begin
 
             next_cu_enable       = 1'b0;
             next_pc_enable       = 1'b0;
+            next_pipeline_enable = 1'b0;
 
-            next_send_data      = 8'b0;
+            next_send_data       = 8'b0;
+
 
             if(i_rx_done) begin
                 case (i_rx_data)
@@ -281,6 +292,7 @@ always @(*) begin
             next_dm_enable  = 1'b1;
             next_cu_enable  = 1'b1;
             next_pc_enable  = 1'b1;
+            next_pipeline_enable = 1'b1;
 
             if(i_hlt)begin
                 next_state = IDLE;
@@ -294,9 +306,11 @@ always @(*) begin
             next_rb_enable  = 1'b1;
             next_dm_enable  = 1'b1;
             next_cu_enable  = 1'b1;
+            
             next_pc_enable  = 1'b1;
 
             if(i_rx_done)begin
+                next_pipeline_enable = 1'b1;
                 case (i_rx_data)
                     CMD_STEP: begin
                         next_state  = SEND_PC;
@@ -345,6 +359,7 @@ always @(*) begin
             next_dm_enable  = 1'b0;
             next_cu_enable  = 1'b0;
             next_pc_enable  = 1'b0;
+            
 
             case(count_pc)
                 2'd0:   next_send_data = i_pc_value[31:24];
@@ -356,6 +371,7 @@ always @(*) begin
             if(i_tx_done)begin
                 tx_start_next = 1'b0;
                 if(count_pc == 2'd3)begin
+                    next_pipeline_enable = 1'b0; // 0
                     tx_start_next = 1'b0;
                     next_count_pc = 2'b0;
                     if(prev_state == STEP_BY_STEP)begin
@@ -385,6 +401,7 @@ always @(*) begin
             //disable all except br
             next_pc_enable      = 1'b0;
             next_cu_enable      = 1'b0;
+            // next_pipeline_enable = 1'b1; //0
             next_dm_enable      = 1'b0;
 
             case(next_count_br_byte)
@@ -429,6 +446,7 @@ always @(*) begin
             next_rb_enable  = 1'b0;
             next_cu_enable  = 1'b0;
             next_pc_enable  = 1'b0;
+            // next_pipeline_enable = 1'b1; // 0
 
             case(next_count_dm_byte)
                 2'd0:   next_send_data = i_dm_data[31:24];
@@ -498,5 +516,8 @@ assign o_step               = step;
 
 // STATE
 assign o_state              = state;
+
+// PIPELINE REGISTERS
+assign o_pipeline_enable = pipeline_enable;
 
 endmodule

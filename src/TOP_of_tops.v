@@ -68,6 +68,8 @@ module TOP_of_tops#(
     wire [DWORD-1:0]    pc;
 
     wire [NB_STATE-1:0] state;
+    wire pipeline_enable;
+
 
 
     always@(*)begin
@@ -105,7 +107,9 @@ module TOP_of_tops#(
                             .o_pc_enable(pc_enable),
                             .o_step_flag(step_flag),
                             .o_step(step),
-                            .o_state(state));
+                            .o_state(state),
+                            .o_pipeline_enable(pipeline_enable));
+
     
 
     data_path data_path_1(.i_clock(data_path_clk), // 50 MHz o Steps
@@ -114,6 +118,7 @@ module TOP_of_tops#(
                           .i_read_enable(im_read_enable),
                           .i_ID_stage_reset(i_reset),
                           .i_ctrl_reset(i_reset),
+                          .i_pipeline_enable(pipeline_enable),
                           .i_du_flag(read_dm_from_du),
                           .i_im_enable(im_enable),
                           .i_im_write_enable(im_write_enable),

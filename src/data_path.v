@@ -19,6 +19,7 @@ module data_path#(
         input                       i_read_enable,
         input                       i_ID_stage_reset,
         input                       i_ctrl_reset,         // FORWARDING UNIT
+        input                       i_pipeline_enable,    // DEBUG UNIT
 
         input                       i_du_flag,            // DEBUG UNIT
         input                       i_im_enable,          // DEBUG UNIT
@@ -202,6 +203,8 @@ module data_path#(
                         .o_IF_new_instruction(IF_new_instruction));
                         
     IF_ID_reg IF_ID_reg_1(.i_clock(i_clock),
+                          .i_reset(i_pc_reset),
+                          .i_pipeline_enable(i_pipeline_enable),
                           .i_enable_IF_ID_reg(enable_IF_ID_reg), // STALL UNIT: 1 -> data hazard (stall) 0 -> !data_hazard
                           .i_flush(flush_IF),                    // STALL UNIT: 1 -> control hazards     0 -> !control_hazard
                           .IF_adder_result(IF_adder_result),
@@ -248,6 +251,8 @@ module data_path#(
                         .o_ID_r31_data(ID_r31_data));
                         
     ID_EX_reg ID_EX_reg_1(.i_clock(i_clock),
+                          .i_reset(i_pc_reset),
+                          .i_pipeline_enable(i_pipeline_enable),
                           .ID_signed(ID_signed),
                           .ID_reg_write(ID_reg_write),
                           .ID_mem_to_reg(ID_mem_to_reg),
@@ -334,6 +339,8 @@ module data_path#(
                         .o_EX_hlt(o_EX_hlt));
                         
     EX_MEM_reg EX_MEM_reg_1(.i_clock(i_clock),
+                            .i_reset(i_pc_reset),
+                            .i_pipeline_enable(i_pipeline_enable),
                             .i_flush(flush_EX),
                             .EX_signed(o_EX_signed),
                             .EX_reg_write(o_EX_reg_write),
@@ -405,6 +412,8 @@ module data_path#(
                           .o_MEM_hlt(o_MEM_hlt));
                          
     MEM_WB_reg MEM_WB_reg_1(.i_clock(i_clock),
+                            .i_reset(i_pc_reset),
+                            .i_pipeline_enable(i_pipeline_enable),
                             .i_MEM_reg_write(o_MEM_reg_write),
                             .i_MEM_mem_to_reg(o_MEM_mem_to_reg),
                             .i_MEM_mem_data(MEM_mem_data),
