@@ -123,42 +123,49 @@ class Uart():
 
     def receive_all(self):
         """ 
-        TODO: En caso que no funcione recibir toda la recepcion de las 3 memorias de una
-        terminar de desarrollar esto.
+        A diferencia de los otros metodos, este recibe todos los bytes de todas las memorias primero y luego las guarda
+        o las imprime en archivos.
+        max_bytes: es el total de bytes de todas las memorias/registros que se quieren recibir por uart.
         """
         
         max_bytes = NB_DATA_MEM + NB_BANK_REG + NB_PC
-        address = 0 
         bytes_received = 0
+        byte_index = 0
 
         while bytes_received < max_bytes:
 
             byte_received = self.ser.read(1)        # UART RX
 
             data = int.from_bytes(byte_received, "big")
-            print(f'[{bytes_received}]DATA: {self.byte_to_bistring(data, 8)}')
+            # print(f'[{bytes_received}]DATA: {self.byte_to_bistring(data, 8)}')
             self.allData.append(self.byte_to_bistring(data, 8))
 
             bytes_received = bytes_received + 1
-            address = address + 1
 
-        # with open("pc_debug.txt", "w") as file:
-        #     line = "{0}{1}{2}{3}\n".format(self.allData[0], self.allData[1], self.allData[2], self.allData[3])
-        #     file.write(line)
+        print("-------------------------------------------------")
+        print("PC")
+        with open("pc_debug.txt", "w") as file:
+            line = "{0}{1}{2}{3}\n".format(self.allData[0], self.allData[1], self.allData[2], self.allData[3])
+            print(line)
+            file.write(line)
+        
+        print("-------------------------------------------------")
+        print("BANK REGISTER")
+        with open("br_debug.txt", "w") as file:
+            for i in range(NB_PC, NB_PC+NB_BANK_REG, 4):
+                print(f'[{byte_index}] line')
+                byte_index += 1
+                line = "{0}{1}{2}{3}\n".format(self.allData[0+i], self.allData[1+i], self.allData[2+i], self.allData[3+i])
+                file.write(line)
+            byte_index = 0    
 
-        # with open("br_rebug.txt", "w") as file:
-        #     for i in range(NB_PC, NB_PC+NB_BANK_REG, 4):
-        #         print("BR i = ", i)
-        #         line = "{0}{1}{2}{3}\n".format(self.allData[0+i], self.allData[1+i], self.allData[2+i], self.allData[3+i])
-        #         file.write(line)
-
-        # with open("dm_debug.txt", "w") as file:
-        #     for i in range(NB_PC+NB_BANK_REG, NB_PC+NB_BANK_REG+NB_DATA_MEM):
-
-        #         file.write(self.allData[i] + "\n")
-
-
-
+        print("-------------------------------------------------")
+        print("DATA MEMORY")
+        with open("dm_debug.txt", "w") as file:
+            for i in range(NB_PC+NB_BANK_REG, NB_PC+NB_BANK_REG+NB_DATA_MEM):
+                print(f'[{byte_index}] {line}')
+                byte_index += 1
+                file.write(self.allData[i] + "\n")
 
     def write_line(self, file, bytes_data, address, bin_size=8):
         decimal_data = bytes_data
