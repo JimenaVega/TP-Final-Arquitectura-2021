@@ -49,20 +49,23 @@ module MEM_stage#(
 
     reg [NB_DM_ADDR-1:0]   address;
     reg                    mem_read;
+    reg                    mem_write;
 
     always@(*)begin // o_dm_du_flag
         if(i_MEM_du_flag)begin  // Flag de read y address provenientes de DEBUG UNIT
-            mem_read = i_MEM_dm_read_enable;
-            address  = i_MEM_dm_read_address;
+            mem_read  = i_MEM_dm_read_enable;
+            mem_write = 1'b0;
+            address   = i_MEM_dm_read_address;
         end
         else begin              // Flag de read y address provenientes del datapath
-            mem_read = i_MEM_mem_read;
-            address  = i_MEM_alu_result[NB_DM_ADDR-1:0];
+            mem_read  = i_MEM_mem_read;
+            mem_write = i_MEM_mem_write;
+            address   = i_MEM_alu_result[NB_DM_ADDR-1:0];
         end
     end
 
     data_mem_controller data_mem_controller_1(.i_signed(i_MEM_signed),
-                                              .i_mem_write(i_MEM_mem_write),
+                                              .i_mem_write(mem_write),
                                               .i_mem_read(mem_read),
                                               .i_word_en(i_MEM_word_en),
                                               .i_halfword_en(i_MEM_halfword_en),
@@ -74,7 +77,7 @@ module MEM_stage#(
 
     data_memory data_memory_1(.i_clock(i_clock),
                               .i_enable(i_MEM_dm_enable),
-                              .i_mem_write(i_MEM_mem_write),
+                              .i_mem_write(mem_write),
                               .i_mem_read(mem_read),
                               .i_address(address),
                               .i_write_data(write_data),
