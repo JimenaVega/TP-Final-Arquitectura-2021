@@ -16,8 +16,8 @@ module TOP#(
 
         output                o_uart_du_tx,
         output                o_hlt,
-        output [NB_STATE-1:0] o_state,
-        output o_clk
+        output [NB_STATE-1:0] o_state
+        // output o_clk
     );
 
    wire clk_wiz;
@@ -149,7 +149,7 @@ module TOP#(
     assign o_state      = state;
     assign o_uart_du_tx = uart_du_tx;
     assign o_hlt        = halt;
-    assign o_clk        = clk_wiz;
+    // assign o_clk        = clk_wiz;
     
 endmodule
 

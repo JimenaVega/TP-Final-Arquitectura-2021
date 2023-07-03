@@ -14,3 +14,4 @@ add $t3,$s1,$s2;
 add $t4,$s1,$s2;
 add $t5,$s1,$s2;
 sll $s0,$s1,3;
+hlt;

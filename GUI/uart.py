@@ -142,30 +142,41 @@ class Uart():
 
             bytes_received = bytes_received + 1
 
+        
+
+        print("-------------------------------------------------")
+        print("DATA MEMORY")
+        byte_index = 0 
+        with open("dm_debug.txt", "w") as file:
+            for i in range(NB_PC, NB_PC+NB_DATA_MEM, 4):
+                
+                line = "{0}{1}{2}{3}\n".format(self.allData[0+i], self.allData[1+i], self.allData[2+i], self.allData[3+i])
+
+                print(f'[{byte_index}] {line}')
+                byte_index += 1
+                file.write(self.allData[i] + "\n")
+
+        print("-------------------------------------------------")
+        print("BANK REGISTER")
+        byte_index = 0
+        with open("br_debug.txt", "w") as file:
+            for i in range(NB_PC+NB_DATA_MEM, NB_PC+NB_DATA_MEM+NB_BANK_REG, 4):
+                
+                line = "{0}{1}{2}{3}\n".format(self.allData[0+i], self.allData[1+i], self.allData[2+i], self.allData[3+i])
+                print(f'[{byte_index}] {line}')
+                byte_index += 1
+                file.write(line)
+
         print("-------------------------------------------------")
         print("PC")
         with open("pc_debug.txt", "w") as file:
             line = "{0}{1}{2}{3}\n".format(self.allData[0], self.allData[1], self.allData[2], self.allData[3])
+            
             print(line)
             file.write(line)
+                    
+        self.allData = []
         
-        print("-------------------------------------------------")
-        print("BANK REGISTER")
-        with open("br_debug.txt", "w") as file:
-            for i in range(NB_PC, NB_PC+NB_BANK_REG, 4):
-                print(f'[{byte_index}] line')
-                byte_index += 1
-                line = "{0}{1}{2}{3}\n".format(self.allData[0+i], self.allData[1+i], self.allData[2+i], self.allData[3+i])
-                file.write(line)
-            byte_index = 0    
-
-        print("-------------------------------------------------")
-        print("DATA MEMORY")
-        with open("dm_debug.txt", "w") as file:
-            for i in range(NB_PC+NB_BANK_REG, NB_PC+NB_BANK_REG+NB_DATA_MEM):
-                print(f'[{byte_index}] {line}')
-                byte_index += 1
-                file.write(self.allData[i] + "\n")
 
     def write_line(self, file, bytes_data, address, bin_size=8):
         decimal_data = bytes_data
