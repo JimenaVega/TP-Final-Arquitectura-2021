@@ -42,35 +42,35 @@ class GUI:
                             5: self.receive_file,
                             6: self.receive_file, }
 
-        file_name = translate_file(instruction_file)
-        # self.uart = Uart(uart_port, baudrate)
+        #file_name = translate_file(instruction_file)
+        self.uart = Uart(uart_port, baudrate)
 
-        # self.instruction_file = instruction_file
-        # self.instruction_size = 0  # Necesario para saber cuantos steps mandar
-        #
-        # self.window = tk.Tk()  # Main menu
-        # self.window.config(bd=80)
-        # self.window.title("GUI: Main menu")
-        #
-        # self.ex_window = None  # Execution window
-        # self.debug_window = None  # Debug window
-        # self.maximum_steps = INS_MEM_SIZE * 5
-        #
-        # self.start_msg = tk.Label(text="Elegir una opción: ")
-        # self.start_msg.grid(column=0, row=0)
-        # self.start_msg.pack()
-        #
-        # self.option = tk.IntVar()
-        # self.exe_mode = None
-        #
-        # tk.Radiobutton(self.window, text=commands.get(1), variable=self.option, value=1).pack()
-        # tk.Radiobutton(self.window, text=commands.get(4), variable=self.option, value=4).pack()
-        # tk.Radiobutton(self.window, text=commands.get(5), variable=self.option, value=5).pack()
-        # tk.Radiobutton(self.window, text=commands.get(6), variable=self.option, value=6).pack()
-        #
-        # tk.Button(self.window, text="Send", command=self.send_command).pack()
-        #
-        # self.window.mainloop()
+        self.instruction_file = instruction_file
+        self.instruction_size = 0  # Necesario para saber cuantos steps mandar
+        
+        self.window = tk.Tk()  # Main menu
+        self.window.config(bd=80)
+        self.window.title("GUI: Main menu")
+        
+        self.ex_window = None  # Execution window
+        self.debug_window = None  # Debug window
+        self.maximum_steps = INS_MEM_SIZE * 5
+        
+        self.start_msg = tk.Label(text="Elegir una opción: ")
+        self.start_msg.grid(column=0, row=0)
+        self.start_msg.pack()
+        
+        self.option = tk.IntVar()
+        self.exe_mode = None
+        
+        tk.Radiobutton(self.window, text=commands.get(1), variable=self.option, value=1).pack()
+        tk.Radiobutton(self.window, text=commands.get(4), variable=self.option, value=4).pack()
+        tk.Radiobutton(self.window, text=commands.get(5), variable=self.option, value=5).pack()
+        tk.Radiobutton(self.window, text=commands.get(6), variable=self.option, value=6).pack()
+        
+        tk.Button(self.window, text="Send", command=self.send_command).pack()
+        
+        self.window.mainloop()
 
     def send_command(self):
         print(commands.get(self.option.get()))
@@ -92,7 +92,7 @@ class GUI:
 
         # Se envia por uart el .mem y se ejecuta la siguiente ventana
         self.instruction_size = int(self.uart.send_file(file_name) / 4)
-        # self.maximum_steps = self.instruction_size * 5
+        self.maximum_steps = self.instruction_size + 4
 
         self.set_execution_window()
 
@@ -177,6 +177,6 @@ class GUI:
         self.ex_window.destroy()
 
 
-instruction_file = "raw_load_hazard"
+instruction_file = "raw_hazard"
 uart_port = '/dev/ttyUSB1'
 gui = GUI(instruction_file, uart_port)
