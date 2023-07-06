@@ -85,381 +85,381 @@ module tb_TOP_of_tops;
 		i_rx_done	= 1'b0;
     end
 
-    // #1000
-    // $display("[time=%0t] Ejecucion continua", $time);
-    // i_rx_data = 8'd2; // Ejecuion continua
-    // i_rx_done = 1'b1;
+     #1000
+     $display("[time=%0t] Ejecucion continua", $time);
+     i_rx_data = 8'd2; // Ejecuion continua
+     i_rx_done = 1'b1;
 
-    // #20
-    // i_rx_done = 1'b0;
+     #20
+     i_rx_done = 1'b0;
 
-    #550000
-    $display("Ejecución step by step. time = %0t", $time);
-    i_rx_data = 3;
-    i_rx_done = 1'b1;
+//    #550000
+//    $display("Ejecución step by step. time = %0t", $time);
+//    i_rx_data = 3;
+//    i_rx_done = 1'b1;
 
-    #20
-    i_rx_done = 1'b0;
+//    #20
+//    i_rx_done = 1'b0;
 
-    #100000
-    $display("Ejecución step  1. time = %0t", $time);
-    i_rx_data = 7;
-    i_rx_done = 1'b1;
+//    #100000
+//    $display("Ejecución step  1. time = %0t", $time);
+//    i_rx_data = 7;
+//    i_rx_done = 1'b1;
 
-    #1000
-    i_rx_done = 1'b0;
+//    #1000
+//    i_rx_done = 1'b0;
 
-    for (i=0; i<260; i=i+1) begin
+//    for (i=0; i<260; i=i+1) begin
     
-      #80
-      i_tx_done	= 1'b1;
+//      #80
+//      i_tx_done	= 1'b1;
 
-      #20
-      i_tx_done	= 1'b0;
-    end  
-    // #2200000 // lectura de PC
-    // #80000000 // lectura de BR 
+//      #20
+//      i_tx_done	= 1'b0;
+//    end  
+//    // #2200000 // lectura de PC
+//    // #80000000 // lectura de BR 
    
-    #100000
-    $display("Ejecución step 2. time = %0t", $time);
-    i_rx_data = 7;
-    i_rx_done = 1'b1;
+//    #100000
+//    $display("Ejecución step 2. time = %0t", $time);
+//    i_rx_data = 7;
+//    i_rx_done = 1'b1;
 
-    #20
-    i_rx_done = 1'b0;
-    // #2200000 // lectura de PC
-    // #80000000 // lectura de BR 
-    #1000
-    for (i=0; i<260; i=i+1) begin
+//    #20
+//    i_rx_done = 1'b0;
+//    // #2200000 // lectura de PC
+//    // #80000000 // lectura de BR 
+//    #1000
+//    for (i=0; i<260; i=i+1) begin
     
-      #80
-      i_tx_done	= 1'b1;
+//      #80
+//      i_tx_done	= 1'b1;
 
-      #20
-      i_tx_done	= 1'b0;
-    end
+//      #20
+//      i_tx_done	= 1'b0;
+//    end
 
-    #100000
-    $display("Ejecución  step 3. time = %0t", $time);
-    i_rx_data = 7;
-    i_rx_done = 1'b1;
+//    #100000
+//    $display("Ejecución  step 3. time = %0t", $time);
+//    i_rx_data = 7;
+//    i_rx_done = 1'b1;
 
-    #20
-    i_rx_done = 1'b0;
+//    #20
+//    i_rx_done = 1'b0;
 
-    #1000
-    for (i=0; i<260; i=i+1) begin
+//    #1000
+//    for (i=0; i<260; i=i+1) begin
     
-      #80
-      i_tx_done	= 1'b1;
+//      #80
+//      i_tx_done	= 1'b1;
 
-      #20
-      i_tx_done	= 1'b0;
-    end 
-    // #2200000 // lectura de PC
-    // #80000000 // lectura de BR 
+//      #20
+//      i_tx_done	= 1'b0;
+//    end 
+//    // #2200000 // lectura de PC
+//    // #80000000 // lectura de BR 
 
-    #100000
-    $display("Ejecución step 4. time = %0t", $time);
-    i_rx_data = 7;
-    i_rx_done = 1'b1;
+//    #100000
+//    $display("Ejecución step 4. time = %0t", $time);
+//    i_rx_data = 7;
+//    i_rx_done = 1'b1;
 
-    #20
-    i_rx_done = 1'b0;
-    // #2200000 // lectura de PC
-    // #80000000 // lectura de BR 
-    for (i=0; i<260; i=i+1) begin
+//    #20
+//    i_rx_done = 1'b0;
+//    // #2200000 // lectura de PC
+//    // #80000000 // lectura de BR 
+//    for (i=0; i<260; i=i+1) begin
     
-      #80
-      i_tx_done	= 1'b1;
+//      #80
+//      i_tx_done	= 1'b1;
 
-      #20
-      i_tx_done	= 1'b0;
-    end
+//      #20
+//      i_tx_done	= 1'b0;
+//    end
 
-    #100000
-    $display("Ejecución step by step 5. time = %0t", $time);
-    i_rx_data = 7;
-    i_rx_done = 1'b1;
+//    #100000
+//    $display("Ejecución step by step 5. time = %0t", $time);
+//    i_rx_data = 7;
+//    i_rx_done = 1'b1;
 
-    #20
-    i_rx_done = 1'b0;
+//    #20
+//    i_rx_done = 1'b0;
 
-    #1000
-    for (i=0; i<260; i=i+1) begin
+//    #1000
+//    for (i=0; i<260; i=i+1) begin
     
-      #80
-      i_tx_done	= 1'b1;
+//      #80
+//      i_tx_done	= 1'b1;
 
-      #20
-      i_tx_done	= 1'b0;
-    end
+//      #20
+//      i_tx_done	= 1'b0;
+//    end
 
-    // #2200000 // lectura de PC
-    // #80000000 // lectura de BR 
+//    // #2200000 // lectura de PC
+//    // #80000000 // lectura de BR 
 
-    #100000
-    $display("Ejecución step by step 6. time = %0t", $time);
-    i_rx_data = 7;
-    i_rx_done = 1'b1;
+//    #100000
+//    $display("Ejecución step by step 6. time = %0t", $time);
+//    i_rx_data = 7;
+//    i_rx_done = 1'b1;
 
-    #20
-    i_rx_done = 1'b0;
-    // #2200000 // lectura de PC
-    // #80000000 // lectura de BR 
-    #1000
-    for (i=0; i<260; i=i+1) begin
+//    #20
+//    i_rx_done = 1'b0;
+//    // #2200000 // lectura de PC
+//    // #80000000 // lectura de BR 
+//    #1000
+//    for (i=0; i<260; i=i+1) begin
     
-      #80
-      i_tx_done	= 1'b1;
+//      #80
+//      i_tx_done	= 1'b1;
 
-      #20
-      i_tx_done	= 1'b0;
-    end
+//      #20
+//      i_tx_done	= 1'b0;
+//    end
 
-    #100000
-    $display("Ejecución step 7. time = %0t", $time);
-    i_rx_data = 7;
-    i_rx_done = 1'b1;
+//    #100000
+//    $display("Ejecución step 7. time = %0t", $time);
+//    i_rx_data = 7;
+//    i_rx_done = 1'b1;
 
-    #20
-    i_rx_done = 1'b0;
-    // #2200000 // lectura de PC
-    // #80000000 // lectura de BR 
-    #1000
-    for (i=0; i<260; i=i+1) begin
+//    #20
+//    i_rx_done = 1'b0;
+//    // #2200000 // lectura de PC
+//    // #80000000 // lectura de BR 
+//    #1000
+//    for (i=0; i<260; i=i+1) begin
     
-      #80
-      i_tx_done	= 1'b1;
+//      #80
+//      i_tx_done	= 1'b1;
 
-      #20
-      i_tx_done	= 1'b0;
-    end
+//      #20
+//      i_tx_done	= 1'b0;
+//    end
 
-    #100000
-    $display("Ejecución step 8. time = %0t", $time);
-    i_rx_data = 7;
-    i_rx_done = 1'b1;
+//    #100000
+//    $display("Ejecución step 8. time = %0t", $time);
+//    i_rx_data = 7;
+//    i_rx_done = 1'b1;
 
-    #20
-    i_rx_done = 1'b0;
-    // #2200000 // lectura de PC
-    // #80000000 // lectura de BR 
-    #1000
-    for (i=0; i<260; i=i+1) begin
+//    #20
+//    i_rx_done = 1'b0;
+//    // #2200000 // lectura de PC
+//    // #80000000 // lectura de BR 
+//    #1000
+//    for (i=0; i<260; i=i+1) begin
     
-      #80
-      i_tx_done	= 1'b1;
+//      #80
+//      i_tx_done	= 1'b1;
 
-      #20
-      i_tx_done	= 1'b0;
-    end
+//      #20
+//      i_tx_done	= 1'b0;
+//    end
 
-    #100000
-    $display("Ejecución step 9. time = %0t", $time);
-    i_rx_data = 7;
-    i_rx_done = 1'b1;
+//    #100000
+//    $display("Ejecución step 9. time = %0t", $time);
+//    i_rx_data = 7;
+//    i_rx_done = 1'b1;
 
-    #20
-    i_rx_done = 1'b0;
-    // #2200000 // lectura de PC
-    // #80000000 // lectura de BR 
-    #1000
-    for (i=0; i<260; i=i+1) begin
+//    #20
+//    i_rx_done = 1'b0;
+//    // #2200000 // lectura de PC
+//    // #80000000 // lectura de BR 
+//    #1000
+//    for (i=0; i<260; i=i+1) begin
     
-      #80
-      i_tx_done	= 1'b1;
+//      #80
+//      i_tx_done	= 1'b1;
 
-      #20
-      i_tx_done	= 1'b0;
-    end
+//      #20
+//      i_tx_done	= 1'b0;
+//    end
 
-    #100000
-    $display("Ejecución step 10. time = %0t", $time);
-    i_rx_data = 7;
-    i_rx_done = 1'b1;
+//    #100000
+//    $display("Ejecución step 10. time = %0t", $time);
+//    i_rx_data = 7;
+//    i_rx_done = 1'b1;
 
-    #20
-    i_rx_done = 1'b0;
-    // #2200000 // lectura de PC
-    // #80000000 // lectura de BR 
-    #1000
-    for (i=0; i<260; i=i+1) begin
+//    #20
+//    i_rx_done = 1'b0;
+//    // #2200000 // lectura de PC
+//    // #80000000 // lectura de BR 
+//    #1000
+//    for (i=0; i<260; i=i+1) begin
     
-      #80
-      i_tx_done	= 1'b1;
+//      #80
+//      i_tx_done	= 1'b1;
 
-      #20
-      i_tx_done	= 1'b0;
-    end
+//      #20
+//      i_tx_done	= 1'b0;
+//    end
 
-    #100000
-    $display("Ejecución step 11. time = %0t", $time);
-    i_rx_data = 7;
-    i_rx_done = 1'b1;
+//    #100000
+//    $display("Ejecución step 11. time = %0t", $time);
+//    i_rx_data = 7;
+//    i_rx_done = 1'b1;
 
-    #20
-    i_rx_done = 1'b0;
-    // #2200000 // lectura de PC
-    // #80000000 // lectura de BR 
-    #1000
-    for (i=0; i<260; i=i+1) begin
+//    #20
+//    i_rx_done = 1'b0;
+//    // #2200000 // lectura de PC
+//    // #80000000 // lectura de BR 
+//    #1000
+//    for (i=0; i<260; i=i+1) begin
     
-      #80
-      i_tx_done	= 1'b1;
+//      #80
+//      i_tx_done	= 1'b1;
 
-      #20
-      i_tx_done	= 1'b0;
-    end
+//      #20
+//      i_tx_done	= 1'b0;
+//    end
 
-    #100000
-    $display("Ejecución step 12. time = %0t", $time);
-    i_rx_data = 7;
-    i_rx_done = 1'b1;
+//    #100000
+//    $display("Ejecución step 12. time = %0t", $time);
+//    i_rx_data = 7;
+//    i_rx_done = 1'b1;
 
-    #20
-    i_rx_done = 1'b0;
-    // #2200000 // lectura de PC
-    // #80000000 // lectura de BR 
-    #1000
-    for (i=0; i<260; i=i+1) begin
+//    #20
+//    i_rx_done = 1'b0;
+//    // #2200000 // lectura de PC
+//    // #80000000 // lectura de BR 
+//    #1000
+//    for (i=0; i<260; i=i+1) begin
     
-      #80
-      i_tx_done	= 1'b1;
+//      #80
+//      i_tx_done	= 1'b1;
 
-      #20
-      i_tx_done	= 1'b0;
-    end
+//      #20
+//      i_tx_done	= 1'b0;
+//    end
 
-    #100000
-    $display("Ejecución step 13. time = %0t", $time);
-    i_rx_data = 7;
-    i_rx_done = 1'b1;
+//    #100000
+//    $display("Ejecución step 13. time = %0t", $time);
+//    i_rx_data = 7;
+//    i_rx_done = 1'b1;
 
-    #20
-    i_rx_done = 1'b0;
-    // #2200000 // lectura de PC
-    // #80000000 // lectura de BR 
-    #1000
-    for (i=0; i<260; i=i+1) begin
+//    #20
+//    i_rx_done = 1'b0;
+//    // #2200000 // lectura de PC
+//    // #80000000 // lectura de BR 
+//    #1000
+//    for (i=0; i<260; i=i+1) begin
     
-      #80
-      i_tx_done	= 1'b1;
+//      #80
+//      i_tx_done	= 1'b1;
 
-      #20
-      i_tx_done	= 1'b0;
-    end
+//      #20
+//      i_tx_done	= 1'b0;
+//    end
 
-    #100000
-    $display("Ejecución step 14. time = %0t", $time);
-    i_rx_data = 7;
-    i_rx_done = 1'b1;
+//    #100000
+//    $display("Ejecución step 14. time = %0t", $time);
+//    i_rx_data = 7;
+//    i_rx_done = 1'b1;
 
-    #20
-    i_rx_done = 1'b0;
-    // #2200000 // lectura de PC
-    // #80000000 // lectura de BR 
-    #1000
-    for (i=0; i<260; i=i+1) begin
+//    #20
+//    i_rx_done = 1'b0;
+//    // #2200000 // lectura de PC
+//    // #80000000 // lectura de BR 
+//    #1000
+//    for (i=0; i<260; i=i+1) begin
     
-      #80
-      i_tx_done	= 1'b1;
+//      #80
+//      i_tx_done	= 1'b1;
 
-      #20
-      i_tx_done	= 1'b0;
-    end
+//      #20
+//      i_tx_done	= 1'b0;
+//    end
 
-    #100000
-    $display("Ejecución step 15. time = %0t", $time);
-    i_rx_data = 7;
-    i_rx_done = 1'b1;
+//    #100000
+//    $display("Ejecución step 15. time = %0t", $time);
+//    i_rx_data = 7;
+//    i_rx_done = 1'b1;
 
-    #20
-    i_rx_done = 1'b0;
-    // #2200000 // lectura de PC
-    // #80000000 // lectura de BR 
-    #1000
-    for (i=0; i<260; i=i+1) begin
+//    #20
+//    i_rx_done = 1'b0;
+//    // #2200000 // lectura de PC
+//    // #80000000 // lectura de BR 
+//    #1000
+//    for (i=0; i<260; i=i+1) begin
     
-      #80
-      i_tx_done	= 1'b1;
+//      #80
+//      i_tx_done	= 1'b1;
 
-      #20
-      i_tx_done	= 1'b0;
-    end
+//      #20
+//      i_tx_done	= 1'b0;
+//    end
 
-    #100000
-    $display("Ejecución step 16. time = %0t", $time);
-    i_rx_data = 7;
-    i_rx_done = 1'b1;
+//    #100000
+//    $display("Ejecución step 16. time = %0t", $time);
+//    i_rx_data = 7;
+//    i_rx_done = 1'b1;
 
-    #20
-    i_rx_done = 1'b0;
-    // #2200000 // lectura de PC
-    // #80000000 // lectura de BR 
-    #1000
-    for (i=0; i<260; i=i+1) begin
+//    #20
+//    i_rx_done = 1'b0;
+//    // #2200000 // lectura de PC
+//    // #80000000 // lectura de BR 
+//    #1000
+//    for (i=0; i<260; i=i+1) begin
     
-      #80
-      i_tx_done	= 1'b1;
+//      #80
+//      i_tx_done	= 1'b1;
 
-      #20
-      i_tx_done	= 1'b0;
-    end
+//      #20
+//      i_tx_done	= 1'b0;
+//    end
 
-    #4000
-    $display("[time=%0t]  Lectura de bank register.", $time);
-    i_rx_data = 8'd4; // Leer bank register
-    i_rx_done = 1'b1;
+//    #4000
+//    $display("[time=%0t]  Lectura de bank register.", $time);
+//    i_rx_data = 8'd4; // Leer bank register
+//    i_rx_done = 1'b1;
 
-    #20
-    i_rx_done = 1'b0;
+//    #20
+//    i_rx_done = 1'b0;
 
-    for (i=0; i<128; i=i+1) begin
+//    for (i=0; i<128; i=i+1) begin
     
-      #80
-      i_tx_done	= 1'b1;
+//      #80
+//      i_tx_done	= 1'b1;
 
-      #20
-      i_tx_done	= 1'b0;
+//      #20
+//      i_tx_done	= 1'b0;
 
-    end
+//    end
 
-    #4000
-    $display("[time=%0t]  Lectura de DM.", $time);
-    i_rx_data = 8'd5; // Leer data memory
-    i_rx_done = 1'b1;
+//    #4000
+//    $display("[time=%0t]  Lectura de DM.", $time);
+//    i_rx_data = 8'd5; // Leer data memory
+//    i_rx_done = 1'b1;
 
-    #20
-    i_rx_done = 1'b0;
-    #40
-    for (i=0; i<128; i=i+1) begin
+//    #20
+//    i_rx_done = 1'b0;
+//    #40
+//    for (i=0; i<128; i=i+1) begin
     
-      #80
-      i_tx_done	= 1'b1;
+//      #80
+//      i_tx_done	= 1'b1;
 
-      #20
-      i_tx_done	= 1'b0;
+//      #20
+//      i_tx_done	= 1'b0;
 
-    end
+//    end
 
-    #4000
-    $display("[time=%0t]  Lectura de PC.", $time);
-    i_rx_data = 8'd6; // Leer PC
-    i_rx_done = 1'b1;
+//    #4000
+//    $display("[time=%0t]  Lectura de PC.", $time);
+//    i_rx_data = 8'd6; // Leer PC
+//    i_rx_done = 1'b1;
 
-    #20
-    i_rx_done = 1'b0;
+//    #20
+//    i_rx_done = 1'b0;
 
-    for (i=0; i<4; i=i+1) begin
+//    for (i=0; i<4; i=i+1) begin
     
-      #20
-      i_tx_done	= 1'b1;
+//      #20
+//      i_tx_done	= 1'b1;
 
-      #20
-      i_tx_done	= 1'b0;
+//      #20
+//      i_tx_done	= 1'b0;
 
-    end
+//    end
 
 
 	  // Se envia cmd start para ejecucion continua
