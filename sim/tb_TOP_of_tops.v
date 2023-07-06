@@ -68,12 +68,12 @@ module tb_TOP_of_tops;
     #20
     i_rx_done       = 1'b0;
     $monitor("[$monitor] time=%0t o_state=%b ", $time, o_state);
-//    $readmemb("C:/Users/alejo/OneDrive/Documents/GitHub/TP-Final-Arquitectura-2021/GUI/instructions.mem", memory, 0, 255);
-    $readmemb("/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/GUI/instructions.mem", memory, 0, 255);
+    $readmemb("C:/Users/alejo/OneDrive/Documents/GitHub/TP-Final-Arquitectura-2021/GUI/bin/control_hazard.mem", memory, 0, 255);
+//    $readmemb("/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/GUI/instructions.mem", memory, 0, 255);
 
 	// Se envia instruccion por instruccion, byte por byte
-    for (i=0; i<40; i=i+1) begin
-        #550000
+    for (i=0; i<256; i=i+1) begin
+        #200
         $display("instructions : ",inst_counter);
         inst_counter = inst_counter+1;
     	$display("valor: ", memory[i]);
