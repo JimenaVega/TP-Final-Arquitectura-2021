@@ -21,10 +21,10 @@ commands = {1: COMMAND_1,
             8: COMMAND_8,
             }
 
-DATA_MEMORY_SIZE = 128   # 128 bytes of depth
+DATA_MEMORY_SIZE = 128  # 128 bytes of depth
 REGISTER_BANK_SIZE = 128  # 32 * 4 bytes
-PC_SIZE = 4 # 4 bytes
-INS_MEM_SIZE = 256 # lineas
+PC_SIZE = 4  # 4 bytes
+INS_MEM_SIZE = 256  # lineas
 DATA_MEMORY_FILE = 'data_memory.txt'
 REGISTER_BANK_FILE = 'register_bank.txt'
 PC_FILE = 'program_counter.txt'
@@ -34,7 +34,7 @@ commands_files = {4: [REGISTER_BANK_FILE, REGISTER_BANK_SIZE],
                   6: [PC_FILE, PC_SIZE]}
 
 
-class GUI():
+class GUI:
     def __init__(self, instruction_file, uart_port='loop://', baudrate=19200):
 
         self.next_action = {1: self.send_program,
@@ -42,34 +42,35 @@ class GUI():
                             5: self.receive_file,
                             6: self.receive_file, }
 
-        self.uart = Uart(uart_port, baudrate)
+        file_name = translate_file(instruction_file)
+        # self.uart = Uart(uart_port, baudrate)
 
-        self.instruction_file = instruction_file
-        self.instruction_size = 0  # Necesario para saber cuantos steps mandar
-
-        self.window = tk.Tk()  # Main menu
-        self.window.config(bd=80)
-        self.window.title("GUI: Main menu")
-
-        self.ex_window = None  # Execution window
-        self.debug_window = None  # Debug window
-        self.maximum_steps = INS_MEM_SIZE * 5
-
-        self.start_msg = tk.Label(text="Elegir una opción: ")
-        self.start_msg.grid(column=0, row=0)
-        self.start_msg.pack()
-
-        self.option = tk.IntVar()
-        self.exe_mode = None
-
-        tk.Radiobutton(self.window, text=commands.get(1), variable=self.option, value=1).pack()
-        tk.Radiobutton(self.window, text=commands.get(4), variable=self.option, value=4).pack()
-        tk.Radiobutton(self.window, text=commands.get(5), variable=self.option, value=5).pack()
-        tk.Radiobutton(self.window, text=commands.get(6), variable=self.option, value=6).pack()
-
-        tk.Button(self.window, text="Send", command=self.send_command).pack()
-
-        self.window.mainloop()
+        # self.instruction_file = instruction_file
+        # self.instruction_size = 0  # Necesario para saber cuantos steps mandar
+        #
+        # self.window = tk.Tk()  # Main menu
+        # self.window.config(bd=80)
+        # self.window.title("GUI: Main menu")
+        #
+        # self.ex_window = None  # Execution window
+        # self.debug_window = None  # Debug window
+        # self.maximum_steps = INS_MEM_SIZE * 5
+        #
+        # self.start_msg = tk.Label(text="Elegir una opción: ")
+        # self.start_msg.grid(column=0, row=0)
+        # self.start_msg.pack()
+        #
+        # self.option = tk.IntVar()
+        # self.exe_mode = None
+        #
+        # tk.Radiobutton(self.window, text=commands.get(1), variable=self.option, value=1).pack()
+        # tk.Radiobutton(self.window, text=commands.get(4), variable=self.option, value=4).pack()
+        # tk.Radiobutton(self.window, text=commands.get(5), variable=self.option, value=5).pack()
+        # tk.Radiobutton(self.window, text=commands.get(6), variable=self.option, value=6).pack()
+        #
+        # tk.Button(self.window, text="Send", command=self.send_command).pack()
+        #
+        # self.window.mainloop()
 
     def send_command(self):
         print(commands.get(self.option.get()))
@@ -87,14 +88,13 @@ class GUI():
     def send_program(self):
         # Se convierte el archivo con instrucciones a 'binario'
         file_name = translate_file(self.instruction_file)
-        print('file name: ',file_name)
+        print('file name: ', file_name)
 
         # Se envia por uart el .mem y se ejecuta la siguiente ventana
         self.instruction_size = int(self.uart.send_file(file_name) / 4)
         # self.maximum_steps = self.instruction_size * 5
 
         self.set_execution_window()
-
 
     def receive_file(self, file_name, file_size):
         """
@@ -109,12 +109,10 @@ class GUI():
         command = self.option.get()
         self.uart.send_command(command)
 
-
-        if command == 4 or command==6:
+        if command == 4 or command == 6:
             self.uart.receive_file(file_name, file_size)
         else:
             self.uart.receive_file(file_name, file_size, 8)
-
 
     def set_execution_window(self):
 
@@ -168,7 +166,6 @@ class GUI():
             # self.uart.receive_file(REGISTER_BANK_FILE, REGISTER_BANK_SIZE)
             # self.uart.receive_file(DATA_MEMORY_FILE, DATA_MEMORY_SIZE, 8)eceive_file(REGISTER_BANK_FILE, REGISTER_BANK_SIZE)
             # self.uart.receive_file(DATA_MEMORY_FILE, DATA_MEMORY_SIZE, 8)
-            
 
             self.maximum_steps = self.maximum_steps - 1
 

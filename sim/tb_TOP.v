@@ -86,7 +86,7 @@ module tb_TOP;
     #20
     send    = 1'b0;
 
-    $readmemb("/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/GUI/instructions.mem", memory, 0, 39);
+    $readmemb("/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/GUI/instructions.mem", memory, 0, 255);
     // Se envia instruccion por instruccion, byte por byte
     for (i=0; i<40; i=i+1) begin
         #550000

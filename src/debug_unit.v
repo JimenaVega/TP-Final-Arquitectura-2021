@@ -331,7 +331,7 @@ always @(*) begin
         end
         WRITE_IM: begin
             next_step = 1'b0;
-            if(im_count == 8'd67)begin
+            if(im_count == 8'd254)begin
                 next_state              = READY;
                 next_im_enable          = 1'b0;
                 next_im_write_enable    = 1'b0;

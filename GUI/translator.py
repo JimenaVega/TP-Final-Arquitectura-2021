@@ -1,5 +1,6 @@
 from numpy import *
 from const import *
+import os
 
 
 def jType(instruction):
@@ -64,7 +65,7 @@ def rType(instruction):
 
         rs = get_register(instruction[2])
         result.append(bin(rs)[2:].zfill(5))  # rs
-        
+
         rt = get_register(instruction[3])
         result.append(bin(rt)[2:].zfill(5))  # rt
 
@@ -196,17 +197,30 @@ mnemonic_type = {
     J: jType, JAL: jType, JALR: rType, JR: rType, HLT: jType,
 }
 
+
 # INPUT_FILE_NAME = 'control_hazard.txt'
 # OUTPUT_FILE_NAME = 'inst.mem'
 
+def get_zeros_to_attach(file_name):
+    fp = open(file_name, 'r')
+    fp_lines = len(fp.readlines())
+    fp.close()
+    return fp_lines
+
 
 def translate_file(file_name):
-    inp_file = open(file_name + ".txt", 'r')
-    out_file = open(file_name + ".mem", 'w')
+    IN_FP_PATH = './programs/' + file_name + ".txt"
+    OUT_FP_PATH = './bin/' + file_name + ".mem"
+
+    file_size = get_zeros_to_attach(IN_FP_PATH)
+    zero_fillers = int((256 - file_size * 4) / 4)  # Necesario porque siempre se envian 256 datos por UART
+
+    inp_file = open(IN_FP_PATH, 'r')
+    out_file = open(OUT_FP_PATH, 'w')
 
     line = inp_file.readline()
     # choice = int(input("Choose conversion to binary [1] or hex [0]: "))
-    choice = 1 # always binary
+    choice = 1  # always binary
     print('Converting file assembler to .mem binary...')
 
     while line:
@@ -217,15 +231,18 @@ def translate_file(file_name):
 
         line = inp_file.readline()
 
-    file_mem = file_name + ".mem"
-    print('Conversion ready. Saved in: ' + file_mem)
- 
+    for i in range(zero_fillers):
+        bin_hex = convert_instruction('sll $zero,$zero,0', choice)
+
+        for byte in bin_hex:
+            out_file.write(byte + '\n')
+
+    print('Conversion ready. Saved in: ' + OUT_FP_PATH)
+
     inp_file.close()
     out_file.close()
 
-    return file_mem
-
-
+    return OUT_FP_PATH
 
 # INPUT_FILE_NAME = 'instructions.txt'
 # OUTPUT_FILE_NAME = 'instructions.mem'
