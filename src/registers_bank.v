@@ -52,11 +52,11 @@ module registers_bank#(
                 end
 
                 // Lectura para evitar raw hazards en el 3er ciclo de clock
-                if(i_read_reg_a == i_write_reg) begin
+                if(i_read_reg_a == i_write_reg && i_reg_write) begin
                     o_data_a_next <= i_write_data;
                     o_data_b_next <= registers[i_read_reg_b];
                 end
-                else if (i_read_reg_b == i_write_reg) begin
+                else if (i_read_reg_b == i_write_reg && i_reg_write) begin
                     o_data_a_next <= registers[i_read_reg_a];
                     o_data_b_next <= i_write_data;
                 end
