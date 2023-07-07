@@ -1,0 +1,11 @@
+addi $s1,$s0,10;
+addi $s2,$s0,10;
+addi $s3,$s0,10;
+addi $s4,$s0,10;
+addi $s5,$s0,10;
+jal 4;
+addi $s1,$s0,20;
+addi $s2,$s0,20;
+addi $s3,$s0,20;
+addi $s4,$s0,20;
+addi $s5,$s0,20;
