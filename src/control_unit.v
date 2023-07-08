@@ -23,7 +23,7 @@ module control_unit#(
         parameter   SH_OPCODE       = 6'h29, // ITYPE SH
         parameter   SW_OPCODE       = 6'h2b, // ITYPE SW
         parameter   J_OPCODE        = 6'h02, // JTYPE J
-        parameter   JAL_OPCODE      = 6'h03,  // JTYPE JAL
+        parameter   JAL_OPCODE      = 6'h03, // JTYPE JAL
         parameter   JALR_FUNCT      = 6'h09,
         parameter   JR_FUNCT        = 6'h08,
         parameter   HLT_OPCODE      = 6'h3f
@@ -65,6 +65,9 @@ module control_unit#(
             o_mem_to_reg    <= 1'b0;
             o_jump          <= 1'b0;
             o_jr_jalr       <= 1'b0;
+            o_byte_en       <= 1'b0;
+            o_halfword_en   <= 1'b0;
+            o_word_en       <= 1'b0;
             o_hlt           <= 1'b0;
         end
         if(i_enable) begin
@@ -389,7 +392,7 @@ module control_unit#(
                         o_mem_read      <= 1'b0; // no read mem
                         o_mem_write     <= 1'b0; // no write mem
                         o_branch        <= 1'b0; // no es branch
-                        o_reg_write     <= 1'b0; // escribe en rt
+                        o_reg_write     <= 1'b1; // escribe en rt
                         o_mem_to_reg    <= 1'b0; // X
                         o_jump          <= 1'b1; // TODO: ver si se necesta señal que haga $ra=PC+1
                         o_byte_en       <= 1'b0;
