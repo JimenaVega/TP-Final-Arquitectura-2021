@@ -1,0 +1,15 @@
+addi $s1,$s0,15;
+addi $s2,$s0,2;
+addi $s3,$s0,3;
+addi $s4,$s0,4;
+addi $s5,$s0,5;
+addi $s5,$s0,5;
+sub $s3,$s2,$s1;
+sw $s3,0($t0);
+lb $s1,0($t0);
+lh $s2,0($t0);
+lhu $s3,0($t0);
+lw $s4,0($t0);
+lwu $s5,0($t0);
+lbu $s6,0($t0);
+hlt;

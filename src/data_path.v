@@ -182,6 +182,7 @@ module data_path#(
     // FORWADING UNIT
     wire [NB_SEL-1:0]           forwarding_a;
     wire [NB_SEL-1:0]           forwarding_b;
+    wire [NB_SEL-1:0]           forwarding_mux_12;
     
     IF_stage IF_stage_1(.i_clock(i_clock),
                         .i_IF_im_enable(i_im_enable),
@@ -316,10 +317,11 @@ module data_path#(
                         .i_EX_halfword_en(EX_halfword_en),
                         .i_EX_word_en(EX_word_en),
                         .i_EX_hlt(EX_hlt),
-                        .i_EX_mem_fwd_data(MEM_alu_result),  // forwarded from MEM
-                        .i_EX_wb_fwd_data(WB_selected_data), // forwarded from WB
-                        .i_EX_fwd_a(forwarding_a),           // FORWARDING UNIT
-                        .i_EX_fwd_b(forwarding_b),           // FORWARDING UNIT
+                        .i_EX_mem_fwd_data(MEM_alu_result),      // forwarded from MEM
+                        .i_EX_wb_fwd_data(WB_selected_data),     // forwarded from WB
+                        .i_EX_fwd_a(forwarding_a),               // FORWARDING UNIT
+                        .i_EX_fwd_b(forwarding_b),               // FORWARDING UNIT
+                        .i_forwarding_mux_12(forwarding_mux_12), // FORWARDING UNIT 
                         .o_EX_signed(o_EX_signed),
                         .o_EX_reg_write(o_EX_reg_write),
                         .o_EX_mem_to_reg(o_EX_mem_to_reg),
@@ -450,10 +452,13 @@ module data_path#(
                                       .i_MEM_WB_rd(WB_selected_reg),
                                       .i_rt(EX_rt),                   // data_b
                                       .i_rs(EX_rs),                   // data_a
+                                      .i_EX_mem_write(EX_mem_write),
                                       .i_MEM_write_reg(MEM_reg_write),
                                       .i_WB_write_reg(WB_reg_write),
                                       .o_forwarding_a(forwarding_a),  // to EX
-                                      .o_forwarding_b(forwarding_b)); // to EX    
+                                      .o_forwarding_b(forwarding_b),  // to EX   
+                                      .o_forwarding_mux_12(forwarding_mux_12) // to EX   
+                                      );  
 
     stall_unit stall_unit_1(.i_reset(i_ctrl_reset),
                             .i_branch_taken(MEM_branch_zero), // from MEM

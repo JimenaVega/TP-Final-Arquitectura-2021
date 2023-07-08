@@ -31,10 +31,11 @@ module EX_stage#(
         input                   i_EX_halfword_en,
         input                   i_EX_word_en,
         input                   i_EX_hlt,
-        input [NB_DATA-1:0]     i_EX_mem_fwd_data, // forwarding
-        input [NB_DATA-1:0]     i_EX_wb_fwd_data,  // forwarding
-        input [NB_SEL-1:0]      i_EX_fwd_a,        // FORWARDING UNIT
-        input [NB_SEL-1:0]      i_EX_fwd_b,        // FORWARDING UNIT
+        input [NB_DATA-1:0]     i_EX_mem_fwd_data,   // forwarding
+        input [NB_DATA-1:0]     i_EX_wb_fwd_data,    // forwarding
+        input [NB_SEL-1:0]      i_EX_fwd_a,          // FORWARDING UNIT
+        input [NB_SEL-1:0]      i_EX_fwd_b,          // FORWARDING UNIT
+        input [NB_SEL-1:0]      i_forwarding_mux_12, // FORWARDING UNIT
         
         output                  o_EX_signed,
         output                  o_EX_reg_write,
@@ -67,6 +68,7 @@ module EX_stage#(
     wire [NB_REG-1:0]       rt_rd;
     wire [NB_REG-1:0]       selected_reg;
     wire [NB_FCODE-1:0]     funct_code;
+    wire [NB_DATA-1:0]      data_b;
     
     wire                    select_shamt;
     wire                    r31_ctrl;
@@ -128,6 +130,13 @@ module EX_stage#(
                 .i_d(),
                 .o_data(alu_data_b));
 
+    mux4 mux4_12(.i_select(i_forwarding_mux_12),
+                .i_a(i_EX_mem_fwd_data),  // 00
+                .i_b(i_EX_wb_fwd_data),   // 01
+                .i_c(i_EX_data_b),        // 10 dato normal
+                .i_d(),
+                .o_data(data_b));
+
     assign o_EX_signed          = i_EX_signed;
     assign o_EX_reg_write       = i_EX_reg_write;
     assign o_EX_mem_to_reg      = i_EX_mem_to_reg;
@@ -137,7 +146,7 @@ module EX_stage#(
     assign o_EX_branch_addr     = branch_addr;
     assign o_EX_zero            = zero;
     assign o_EX_alu_result      = alu_result;
-    assign o_EX_data_b          = i_EX_data_b; 
+    assign o_EX_data_b          = data_b; 
     assign o_EX_selected_reg    = selected_reg;
     assign o_EX_byte_en         = i_EX_byte_en;
     assign o_EX_halfword_en     = i_EX_halfword_en;

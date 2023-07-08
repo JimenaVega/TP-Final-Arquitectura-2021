@@ -71,19 +71,6 @@ module registers_bank#(
             end
         end
     end
-
-    // always@(negedge i_clock)begin
-    //     if(i_enable & i_reg_write)begin
-    //         // Escritura de registros
-    //         registers[i_write_reg] = i_write_data;
-    //     end
-    // end
-    // always@(*)begin
-    // 	if(i_enable & i_reg_write)begin
-    //         // Escritura de registros
-    //         registers[i_write_reg] = i_write_data;
-    //     end
-    // end
     
     assign o_data_a = o_data_a_next;
     assign o_data_b = o_data_b_next;

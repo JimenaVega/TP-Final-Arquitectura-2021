@@ -11,15 +11,8 @@ module alu#(
         output                              o_zero,
         output reg signed [NB_REG-1 : 0]    o_result 
     );
-
-    reg zero = 0;
    
     always@(*) begin
-        if(o_result == 0)
-            zero = 1;
-        else
-            zero = 0;
-        
         case(i_alu_ctrl)
             4'h0 : begin
                 o_result =   i_b << i_a;      // SLL Shift left logical (r1<<r2) y SLLV
@@ -55,10 +48,10 @@ module alu#(
                 o_result =   i_b << 16;       // SLL16
             end
             4'hb : begin
-                o_result =   i_a == i_b;      // BEQ
+                o_result =   i_a != i_b;      // BEQ: Invertida porque AND a la entrada espera un 1 para saltar
             end
             4'hc : begin
-                o_result =   i_a != i_b;      // BNEQ
+                o_result =   i_a == i_b;      // BNEQ: Invertida 
             end
             default : begin 
                 o_result =  {NB_REG{1'b0}};
@@ -66,6 +59,6 @@ module alu#(
         endcase
     end
     
-    assign o_zero = zero;
+    assign o_zero = o_result == 0;
        
 endmodule
