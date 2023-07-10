@@ -1,11 +1,10 @@
+addi $s3,$s0,76;
+addi $s2,$s0,15;
 addi $s1,$s0,15;
 addi $s2,$s0,15;
-addi $s3,$s0,36;
-addi $s3,$s0,36;
-addi $s3,$s0,36;
-addi $s3,$s0,36;
-sub $s3,$s1,$s2;
-beq $s2,$s1,9;
+addi $s1,$s0,15;
+addi $s2,$s0,15;
+jalr $s3;
 add $zero,$s1,$s2;
 add $at,$s1,$s2;
 add $v0,$s1,$s2;
