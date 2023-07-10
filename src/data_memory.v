@@ -8,6 +8,7 @@ module data_memory#(
 ) 
 (
   input                 	i_clock,        // Clock
+  input						i_reset,
   input                 	i_enable,       // Mem enable
   input                 	i_mem_write, 	// Write enable
   input                 	i_mem_read,  	// Read enable
@@ -32,10 +33,13 @@ module data_memory#(
 	    // BRAM[0] <= 32'h8ff0ff01;
 	    // BRAM[1] <= 32'h20;
 	    // BRAM[2] <= 32'h100;
-//		BRAM[31] <= 32'haabbcc01;
-		if(i_enable) begin
+		// BRAM[31] <= 32'haabbcc01;
+		if(i_reset) begin
+			for (ram_index = 0; ram_index < MEMORY_DEPTH; ram_index = ram_index + 1)
+				BRAM[ram_index] = {MEMORY_WIDTH{1'b0}};
+		end
+		else if(i_enable) begin
 			// Escritura
-			// BRAM[0] = 32'hff010203f; //BORRAR
 			if(i_mem_write) begin
 				BRAM[i_address] <= i_write_data;
 			end	

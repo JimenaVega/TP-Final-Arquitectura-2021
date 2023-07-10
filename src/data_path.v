@@ -380,6 +380,7 @@ module data_path#(
                             .MEM_hlt(MEM_hlt));
                 
     MEM_stage MEM_stage_1(.i_clock(i_clock),
+                          .i_reset(i_pc_reset),
                           .i_MEM_du_flag(i_du_flag),
                           .i_MEM_signed(MEM_signed),
                           .i_MEM_dm_enable(i_dm_enable),  // Debug Unit
