@@ -10,7 +10,6 @@ module MEM_stage#(
     )
     (
         input                   i_clock,
-        input                   i_reset,
         input                   i_MEM_du_flag,          // Debug Unit
         input                   i_MEM_signed,
         input                   i_MEM_dm_enable,        // Debug Unit
@@ -77,7 +76,6 @@ module MEM_stage#(
                                               .o_read_data(o_MEM_mem_data)); // to to REG BANK
 
     data_memory data_memory_1(.i_clock(i_clock),
-                              .i_reset(i_reset),
                               .i_enable(i_MEM_dm_enable),
                               .i_mem_write(mem_write),
                               .i_mem_read(mem_read),

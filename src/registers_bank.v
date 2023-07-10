@@ -40,12 +40,6 @@ module registers_bank#(
 //        registers[2] <= 32'h200;
 //        registers[31] <= 32'h01020304;
         if(i_reset)begin:reset
-
-            integer reg_index;
-            for (reg_index = 0; reg_index < BANK_DEPTH; reg_index = reg_index + 1)
-                registers[reg_index] = {NB_DATA{1'b0}};
-        
-
             o_data_a_next  <=  {NB_DATA{1'b0}};
             o_data_b_next  <=  {NB_DATA{1'b0}};
         end 
