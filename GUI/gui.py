@@ -54,7 +54,9 @@ class GUI:
         
         self.ex_window = None  # Execution window
         self.debug_window = None  # Debug window
-        self.maximum_steps = INS_MEM_SIZE * 5
+        self.maximum_steps = None
+        self.sent_step = 0
+        self.step_msg = ""
         
         self.start_msg = tk.Label(text="Elegir una opción: ")
         self.start_msg.grid(column=0, row=0)
@@ -87,12 +89,12 @@ class GUI:
 
     def send_program(self):
         # Se convierte el archivo con instrucciones a 'binario'
-        file_name = translate_file(self.instruction_file)
+        file_name, file_size = translate_file(self.instruction_file)
         print('file name: ', file_name)
 
         # Se envia por uart el .mem y se ejecuta la siguiente ventana
         self.instruction_size = int(self.uart.send_file(file_name) / 4)
-        self.maximum_steps = self.instruction_size + 4
+        self.maximum_steps = file_size + 4
 
         self.set_execution_window()
 
@@ -104,15 +106,15 @@ class GUI:
             Por ejemplo: DATA_MEMORY_SIZE 
         """
 
-        print("GUI: receive_file")
         # Se envía comando por UART
         command = self.option.get()
+        print("Command: ", commands.get(command))
         self.uart.send_command(command)
 
-        if command == 4 or command == 6:
-            self.uart.receive_file(file_name, file_size)
-        else:
-            self.uart.receive_file(file_name, file_size, 8)
+        mem_type = "br" if command == 4 else "" # Determina si se imprime el nombre del registro
+
+        self.uart.receive_file(file_name, file_size, mem_type)
+
 
     def set_execution_window(self):
 
@@ -120,7 +122,6 @@ class GUI:
 
         self.ex_window.config(bd=30)
         self.ex_window.title("GUI: Ejecucion")
-        # self.ex_window.grab_set()
         self.exe_mode = tk.IntVar()
 
         tk.Label(self.ex_window, text="Elegir modo de ejecución: ").pack()
@@ -133,7 +134,7 @@ class GUI:
 
         mode = self.exe_mode.get()
         self.uart.send_command(mode)
-        print("send execution mode: ", commands.get(mode))
+        print("Execution mode: ", commands.get(mode))
 
         if mode == 2:
             self.ex_window.destroy()  # Ejecucion continua
@@ -143,15 +144,26 @@ class GUI:
     def set_debug_window(self):
 
         self.debug_window = tk.Toplevel()  # Debug window
-        self.debug_window.geometry('300x100')
+        self.debug_window.maxsize(900, 800)
         self.debug_window.title("GUI: step by step")
 
-        tk.Button(self.debug_window, text=commands.get(7), command=self.send_step).pack()
-        tk.Button(self.debug_window, text=commands.get(8), command=self.abort_step).pack()
+        top_frame = tk.Frame(self.debug_window, width=500, height=400, borderwidth=2)
+        top_frame.grid(row=0, column=0, padx=10, pady=5)
+
+        bottom_frame = tk.Frame(self.debug_window, width=500, height=400, borderwidth=2)
+        bottom_frame.grid(row=1, column=0, padx=10, pady=5)
+
+        tk.Button(top_frame, text=commands.get(7), command=self.send_step).pack()
+        tk.Button(top_frame, text=commands.get(8), command=self.abort_step).pack()
+
+        msg = f'Steps sent: {self.sent_step} \nSteps left: {self.maximum_steps}'
+        self.step_msg = tk.Label(bottom_frame, text=msg, borderwidth=2, relief="groove")
+        self.step_msg.config(padx=3, pady=3, bd=2)
+        self.step_msg.pack()
 
     def send_step(self):
 
-        print("maximum_steps = ", self.maximum_steps)
+        print("Maximum steps = ", self.maximum_steps)
         # Send step command 
         if self.maximum_steps <= 0:
             self.debug_window.destroy()
@@ -159,18 +171,18 @@ class GUI:
         else:
             command = 7
             print("STEP")
+            self.sent_step += 1
+
             self.uart.send_command(command)
-            self.uart.receive_all()
-            # self.uart.receive_file(PC_FILE, PC_SIZE)
-            # self.uart.r  # self.uart.receive_file(PC_FILE, PC_SIZE)
-            # self.uart.receive_file(REGISTER_BANK_FILE, REGISTER_BANK_SIZE)
-            # self.uart.receive_file(DATA_MEMORY_FILE, DATA_MEMORY_SIZE, 8)eceive_file(REGISTER_BANK_FILE, REGISTER_BANK_SIZE)
-            # self.uart.receive_file(DATA_MEMORY_FILE, DATA_MEMORY_SIZE, 8)
+            self.uart.receive_all(PC_SIZE, REGISTER_BANK_SIZE, DATA_MEMORY_SIZE)
 
             self.maximum_steps = self.maximum_steps - 1
 
+            msg = f'Steps sent: {self.sent_step} \n Steps left: {self.maximum_steps}'
+            self.step_msg.config(text=msg)
+
     def abort_step(self):
-        # Se envía comando de aborto por UART
+        # Se envía comando de aborto por UART y se continua con ejecucion.
         command = 8
         self.uart.send_command(command)
         self.debug_window.destroy()

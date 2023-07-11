@@ -202,6 +202,9 @@ mnemonic_type = {
 # OUTPUT_FILE_NAME = 'inst.mem'
 
 def get_zeros_to_attach(file_name):
+    """
+    Retorna la cantidad de lineas que tiene el archivo
+    """
     fp = open(file_name, 'r')
     fp_lines = len(fp.readlines())
     fp.close()
@@ -242,7 +245,7 @@ def translate_file(file_name):
     inp_file.close()
     out_file.close()
 
-    return OUT_FP_PATH
+    return OUT_FP_PATH, file_size
 
 # INPUT_FILE_NAME = 'instructions.txt'
 # OUTPUT_FILE_NAME = 'instructions.mem'
