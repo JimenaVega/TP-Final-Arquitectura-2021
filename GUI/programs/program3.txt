@@ -1,0 +1,17 @@
+addi $s0,$zero,255;
+addi $s1,$zero,70000;
+addi $s2,$zero,1023;
+addi $s3,$zero,2047;
+addi $s4,$zero,1;
+addi $s5,$zero,2;
+addi $s6,$zero,3;
+sb $s0,0($zero);
+sh $s0,0($s4);
+sw $s0,0($s5);
+sb $s1,3($zero);
+sh $s1,3($s4);
+sw $s1,3($s5);
+lb $t0,5($zero);
+lh $t1,5($zero);
+lw $t2,5($zero);
+hlt;

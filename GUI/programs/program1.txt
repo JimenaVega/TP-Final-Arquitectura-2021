@@ -1,0 +1,14 @@
+addi $s0,$zero,15;
+addi $s1,$zero,31;
+addi $s2,$zero,63;
+addi $s3,$zero,127;
+addi $s4,$zero,255;
+addi $s5,$zero,511;
+addi $s6,$zero,1;
+add $t0,$s1,$s2;
+sub $t1,$s0,$s6;
+and $t2,$s2,$s1;
+or $t3,$s4,$s3;
+xor $t4,$s1,$s0;
+nor $t5,$s5,$s4;
+hlt;

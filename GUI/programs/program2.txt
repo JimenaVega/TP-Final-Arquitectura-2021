@@ -1,0 +1,14 @@
+addi $s0,$zero,1;
+addi $s1,$zero,2;
+addi $s2,$zero,3;
+addi $s3,$zero,4;
+addi $s4,$zero,5;
+addi $s5,$zero,6;
+addi $s6,$zero,7;
+sll $t0,$s0,4;
+sllv $t1,$s1,$s0;
+srl $t2,$s3,1;
+srlv $t3,$s5,$s1;
+sra $t4,$s5,1;
+srav $t5,$s3,$s1;
+hlt;
