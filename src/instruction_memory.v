@@ -1,7 +1,4 @@
 `timescale 1ns / 1ps
-//  Xilinx Simple Dual Port Single Clock RAM
-//  This code implements a parameterizable SDP single clock memory.
-//  If a reset or enable is not necessary, it may be tied off or removed from the code.
 
 module instruction_memory#(
   parameter MEMORY_WIDTH = 8,              // Specify RAM data width
@@ -27,7 +24,6 @@ module instruction_memory#(
   reg [MEMORY_WIDTH-1:0] BRAM [MEMORY_DEPTH-1:0];
   reg [NB_INSTRUCTION-1:0] ram_data = {NB_INSTRUCTION{1'b0}};
 
-  // The following code either initializes the memory values to a specified file or to all zeros to match hardware
   generate
     if (INIT_FILE != "") begin: use_init_file
       initial
@@ -42,19 +38,19 @@ module instruction_memory#(
 
   always @(posedge i_clock) begin
     if(i_enable) begin
-      if (i_read_enable) begin
-          ram_data[31:24] <= BRAM[i_addr];
-          ram_data[23:16] <= BRAM[i_addr+1];
-          ram_data[15:8]  <= BRAM[i_addr+2];
-          ram_data[7:0]   <= BRAM[i_addr+3];
-      end
-      else begin
-        ram_data <= {NB_INSTRUCTION{1'b0}};
-      end
-      
-      if(i_write_enable) begin
-        BRAM[i_write_addr]   <= i_write_data;
-      end
+		if (i_read_enable) begin
+			ram_data[31:24] <= BRAM[i_addr];
+			ram_data[23:16] <= BRAM[i_addr+1];
+			ram_data[15:8]  <= BRAM[i_addr+2];
+			ram_data[7:0]   <= BRAM[i_addr+3];
+		end
+		else begin
+			ram_data <= {NB_INSTRUCTION{1'b0}};
+		end
+		
+		if(i_write_enable) begin
+			BRAM[i_write_addr]   <= i_write_data;
+		end
     end
   end
 

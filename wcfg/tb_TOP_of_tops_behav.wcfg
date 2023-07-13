@@ -11,22 +11,23 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="63,474.329 ns"></ZoomStartTime>
-      <ZoomEndTime time="64,118.071 ns"></ZoomEndTime>
-      <Cursor1Time time="63,755.000 ns"></Cursor1Time>
+      <ZoomStartTime time="2,993.343365 us"></ZoomStartTime>
+      <ZoomEndTime time="3,947.213327 us"></ZoomEndTime>
+      <Cursor1Time time="3,788.235000 us"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="258"></NameColumnWidth>
-      <ValueColumnWidth column_width="113"></ValueColumnWidth>
+      <ValueColumnWidth column_width="109"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="20" />
+   <WVObjectSize size="22" />
    <wave_markers>
-      <marker label="" time="63705000" />
-      <marker label="" time="63765000" />
+      <marker label="" time="614635000" />
+      <marker label="" time="1601795000" />
    </wave_markers>
    <wvobject type="group" fp_name="group1454">
       <obj_property name="label">DEBUG_UNIT</obj_property>
       <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
       <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/debug_unit_1/i_clock">
          <obj_property name="ElementShortName">i_clock</obj_property>
          <obj_property name="ObjectShortName">i_clock</obj_property>
@@ -228,6 +229,7 @@
       <wvobject type="group" fp_name="group2812">
          <obj_property name="label">INSTRUCTION_MEMORY</obj_property>
          <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
          <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_stage_1/instruction_memory_1/i_clock">
             <obj_property name="ElementShortName">i_clock</obj_property>
             <obj_property name="ObjectShortName">i_clock</obj_property>
@@ -290,7 +292,7 @@
             <obj_property name="ObjectShortName">i_mux_pc[31:0]</obj_property>
             <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
             <obj_property name="UseCustomSignalColor">true</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            <obj_property name="Radix">BINARYRADIX</obj_property>
          </wvobject>
          <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_stage_1/program_counter_1/i_enable_pc">
             <obj_property name="ElementShortName">i_enable_pc</obj_property>
@@ -319,13 +321,17 @@
       <obj_property name="ElementShortName">i_flush</obj_property>
       <obj_property name="ObjectShortName">i_flush</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_ID_reg_1/IF_adder_result">
-      <obj_property name="ElementShortName">IF_adder_result[31:0]</obj_property>
-      <obj_property name="ObjectShortName">IF_adder_result[31:0]</obj_property>
-   </wvobject>
    <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_ID_reg_1/IF_new_instruction">
       <obj_property name="ElementShortName">IF_new_instruction[31:0]</obj_property>
       <obj_property name="ObjectShortName">IF_new_instruction[31:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_ID_reg_1/IF_adder_result">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">IF_adder_result[31:0]</obj_property>
+      <obj_property name="ObjectShortName">IF_adder_result[31:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+      <obj_property name="label">IF_adder_result[31:0] (delay)</obj_property>
    </wvobject>
    <wvobject type="group" fp_name="group638">
       <obj_property name="label">IF/ID</obj_property>
@@ -544,6 +550,33 @@
       <obj_property name="label">ID</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="isExpanded"></obj_property>
+      <wvobject type="group" fp_name="group477">
+         <obj_property name="label">CONCAT UNIT</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/concat_module_1/i_clock">
+            <obj_property name="ElementShortName">i_clock</obj_property>
+            <obj_property name="ObjectShortName">i_clock</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/concat_module_1/i_enable">
+            <obj_property name="ElementShortName">i_enable</obj_property>
+            <obj_property name="ObjectShortName">i_enable</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/concat_module_1/i_inst">
+            <obj_property name="ElementShortName">i_inst[25:0]</obj_property>
+            <obj_property name="ObjectShortName">i_inst[25:0]</obj_property>
+            <obj_property name="Radix">BINARYRADIX</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/concat_module_1/i_next_pc">
+            <obj_property name="ElementShortName">i_next_pc[3:0]</obj_property>
+            <obj_property name="ObjectShortName">i_next_pc[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/concat_module_1/o_jump_addr">
+            <obj_property name="ElementShortName">o_jump_addr[31:0]</obj_property>
+            <obj_property name="ObjectShortName">o_jump_addr[31:0]</obj_property>
+            <obj_property name="Radix">BINARYRADIX</obj_property>
+         </wvobject>
+      </wvobject>
       <wvobject type="group" fp_name="group1465">
          <obj_property name="label">CONTROL_UNIT</obj_property>
          <obj_property name="DisplayName">label</obj_property>
@@ -561,12 +594,14 @@
             <obj_property name="ObjectShortName">i_opcode[5:0]</obj_property>
             <obj_property name="CustomSignalColor">#FFFF00</obj_property>
             <obj_property name="UseCustomSignalColor">true</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
          </wvobject>
          <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/control_unit_1/i_funct">
             <obj_property name="ElementShortName">i_funct[5:0]</obj_property>
             <obj_property name="ObjectShortName">i_funct[5:0]</obj_property>
             <obj_property name="CustomSignalColor">#FFFF00</obj_property>
             <obj_property name="UseCustomSignalColor">true</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
          </wvobject>
          <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/control_unit_1/i_ctrl_sel">
             <obj_property name="ElementShortName">i_ctrl_sel</obj_property>
@@ -630,7 +665,6 @@
       <wvobject type="group" fp_name="group1418">
          <obj_property name="label">REGISTERS_BANK</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="isExpanded"></obj_property>
          <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/i_reset">
             <obj_property name="ElementShortName">i_reset</obj_property>
             <obj_property name="ObjectShortName">i_reset</obj_property>
@@ -696,135 +730,6 @@
             <obj_property name="ObjectShortName">registers[31:0][31:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
             <obj_property name="isExpanded"></obj_property>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[31]">
-               <obj_property name="ElementShortName">[31][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[31][31:0]</obj_property>
-               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[30]">
-               <obj_property name="ElementShortName">[30][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[30][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[29]">
-               <obj_property name="ElementShortName">[29][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[29][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[28]">
-               <obj_property name="ElementShortName">[28][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[28][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[27]">
-               <obj_property name="ElementShortName">[27][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[27][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[26]">
-               <obj_property name="ElementShortName">[26][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[26][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[25]">
-               <obj_property name="ElementShortName">[25][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[25][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[24]">
-               <obj_property name="ElementShortName">[24][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[24][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[23]">
-               <obj_property name="ElementShortName">[23][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[23][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[22]">
-               <obj_property name="ElementShortName">[22][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[22][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[21]">
-               <obj_property name="ElementShortName">[21][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[21][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[20]">
-               <obj_property name="ElementShortName">[20][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[20][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[19]">
-               <obj_property name="ElementShortName">[19][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[19][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[18]">
-               <obj_property name="ElementShortName">[18][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[18][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[17]">
-               <obj_property name="ElementShortName">[17][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[17][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[16]">
-               <obj_property name="ElementShortName">[16][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[16][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[15]">
-               <obj_property name="ElementShortName">[15][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[15][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[14]">
-               <obj_property name="ElementShortName">[14][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[14][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[13]">
-               <obj_property name="ElementShortName">[13][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[13][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[12]">
-               <obj_property name="ElementShortName">[12][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[12][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[11]">
-               <obj_property name="ElementShortName">[11][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[11][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[10]">
-               <obj_property name="ElementShortName">[10][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[10][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[9]">
-               <obj_property name="ElementShortName">[9][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[9][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[8]">
-               <obj_property name="ElementShortName">[8][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[8][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[7]">
-               <obj_property name="ElementShortName">[7][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[7][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[6]">
-               <obj_property name="ElementShortName">[6][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[6][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[5]">
-               <obj_property name="ElementShortName">[5][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[5][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[4]">
-               <obj_property name="ElementShortName">[4][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[4][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[3]">
-               <obj_property name="ElementShortName">[3][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[3][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[2]">
-               <obj_property name="ElementShortName">[2][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[2][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[1]">
-               <obj_property name="ElementShortName">[1][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[1][31:0]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers[0]">
-               <obj_property name="ElementShortName">[0][31:0]</obj_property>
-               <obj_property name="ObjectShortName">[0][31:0]</obj_property>
-            </wvobject>
          </wvobject>
       </wvobject>
       <wvobject type="group" fp_name="group1489">
@@ -854,10 +759,17 @@
          </wvobject>
       </wvobject>
    </wvobject>
+   <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/concat_module_1/i_clock">
+      <obj_property name="ElementShortName">i_clock</obj_property>
+      <obj_property name="ObjectShortName">i_clock</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/concat_module_1/i_clock">
+      <obj_property name="ElementShortName">i_clock</obj_property>
+      <obj_property name="ObjectShortName">i_clock</obj_property>
+   </wvobject>
    <wvobject type="group" fp_name="group716">
       <obj_property name="label">ID/EX</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_EX_reg_1/i_clock">
          <obj_property name="ElementShortName">i_clock</obj_property>
          <obj_property name="ObjectShortName">i_clock</obj_property>
@@ -1083,7 +995,6 @@
    <wvobject type="group" fp_name="group759">
       <obj_property name="label">EX/MEM</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/EX_MEM_reg_1/i_clock">
          <obj_property name="ElementShortName">i_clock</obj_property>
          <obj_property name="ObjectShortName">i_clock</obj_property>

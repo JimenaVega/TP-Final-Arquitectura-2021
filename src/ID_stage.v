@@ -10,6 +10,7 @@ module ID_stage#(
     )
     (
         input                       i_clock,
+        input                       i_pipeline_enable,
         input                       i_ID_reset,
         input                       i_ID_cu_enable,         // Debug Unit
         input                       i_ID_rb_enable,         // Debug Unit
@@ -93,6 +94,8 @@ module ID_stage#(
                   .o_data(o_ID_shamt));
 
     concat_module concat_module_1(.i_clock(i_clock),
+                                  .i_reset(i_ID_reset),
+                                  .i_enable(i_pipeline_enable),
                                   .i_inst(i_ID_inst[25:0]),                           
                                   .i_next_pc(i_ID_pc[31:28]),          // PC+1[31:28]                
                                   .o_jump_addr(o_ID_jump_address));

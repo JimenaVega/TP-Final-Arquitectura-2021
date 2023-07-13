@@ -214,6 +214,7 @@ module data_path#(
                           .ID_new_instruction(ID_new_instruction));
     
     ID_stage ID_stage_1(.i_clock(i_clock),
+                        .i_pipeline_enable(i_pipeline_enable),
                         .i_ID_reset(i_ID_stage_reset),
                         .i_ID_rb_enable(i_rb_enable),           // Debug Unit
                         .i_ID_rb_read_enable(i_rb_read_enable), // Debug Unit

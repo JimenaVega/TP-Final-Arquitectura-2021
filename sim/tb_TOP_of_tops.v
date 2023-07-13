@@ -86,100 +86,93 @@ module tb_TOP_of_tops;
 		i_rx_done	= 1'b0;
     end
 
-     #1000
-     $display("[time=%0t] Ejecucion continua", $time);
-     i_rx_data = 8'd2; // Ejecuion continua
-     i_rx_done = 1'b1;
+//     #1000
+//     $display("[time=%0t] Ejecucion continua", $time);
+//     i_rx_data = 8'd2; // Ejecuion continua
+//     i_rx_done = 1'b1;
 
-     #20
-     i_rx_done = 1'b0;
+//     #20
+//     i_rx_done = 1'b0;
 
-//    #550000
-//    $display("Ejecución step by step. time = %0t", $time);
-//    i_rx_data = 3;
+    #550000
+    $display("Ejecución step by step. time = %0t", $time);
+    i_rx_data = 3;
+    i_rx_done = 1'b1;
+
+    #20
+    i_rx_done = 1'b0;
+    
+    for(s=0; s<25; s=s+1) begin
+        #100000
+        $display("Ejecución step  %d. time = %0t",s, $time);
+        i_rx_data = 7;
+        i_rx_done = 1'b1;
+    
+        #20
+        i_rx_done = 1'b0;
+        #1000
+        for (i=0; i<260; i=i+1) begin
+              #80
+              i_tx_done	= 1'b1;
+        
+              #20
+              i_tx_done	= 1'b0;
+        end  
+    end
+
+//    #4000
+//    $display("[time=%0t]  Lectura de bank register.", $time);
+//    i_rx_data = 8'd4; // Leer bank register
 //    i_rx_done = 1'b1;
 
 //    #20
 //    i_rx_done = 1'b0;
+
+//    for (i=0; i<128; i=i+1) begin
     
-    
-//    for(s=0; s<25; s=s+1) begin
-//        #100000
-//        $display("Ejecución step  %d. time = %0t",s, $time);
-//        i_rx_data = 7;
-//        i_rx_done = 1'b1;
-    
-//        #1000
-//        i_rx_done = 1'b0;
-    
-//        for (i=0; i<260; i=i+1) begin
-        
-//          #80
-//          i_tx_done	= 1'b1;
-    
-//          #20
-//          i_tx_done	= 1'b0;
-//        end  
+//      #80
+//      i_tx_done	= 1'b1;
+
+//      #20
+//      i_tx_done	= 1'b0;
+
 //    end
-    // #2200000 // lectura de PC
-    // #80000000 // lectura de BR 
-   
 
+//    #4000
+//    $display("[time=%0t]  Lectura de DM.", $time);
+//    i_rx_data = 8'd5; // Leer data memory
+//    i_rx_done = 1'b1;
 
-
-    #4000
-    $display("[time=%0t]  Lectura de bank register.", $time);
-    i_rx_data = 8'd4; // Leer bank register
-    i_rx_done = 1'b1;
-
-    #20
-    i_rx_done = 1'b0;
-
-    for (i=0; i<128; i=i+1) begin
+//    #20
+//    i_rx_done = 1'b0;
+//    #40
+//    for (i=0; i<128; i=i+1) begin
     
-      #80
-      i_tx_done	= 1'b1;
+//      #80
+//      i_tx_done	= 1'b1;
 
-      #20
-      i_tx_done	= 1'b0;
+//      #20
+//      i_tx_done	= 1'b0;
 
-    end
+//    end
 
-    #4000
-    $display("[time=%0t]  Lectura de DM.", $time);
-    i_rx_data = 8'd5; // Leer data memory
-    i_rx_done = 1'b1;
+//    #4000
+//    $display("[time=%0t]  Lectura de PC.", $time);
+//    i_rx_data = 8'd6; // Leer PC
+//    i_rx_done = 1'b1;
 
-    #20
-    i_rx_done = 1'b0;
-    #40
-    for (i=0; i<128; i=i+1) begin
+//    #20
+//    i_rx_done = 1'b0;
+
+//    for (i=0; i<4; i=i+1) begin
     
-      #80
-      i_tx_done	= 1'b1;
+//      #20
+//      i_tx_done	= 1'b1;
 
-      #20
-      i_tx_done	= 1'b0;
+//      #20
+//      i_tx_done	= 1'b0;
 
-    end
-
-    #4000
-    $display("[time=%0t]  Lectura de PC.", $time);
-    i_rx_data = 8'd6; // Leer PC
-    i_rx_done = 1'b1;
-
-    #20
-    i_rx_done = 1'b0;
-
-    for (i=0; i<4; i=i+1) begin
-    
-      #20
-      i_tx_done	= 1'b1;
-
-      #20
-      i_tx_done	= 1'b0;
-
-    end
+//    end
 
 
 	  // Se envia cmd start para ejecucion continua

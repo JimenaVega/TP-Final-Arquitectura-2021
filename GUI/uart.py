@@ -122,7 +122,7 @@ class Uart():
         for j in range(4):
             bistring_32 += self.allData[j+i]
 
-        decimal = int.from_bytes(self.bistring_to_byte(bistring_32), 'big')
+        decimal = int(bistring_32, 2)
         line += f' B: {bistring_32} | D: {decimal}' 
         line += "\n"   
 
