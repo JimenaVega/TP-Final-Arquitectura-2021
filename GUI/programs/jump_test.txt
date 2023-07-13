@@ -1,10 +1,10 @@
-addi $s3,$s0,76;
+addi $s1,$s0,76;
 addi $s2,$s0,15;
-addi $s1,$s0,15;
-addi $s2,$s0,15;
-addi $s1,$s0,15;
-addi $s2,$s0,15;
-jalr $s3;
+addi $s3,$s0,15;
+addi $s4,$s0,15;
+addi $s5,$s0,15;
+addi $s6,$s0,15;
+j 16;
 add $zero,$s1,$s2;
 add $at,$s1,$s2;
 add $v0,$s1,$s2;
