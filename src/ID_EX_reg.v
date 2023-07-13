@@ -32,6 +32,7 @@ module ID_EX_reg#(
         input                    ID_halfword_en,
         input                    ID_word_en,
         input                    ID_hlt,
+        input                    ID_jump,
         
         output                   EX_signed,
         output                   EX_reg_write,
@@ -53,7 +54,8 @@ module ID_EX_reg#(
         output                   EX_byte_en,
         output                   EX_halfword_en,
         output                   EX_word_en,
-        output                   EX_hlt
+        output                   EX_hlt,
+        output                   EX_jump
     );
     
     reg                 signed_flag;
@@ -77,6 +79,7 @@ module ID_EX_reg#(
     reg                 halfword_en;
     reg                 word_en;
     reg                 hlt;
+    reg                 jump;
 
     always @(negedge i_clock) begin
         if(i_reset) begin
@@ -101,6 +104,7 @@ module ID_EX_reg#(
             halfword_en <= 1'b0;
             word_en     <= 1'b0;
             hlt         <= 1'b0;
+            jump        <= 1'b0;
         end
         else begin
             if(i_pipeline_enable) begin
@@ -125,6 +129,7 @@ module ID_EX_reg#(
                 halfword_en <= ID_halfword_en;
                 word_en     <= ID_word_en;
                 hlt         <= ID_hlt;
+                jump        <= ID_jump;
             end
             else begin
                 signed_flag <= signed_flag;
@@ -148,6 +153,7 @@ module ID_EX_reg#(
                 halfword_en <= halfword_en;
                 word_en     <= word_en;
                 hlt         <= hlt;
+                jump        <= jump;
             end
         end
     end
@@ -173,5 +179,6 @@ module ID_EX_reg#(
     assign EX_halfword_en   = halfword_en;
     assign EX_word_en       = word_en;
     assign EX_hlt           = hlt;
+    assign EX_jump          = jump;
     
 endmodule

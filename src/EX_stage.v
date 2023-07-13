@@ -36,6 +36,7 @@ module EX_stage#(
         input [NB_SEL-1:0]      i_EX_fwd_a,          // FORWARDING UNIT
         input [NB_SEL-1:0]      i_EX_fwd_b,          // FORWARDING UNIT
         input [NB_SEL-1:0]      i_forwarding_mux_12, // FORWARDING UNIT
+        input                   i_EX_jump,
         
         output                  o_EX_signed,
         output                  o_EX_reg_write,
@@ -53,7 +54,8 @@ module EX_stage#(
         output                  o_EX_word_en,
         output                  o_EX_r31_ctrl,
         output [NB_PC-1:0]      o_EX_pc,
-        output                  o_EX_hlt
+        output                  o_EX_hlt,
+        output                  o_EX_jump
     );
     
     wire [NB_IMM-1:0]       shifted_imm;
@@ -154,5 +156,6 @@ module EX_stage#(
     assign o_EX_r31_ctrl        = r31_ctrl;
     assign o_EX_pc              = i_EX_pc;
     assign o_EX_hlt             = i_EX_hlt;
+    assign o_EX_jump            = i_EX_jump;
 
 endmodule

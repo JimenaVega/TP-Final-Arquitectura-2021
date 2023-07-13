@@ -26,6 +26,7 @@ module EX_MEM_reg#(
         input                   EX_r31_ctrl,
         input [NB_PC-1:0]       EX_pc,
         input                   EX_hlt,
+        input                   EX_jump,
         
         output                  MEM_signed,
         output                  MEM_reg_write,
@@ -43,7 +44,8 @@ module EX_MEM_reg#(
         output                  MEM_word_en,
         output                  MEM_r31_ctrl,
         output [NB_PC-1:0]      MEM_pc,
-        output                  MEM_hlt
+        output                  MEM_hlt,
+        output                  MEM_jump
     );
     
     reg                 signed_flag;
@@ -63,6 +65,7 @@ module EX_MEM_reg#(
     reg                 r31_ctrl;
     reg [NB_PC-1:0]     pc;  
     reg                 hlt;
+    reg                 jump;
 
     always @(negedge i_clock) begin
         if(i_reset) begin
@@ -83,6 +86,7 @@ module EX_MEM_reg#(
             r31_ctrl     <= 1'b0;
             pc           <= 32'b0;
             hlt          <= 1'b0;
+            jump         <= 1'b0;
         end
         else begin
             if(i_pipeline_enable) begin
@@ -104,7 +108,7 @@ module EX_MEM_reg#(
                     r31_ctrl     <= 1'b0;
                     pc           <= EX_pc;
                     hlt          <= 1'b0;
-
+                    jump         <= 1'b0;
                 end
                 else begin
                     signed_flag     <= EX_signed;
@@ -124,27 +128,29 @@ module EX_MEM_reg#(
                     r31_ctrl        <= EX_r31_ctrl;
                     pc              <= EX_pc;
                     hlt             <= EX_hlt;
+                    jump            <= EX_jump;
                 end
             end
             else begin
-            signed_flag     <= signed_flag;
-            reg_write       <= reg_write;
-            mem_to_reg      <= mem_to_reg;
-            mem_read        <= mem_read;
-            mem_write       <= mem_write;
-            branch          <= branch;
-            branch_addr     <= branch_addr;
-            zero            <= zero;
-            alu_result      <= alu_result;
-            data_b          <= data_b;
-            selected_reg    <= selected_reg;
-            byte_en         <= byte_en;
-            halfword_en     <= halfword_en;
-            word_en         <= word_en;
-            r31_ctrl        <= r31_ctrl;
-            pc              <= pc;
-            hlt             <= hlt;
-        end
+                signed_flag     <= signed_flag;
+                reg_write       <= reg_write;
+                mem_to_reg      <= mem_to_reg;
+                mem_read        <= mem_read;
+                mem_write       <= mem_write;
+                branch          <= branch;
+                branch_addr     <= branch_addr;
+                zero            <= zero;
+                alu_result      <= alu_result;
+                data_b          <= data_b;
+                selected_reg    <= selected_reg;
+                byte_en         <= byte_en;
+                halfword_en     <= halfword_en;
+                word_en         <= word_en;
+                r31_ctrl        <= r31_ctrl;
+                pc              <= pc;
+                hlt             <= hlt;
+                jump            <= jump;
+            end
         end
     end
 
@@ -165,5 +171,6 @@ module EX_MEM_reg#(
     assign MEM_r31_ctrl     = r31_ctrl;
     assign MEM_pc           = pc;
     assign MEM_hlt          = hlt;
+    assign MEM_jump         = jump;
     
 endmodule

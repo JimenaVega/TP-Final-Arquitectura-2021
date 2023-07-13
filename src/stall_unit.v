@@ -8,6 +8,8 @@ module stall_unit #(
         input                 i_reset,
         input                 i_branch_taken,
         input                 i_ID_EX_mem_read,     // Only load writes memory
+        input                 i_EX_jump,
+        input                 i_MEM_jump,
         input  [NB_REG-1 : 0] i_ID_EX_rt,           // Load writing rt
         input  [NB_REG-1 : 0] i_IF_ID_rt,           // Next inst 
         input  [NB_REG-1 : 0] i_IF_ID_rs,           // Next inst
@@ -36,6 +38,18 @@ module stall_unit #(
             // No hay stall
             o_enable_IF_ID_reg = 1'b1;
             o_enable_pc = 1'b1;
+        end
+        else if(i_EX_jump || i_MEM_jump) begin
+            // Se flushean las señales de ID cuando se detecta el jump en
+            // EX y en MEM, es decir, se borran las 2 instrucciones invalidas
+            // que entran despues de los jumps
+            o_flush_IF              = 1'b0;
+            o_flush_EX              = 1'b0;
+            o_select_control_nop    = 1'b1;
+
+            // No hay stall
+            o_enable_IF_ID_reg      = 1'b1;
+            o_enable_pc             = 1'b1;
         end
         else begin                  // data hazards (LOAD)
             

@@ -110,6 +110,7 @@ module data_path#(
     wire                        EX_halfword_en;
     wire                        EX_word_en;
     wire                        EX_hlt;
+    wire                        EX_jump;
     
     // EX_stage to EX_MEM_reg
     wire                        o_EX_signed;
@@ -129,6 +130,7 @@ module data_path#(
     wire                        EX_r31_ctrl;
     wire [NB_PC-1:0]            o_EX_pc;
     wire                        o_EX_hlt;
+    wire                        o_EX_jump;
     
     // EX_MEM_reg to MEM_stage
     wire                        MEM_signed;
@@ -148,6 +150,7 @@ module data_path#(
     wire                        MEM_r31_ctrl;
     wire [NB_PC-1:0]            MEM_pc;
     wire                        MEM_hlt;
+    wire                        MEM_jump;
 
     // MEM_stage to MEM_WB_reg
     wire [NB_DATA-1:0]          MEM_mem_data;
@@ -276,6 +279,7 @@ module data_path#(
                           .ID_halfword_en(ID_halfword_en),
                           .ID_word_en(ID_word_en),
                           .ID_hlt(ID_hlt),
+                          .ID_jump(ID_jump || ID_jr_jalr),
                           .EX_signed(EX_signed),
                           .EX_reg_write(EX_reg_write),
                           .EX_mem_to_reg(EX_mem_to_reg),
@@ -296,7 +300,8 @@ module data_path#(
                           .EX_byte_en(EX_byte_en),
                           .EX_halfword_en(EX_halfword_en),
                           .EX_word_en(EX_word_en),
-                          .EX_hlt(EX_hlt));
+                          .EX_hlt(EX_hlt),
+                          .EX_jump(EX_jump));
     
     EX_stage EX_stage_1(.i_EX_signed(EX_signed),
                         .i_EX_reg_write(EX_reg_write),
@@ -323,6 +328,7 @@ module data_path#(
                         .i_EX_fwd_a(forwarding_a),               // FORWARDING UNIT
                         .i_EX_fwd_b(forwarding_b),               // FORWARDING UNIT
                         .i_forwarding_mux_12(forwarding_mux_12), // FORWARDING UNIT 
+                        .i_EX_jump(EX_jump),
                         .o_EX_signed(o_EX_signed),
                         .o_EX_reg_write(o_EX_reg_write),
                         .o_EX_mem_to_reg(o_EX_mem_to_reg),
@@ -339,7 +345,8 @@ module data_path#(
                         .o_EX_word_en(o_EX_word_en),
                         .o_EX_r31_ctrl(EX_r31_ctrl),
                         .o_EX_pc(o_EX_pc),
-                        .o_EX_hlt(o_EX_hlt));
+                        .o_EX_hlt(o_EX_hlt),
+                        .o_EX_jump(o_EX_jump));
                         
     EX_MEM_reg EX_MEM_reg_1(.i_clock(i_clock),
                             .i_reset(i_pc_reset),
@@ -362,6 +369,7 @@ module data_path#(
                             .EX_r31_ctrl(EX_r31_ctrl),
                             .EX_pc(o_EX_pc),
                             .EX_hlt(o_EX_hlt),
+                            .EX_jump(o_EX_jump),
                             .MEM_signed(MEM_signed),
                             .MEM_reg_write(MEM_reg_write),
                             .MEM_mem_to_reg(MEM_mem_to_reg),
@@ -378,7 +386,8 @@ module data_path#(
                             .MEM_word_en(MEM_word_en),
                             .MEM_r31_ctrl(MEM_r31_ctrl),
                             .MEM_pc(MEM_pc),
-                            .MEM_hlt(MEM_hlt));
+                            .MEM_hlt(MEM_hlt),
+                            .MEM_jump(MEM_jump));
                 
     MEM_stage MEM_stage_1(.i_clock(i_clock),
                           .i_MEM_du_flag(i_du_flag),
@@ -464,6 +473,8 @@ module data_path#(
     stall_unit stall_unit_1(.i_reset(i_ctrl_reset),
                             .i_branch_taken(MEM_branch_zero), // from MEM
                             .i_ID_EX_mem_read(EX_mem_read),
+                            .i_EX_jump(EX_jump),
+                            .i_MEM_jump(MEM_jump),
                             .i_ID_EX_rt(EX_rt),
                             .i_IF_ID_rt(ID_new_instruction[20:16]),
                             .i_IF_ID_rs(ID_new_instruction[25:21]),
