@@ -44,7 +44,6 @@ module forwarding_unit #(
             end
             
             // Operando B
-            
             if((i_EX_MEM_rd == i_rt) && i_MEM_write_reg) begin
                 if(i_EX_mem_write) begin         // Hay Store
                     o_forwarding_b = 2'b00;      // No forwardeo
@@ -69,9 +68,6 @@ module forwarding_unit #(
                 o_forwarding_b = 2'b0;  // No hay forwarding para B
                 o_forwarding_mux_12 = 2'b10; // Dato normal
             end
-
-            // Solo para RAWs con instrucciones del tipo STORE
-
         end
     end
     
