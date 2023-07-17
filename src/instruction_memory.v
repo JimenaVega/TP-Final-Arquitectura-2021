@@ -49,6 +49,7 @@ module instruction_memory#(
 		end
 		
 		if(i_write_enable) begin
+			// Solo usado desde debug unit
 			BRAM[i_write_addr]   <= i_write_data;
 		end
     end

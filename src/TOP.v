@@ -33,11 +33,11 @@ module TOP#(
      .clk_in1(i_clock)
      );
 
-    reg                 data_path_clk;
+    // reg                 data_path_clk;
     reg                 im_read_enable = 1'b1;
 
-    wire                step_flag;
-    wire                step;
+    // wire                step_flag;
+    // wire                step;
 
     wire                halt;
 
@@ -74,14 +74,14 @@ module TOP#(
     wire pipeline_enable;
 
 
-    always@(*)begin
-        if(step_flag)begin
-          data_path_clk = step;
-        end
-        else begin
-          data_path_clk = clk_wiz;
-        end
-    end
+    // always@(*)begin
+    //     if(step_flag)begin
+    //       data_path_clk = step;
+    //     end
+    //     else begin
+    //       data_path_clk = clk_wiz;
+    //     end
+    // end
     
     debug_unit debug_unit_1(.i_clock(clk_wiz), // 50 MHz
                             .i_reset(i_reset),
@@ -107,8 +107,8 @@ module TOP#(
                             .o_dm_du_flag(read_dm_from_du),
                             .o_cu_enable(cu_enable),
                             .o_pc_enable(pc_enable),
-                            .o_step_flag(step_flag),
-                            .o_step(step),
+                            // .o_step_flag(step_flag),
+                            // .o_step(step),
                             .o_state(state),
                             .o_pipeline_enable(pipeline_enable));
     
@@ -122,7 +122,7 @@ module TOP#(
                          .o_tx(uart_du_tx),
                          .o_tx_done_tick(uart_du_tx_done));
 
-    data_path data_path_1(.i_clock(data_path_clk), // 50 MHz o Steps
+    data_path data_path_1(.i_clock(clk_wiz), // 50 MHz o Steps
                           .i_pc_enable(pc_enable),
                           .i_pc_reset(i_reset),
                           .i_read_enable(im_read_enable),
