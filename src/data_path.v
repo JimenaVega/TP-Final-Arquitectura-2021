@@ -180,6 +180,7 @@ module data_path#(
     wire                        o_WB_reg_write;
     wire [NB_DATA-1:0]          WB_selected_data;
     wire [NB_REG-1:0]           o_WB_selected_reg;
+    wire                        MEM_WB_hlt;
     wire                        WB_hlt;
 
     // FORWADING UNIT
@@ -441,7 +442,7 @@ module data_path#(
                             .o_WB_selected_reg(WB_selected_reg),
                             .o_WB_r31_ctrl(WB_r31_ctrl),
                             .o_WB_pc(WB_pc),
-                            .o_WB_hlt(WB_hlt));
+                            .o_WB_hlt(MEM_WB_hlt));
                           
     WB_stage WB_stage_1(.i_WB_reg_write(WB_reg_write),
                         .i_WB_mem_to_reg(WB_mem_to_reg),
@@ -450,11 +451,11 @@ module data_path#(
                         .i_WB_selected_reg(WB_selected_reg),
                         .i_WB_r31_ctrl(WB_r31_ctrl),
                         .i_WB_pc(WB_pc),
-                        .i_WB_hlt(WB_hlt),
+                        .i_WB_hlt(MEM_WB_hlt),
                         .o_WB_reg_write(o_WB_reg_write),
                         .o_WB_selected_data(WB_selected_data),
                         .o_WB_selected_reg(o_WB_selected_reg),
-                        .o_WB_hlt(o_hlt));
+                        .o_WB_hlt(WB_halt));
   
     // HAZARDS
     forwarding_unit forwarding_unit_1(.i_reset(i_ctrl_reset),
@@ -471,6 +472,8 @@ module data_path#(
                                       );  
 
     stall_unit stall_unit_1(.i_reset(i_ctrl_reset),
+                            .i_MEM_halt(MEM_hlt),
+                            .i_WB_halt(WB_halt),
                             .i_branch_taken(MEM_branch_zero), // from MEM
                             .i_ID_EX_mem_read(EX_mem_read),
                             .i_EX_jump(EX_jump),
@@ -487,4 +490,5 @@ module data_path#(
   assign o_rb_data    = ID_data_a;           // to DEBUG UNIT
   assign o_dm_data    = MEM_read_dm;         // to DEBUG UNIT
   assign o_last_pc    = IF_last_pc;          // to DEBUG UNIT
+  assign o_hlt       = WB_halt;
 endmodule

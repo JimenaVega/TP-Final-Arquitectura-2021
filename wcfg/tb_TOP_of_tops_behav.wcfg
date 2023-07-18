@@ -11,18 +11,18 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="2,993.343365 us"></ZoomStartTime>
-      <ZoomEndTime time="3,947.213327 us"></ZoomEndTime>
-      <Cursor1Time time="3,788.235000 us"></Cursor1Time>
+      <ZoomStartTime time="0.000000 us"></ZoomStartTime>
+      <ZoomEndTime time="97.881738 us"></ZoomEndTime>
+      <Cursor1Time time="177.855000 us"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="258"></NameColumnWidth>
-      <ValueColumnWidth column_width="109"></ValueColumnWidth>
+      <ValueColumnWidth column_width="93"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="22" />
+   <WVObjectSize size="17" />
    <wave_markers>
-      <marker label="" time="614635000" />
-      <marker label="" time="1601795000" />
+      <marker label="" time="1474775000" />
+      <marker label="" time="163635000" />
    </wave_markers>
    <wvobject type="group" fp_name="group1454">
       <obj_property name="label">DEBUG_UNIT</obj_property>
@@ -66,12 +66,6 @@
       <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/debug_unit_1/o_tx_start">
          <obj_property name="ElementShortName">o_tx_start</obj_property>
          <obj_property name="ObjectShortName">o_tx_start</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/debug_unit_1/pipeline_enable">
-         <obj_property name="ElementShortName">pipeline_enable</obj_property>
-         <obj_property name="ObjectShortName">pipeline_enable</obj_property>
-         <obj_property name="CustomSignalColor">#FF00FF</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
       <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/debug_unit_1/next_pipeline_enable">
          <obj_property name="ElementShortName">next_pipeline_enable</obj_property>
@@ -201,21 +195,23 @@
             <obj_property name="ObjectShortName">next_pc_enable</obj_property>
          </wvobject>
       </wvobject>
+      <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/debug_unit_1/pipeline_enable">
+         <obj_property name="ElementShortName">pipeline_enable</obj_property>
+         <obj_property name="ObjectShortName">pipeline_enable</obj_property>
+         <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
       <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/debug_unit_1/step">
          <obj_property name="ElementShortName">step</obj_property>
          <obj_property name="ObjectShortName">step</obj_property>
       </wvobject>
+      <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_stage_1/instruction_memory_1/i_clock">
+         <obj_property name="ElementShortName">i_clock</obj_property>
+         <obj_property name="ObjectShortName">i_clock</obj_property>
+      </wvobject>
       <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/debug_unit_1/next_step">
          <obj_property name="ElementShortName">next_step</obj_property>
          <obj_property name="ObjectShortName">next_step</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/debug_unit_1/o_step">
-         <obj_property name="ElementShortName">o_step</obj_property>
-         <obj_property name="ObjectShortName">o_step</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/debug_unit_1/o_step_flag">
-         <obj_property name="ElementShortName">o_step_flag</obj_property>
-         <obj_property name="ObjectShortName">o_step_flag</obj_property>
       </wvobject>
    </wvobject>
    <wvobject type="group" fp_name="group1455">
@@ -230,13 +226,11 @@
          <obj_property name="label">INSTRUCTION_MEMORY</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_stage_1/instruction_memory_1/i_clock">
-            <obj_property name="ElementShortName">i_clock</obj_property>
-            <obj_property name="ObjectShortName">i_clock</obj_property>
-         </wvobject>
          <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_stage_1/instruction_memory_1/i_enable">
             <obj_property name="ElementShortName">i_enable</obj_property>
             <obj_property name="ObjectShortName">i_enable</obj_property>
+            <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
          <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_stage_1/instruction_memory_1/i_read_enable">
             <obj_property name="ElementShortName">i_read_enable</obj_property>
@@ -278,10 +272,8 @@
          <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_stage_1/program_counter_1/i_enable">
             <obj_property name="ElementShortName">i_enable</obj_property>
             <obj_property name="ObjectShortName">i_enable</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_stage_1/program_counter_1/i_clock">
-            <obj_property name="ElementShortName">i_clock</obj_property>
-            <obj_property name="ObjectShortName">i_clock</obj_property>
+            <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
          <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_stage_1/program_counter_1/i_reset">
             <obj_property name="ElementShortName">i_reset</obj_property>
@@ -309,46 +301,27 @@
          </wvobject>
       </wvobject>
    </wvobject>
-   <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_ID_reg_1/i_pipeline_enable">
-      <obj_property name="ElementShortName">i_pipeline_enable</obj_property>
-      <obj_property name="ObjectShortName">i_pipeline_enable</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_ID_reg_1/i_enable_IF_ID_reg">
-      <obj_property name="ElementShortName">i_enable_IF_ID_reg</obj_property>
-      <obj_property name="ObjectShortName">i_enable_IF_ID_reg</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_ID_reg_1/i_flush">
-      <obj_property name="ElementShortName">i_flush</obj_property>
-      <obj_property name="ObjectShortName">i_flush</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_ID_reg_1/IF_new_instruction">
-      <obj_property name="ElementShortName">IF_new_instruction[31:0]</obj_property>
-      <obj_property name="ObjectShortName">IF_new_instruction[31:0]</obj_property>
-      <obj_property name="Radix">BINARYRADIX</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_ID_reg_1/IF_adder_result">
-      <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="ElementShortName">IF_adder_result[31:0]</obj_property>
-      <obj_property name="ObjectShortName">IF_adder_result[31:0]</obj_property>
-      <obj_property name="Radix">BINARYRADIX</obj_property>
-      <obj_property name="label">IF_adder_result[31:0] (delay)</obj_property>
-   </wvobject>
    <wvobject type="group" fp_name="group638">
       <obj_property name="label">IF/ID</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_ID_reg_1/ID_adder_result">
-         <obj_property name="ElementShortName">ID_adder_result[31:0]</obj_property>
-         <obj_property name="ObjectShortName">ID_adder_result[31:0]</obj_property>
-         <obj_property name="Radix">BINARYRADIX</obj_property>
-         <obj_property name="CustomSignalColor">#FFFF00</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_ID_reg_1/i_pipeline_enable">
+         <obj_property name="ElementShortName">i_pipeline_enable</obj_property>
+         <obj_property name="ObjectShortName">i_pipeline_enable</obj_property>
+         <obj_property name="CustomSignalColor">#FF00FF</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
-      <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_ID_reg_1/ID_new_instruction">
-         <obj_property name="ElementShortName">ID_new_instruction[31:0]</obj_property>
-         <obj_property name="ObjectShortName">ID_new_instruction[31:0]</obj_property>
-         <obj_property name="Radix">BINARYRADIX</obj_property>
-         <obj_property name="CustomSignalColor">#FFFF00</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
+      <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_ID_reg_1/i_enable_IF_ID_reg">
+         <obj_property name="ElementShortName">i_enable_IF_ID_reg</obj_property>
+         <obj_property name="ObjectShortName">i_enable_IF_ID_reg</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_ID_reg_1/i_flush">
+         <obj_property name="ElementShortName">i_flush</obj_property>
+         <obj_property name="ObjectShortName">i_flush</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/concat_module_1/i_clock">
+         <obj_property name="ElementShortName">i_clock</obj_property>
+         <obj_property name="ObjectShortName">i_clock</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_ID_reg_1/adder_result">
          <obj_property name="ElementShortName">adder_result[31:0]</obj_property>
@@ -360,6 +333,32 @@
       <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_ID_reg_1/new_instruction">
          <obj_property name="ElementShortName">new_instruction[31:0]</obj_property>
          <obj_property name="ObjectShortName">new_instruction[31:0]</obj_property>
+         <obj_property name="Radix">BINARYRADIX</obj_property>
+         <obj_property name="CustomSignalColor">#FFFF00</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_ID_reg_1/IF_adder_result">
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="ElementShortName">IF_adder_result[31:0]</obj_property>
+         <obj_property name="ObjectShortName">IF_adder_result[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="label">IF_adder_result[31:0] (delay)</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_ID_reg_1/IF_new_instruction">
+         <obj_property name="ElementShortName">IF_new_instruction[31:0]</obj_property>
+         <obj_property name="ObjectShortName">IF_new_instruction[31:0]</obj_property>
+         <obj_property name="Radix">BINARYRADIX</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_ID_reg_1/ID_adder_result">
+         <obj_property name="ElementShortName">ID_adder_result[31:0]</obj_property>
+         <obj_property name="ObjectShortName">ID_adder_result[31:0]</obj_property>
+         <obj_property name="Radix">BINARYRADIX</obj_property>
+         <obj_property name="CustomSignalColor">#FFFF00</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_ID_reg_1/ID_new_instruction">
+         <obj_property name="ElementShortName">ID_new_instruction[31:0]</obj_property>
+         <obj_property name="ObjectShortName">ID_new_instruction[31:0]</obj_property>
          <obj_property name="Radix">BINARYRADIX</obj_property>
          <obj_property name="CustomSignalColor">#FFFF00</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
@@ -553,11 +552,6 @@
       <wvobject type="group" fp_name="group477">
          <obj_property name="label">CONCAT UNIT</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="isExpanded"></obj_property>
-         <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/concat_module_1/i_clock">
-            <obj_property name="ElementShortName">i_clock</obj_property>
-            <obj_property name="ObjectShortName">i_clock</obj_property>
-         </wvobject>
          <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/concat_module_1/i_enable">
             <obj_property name="ElementShortName">i_enable</obj_property>
             <obj_property name="ObjectShortName">i_enable</obj_property>
@@ -581,9 +575,15 @@
          <obj_property name="label">CONTROL_UNIT</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
+         <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_stage_1/program_counter_1/i_clock">
+            <obj_property name="ElementShortName">i_clock</obj_property>
+            <obj_property name="ObjectShortName">i_clock</obj_property>
+         </wvobject>
          <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/control_unit_1/i_enable">
             <obj_property name="ElementShortName">i_enable</obj_property>
             <obj_property name="ObjectShortName">i_enable</obj_property>
+            <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
          <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/control_unit_1/i_reset">
             <obj_property name="ElementShortName">i_reset</obj_property>
@@ -656,15 +656,10 @@
             <obj_property name="ObjectShortName">o_hlt</obj_property>
          </wvobject>
       </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_ID_reg_1/i_clock">
-         <obj_property name="ElementShortName">i_clock</obj_property>
-         <obj_property name="ObjectShortName">i_clock</obj_property>
-         <obj_property name="CustomSignalColor">#00FF00</obj_property>
-         <obj_property name="UseCustomSignalColor">true</obj_property>
-      </wvobject>
       <wvobject type="group" fp_name="group1418">
          <obj_property name="label">REGISTERS_BANK</obj_property>
          <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
          <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/i_reset">
             <obj_property name="ElementShortName">i_reset</obj_property>
             <obj_property name="ObjectShortName">i_reset</obj_property>
@@ -672,6 +667,8 @@
          <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/i_reg_write">
             <obj_property name="ElementShortName">i_reg_write</obj_property>
             <obj_property name="ObjectShortName">i_reg_write</obj_property>
+            <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
          <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/i_read_reg_a">
             <obj_property name="ElementShortName">i_read_reg_a[4:0]</obj_property>
@@ -696,16 +693,26 @@
             <obj_property name="ElementShortName">i_write_data[31:0]</obj_property>
             <obj_property name="ObjectShortName">i_write_data[31:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-            <obj_property name="CustomSignalColor">#FFA500</obj_property>
+            <obj_property name="CustomSignalColor">#00FF00</obj_property>
             <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
          <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/i_enable">
             <obj_property name="ElementShortName">i_enable</obj_property>
             <obj_property name="ObjectShortName">i_enable</obj_property>
+            <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_ID_reg_1/i_clock">
+            <obj_property name="ElementShortName">i_clock</obj_property>
+            <obj_property name="ObjectShortName">i_clock</obj_property>
+            <obj_property name="CustomSignalColor">#00FF00</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
          <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/i_read_enable">
             <obj_property name="ElementShortName">i_read_enable</obj_property>
             <obj_property name="ObjectShortName">i_read_enable</obj_property>
+            <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
          <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/i_read_address">
             <obj_property name="ElementShortName">i_read_address[4:0]</obj_property>
@@ -715,21 +722,20 @@
             <obj_property name="ElementShortName">o_data_a[31:0]</obj_property>
             <obj_property name="ObjectShortName">o_data_a[31:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-            <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+            <obj_property name="CustomSignalColor">#00FF00</obj_property>
             <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
          <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/o_data_b">
             <obj_property name="ElementShortName">o_data_b[31:0]</obj_property>
             <obj_property name="ObjectShortName">o_data_b[31:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-            <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+            <obj_property name="CustomSignalColor">#00FF00</obj_property>
             <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
          <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/registers_bank_1/registers">
             <obj_property name="ElementShortName">registers[31:0][31:0]</obj_property>
             <obj_property name="ObjectShortName">registers[31:0][31:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-            <obj_property name="isExpanded"></obj_property>
          </wvobject>
       </wvobject>
       <wvobject type="group" fp_name="group1489">
@@ -777,6 +783,8 @@
       <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_EX_reg_1/i_pipeline_enable">
          <obj_property name="ElementShortName">i_pipeline_enable</obj_property>
          <obj_property name="ObjectShortName">i_pipeline_enable</obj_property>
+         <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
       <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_EX_reg_1/ID_signed">
          <obj_property name="ElementShortName">ID_signed</obj_property>
@@ -813,7 +821,7 @@
       <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_EX_reg_1/ID_alu_op">
          <obj_property name="ElementShortName">ID_alu_op[5:0]</obj_property>
          <obj_property name="ObjectShortName">ID_alu_op[5:0]</obj_property>
-         <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+         <obj_property name="CustomSignalColor">#00FF00</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_EX_reg_1/ID_pc">
@@ -1227,6 +1235,10 @@
    <wvobject type="group" fp_name="group1458">
       <obj_property name="label">MEM</obj_property>
       <obj_property name="DisplayName">label</obj_property>
+      <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/MEM_stage_1/i_MEM_hlt">
+         <obj_property name="ElementShortName">i_MEM_hlt</obj_property>
+         <obj_property name="ObjectShortName">i_MEM_hlt</obj_property>
+      </wvobject>
       <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/MEM_stage_1/i_MEM_r31_ctrl">
          <obj_property name="ElementShortName">i_MEM_r31_ctrl</obj_property>
          <obj_property name="ObjectShortName">i_MEM_r31_ctrl</obj_property>
@@ -1253,7 +1265,6 @@
       <wvobject type="group" fp_name="group1452">
          <obj_property name="label">DATA_MEMORY</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="isExpanded"></obj_property>
          <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/MEM_stage_1/data_memory_1/i_enable">
             <obj_property name="ElementShortName">i_enable</obj_property>
             <obj_property name="ObjectShortName">i_enable</obj_property>
@@ -1287,7 +1298,6 @@
       <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/MEM_stage_1/data_memory_1/BRAM">
          <obj_property name="ElementShortName">BRAM[31:0][31:0]</obj_property>
          <obj_property name="ObjectShortName">BRAM[31:0][31:0]</obj_property>
-         <obj_property name="isExpanded"></obj_property>
       </wvobject>
    </wvobject>
    <wvobject type="group" fp_name="group802">
@@ -1394,6 +1404,10 @@
          <obj_property name="CustomSignalColor">#F0E68C</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
+      <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/WB_stage_1/o_WB_hlt">
+         <obj_property name="ElementShortName">o_WB_hlt</obj_property>
+         <obj_property name="ObjectShortName">o_WB_hlt</obj_property>
+      </wvobject>
       <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/WB_stage_1/i_WB_pc">
          <obj_property name="ElementShortName">i_WB_pc[31:0]</obj_property>
          <obj_property name="ObjectShortName">i_WB_pc[31:0]</obj_property>
@@ -1402,7 +1416,6 @@
       <wvobject type="group" fp_name="group1416">
          <obj_property name="label">MUX 11 - jal/jalr</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="isExpanded"></obj_property>
          <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/WB_stage_1/mux2_11/i_select">
             <obj_property name="ElementShortName">i_select</obj_property>
             <obj_property name="ObjectShortName">i_select</obj_property>
@@ -1444,7 +1457,7 @@
       <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/WB_stage_1/i_WB_alu_result">
          <obj_property name="ElementShortName">i_WB_alu_result[31:0]</obj_property>
          <obj_property name="ObjectShortName">i_WB_alu_result[31:0]</obj_property>
-         <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+         <obj_property name="CustomSignalColor">#00FF00</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
@@ -1460,21 +1473,21 @@
       <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/WB_stage_1/o_WB_reg_write">
          <obj_property name="ElementShortName">o_WB_reg_write</obj_property>
          <obj_property name="ObjectShortName">o_WB_reg_write</obj_property>
-         <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+         <obj_property name="CustomSignalColor">#00FF00</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/WB_stage_1/o_WB_selected_data">
          <obj_property name="ElementShortName">o_WB_selected_data[31:0]</obj_property>
          <obj_property name="ObjectShortName">o_WB_selected_data[31:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+         <obj_property name="CustomSignalColor">#00FF00</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/WB_stage_1/o_WB_selected_reg">
          <obj_property name="ElementShortName">o_WB_selected_reg[4:0]</obj_property>
          <obj_property name="ObjectShortName">o_WB_selected_reg[4:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+         <obj_property name="CustomSignalColor">#00FF00</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
       <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/WB_stage_1/o_WB_hlt">

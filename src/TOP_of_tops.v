@@ -92,8 +92,8 @@ module TOP_of_tops#(
                             .o_dm_du_flag(read_dm_from_du),
                             .o_cu_enable(cu_enable),
                             .o_pc_enable(pc_enable),
-                            .o_step_flag(step_flag),
-                            .o_step(step),
+                            // .o_step_flag(step_flag),
+                            // .o_step(step),
                             .o_state(state),
                             .o_pipeline_enable(pipeline_enable));
 

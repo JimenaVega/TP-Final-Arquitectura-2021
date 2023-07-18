@@ -69,8 +69,8 @@ module tb_TOP_of_tops;
     #20
     i_rx_done       = 1'b0;
     $monitor("[$monitor] time=%0t o_state=%b ", $time, o_state);
-   $readmemb("C:/Users/alejo/OneDrive/Documents/GitHub/TP-Final-Arquitectura-2021/GUI/bin/jump_test.mem", memory, 0, 255);
-//    $readmemb("/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/GUI/bin/jump_test.mem", memory, 0, 255);
+//   $readmemb("C:/Users/alejo/OneDrive/Documents/GitHub/TP-Final-Arquitectura-2021/GUI/bin/test_halt.mem", memory, 0, 255);
+    $readmemb("/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/GUI/bin/raw_hazard.mem", memory, 0, 255);
 
 	// Se envia instruccion por instruccion, byte por byte
     for (i=0; i<256; i=i+1) begin
@@ -85,16 +85,17 @@ module tb_TOP_of_tops;
 		#20
 		i_rx_done	= 1'b0;
     end
+//--------------- CONTINUA --------------------
+    // #1000
+    // $display("[time=%0t] Ejecucion continua", $time);
+    // i_rx_data = 8'd2; // Ejecuion continua
+    // i_rx_done = 1'b1;
 
-//     #1000
-//     $display("[time=%0t] Ejecucion continua", $time);
-//     i_rx_data = 8'd2; // Ejecuion continua
-//     i_rx_done = 1'b1;
+    // #20
+    // i_rx_done = 1'b0;
 
-//     #20
-//     i_rx_done = 1'b0;
-
-    #550000
+//--------------- STEP BY STEP--------------------
+    #1000
     $display("Ejecución step by step. time = %0t", $time);
     i_rx_data = 3;
     i_rx_done = 1'b1;
@@ -102,7 +103,7 @@ module tb_TOP_of_tops;
     #20
     i_rx_done = 1'b0;
     
-    for(s=0; s<25; s=s+1) begin
+    for(s=0; s<12; s=s+1) begin
         #100000
         $display("Ejecución step  %d. time = %0t",s, $time);
         i_rx_data = 7;
@@ -119,6 +120,7 @@ module tb_TOP_of_tops;
               i_tx_done	= 1'b0;
         end  
     end
+ //-------------------------------------------------
 
 //    #4000
 //    $display("[time=%0t]  Lectura de bank register.", $time);

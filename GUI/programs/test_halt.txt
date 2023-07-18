@@ -1,0 +1,7 @@
+addi $s0,$zero,15;
+addi $s1,$zero,31;
+add $t5,$s0,$s1;
+hlt;
+sw $s1,0($s5);
+sw $s1,1($s5);
+sw $s1,2($s5);

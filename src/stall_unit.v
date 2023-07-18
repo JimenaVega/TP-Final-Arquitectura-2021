@@ -6,6 +6,8 @@ module stall_unit #(
     )    
     (   
         input                 i_reset,
+        input                 i_MEM_halt,           // Para evitar escrituras tras halt
+        input                 i_WB_halt,            // Para evitar escrituras tras halt
         input                 i_branch_taken,
         input                 i_ID_EX_mem_read,     // Only load writes memory
         input                 i_EX_jump,
@@ -29,7 +31,7 @@ module stall_unit #(
             o_flush_IF = 1'b0;           // No hay flush en IF
             o_flush_EX = 1'b0;           // No hay flush en IE
         end
-        else if(i_branch_taken) begin // control hazards
+        else if(i_branch_taken) begin  // control hazards con branches
             // Flush signal flags
             o_flush_IF = 1'b1;
             o_flush_EX = 1'b1;
@@ -39,7 +41,7 @@ module stall_unit #(
             o_enable_IF_ID_reg = 1'b1;
             o_enable_pc = 1'b1;
         end
-        else if(i_EX_jump || i_MEM_jump) begin
+        else if(i_EX_jump || i_MEM_jump) begin // control hazards con jumps
             // Se flushean las señales de ID cuando se detecta el jump en
             // EX y en MEM, es decir, se borran las 2 instrucciones invalidas
             // que entran despues de los jumps
@@ -51,6 +53,18 @@ module stall_unit #(
             o_enable_IF_ID_reg      = 1'b1;
             o_enable_pc             = 1'b1;
         end
+        else if(i_MEM_halt || i_WB_halt) begin // halt
+            // Para evitar que se instrucciones tras un halt escriban las memorias, se flushean
+            // Flush signal flags
+            o_flush_IF = 1'b1;
+            o_flush_EX = 1'b1;
+            o_select_control_nop = 1'b1; // ID
+
+            // No hay stall
+            o_enable_IF_ID_reg = 1'b1;
+            o_enable_pc = 1'b1;
+        end
+
         else begin                  // data hazards (LOAD)
             
             if(((i_ID_EX_rt == i_IF_ID_rt) || (i_ID_EX_rt == i_IF_ID_rs)) && i_ID_EX_mem_read) begin
