@@ -37,7 +37,6 @@ module TOP_of_tops#(
      .clk_in1(i_clock)
      );
 
-    reg                 im_read_enable = 1'b1;
 
     wire                step_flag;
 
@@ -57,6 +56,7 @@ module TOP_of_tops#(
 
     wire                im_enable;
     wire                im_write_enable;
+    wire                im_read_enable;
     wire [BYTE-1:0]     im_addr;
     wire [BYTE-1:0]     im_data;
 
@@ -84,6 +84,7 @@ module TOP_of_tops#(
                             .o_tx_data(o_tx_data),
                             .o_tx_start(o_tx_start),
                             .o_im_write_enable(im_write_enable),
+                            .o_im_read_enable(im_read_enable),
                             .o_im_enable(im_enable),
                             .o_rb_read_enable(rb_read_enable),
                             .o_rb_enable(rb_enable),
@@ -92,8 +93,6 @@ module TOP_of_tops#(
                             .o_dm_du_flag(read_dm_from_du),
                             .o_cu_enable(cu_enable),
                             .o_pc_enable(pc_enable),
-                            // .o_step_flag(step_flag),
-                            // .o_step(step),
                             .o_state(state),
                             .o_pipeline_enable(pipeline_enable));
 

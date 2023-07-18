@@ -37,6 +37,7 @@ module debug_unit#(
     output                  o_tx_start,     // to TX - UART
 
     output                  o_im_write_enable, //*
+    output                  o_im_read_enable,
     output                  o_im_enable, //*
     output                  o_rb_read_enable, // * 
     output                  o_rb_enable, // * Usar solo cuando se active funcionamiento normal de datapath
@@ -81,6 +82,7 @@ reg [NB_STATE-1:0]      state,              next_state,     prev_state,   next_p
 // INSTRUCTION MEMORY
 reg [NB_DATA-1:0]       im_count,           next_im_count;          // Address a escribir
 reg                     im_write_enable,    next_im_write_enable;   // Flag que habilita la escritura del IM
+reg                     im_read_enable,     next_im_read_enable;
 reg                     im_enable,          next_im_enable;
 
 // DATA MEMORY
@@ -121,6 +123,7 @@ always @(posedge i_clock) begin
 
         // INSTRUCTION MEMORY 
         im_write_enable         <= 1'b0;
+        im_read_enable          <= 1'b0;
         im_enable               <= 1'b0;
         im_count                <= 8'hff;
 
@@ -159,6 +162,7 @@ always @(posedge i_clock) begin
         prev_state          <= next_prev_state;
         // INSTRUCTION MEMORY
         im_write_enable     <= next_im_write_enable;
+        im_read_enable      <= next_im_read_enable;
         im_enable           <= next_im_enable;
         im_count            <= next_im_count;
         // DATA MEMORY
@@ -206,6 +210,7 @@ always @(*) begin
 
     next_im_enable          = im_enable;
     next_im_write_enable    = im_write_enable;
+    next_im_read_enable     = im_read_enable;
     next_im_count           = im_count;
 
     next_rb_enable          = rb_enable;
@@ -229,6 +234,7 @@ always @(*) begin
 
             next_im_enable       = 1'b0;
             next_im_write_enable = 1'b0;
+            next_im_read_enable  = 1'b0;
 
             next_rb_enable       = 1'b0;
             next_rb_read_enable  = 1'b0;
@@ -285,13 +291,14 @@ always @(*) begin
         end
         START: begin
             // next_step_flag  = 1'b0;
-            next_step       = 1'b1; 
+            next_step           = 1'b1; 
 
-            next_im_enable  = 1'b1;
-            next_rb_enable  = 1'b1;
-            next_dm_enable  = 1'b1;
-            next_cu_enable  = 1'b1;
-            next_pc_enable  = 1'b1;
+            next_im_enable      = 1'b1;
+            next_im_read_enable = 1'b1;
+            next_rb_enable      = 1'b1;
+            next_dm_enable      = 1'b1;
+            next_cu_enable      = 1'b1;
+            next_pc_enable      = 1'b1;
             next_pipeline_enable = 1'b1;
 
             if(i_hlt)begin
@@ -300,14 +307,15 @@ always @(*) begin
         end
         STEP_BY_STEP: begin
             // next_step_flag  = 1'b1; // STOP 50MHz ckock
-            next_step       = 1'b0;
+            next_step           = 1'b0;
 
-            next_im_enable  = 1'b1;
-            next_rb_enable  = 1'b1;
-            next_dm_enable  = 1'b1;
-            next_cu_enable  = 1'b1;
+            next_im_enable      = 1'b1;
+            next_im_read_enable = 1'b1;
+            next_rb_enable      = 1'b1;
+            next_dm_enable      = 1'b1;
+            next_cu_enable      = 1'b1;
             
-            next_pc_enable  = 1'b1;
+            next_pc_enable      = 1'b1;
 
             if(i_rx_done)begin
                 next_pipeline_enable = 1'b1;
@@ -334,6 +342,7 @@ always @(*) begin
             if(im_count == 8'd254)begin
                 next_state              = READY;
                 next_im_enable          = 1'b0;
+                next_im_read_enable     = 1'b0;
                 next_im_write_enable    = 1'b0;
                 next_im_count           = 8'hff;
             end
@@ -341,24 +350,27 @@ always @(*) begin
                 if(i_rx_done)begin
                     next_im_enable          = 1'b1;
                     next_im_write_enable    = 1'b1;
+                    next_im_read_enable     = 1'b0;
                     next_im_count           = im_count + 1;
                     next_state              = WRITE_IM;
                 end
                 else begin
                     next_im_enable          = 1'b0;
                     next_im_write_enable    = 1'b0;
+                    next_im_read_enable     = 1'b0;
                 end
             end
         end
         SEND_PC: begin
-            tx_start_next   = 1'b1;
-            next_step       = 1'b1;
+            tx_start_next       = 1'b1;
+            next_step           = 1'b1;
 
-            next_im_enable  = 1'b0;
-            next_rb_enable  = 1'b0;
-            next_dm_enable  = 1'b0;
-            next_cu_enable  = 1'b0;
-            next_pc_enable  = 1'b0;
+            next_im_enable      = 1'b0;
+            next_im_read_enable = 1'b0;
+            next_rb_enable      = 1'b0;
+            next_dm_enable      = 1'b0;
+            next_cu_enable      = 1'b0;
+            next_pc_enable      = 1'b0;
             next_pipeline_enable = 1'b0;
             
 
@@ -443,10 +455,11 @@ always @(*) begin
             // next_step_flag          = 1'b0;
 
             // disable all except dm 
-            next_im_enable  = 1'b0;
-            next_rb_enable  = 1'b0;
-            next_cu_enable  = 1'b0;
-            next_pc_enable  = 1'b0;
+            next_im_enable      = 1'b0;
+            next_im_read_enable = 1'b0;
+            next_rb_enable      = 1'b0;
+            next_cu_enable      = 1'b0;
+            next_pc_enable      = 1'b0;
             // next_pipeline_enable = 1'b1; // 0
 
             case(next_count_dm_byte)
@@ -487,6 +500,7 @@ end
 // INSTRUCTION MEMORY
 assign o_im_enable          = im_enable & step;
 assign o_im_write_enable    = im_write_enable & step;
+assign o_im_read_enable     = im_read_enable & step;
 assign o_im_data            = i_rx_data;
 assign o_im_addr            = im_count;
 
