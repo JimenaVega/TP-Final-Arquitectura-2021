@@ -110,13 +110,33 @@ reg                     tx_start,           tx_start_next;
 
 // STEPPER
 // reg                     step_flag,          next_step_flag;
-reg                     step,               next_step;
+// reg                     step,               next_step;
 
 // PIPELINE REGISTERS
 reg                    pipeline_enable,     next_pipeline_enable;
 
+
+// always@(negedge i_clock) begin
+//     if (i_reset) begin
+//         im_read_enable_delay <= 1'b0;
+//         im_enable_delay <= 1'b0;
+//         rb_read_enable_delay <= 1'b0;
+//         rb_enable_delay <= 1'b0;
+//         pipeline_enable_delay <= 1'b0;
+//     end
+//     else begin
+//         im_read_enable_delay <= im_read_enable;
+//         im_enable_delay <= im_enable_delay;
+//         rb_read_enable_delay <= rb_read_enable;
+//         rb_enable_delay <= rb_enable;
+//         pipeline_enable_delay <= pipeline_enable;
+//     end
+    
+// end
+
+
 // Memory
-always @(posedge i_clock) begin
+always @(negedge i_clock) begin
     if(i_reset) begin
         state                   <= IDLE;
         prev_state              <= IDLE;
@@ -153,9 +173,11 @@ always @(posedge i_clock) begin
 
         // STEPPER
 //        step_flag               <= 1'b0;
-        step                    <= 1'b0;
+//        step                    <= 1'b0;
 
         pipeline_enable         <= 1'b0;
+
+
     end
     else begin
         state               <= next_state;
@@ -181,14 +203,14 @@ always @(posedge i_clock) begin
         pc_enable           <= next_pc_enable;
         count_pc            <= next_count_pc;
         // step_flag           <= next_step_flag;
-        step                <= next_step;
+//        step                <= next_step;
         // CONTROL UNIT
         cu_enable           <= next_cu_enable;
         // TX
         send_data           <= next_send_data;
 
         pipeline_enable     <= next_pipeline_enable;
-        
+
     end
 end
 
@@ -223,14 +245,14 @@ always @(*) begin
     tx_start_next           = tx_start;
 
     // next_step_flag          = step_flag;
-    next_step               = step;
+    // next_step               = step;
 
     next_prev_state         = prev_state;
 
     case(state)
         IDLE: begin
             // next_step_flag      = 1'b0;
-            next_step           = 1'b0; // deshabilito las flags
+            // next_step           = 1'b0; // deshabilito las flags
 
             next_im_enable       = 1'b0;
             next_im_write_enable = 1'b0;
@@ -280,7 +302,7 @@ always @(*) begin
             end
         end
         READY: begin
-            next_step = 1'b0; // deshabilito las flags
+            // next_step = 1'b0; // deshabilito las flags
             if(i_rx_done)begin
                 case(i_rx_data)
                     CMD_STEP_BY_STEP:   next_state = STEP_BY_STEP;
@@ -291,7 +313,7 @@ always @(*) begin
         end
         START: begin
             // next_step_flag  = 1'b0;
-            next_step           = 1'b1; 
+            // next_step           = 1'b1; 
 
             next_im_enable      = 1'b1;
             next_im_read_enable = 1'b1;
@@ -307,15 +329,9 @@ always @(*) begin
         end
         STEP_BY_STEP: begin
             // next_step_flag  = 1'b1; // STOP 50MHz ckock
-            next_step           = 1'b0;
+            // next_step           = 1'b0;
 
-            next_im_enable      = 1'b1;
-            next_im_read_enable = 1'b1;
-            next_rb_enable      = 1'b1;
-            next_dm_enable      = 1'b1;
-            next_cu_enable      = 1'b1;
-            
-            next_pc_enable      = 1'b1;
+    
 
             if(i_rx_done)begin
                 next_pipeline_enable = 1'b1;
@@ -323,7 +339,14 @@ always @(*) begin
                     CMD_STEP: begin
                         next_state  = SEND_PC;
                         next_prev_state  = STEP_BY_STEP;
-                        next_step   = 1'b1;
+                        // next_step   = 1'b1;
+                        next_im_enable      = 1'b1;
+                        next_im_read_enable = 1'b1;
+                        next_rb_enable      = 1'b1;
+                        next_dm_enable      = 1'b1;
+                        next_cu_enable      = 1'b1;
+                        
+                        next_pc_enable      = 1'b1;
                     end
                     CMD_CONTINUE: begin
                         next_state = START;
@@ -338,7 +361,7 @@ always @(*) begin
             end
         end
         WRITE_IM: begin
-            next_step = 1'b1;
+            // next_step = 1'b1;
             if(im_count == 8'd254)begin
                 next_state              = READY;
                 next_im_enable          = 1'b0;
@@ -363,7 +386,7 @@ always @(*) begin
         end
         SEND_PC: begin
             tx_start_next       = 1'b1;
-            next_step           = 1'b1;
+            // next_step           = 1'b1;
 
             next_im_enable      = 1'b0;
             next_im_read_enable = 1'b0;
@@ -408,7 +431,7 @@ always @(*) begin
             next_rb_enable      = 1'b0; // Enable = register bank con lectura en funcionamiento normal
             
             tx_start_next       = 1'b1;
-            next_step           = 1'b1;
+            // next_step           = 1'b1;
             // next_step_flag      = 1'b0; // Se alimenta el datapath con clk de 50MHz
 
             //disable all except br
@@ -451,7 +474,7 @@ always @(*) begin
             next_dm_du_flag         = 1'b1; // select DU as address and read enable source
             
             tx_start_next           = 1'b1;
-            next_step               = 1'b1;
+            // next_step               = 1'b1;
             // next_step_flag          = 1'b0;
 
             // disable all except dm 
@@ -498,28 +521,28 @@ always @(*) begin
 end
 
 // INSTRUCTION MEMORY
-assign o_im_enable          = im_enable & step;
-assign o_im_write_enable    = im_write_enable & step;
-assign o_im_read_enable     = im_read_enable & step;
+assign o_im_enable          = im_enable;
+assign o_im_write_enable    = im_write_enable;
+assign o_im_read_enable     = im_read_enable;
 assign o_im_data            = i_rx_data;
 assign o_im_addr            = im_count;
 
 // DATA MEMORY
-assign o_dm_enable          = dm_enable & step;
-assign o_dm_read_enable     = dm_read_enable & step;
-assign o_dm_du_flag         = dm_du_flag  & step;
+assign o_dm_enable          = dm_enable;
+assign o_dm_read_enable     = dm_read_enable;
+assign o_dm_du_flag         = dm_du_flag;
 assign o_dm_addr            = count_dm_tx_done; // Cada vez que haya un tx_done, se avanza +1 address
 
 // REGISTER BANK
-assign o_rb_enable          = rb_enable & step;
-assign o_rb_read_enable     = rb_read_enable & step;
+assign o_rb_enable          = rb_enable;
+assign o_rb_read_enable     = rb_read_enable;
 assign o_rb_addr            = count_br_tx_done;
 
 // PC
-assign o_pc_enable          = pc_enable & step;
+assign o_pc_enable          = pc_enable;
 
 // CONTROL UNIT
-assign o_cu_enable          = cu_enable & step;
+assign o_cu_enable          = cu_enable;
 
 // TX
 assign o_tx_data            = send_data;

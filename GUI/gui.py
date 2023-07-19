@@ -42,7 +42,7 @@ class GUI:
                             5: self.receive_file,
                             6: self.receive_file, }
 
-        #file_name = translate_file(instruction_file)
+        # file_name = translate_file(instruction_file)
         self.uart = Uart(uart_port, baudrate)
 
         self.instruction_file = instruction_file
@@ -94,7 +94,7 @@ class GUI:
 
         # Se envia por uart el .mem y se ejecuta la siguiente ventana
         self.instruction_size = int(self.uart.send_file(file_name) / 4)
-        self.maximum_steps = file_size + 4
+        self.maximum_steps = file_size + 3
 
         self.set_execution_window()
 
@@ -189,6 +189,6 @@ class GUI:
         self.ex_window.destroy()
 
 
-instruction_file = "jump_test"
+instruction_file = "raw_hazard"
 uart_port = '/dev/ttyUSB1'
 gui = GUI(instruction_file, uart_port)

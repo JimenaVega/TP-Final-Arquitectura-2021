@@ -34,7 +34,7 @@ module TOP#(
      );
 
     // reg                 data_path_clk;
-    reg                 im_read_enable = 1'b1;
+    wire                 im_read_enable;
 
     // wire                step_flag;
     // wire                step;
@@ -99,6 +99,7 @@ module TOP#(
                             .o_tx_data(uart_du_to_send),
                             .o_tx_start(uart_du_tx_start),
                             .o_im_write_enable(im_write_enable),
+                            .o_im_read_enable(im_read_enable),
                             .o_im_enable(im_enable),
                             .o_rb_read_enable(rb_read_enable),
                             .o_rb_enable(rb_enable),
