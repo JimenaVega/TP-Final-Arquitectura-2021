@@ -69,8 +69,8 @@ module tb_TOP_of_tops;
     #20
     i_rx_done       = 1'b0;
     $monitor("[$monitor] time=%0t o_state=%b ", $time, o_state);
-//   $readmemb("C:/Users/alejo/OneDrive/Documents/GitHub/TP-Final-Arquitectura-2021/GUI/bin/test_halt.mem", memory, 0, 255);
-    $readmemb("/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/GUI/bin/jal_jalr.mem", memory, 0, 255);
+    $readmemb("C:/Users/alejo/OneDrive/Documents/GitHub/TP-Final-Arquitectura-2021/GUI/bin/jal_jalr.mem", memory, 0, 255);
+//    $readmemb("/home/jime/Documents/UNC/aquitectura_de_computadoras/TP-Final-Arquitectura-2021/GUI/bin/jal_jalr.mem", memory, 0, 255);
 
 	// Se envia instruccion por instruccion, byte por byte
     for (i=0; i<256; i=i+1) begin
@@ -120,6 +120,15 @@ module tb_TOP_of_tops;
               i_tx_done	= 1'b0;
         end  
     end
+    
+    //--------------- CONTINUA --------------------
+     #1000
+     $display("[time=%0t] Ejecucion continua", $time);
+     i_rx_data = 8'd8; // Ejecuion continua
+     i_rx_done = 1'b1;
+
+     #20
+     i_rx_done = 1'b0;
  //-------------------------------------------------
 
 //    #4000
