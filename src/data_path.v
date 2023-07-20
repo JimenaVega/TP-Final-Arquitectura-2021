@@ -86,6 +86,7 @@ module data_path#(
     wire                        ID_hlt;
     wire                        ID_jr_jalr;
     wire                        EX_jr_jalr;
+    wire                        MEM_jr_jalr;
     wire [NB_PC-1:0]            ID_jump_address;
     wire [NB_PC-1:0]            ID_r31_data;
     
@@ -373,6 +374,7 @@ module data_path#(
                             .EX_pc(o_EX_pc),
                             .EX_hlt(o_EX_hlt),
                             .EX_jump(o_EX_jump),
+                            .EX_jr_jalr(EX_jr_jalr),
                             .MEM_signed(MEM_signed),
                             .MEM_reg_write(MEM_reg_write),
                             .MEM_mem_to_reg(MEM_mem_to_reg),
@@ -390,7 +392,8 @@ module data_path#(
                             .MEM_r31_ctrl(MEM_r31_ctrl),
                             .MEM_pc(MEM_pc),
                             .MEM_hlt(MEM_hlt),
-                            .MEM_jump(MEM_jump));
+                            .MEM_jump(MEM_jump),
+                            .MEM_jr_jalr(MEM_jr_jalr));
                 
     MEM_stage MEM_stage_1(.i_clock(i_clock),
                           .i_MEM_du_flag(i_du_flag),
@@ -478,8 +481,8 @@ module data_path#(
                             .i_WB_halt(WB_halt),
                             .i_branch_taken(MEM_branch_zero), // from MEM
                             .i_ID_EX_mem_read(EX_mem_read),
-                            .i_EX_jump(EX_jump),
-                            .i_MEM_jump(MEM_jump),
+                            .i_EX_jump(EX_jump || EX_jr_jalr),
+                            .i_MEM_jump(MEM_jump || MEM_jr_jalr),
                             .i_ID_EX_rt(EX_rt),
                             .i_IF_ID_rt(ID_new_instruction[20:16]),
                             .i_IF_ID_rs(ID_new_instruction[25:21]),
@@ -492,5 +495,5 @@ module data_path#(
   assign o_rb_data    = ID_data_a;           // to DEBUG UNIT
   assign o_dm_data    = MEM_read_dm;         // to DEBUG UNIT
   assign o_last_pc    = IF_last_pc;          // to DEBUG UNIT
-  assign o_hlt       = WB_halt;
+  assign o_hlt        = WB_halt;
 endmodule

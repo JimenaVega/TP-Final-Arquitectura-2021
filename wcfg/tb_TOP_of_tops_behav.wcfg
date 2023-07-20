@@ -11,13 +11,13 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="300.000000 us"></ZoomStartTime>
-      <ZoomEndTime time="455.000001 us"></ZoomEndTime>
-      <Cursor1Time time="544.725000 us"></Cursor1Time>
+      <ZoomStartTime time="0.000000 us"></ZoomStartTime>
+      <ZoomEndTime time="715.384728 us"></ZoomEndTime>
+      <Cursor1Time time="798.765000 us"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="194"></NameColumnWidth>
-      <ValueColumnWidth column_width="90"></ValueColumnWidth>
+      <ValueColumnWidth column_width="86"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="17" />
    <wave_markers>
@@ -201,25 +201,13 @@
          <obj_property name="CustomSignalColor">#FF00FF</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/debug_unit_1/pipeline_enable_delay">
-         <obj_property name="ElementShortName">pipeline_enable_delay</obj_property>
-         <obj_property name="ObjectShortName">pipeline_enable_delay</obj_property>
-      </wvobject>
       <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/debug_unit_1/o_pipeline_enable">
          <obj_property name="ElementShortName">o_pipeline_enable</obj_property>
          <obj_property name="ObjectShortName">o_pipeline_enable</obj_property>
       </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/debug_unit_1/step">
-         <obj_property name="ElementShortName">step</obj_property>
-         <obj_property name="ObjectShortName">step</obj_property>
-      </wvobject>
       <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/IF_stage_1/instruction_memory_1/i_clock">
          <obj_property name="ElementShortName">i_clock</obj_property>
          <obj_property name="ObjectShortName">i_clock</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/debug_unit_1/next_step">
-         <obj_property name="ElementShortName">next_step</obj_property>
-         <obj_property name="ObjectShortName">next_step</obj_property>
       </wvobject>
    </wvobject>
    <wvobject type="group" fp_name="group1455">
@@ -655,9 +643,21 @@
             <obj_property name="ElementShortName">o_jump</obj_property>
             <obj_property name="ObjectShortName">o_jump</obj_property>
          </wvobject>
+         <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/control_unit_1/o_jr_jalr">
+            <obj_property name="ElementShortName">o_jr_jalr</obj_property>
+            <obj_property name="ObjectShortName">o_jr_jalr</obj_property>
+         </wvobject>
          <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/control_unit_1/o_byte_en">
             <obj_property name="ElementShortName">o_byte_en</obj_property>
             <obj_property name="ObjectShortName">o_byte_en</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/control_unit_1/o_halfword_en">
+            <obj_property name="ElementShortName">o_halfword_en</obj_property>
+            <obj_property name="ObjectShortName">o_halfword_en</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/control_unit_1/o_word_en">
+            <obj_property name="ElementShortName">o_word_en</obj_property>
+            <obj_property name="ObjectShortName">o_word_en</obj_property>
          </wvobject>
          <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_stage_1/control_unit_1/o_hlt">
             <obj_property name="ElementShortName">o_hlt</obj_property>
@@ -784,7 +784,6 @@
    <wvobject type="group" fp_name="group716">
       <obj_property name="label">ID/EX</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject type="logic" fp_name="/tb_TOP_of_tops/TOP_dut/data_path_1/ID_EX_reg_1/i_clock">
          <obj_property name="ElementShortName">i_clock</obj_property>
          <obj_property name="ObjectShortName">i_clock</obj_property>

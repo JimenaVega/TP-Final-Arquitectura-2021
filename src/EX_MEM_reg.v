@@ -27,7 +27,8 @@ module EX_MEM_reg#(
         input [NB_PC-1:0]       EX_pc,
         input                   EX_hlt,
         input                   EX_jump,
-        
+        input                   EX_jr_jalr,
+
         output                  MEM_signed,
         output                  MEM_reg_write,
         output                  MEM_mem_to_reg,
@@ -45,7 +46,8 @@ module EX_MEM_reg#(
         output                  MEM_r31_ctrl,
         output [NB_PC-1:0]      MEM_pc,
         output                  MEM_hlt,
-        output                  MEM_jump
+        output                  MEM_jump,
+        output                  MEM_jr_jalr
     );
     
     reg                 signed_flag;
@@ -66,6 +68,7 @@ module EX_MEM_reg#(
     reg [NB_PC-1:0]     pc;  
     reg                 hlt;
     reg                 jump;
+    reg                 jr_jalr;
 
     always @(negedge i_clock) begin
         if(i_reset) begin
@@ -87,6 +90,7 @@ module EX_MEM_reg#(
             pc           <= 32'b0;
             hlt          <= 1'b0;
             jump         <= 1'b0;
+            jr_jalr      <= 1'b0;
         end
         else begin
             if(i_pipeline_enable) begin
@@ -109,6 +113,7 @@ module EX_MEM_reg#(
                     pc           <= EX_pc;
                     hlt          <= 1'b0;
                     jump         <= 1'b0;
+                    jr_jalr      <= 1'b0;
                 end
                 else begin
                     signed_flag     <= EX_signed;
@@ -129,6 +134,7 @@ module EX_MEM_reg#(
                     pc              <= EX_pc;
                     hlt             <= EX_hlt;
                     jump            <= EX_jump;
+                    jr_jalr         <= EX_jr_jalr;
                 end
             end
             else begin
@@ -150,6 +156,7 @@ module EX_MEM_reg#(
                 pc              <= pc;
                 hlt             <= hlt;
                 jump            <= jump;
+                jr_jalr         <= jr_jalr;
             end
         end
     end
@@ -172,5 +179,6 @@ module EX_MEM_reg#(
     assign MEM_pc           = pc;
     assign MEM_hlt          = hlt;
     assign MEM_jump         = jump;
+    assign MEM_jr_jalr      = jr_jalr;
     
 endmodule
