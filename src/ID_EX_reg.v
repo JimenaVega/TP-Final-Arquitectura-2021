@@ -33,6 +33,7 @@ module ID_EX_reg#(
         input                    ID_word_en,
         input                    ID_hlt,
         input                    ID_jump,
+        input                    ID_jr_jalr,
         
         output                   EX_signed,
         output                   EX_reg_write,
@@ -55,7 +56,8 @@ module ID_EX_reg#(
         output                   EX_halfword_en,
         output                   EX_word_en,
         output                   EX_hlt,
-        output                   EX_jump
+        output                   EX_jump,
+        output                   EX_jr_jalr
     );
     
     reg                 signed_flag;
@@ -80,6 +82,7 @@ module ID_EX_reg#(
     reg                 word_en;
     reg                 hlt;
     reg                 jump;
+    reg                 jr_jalr;
 
     always @(negedge i_clock) begin
         if(i_reset) begin
@@ -105,6 +108,7 @@ module ID_EX_reg#(
             word_en     <= 1'b0;
             hlt         <= 1'b0;
             jump        <= 1'b0;
+            jr_jalr     <= 1'b0;
         end
         else begin
             if(i_pipeline_enable) begin
@@ -130,6 +134,7 @@ module ID_EX_reg#(
                 word_en     <= ID_word_en;
                 hlt         <= ID_hlt;
                 jump        <= ID_jump;
+                jr_jalr     <= ID_jr_jalr;
             end
             else begin
                 signed_flag <= signed_flag;
@@ -154,6 +159,7 @@ module ID_EX_reg#(
                 word_en     <= word_en;
                 hlt         <= hlt;
                 jump        <= jump;
+                jr_jalr     <= jr_jalr;
             end
         end
     end
@@ -180,5 +186,6 @@ module ID_EX_reg#(
     assign EX_word_en       = word_en;
     assign EX_hlt           = hlt;
     assign EX_jump          = jump;
+    assign EX_jr_jalr       = jr_jalr;
     
 endmodule

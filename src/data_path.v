@@ -85,6 +85,7 @@ module data_path#(
     wire                        ID_jump;
     wire                        ID_hlt;
     wire                        ID_jr_jalr;
+    wire                        EX_jr_jalr;
     wire [NB_PC-1:0]            ID_jump_address;
     wire [NB_PC-1:0]            ID_r31_data;
     
@@ -192,7 +193,7 @@ module data_path#(
                         .i_IF_im_enable(i_im_enable),
                         .i_IF_branch(MEM_branch_zero),
                         .i_IF_j_jal(ID_jump),
-                        .i_IF_jr_jalr(ID_jr_jalr),
+                        .i_IF_jr_jalr(EX_jr_jalr),
                         .i_IF_pc_enable(i_pc_enable),
                         .i_IF_pc_reset(i_pc_reset),
                         .i_IF_read_enable(i_read_enable),
@@ -201,7 +202,7 @@ module data_path#(
                         .i_IF_write_addr(i_im_address),
                         .i_IF_branch_addr(o_MEM_branch_addr),
                         .i_IF_jump_address(ID_jump_address),
-                        .i_IF_r31_data(ID_r31_data),
+                        .i_IF_r31_data(EX_data_a),  // pasa por ID/EX pipeline
                         .i_IF_enable_pc(enable_pc), // STALL UNIT
                         .o_IF_last_pc(IF_last_pc),  // DEBUG UNIT
                         .o_IF_adder_result(IF_adder_result),
@@ -253,8 +254,7 @@ module data_path#(
                         .o_ID_pc(ID_pc),
                         .o_ID_byte_en(ID_byte_en),
                         .o_ID_halfword_en(ID_halfword_en),
-                        .o_ID_word_en(ID_word_en),
-                        .o_ID_r31_data(ID_r31_data));
+                        .o_ID_word_en(ID_word_en));
                         
     ID_EX_reg ID_EX_reg_1(.i_clock(i_clock),
                           .i_reset(i_pc_reset),
@@ -280,7 +280,8 @@ module data_path#(
                           .ID_halfword_en(ID_halfword_en),
                           .ID_word_en(ID_word_en),
                           .ID_hlt(ID_hlt),
-                          .ID_jump(ID_jump || ID_jr_jalr),
+                          .ID_jump(ID_jump),
+                          .ID_jr_jalr(ID_jr_jalr),
                           .EX_signed(EX_signed),
                           .EX_reg_write(EX_reg_write),
                           .EX_mem_to_reg(EX_mem_to_reg),
@@ -302,7 +303,8 @@ module data_path#(
                           .EX_halfword_en(EX_halfword_en),
                           .EX_word_en(EX_word_en),
                           .EX_hlt(EX_hlt),
-                          .EX_jump(EX_jump));
+                          .EX_jump(EX_jump),
+                          .EX_jr_jalr(EX_jr_jalr));
     
     EX_stage EX_stage_1(.i_EX_signed(EX_signed),
                         .i_EX_reg_write(EX_reg_write),
