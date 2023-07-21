@@ -189,6 +189,6 @@ class GUI:
         self.ex_window.destroy()
 
 
-instruction_file = "raw_hazard"
+instruction_file = "the_program"
 uart_port = '/dev/ttyUSB1'
 gui = GUI(instruction_file, uart_port)

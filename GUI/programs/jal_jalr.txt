@@ -3,7 +3,7 @@ addi $s2,$s0,10;
 addi $s3,$s0,10;
 addi $s4,$s0,10;
 addi $s5,$s0,10;
-jr $s1;
+jalr $s1;
 add $zero,$s1,$s2;
 add $at,$s1,$s2;
 add $v0,$s1,$s2;
